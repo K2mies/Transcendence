@@ -17,7 +17,7 @@ const pool = new Pool({
 pool.on('connect', () => {
 	console.log('✓ Connected to PostgreSQL database');
   });
-  
+
 pool.on('error', (err) => {
 	console.error('Unexpected error on idle client', err);
 	process.exit(-1);
@@ -28,12 +28,13 @@ async function initTable() {
 		const result = await pool.query(`
 			CREATE TABLE IF NOT EXISTS games (
 			id SERIAL PRIMARY KEY,
-			name VARCHAR(500) UNIQUE NOT NULL,
-			released VARCHAR(100) NOT NULL,
-			rating VARCHAR(100) NOT NULL,
-			ratingTop VARCHAR(100) NOT NULL,
+			gameId VARCHAR(100) UNIQUE NOT NULL,
+			name VARCHAR(500) NOT NULL,
+			released VARCHAR(100),
+			rating VARCHAR(100),
+			ratingTop VARCHAR(100),
 			added VARCHAR(100) NOT NULL,
-			updated VARCHAR(100) NOT NULL
+			updated VARCHAR(100)
 			);
 		`);
 		console.log("Table created");
@@ -43,6 +44,7 @@ async function initTable() {
 }
 
 async function seedInTable(element) {
+	const gameId = element.id;
 	const name = element.name;
 	const released = element.released;
 	const rating = element.rating;
@@ -51,9 +53,10 @@ async function seedInTable(element) {
 	const updated = element.updated;
 	try {
 		await pool.query(`
-			INSERT INTO games (name, released, rating, ratingTop, added, updated)
-			VALUES ($1, $2, $3, $4, $5, $6)
-		`, [name, released, rating, ratingTop, added, updated]);
+			INSERT INTO games (gameId, name, released, rating, ratingTop, added, updated)
+			VALUES ($1, $2, $3, $4, $5, $6, $7)
+			ON CONFLICT (gameId) DO NOTHING
+		`, [gameId, name, released, rating, ratingTop, added, updated]);
 	} catch (error) {
 		throw new Error(error);
 	}
@@ -62,21 +65,29 @@ async function seedInTable(element) {
 async function seedTable() {
 	let hasCursor = true;
 	let cursorValue = "";
+	let pages = 0;
 
-	while (hasCursor) {
+	while (hasCursor && pages < 700) {
 		try {
 			const data = await fetchData(cursorValue);
 			if (data === "error")
 				break;
 			cursorValue = "";
 
-			data.data.forEach(async(element) => {
+			data.results.forEach(async(element) => {
 				await seedInTable(element);
 			});
-			if (data.next && data.next !== "" && data.next !== null)
+			if (data.next !== null)
+			{
 				cursorValue = data.next;
+				console.log("more to come");
+				pages++;
+			}
 			else
+			{
 				hasCursor = false;
+				console.log("last!");
+			}
 		} catch (error) {
 			throw new Error(error);
 		}

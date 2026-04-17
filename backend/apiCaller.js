@@ -10,6 +10,8 @@ async function fetchData(cursor) {
     let url = API_URL;
     if (cursor !== "") {
         url = cursor;
+		let pos = url.search("page=");
+		console.log(url.substring(pos));
     }
     try {
         let success = false;
