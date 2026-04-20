@@ -8,7 +8,12 @@ export default [
   {
     files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        React: "readonly",
+        ReactDOM: "readonly",
+      },
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
