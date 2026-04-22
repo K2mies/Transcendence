@@ -1,3 +1,7 @@
+body {
+  background: hotpink !important;
+}
+
 :root {
   --primary: #da2f04;
   --secondary: #33670a;
@@ -182,23 +186,23 @@ form > div > div > label {
   margin-bottom: 10px;
 }
 
-.pizza {
+.game {
   line-height: 1.5;
 }
 
-.pizza img {
+.game img {
   max-width: 200px;
   border: 1px solid var(--border);
   border-radius: 5px;
 }
 
-.pizza h1 {
+.game h1 {
   font-weight: normal;
   color: var(--secondary);
   font-size: 25px;
 }
 
-.pizza p {
+.game p {
   margin-bottom: 5px;
 }
 
@@ -226,41 +230,41 @@ button:disabled {
   background-color: #ccc;
 }
 
-.order-pizza {
+.order-game {
   width: 100%;
   margin-left: 25px;
 }
 
-.pizza {
+.game {
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.pizza-of-the-day {
+.game-of-the-day {
   border-top: 1px solid var(--border);
   margin-top: 50px;
   width: 100%;
 }
 
-.pizza-of-the-day > div {
+.game-of-the-day > div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.pizza-of-the-day > h2 {
+.game-of-the-day > h2 {
   text-align: center;
 }
 
-.pizza-of-the-day-image {
+.game-of-the-day-image {
   max-width: 200px;
   border-radius: 5px;
   border: 1px solid var(--border);
 }
 
-.pizza-of-the-day-info {
+.game-of-the-day-info {
   margin-right: 30px;
   line-height: 2;
   text-align: center;
