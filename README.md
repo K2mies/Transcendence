@@ -48,90 +48,105 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 
 ## Naming convention
 ### Backend
+
 👉 Rule:
-	- lowercase
-	- dot-separated (.)
-	- role-based suffix
+  - lowercase
+  - dot-separated (.)
+  - role-based suffix
+
 Example:
-	```
+  ```
 	auth.controller.js
 	user.service.js
 	game.routes.js
-	```
+  ```
 
 ### Frontend
+
 👉 Rule:
-	- PascalCase for components
+  - PascalCase for components
+
 Example:
-	```
+  ```
 	Login.jsx
 	GameDetails.jsx
 	UserProfile.jsx
-	```
+  ```
 
 ### Variable naming
+
 👉 Rule:
-	- camelCase in JS
+  - camelCase in JS
+
 Example:
-	```
+  ```
 	userId
 	gameId
 	createdAt
 	isAuthenticated
-	```
+  ```
 
 ### Database (Prisma)
+
 👉 Rule:
-	- PascalCase for models
-	- camelCase for fields
+  - PascalCase for models
+  - camelCase for fields
+	
 Example [models]:
-	```
+  ```
 	model User
 	model Game
 	model Review
-	```
+  ```
+
 Example [fields]:
-	```
+  ```
 	createdAt
 	userId
-	```
+  ```
 
 ### API Routes
+
 👉 Rule:
-	- plural nouns
-	- lowercase
-	- REST standard
+  - plural nouns
+  - lowercase
+  - REST standard
+
 Example:
-	```
+  ```
 	/api/v1/users
 	/api/v1/games
 	/api/v1/reviews
-	```
+  ```
 
 ### Websocket Events
+
 👉 Rule:
-	- UPPERCASE
-	- snake_case style
+  - UPPERCASE
+  - snake_case style
+
 Example:
-	```
+  ```
 	"SEND_MESSAGE"
 	"NEW_MESSAGE"
 	"TYPING"
-	```
+  ```
 
 ### Github
+
 👉 Rule:
-	- prefix:
-		- Card name from Trello (Example: GG01:)
-	- action description:
-		- feat
-		- fix
-		- setup
+  - prefix:
+    - Card name from Trello (Example: GG01:)
+  - action description:
+    - feat
+    - fix
+    - setup
+
 Examples:
-	```
+  ```
 	GG01: setup: creating base folders + README
 	GG10: feat: User model implementation
 	GG10: fix: User model fields correction
-	```
+  ```
 
 ---
