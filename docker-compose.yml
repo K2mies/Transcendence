@@ -1,0 +1,55 @@
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f https://localhost:8080/health || exit 1"] # define health endpoint
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - internal
+    restart: always
+  postgres_db:
+    container_name: postgres_db
+    image: postgres:latest
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - internal
+    restart: always
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "8080:80"
+    networks:
+      - external
+      - internal
+    restart: always
+
+volumes:
+  pgdata:
+    driver: local
+    name: pgdata
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/pg
+
+networks:
+  external:
+    name: external
+    driver: bridge
+  internal:
+    name: internal
+    internal: true
+    driver: bridge
