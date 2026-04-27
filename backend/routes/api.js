@@ -15,4 +15,18 @@ router.get("/games", async (req, res) => {
     }
 });
 
+router.get("/search", async (req, res) => {
+	try {
+		const result = await db.pool.query(`
+			SELECT * FROM games
+			WHERE name = $1
+		`, [req.query]);
+
+		res.json(result.rows);
+	} catch (error) {
+		console.error("Error fetching data:", error);
+		res.status(500).json({ error: "Failed to fetch data" });
+	}
+});
+
 export default router;

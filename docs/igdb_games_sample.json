@@ -1,0 +1,296 @@
+[
+  {
+    "id": 350392,
+    "cover": {
+      "id": 467132,
+      "alpha_channel": false,
+      "animated": false,
+      "game": 350392,
+      "height": 800,
+      "image_id": "coa0fw",
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/coa0fw.jpg",
+      "width": 600,
+      "checksum": "e0c7f1a8-934a-8c48-a35a-65e28a085693"
+    },
+    "created_at": 1750343734,
+    "game_engines": [
+      4
+    ],
+    "game_modes": [
+      {
+        "id": 2,
+        "created_at": 1298968853,
+        "name": "Multiplayer",
+        "slug": "multiplayer",
+        "updated_at": 1323289216,
+        "url": "https://www.igdb.com/game_modes/multiplayer",
+        "checksum": "3ffef62b-e19f-6bab-d510-98385c06d902"
+      }
+    ],
+    "genres": [
+      {
+        "id": 5,
+        "created_at": 1297639288,
+        "name": "Shooter",
+        "slug": "shooter",
+        "updated_at": 1323289215,
+        "url": "https://www.igdb.com/genres/shooter",
+        "checksum": "20c255bc-ec2d-c219-34bd-47995b0a79f1"
+      }
+    ],
+    "keywords": [
+      {
+        "id": 546,
+        "created_at": 1384935069,
+        "name": "pvp",
+        "slug": "pvp",
+        "updated_at": 1384935069,
+        "url": "https://www.igdb.com/categories/pvp",
+        "checksum": "988824c5-52b4-7850-1e59-4f04f12679d2"
+      },
+      {
+        "id": 1035,
+        "created_at": 1399580832,
+        "name": "total conversion",
+        "slug": "total-conversion",
+        "updated_at": 1399580832,
+        "url": "https://www.igdb.com/categories/total-conversion",
+        "checksum": "e8d66de9-a296-4e2c-9f84-71fa767d6038"
+      },
+      {
+        "id": 2004,
+        "created_at": 1445545651,
+        "name": "unofficial",
+        "slug": "unofficial",
+        "updated_at": 1445545651,
+        "url": "https://www.igdb.com/categories/unofficial",
+        "checksum": "044ccb1d-108d-06f1-387a-ee87e9ff05ce"
+      },
+      {
+        "id": 45434,
+        "created_at": 1731476324,
+        "name": "online pvp",
+        "slug": "online-pvp",
+        "updated_at": 1731476324,
+        "url": "https://www.igdb.com/categories/online-pvp",
+        "checksum": "99f2ca7a-b21d-5b55-e3f3-d2cdf80b1284"
+      }
+    ],
+    "name": "Rival Species",
+    "parent_game": 231,
+    "platforms": [
+      {
+        "id": 6,
+        "abbreviation": "PC",
+        "alternative_name": "mswin",
+        "created_at": 1297639288,
+        "name": "PC (Microsoft Windows)",
+        "platform_logo": 670,
+        "slug": "win",
+        "updated_at": 1718027289,
+        "url": "https://www.igdb.com/platforms/win",
+        "versions": [
+          530,
+          14,
+          1,
+          15,
+          13,
+          534,
+          531,
+          532,
+          513,
+          529,
+          124,
+          533
+        ],
+        "websites": [
+          2
+        ],
+        "checksum": "aa236f37-9001-de17-45ea-141fa09d6605",
+        "platform_type": 4
+      }
+    ],
+    "player_perspectives": [
+      {
+        "id": 1,
+        "created_at": 1298968658,
+        "name": "First person",
+        "slug": "first-person",
+        "updated_at": 1323289214,
+        "url": "https://www.igdb.com/player_perspectives/first-person",
+        "checksum": "d90c79c9-6e5d-b0c9-49fd-3866866b8c9f"
+      }
+    ],
+    "release_dates": [
+      {
+        "id": 758314,
+        "created_at": 1750343734,
+        "date": 1106352000,
+        "game": 350392,
+        "human": "Jan 22, 2005",
+        "m": 1,
+        "platform": 6,
+        "updated_at": 1753347418,
+        "y": 2005,
+        "checksum": "23554a1e-085d-4a88-5780-fa8e60f0e741",
+        "status": 2,
+        "date_format": 0,
+        "release_region": 8
+      }
+    ],
+    "screenshots": [
+      1568557,
+      1568558,
+      1568559,
+      1568560,
+      1568561,
+      1568562,
+      1568563,
+      1568564,
+      1568565,
+      1568566,
+      1568567,
+      1568568,
+      1568569,
+      1568570,
+      1568571,
+      1568572,
+      1568573,
+      1568574,
+      1568575,
+      1568576
+    ],
+    "slug": "rival-species",
+    "summary": "In the far distant future of the 40th millennium behind the stars there is only war. Enter the universe of WARHAMMER 40,000 and play a mighty warrior for one out of an ever growing list of rival species. A large PvP team multiplayer mod for Half-Life that plays similary to Battlefield/Battlefront, based on the Game's Workshop property. Eventually Exterminatus, A sequel for the Source Engine would be made",
+    "themes": [
+      {
+        "id": 1,
+        "created_at": 1322605337,
+        "name": "Action",
+        "slug": "action",
+        "updated_at": 1323289216,
+        "url": "https://www.igdb.com/themes/action",
+        "checksum": "cee4e3c1-6b2d-6dcc-a707-e00ca4de6ecc"
+      },
+      {
+        "id": 18,
+        "created_at": 1322605338,
+        "name": "Science fiction",
+        "slug": "science-fiction",
+        "updated_at": 1323289216,
+        "url": "https://www.igdb.com/themes/science-fiction",
+        "checksum": "6aebdd69-6e6e-61f3-4721-3eb222712062"
+      }
+    ],
+    "updated_at": 1756997209,
+    "url": "https://www.igdb.com/games/rival-species",
+    "websites": [
+      819474
+    ],
+    "checksum": "8d54001d-e4b0-3632-7e14-7e2134d3bf7d",
+    "game_type": 5,
+    "cover_urls": {
+      "small": "https://images.igdb.com/igdb/image/upload/t_cover_small/coa0fw.jpg",
+      "big": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa0fw.jpg"
+    }
+  },
+  {
+    "id": 207571,
+    "artworks": [
+      79690
+    ],
+    "cover": {
+      "id": 245103,
+      "alpha_channel": false,
+      "animated": false,
+      "game": 207571,
+      "height": 900,
+      "image_id": "co594f",
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co594f.jpg",
+      "width": 675,
+      "checksum": "2776ab70-2b02-89f7-78c6-7c78f4b63a38"
+    },
+    "created_at": 1656957224,
+    "external_games": [
+      2515396,
+      2515245,
+      2523229
+    ],
+    "game_modes": [
+      {
+        "id": 1,
+        "created_at": 1298968834,
+        "name": "Single player",
+        "slug": "single-player",
+        "updated_at": 1323289216,
+        "url": "https://www.igdb.com/game_modes/single-player",
+        "checksum": "1cc07088-c5fb-3cb2-9e68-af6620c18836"
+      }
+    ],
+    "genres": [
+      {
+        "id": 31,
+        "created_at": 1323568041,
+        "name": "Adventure",
+        "slug": "adventure",
+        "updated_at": 1323568041,
+        "url": "https://www.igdb.com/genres/adventure",
+        "checksum": "a93a77df-3927-13fa-1d50-5d443cbb695f"
+      },
+      {
+        "id": 32,
+        "created_at": 1341431954,
+        "name": "Indie",
+        "slug": "indie",
+        "updated_at": 1341431954,
+        "url": "https://www.igdb.com/genres/indie",
+        "checksum": "8a712b9c-3041-638e-98ae-072760af9611"
+      }
+    ],
+    "name": "A Very Corporate Escape Room",
+    "screenshots": [
+      826261,
+      826262,
+      826263,
+      826264,
+      826265,
+      826266
+    ],
+    "similar_games": [
+      55282,
+      111130,
+      87975,
+      29348,
+      13189,
+      27266,
+      26223,
+      118637,
+      106987,
+      113402
+    ],
+    "slug": "a-very-corporate-escape-room",
+    "summary": "This is no ordinary escape room; this is A Very Corporate Escape Room. In this first person 3D puzzle adventure you will solve challenges, unlock secret locations and uncover the dark truth about your manager in a chilling satire of office life.",
+    "tags": [
+      268435487,
+      268435488
+    ],
+    "updated_at": 1769233592,
+    "url": "https://www.igdb.com/games/a-very-corporate-escape-room",
+    "websites": [
+      495891,
+      926941,
+      926942,
+      294568
+    ],
+    "checksum": "0cfdc067-5426-bc25-b0e6-737e4daf8051",
+    "language_supports": [
+      604681,
+      604682
+    ],
+    "game_type": 0,
+    "cover_urls": {
+      "small": "https://images.igdb.com/igdb/image/upload/t_cover_small/co594f.jpg",
+      "big": "https://images.igdb.com/igdb/image/upload/t_cover_big/co594f.jpg"
+    }
+  }
+]
