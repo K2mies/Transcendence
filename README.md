@@ -13,17 +13,17 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 
 ## Tech stack
 ### Backend
-	- NodeJS
+	- Node.js
 	- Express
 
 ### Frontend
 	- React
 	- Tailwind CSS
-	- ThreeJS (optional)
+	- Three.js (optional)
 
 ### Database
-	- Postgres
-	- Prisma (to manage database)
+	- PostgreSQL
+	- Prisma (ORM, schema management, and migrations)
 
 ---
 
@@ -91,7 +91,7 @@ Example:
 👉 Rule:
   - PascalCase for models
   - camelCase for fields
-	
+
 Example [models]:
   ```
 	model User
@@ -122,8 +122,7 @@ Example:
 ### Websocket Events
 
 👉 Rule:
-  - UPPERCASE
-  - snake_case style
+  - UPPER_SNAKE_CASE
 
 Example:
   ```
@@ -132,7 +131,7 @@ Example:
 	"TYPING"
   ```
 
-### Github
+### GitHub
 
 👉 Rule:
   - prefix:
