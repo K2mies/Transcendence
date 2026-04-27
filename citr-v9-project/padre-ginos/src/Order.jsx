@@ -1,18 +1,38 @@
-import { useState } from "react";
-import Game from "./Game";
+import { useState, useEffect } from "react";
+import Pizza from "./Pizza";
+
+// feel free to change en-US / USD to your locale
+const intl = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
 export default function Order() {
-  // const gameType = "pacman";
-  // const gamePlatform = "arcade";
+  const [pizzaType, setPizzaType] = useState("pepperoni");
+  const [pizzaSize, setPizzaSize] = useState("M");
+  const [pizzaTypes, setPizzaTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // below is the equivilant of writing
-  // const gameHook = useState('lol')
-  // const pizzaType = gameHook[0]
-  // const setGameType = gameHook[1]
+  let price, selectedPizza;
+  if (!loading) {
+    selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
+    price = intl.format(
+      selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : "",
+    );
+  }
 
-  const [gameType, setGameType] = useState("pacman");
-  const [gamePlatform, setGamePlatform] = useState("arcade");
-  console.log(gameType, gamePlatform);
+  useEffect(() => {
+    fetchPizzaTypes();
+  }, []);
+
+  async function fetchPizzaTypes() {
+    const pizzasRes = await fetch("/api/pizzas");
+    const pizzasJson = await pizzasRes.json();
+    setPizzaTypes(pizzasJson);
+    setLoading(false);
+  }
+  //print to console pizza type and pizza size to see if it's working
+  console.log(pizzaType, pizzaSize);
 
   return (
     <div className="order">
@@ -20,68 +40,71 @@ export default function Order() {
       <form>
         <div>
           <div>
-            <label htmlFor="game-type">Game Type</label>
+            <label htmlFor="pizza-type">Pizza Type</label>
             <select
-              onChange={(e) => setGameType(e.target.value)}
-              name="game-type"
-              value={gameType}
+              onChange={(e) => setPizzaType(e.target.value)}
+              name="pizza-type"
+              value={pizzaType}
             >
-              <option value="pacman">Pacman</option>
-              <option value="spaceinvaders">Space Invaders</option>
-              <option value="custersrevenge">Custers Revenge</option>
+              {pizzaTypes.map((pizza) => (
+                <option key={pizza.id} value={pizza.id}>
+                  {pizza.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
-            <label htmlFor="game-platform">Game Platform</label>
+            <label htmlFor="pizza-size">Pizza Size</label>
             <div>
               <span>
                 <input
-                  checked={gamePlatform === "A"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
+                  checked={pizzaSize === "S"}
                   type="radio"
-                  name="game-platform"
-                  value="A"
-                  id="game-a"
-                  //onChange={(e) => setGamePlatform(e.target.value)}
-                  onChange={(e) => setGamePlatform("A")}
+                  name="pizza-size"
+                  value="S"
+                  id="pizza-s"
                 />
-                <label htmlFor="game-a">arcade</label>
+                <label htmlFor="pizza-s">Small</label>
               </span>
               <span>
                 <input
-                  checked={gamePlatform === "B"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
+                  checked={pizzaSize === "M"}
                   type="radio"
-                  name="game-platform"
-                  value="B"
-                  id="game-b"
-                  //onChange={(e) => setGamePlatform(e.target.value)}
-                  onChange={(e) => setGamePlatform("B")}
+                  name="pizza-size"
+                  value="M"
+                  id="pizza-m"
                 />
-                <label htmlFor="game-b">console</label>
+                <label htmlFor="pizza-m">Medium</label>
               </span>
               <span>
                 <input
-                  checked={gamePlatform === "C"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
+                  checked={pizzaSize === "L"}
                   type="radio"
-                  name="game-platform"
-                  value="C"
-                  id="game-c"
-                  //onChange={(e) => setGamePlatform(e.target.value)}
-                  onChange={(e) => setGamePlatform("C")}
+                  name="pizza-size"
+                  value="L"
+                  id="pizza-l"
                 />
-                <label htmlFor="game-c">PC</label>
+                <label htmlFor="pizza-l">Large</label>
               </span>
             </div>
           </div>
           <button type="submit">Add to Cart</button>
         </div>
-        <div className="order-game">
-          <Game
-            name="PacMan"
-            description="jaundiced drug addict chases pills and halusinates ghosts"
-            image="/public/games/pac_man.webp"
-          />
-          <p>€13.37</p>
-        </div>
+        {loading ? (
+          <h3>LOADING …</h3>
+        ) : (
+          <div className="order-pizza">
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              image={selectedPizza.image}
+            />
+            <p>{price}</p>
+          </div>
+        )}
       </form>
     </div>
   );
