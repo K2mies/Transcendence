@@ -1,0 +1,145 @@
+[
+  {
+    "id": 350392,
+    "cover": {
+      "id": 467132,
+      "alpha_channel": false,
+      "animated": false,
+      "game": 350392,
+      "height": 800,
+      "image_id": "coa0fw",
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/coa0fw.jpg",
+      "width": 600,
+      "checksum": "e0c7f1a8-934a-8c48-a35a-65e28a085693"
+    },
+    "created_at": 1750343734,
+    "game_engines": [
+      4
+    ],
+    "game_modes": [
+      2
+    ],
+    "genres": [
+      {
+        "id": 5,
+        "created_at": 1297639288,
+        "name": "Shooter",
+        "slug": "shooter",
+        "updated_at": 1323289215,
+        "url": "https://www.igdb.com/genres/shooter",
+        "checksum": "20c255bc-ec2d-c219-34bd-47995b0a79f1"
+      }
+    ],
+    "keywords": [
+      546,
+      1035,
+      2004,
+      45434
+    ],
+    "name": "Rival Species",
+    "parent_game": 231,
+    "platforms": [
+      {
+        "id": 6,
+        "abbreviation": "PC",
+        "alternative_name": "mswin",
+        "created_at": 1297639288,
+        "name": "PC (Microsoft Windows)",
+        "platform_logo": 670,
+        "slug": "win",
+        "updated_at": 1718027289,
+        "url": "https://www.igdb.com/platforms/win",
+        "versions": [
+          530,
+          14,
+          1,
+          15,
+          13,
+          534,
+          531,
+          532,
+          513,
+          529,
+          124,
+          533
+        ],
+        "websites": [
+          2
+        ],
+        "checksum": "aa236f37-9001-de17-45ea-141fa09d6605",
+        "platform_type": 4
+      }
+    ],
+    "player_perspectives": [
+      1
+    ],
+    "release_dates": [
+      {
+        "id": 758314,
+        "created_at": 1750343734,
+        "date": 1106352000,
+        "game": 350392,
+        "human": "Jan 22, 2005",
+        "m": 1,
+        "platform": 6,
+        "updated_at": 1753347418,
+        "y": 2005,
+        "checksum": "23554a1e-085d-4a88-5780-fa8e60f0e741",
+        "status": 2,
+        "date_format": 0,
+        "release_region": 8
+      }
+    ],
+    "screenshots": [
+      1568557,
+      1568558,
+      1568559,
+      1568560,
+      1568561,
+      1568562,
+      1568563,
+      1568564,
+      1568565,
+      1568566,
+      1568567,
+      1568568,
+      1568569,
+      1568570,
+      1568571,
+      1568572,
+      1568573,
+      1568574,
+      1568575,
+      1568576
+    ],
+    "slug": "rival-species",
+    "summary": "In the far distant future of the 40th millennium behind the stars there is only war. Enter the universe of WARHAMMER 40,000 and play a mighty warrior for one out of an ever growing list of rival species. A large PvP team multiplayer mod for Half-Life that plays similary to Battlefield/Battlefront, based on the Game's Workshop property. Eventually Exterminatus, A sequel for the Source Engine would be made",
+    "themes": [
+      {
+        "id": 1,
+        "created_at": 1322605337,
+        "name": "Action",
+        "slug": "action",
+        "updated_at": 1323289216,
+        "url": "https://www.igdb.com/themes/action",
+        "checksum": "cee4e3c1-6b2d-6dcc-a707-e00ca4de6ecc"
+      },
+      {
+        "id": 18,
+        "created_at": 1322605338,
+        "name": "Science fiction",
+        "slug": "science-fiction",
+        "updated_at": 1323289216,
+        "url": "https://www.igdb.com/themes/science-fiction",
+        "checksum": "6aebdd69-6e6e-61f3-4721-3eb222712062"
+      }
+    ],
+    "updated_at": 1756997209,
+    "url": "https://www.igdb.com/games/rival-species",
+    "websites": [
+      819474
+    ],
+    "checksum": "8d54001d-e4b0-3632-7e14-7e2134d3bf7d",
+    "game_type": 5
+  }
+]
