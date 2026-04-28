@@ -11,7 +11,7 @@ services:
       postgres_db:
         condition: service_healthy
     networks:
-      - internal
+      - gp_internal
     restart: always
   postgres_db:
     container_name: postgres_db
@@ -24,7 +24,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - internal
+      - gp_internal
     restart: always
   frontend:
     container_name: frontend
@@ -32,8 +32,7 @@ services:
     ports:
       - "8080:80"
     networks:
-      - external
-      - internal
+      - gp_internal
     restart: always
 
 volumes:
@@ -46,10 +45,7 @@ volumes:
       device: ${HOME}/data/pg
 
 networks:
-  external:
-    name: external
-    driver: bridge
-  internal:
-    name: internal
+  gp_internal:
+    name: gp_internal
     internal: true
     driver: bridge
