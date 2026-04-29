@@ -12,7 +12,7 @@ app.use(express.json({limit:"10kb"}));
 
 /* Define security between frontend and backend in development stage.
  * cors allows only requests from port 4242, methods (GET, POST, PUT, DELETE).
- * Only allowd headers are "Content-Type" and "Authorization"
+ * Only allowed headers are "Content-Type" and "Authorization"
 */
 const allowedOrigins = [
 	"http://localhost:4242",
