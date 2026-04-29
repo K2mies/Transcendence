@@ -10,6 +10,9 @@ services:
     depends_on:
       postgres_db:
         condition: service_healthy
+    env_file: .env
+    expose:
+      - "${BACK_PORT}"
     networks:
       - gp_internal
     restart: always

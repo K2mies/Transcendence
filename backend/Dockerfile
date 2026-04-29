@@ -7,6 +7,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4000
+# should match with BACK_PORT in .env (used in docker-compose.yml)
+EXPOSE 4242
 
 CMD ["bash.sh", "./server.js"]
