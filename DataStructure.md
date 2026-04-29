@@ -1,4 +1,5 @@
 📦 **ROOT LEVEL**
+
 	project/
 	│
 	├── frontend/
@@ -10,6 +11,7 @@
 ---
 
 🖥️ **FRONTEND (React)**
+
 	frontend/
 	│
 	├── public/
@@ -65,7 +67,7 @@
 ---
 
 ⚙️ **BACKEND (Node.js + Express + Prisma)**
-	📁 ROOT BACKEND STRUCTURE
+
 		backend/
 		│
 		├── src/
