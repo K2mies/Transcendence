@@ -36,11 +36,13 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 ## Getting started
 ### Backend
 	- cd backend/
+	- touch .env (fill with Backend .env section from bottom of README)
 	- npm install (to install node packages defined in package.json)
 	- npm run dev (sets up a local development server, enabling real-time code changes and instant feedback)
 
 ### Frontend
 	- cd frontend/
+	- touch .env (fill with Frontend .env section from bottom of README)
 	- npm install
 	- npm run dev
 
@@ -146,6 +148,23 @@ Examples:
 	GG01: setup: creating base folders + README
 	GG10: feat: User model implementation
 	GG10: fix: User model fields correction
+  ```
+
+---
+
+### Backend .env
+  ```
+  BACK_PORT="4242"
+  DB_NAME="goodplays_db"
+  POSTGRES_USER="postgres"
+  POSTGRES_PASSWORD="password"
+  ```
+
+---
+
+### Frontend .env
+  ```
+
   ```
 
 ---

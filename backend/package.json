@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "main": "src/server.js",
-  "devDependencies": {},
   "scripts": {
-    "dev": "node src/server.js"
+    "dev": "node src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.6",
+    "curl": "^0.1.4",
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
   }

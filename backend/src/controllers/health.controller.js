@@ -1,6 +1,6 @@
 export const healthCheck = async (req, res) => {
 	try {
-		// DB health check, replace later with real implementation; simulation for now
+		// DB healhtcheck, replace later  with real, simulation atm
 		const dbHealth = await Promise.resolve(true);
 		if (!dbHealth) {
 			return res.status(503).json({

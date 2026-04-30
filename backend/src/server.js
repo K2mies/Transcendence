@@ -1,14 +1,14 @@
 import "dotenv/config";
 import app from "./app.js";
 
-const PORT = process.env.BACK_PORT
+const BACK_PORT = process.env.BACK_PORT
 
-if (!PORT)
-	throw new Error("PORT is not defined in .env!");
+if (!BACK_PORT)
+	throw new Error("BACK_PORT is not defined in .env!");
 
 // Open port that is defined in .env and the callbackfunction to indicate that the PORT is listening
-const server = app.listen(PORT, () => {
-	console.log(`Server running on ${PORT}`);
+const server = app.listen(BACK_PORT, () => {
+	console.log(`Server running on ${BACK_PORT}`);
 });
 
 // Handle termination signals
