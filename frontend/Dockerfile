@@ -11,7 +11,7 @@ RUN npm run build
 
 FROM nginx:alpine
 
-# do we need a custon nginx config? if yes, then something like -->
+# do we need a custom nginx config? if yes, then something like -->
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build /app/build /usr/share/nginx/html

@@ -10,4 +10,5 @@ COPY . .
 # should match with BACK_PORT in .env (used in docker-compose.yml)
 EXPOSE 4242
 
-CMD ["node", "./server.js"]
+# in package.json, we need to define in "scripts": { "start": "node server.js" } or similar
+CMD ["npm", "start"]

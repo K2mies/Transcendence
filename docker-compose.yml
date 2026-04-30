@@ -3,7 +3,7 @@ services:
     container_name: backend
     build: ./backend
     healthcheck:
-      test: ["CMD-SHELL", "curl -f https://localhost:8080/health || exit 1"] # define health endpoint
+      test: ["CMD-SHELL", "curl -f http://localhost:${BACK_PORT}/api/v1/health || exit 1"] # requires defined healthpoint and curl installed in the container!
       interval: 5s
       timeout: 5s
       retries: 10
@@ -24,8 +24,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    env_file: .env
+    environment:
+      - POSTGRES_DB=${DB_NAME:-goodplays_db}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes: # need to get back to this later to see if this is the best option
+      - ./data/postgres:/var/lib/postgresql/data
     networks:
       - gp_internal
     restart: always
@@ -37,15 +42,6 @@ services:
     networks:
       - gp_internal
     restart: always
-
-volumes:
-  pgdata:
-    driver: local
-    name: pgdata
-    driver_opts:
-      type: none
-      o: bind
-      device: ${HOME}/data/pg
 
 networks:
   gp_internal:
