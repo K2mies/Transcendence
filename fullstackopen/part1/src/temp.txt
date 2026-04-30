@@ -1,0 +1,15 @@
+[plugin:vite:import-analysis] Failed to resolve import "@material-ui/core" from "src/ControlledInput.jsx". Does the file exist?
+/home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/src/ControlledInput.jsx:1:26
+1  |  import { TextField } from "@material-ui/core";
+   |                             ^
+2  |  import { useController } from "react-hook-form";
+3  |  var _jsxFileName = "/home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/src/ControlledInput.jsx";
+    at TransformPluginContext._formatLog (file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:30375:39)
+    at TransformPluginContext.error (file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:30372:14)
+    at normalizeUrl (file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:27654:18)
+    at async file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:27717:30
+    at async Promise.all (index 0)
+    at async TransformPluginContext.transform (file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:27685:4)
+    at async EnvironmentPluginContainer.transform (file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:30164:14)
+    at async loadAndTransform (file:///home/kettu/Documents/Work/Hive/git_transcendence/fullstackopen/part1/node_modules/vite/dist/node/chunks/node.js:24512:26)
+

@@ -47,12 +47,26 @@ const Form = () => {
       <input
         defaultValue="User Name"
         {...register("userName", {
-          required: true,
-          maxLength: 20,
-          pattern: /^[A-Za-z]+$/i,
+          required: "Username is required",
+          minLength: {
+            value: 3,
+            message: "At least 3 characters",
+          },
+          maxLength: {
+            value: 20,
+            message: "Max 20 characters",
+          },
+          pattern: {
+            value: /^[A-Za-z0-9_-]+$/,
+            message: "Only letters, numbers, _ and -",
+          },
+          validate: {
+            noStart: (v) => !/^[_-]/.test(v) || "Cannot start with _ or -",
+            noEnd: (v) => !/[_-]$/.test(v) || "Cannot end with _ or -",
+          },
         })}
       />
-      {errors.lastName && <span>User Name is invalid</span>}
+      {errors.userName && <span>User Name is invalid</span>}
       <input
         type="password"
         placeholder="Password"
@@ -66,6 +80,15 @@ const Form = () => {
         })}
       />
       {errors.password && <span>{errors.password.message}</span>}
+      <input
+        type="email"
+        placeholder="email"
+        {...register("email", {
+          required: "Email is required",
+          message: "you must enter a valid email",
+        })}
+      />
+      {errors.email && <span>{errors.email.message}</span>}
       <select
         {...register("gender", {
           required: true,

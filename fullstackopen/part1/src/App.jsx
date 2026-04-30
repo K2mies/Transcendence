@@ -1,4 +1,5 @@
 import Form from "./Form";
+import Form02 from "./Form_02";
 
 const Header = (props) => {
   return (
@@ -64,7 +65,7 @@ const App = () => {
       <Content parts={course.parts} />
       <Total parts={course.parts} />
 
-      <Form />
+      <Form02 />
     </div>
   );
 };
