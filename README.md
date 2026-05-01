@@ -35,7 +35,7 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 
 ## Getting started
 ### Backend
-	- create .env in repository root(fill with .env section from bottom of README)
+	- create .env in repository root (fill it using the .env section at the bottom of this README)
 	- cd backend/
 	- npm install (to install node packages defined in package.json)
 	- npm run dev (sets up a local development server, enabling real-time code changes and instant feedback)
