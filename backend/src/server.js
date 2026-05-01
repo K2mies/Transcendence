@@ -1,7 +1,13 @@
 import dotenv from "dotenv";
-import app from "./app.js";
+import {dirname, resolve} from "path";
+import {fileURLToPath} from "url";
 
-dotenv.config({path: "../.env"});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({path: resolve(__dirname, "../../.env")})
+
+import app from "./app.js";
 
 const BACK_PORT = process.env.BACK_PORT;
 
