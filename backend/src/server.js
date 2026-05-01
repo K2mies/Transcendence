@@ -16,7 +16,7 @@ if (
 	backPort < 1 ||
 	backPort > 65535
 )
-	throw new Error("BACK_PORT must be a valid integer between 0 and 65535.");
+	throw new Error("BACK_PORT must be a valid integer between 1 and 65535.");
 
 // Open port that is defined in .env and the callback function to indicate that the PORT is listening
 const server = app.listen(backPort, () => {
