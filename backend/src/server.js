@@ -7,7 +7,7 @@ const BACK_PORT = Number(rawPort);
 if (!rawPort || Number.isNaN(BACK_PORT) || BACK_PORT < 1 || BACK_PORT > 65535)
 	throw new Error("BACK_PORT must be valid port number (1-65535)");
 
-// Open port that is defined in .env and the callbackfunction to indicate that the PORT is listening
+// Open port that is defined in .env and the callback function to indicate that the PORT is listening
 const server = app.listen(BACK_PORT, () => {
 	console.log(`Server running on ${BACK_PORT}`);
 });

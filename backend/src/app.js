@@ -14,7 +14,7 @@ app.use(express.json({limit:"10kb"}));
  * CORS (Cross-Origin Resource Sharing)
  * cors allows only requests from port 4242(browser healthcheck requests) and 8080 (frontend),
  * allowed methods: GET, POST, PUT, DELETE.
- * Only allowd headers are "Content-Type" and "Authorization"
+ * Only allowed headers are "Content-Type" and "Authorization"
 */
 const allowedOrigins = [
 	"http://localhost:4242",
