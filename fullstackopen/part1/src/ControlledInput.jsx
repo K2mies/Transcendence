@@ -15,6 +15,7 @@ const ControlledInput = ({ control, name, label, rules, type = "text" }) => {
   return (
     <div style={{ marginBottom: "12px" }}>
       <TextField
+        style={{ width: "350px" }}
         label={label}
         type={type}
         onChange={field.onChange}

@@ -64,8 +64,12 @@ const App = () => {
       <Header course={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts} />
-
-      <Form02 />
+      <div style={{ marginBottom: "12px" }}>
+        <Form />
+      </div>
+      <div style={{ marginTop: "12px" }}>
+        <Form02 />
+      </div>
     </div>
   );
 };

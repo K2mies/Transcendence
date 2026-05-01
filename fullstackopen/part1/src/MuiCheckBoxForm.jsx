@@ -26,7 +26,6 @@ const MuiCheckBoxForm = () => {
           />
         )}
       />
-
       <input type="submit" />
     </form>
   );
