@@ -12,12 +12,11 @@ app.use(express.json({limit:"10kb"}));
 
 /* Define security between frontend and backend in development stage.
  * CORS (Cross-Origin Resource Sharing)
- * cors allows only requests from port 4242(browser healthcheck requests) and 8080 (frontend),
+ * cors allows only requests from port 8080 (frontend),
  * allowed methods: GET, POST, PUT, DELETE.
  * Only allowed headers are "Content-Type" and "Authorization"
 */
 const allowedOrigins = [
-	"http://localhost:4242",
 	"http://localhost:8080"
 ];
 

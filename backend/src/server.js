@@ -1,5 +1,7 @@
-import "dotenv/config";
+import dotenv from "dotenv";
 import app from "./app.js";
+
+dotenv.config({path: "../.env"});
 
 const BACK_PORT = process.env.BACK_PORT;
 
@@ -11,7 +13,7 @@ const backPort = Number.parseInt(BACK_PORT, 10);
 if (
 	!Number.isInteger(backPort) ||
 	String(backPort) !== BACK_PORT.trim() ||
-	backPort < 0 ||
+	backPort < 1 ||
 	backPort > 65535
 )
 	throw new Error("BACK_PORT must be a valid integer between 0 and 65535.");

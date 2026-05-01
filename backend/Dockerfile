@@ -5,6 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
+# Used for health check, to remove it, the health check must be adjusted
+RUN apk add --no-cache curl
+
 COPY . .
 
 # should match with BACK_PORT in .env (used in docker-compose.yml)

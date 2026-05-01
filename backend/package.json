@@ -13,7 +13,6 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.6",
-    "curl": "^0.1.4",
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
   }
