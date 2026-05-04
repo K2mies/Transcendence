@@ -18,7 +18,11 @@ const ControlledInput = ({ control, name, label, rules, type = "text" }) => {
         style={{ width: "350px" }}
         label={label}
         type={type}
-        onChange={field.onChange}
+        onChange={(e) =>
+          field.onChange(
+            type === "number" ? Number(e.target.value) : e.target.value,
+          )
+        }
         onBlur={field.onBlur}
         value={field.value}
         name={field.name}

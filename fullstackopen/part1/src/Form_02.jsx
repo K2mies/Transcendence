@@ -1,10 +1,57 @@
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
 
+const schema = z
+  .object({
+    username: z
+      .string()
+      .min(3, "Username must be at least 3 characters")
+      .max(20, "Username must be max 20 characters")
+      .regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
+      .refine((value) => !/^[_-]/.test(value), {
+        message: "Username cannot start with _ or -",
+      })
+      .refine((value) => !/[_-]$/.test(value), {
+        message: "Username cannot end with _ or -",
+      }),
+
+    email: z.email("Please enter a valid email"),
+
+    age: z
+      .number()
+      .min(18, "Must be at least 18")
+      .max(99, "Must be at most 99"),
+
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Must include uppercase letter")
+      .regex(/[a-z]/, "Must include lowercase letter")
+      .regex(/[0-9]/, "Must include a number")
+      .regex(/^\S+$/, "Password cannot contain spaces"),
+
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
 const MyForm = () => {
+  const { handleSubmit, control, watch } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      username: "",
+      email: "",
+      age: 18,
+      password: "",
+      confirmPassword: "",
+    },
+  });
   //here we create the variables to be watched and then passed to the console
   //this should be removed when in production to avoid information leaks
-  const { handleSubmit, control, watch } = useForm();
   const username = watch("username");
   const email = watch("email");
   const password = watch("password");
@@ -18,99 +65,33 @@ const MyForm = () => {
     const { confirmPassword, age, ...submitData } = data;
     console.log(submitData);
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* USERNAME */}
-      <ControlledInput
-        control={control}
-        name="username"
-        label="Username"
-        rules={{
-          required: "Username is required",
-          minLength: {
-            value: 3,
-            message: "At least 3 characters",
-          },
-          maxLength: {
-            value: 20,
-            message: "cannot be more than 20 characters",
-          },
-          pattern: {
-            value: /^[A-Za-z0-9_-]+$/,
-            message: "Only letters, numbers, _ and -",
-          },
-          validate: {
-            noStart: (v) => !/^[_-]/.test(v) || "Cannot start with _ or -",
-            noEnd: (v) => !/[_-]$/.test(v) || "Cannot end with _ or -",
-          },
-        }}
-      />
-      {/* EMAIL */}
+      <ControlledInput control={control} name="username" label="Username" />
+
       <ControlledInput
         control={control}
         name="email"
         label="Email"
         type="email"
-        rules={{
-          required: "Email is required",
-          pattern: {
-            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: "Please enter a valid email address",
-          },
-        }}
       />
 
-      {/* PASSWORD */}
       <ControlledInput
         control={control}
         name="password"
         label="Password"
         type="password"
-        rules={{
-          required: "Password is required",
-          minLength: {
-            value: 8,
-            message: "At least 8 characters",
-          },
-          validate: {
-            noSpaces: (v) => !/\s/.test(v) || "Password cannot contain spaces",
-            hasUpper: (v) => /[A-Z]/.test(v) || "Must include uppercase letter",
-            hasLower: (v) => /[a-z]/.test(v) || "Must include lowercase letter",
-            hasNumber: (v) => /\d/.test(v) || "Must include a number",
-          },
-        }}
       />
-      {/* RETYPE PASSWORD */}
+
       <ControlledInput
         control={control}
         name="confirmPassword"
-        label="Retype Password"
+        label="Retype password"
         type="password"
-        rules={{
-          required: "Please retype your password",
-          validate: (value) => value === password || "Passwords do not match",
-        }}
       />
-      {/* AGE */}
-      <ControlledInput
-        control={control}
-        name="age"
-        label="Age"
-        type="number"
-        rules={{
-          required: "Age is required",
-          valueAsNumber: true,
-          min: {
-            value: 18,
-            message: "Must be at least 18",
-          },
-          max: {
-            value: 99,
-            message: "Must be at most 99",
-          },
-        }}
-      />
+
+      <ControlledInput control={control} name="age" label="Age" type="number" />
+
       <input type="submit" />
     </form>
   );
