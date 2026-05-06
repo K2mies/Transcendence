@@ -5,7 +5,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-# Used for health check, to remove it, the health check must be adjusted
 RUN apk add --no-cache openssl
 
 # Used for health check, to remove it, the health check must be adjusted
