@@ -92,6 +92,8 @@ model UserUserRelation {
   status   FriendshipStatus
   friend   User             @relation("receivedRequests", fields: [friendId], references: [id])
   user     User             @relation("sentRequests", fields: [userId], references: [id])
+
+  @@unique([userId, friendId])
 }
 
 enum GameStatus {
