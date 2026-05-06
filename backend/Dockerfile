@@ -5,10 +5,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
+RUN apk add --no-cache openssl
+
 # Used for health check, to remove it, the health check must be adjusted
 RUN apk add --no-cache curl
 
 COPY . .
+
+RUN npx prisma generate
 
 # should match with BACK_PORT in .env (used in docker-compose.yml)
 EXPOSE 4242

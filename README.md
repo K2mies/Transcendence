@@ -157,6 +157,7 @@ Examples:
   DB_NAME="goodplays_db"
   DB_USER="postgres"
   DB_PASSWORD="password"
+  DATABASE_URL="postgresql://postgres:password@postgres_db:5432/goodplays_db"
   ```
 
 ---
