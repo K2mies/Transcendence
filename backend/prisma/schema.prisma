@@ -81,6 +81,8 @@ model LikeReview {
   reviewId Int
   review   Review @relation(fields: [reviewId], references: [id])
   user     User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId, reviewId])
 }
 
 model UserUserRelation {
