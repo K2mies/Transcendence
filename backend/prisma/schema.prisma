@@ -71,6 +71,8 @@ model UserGameRelation {
   game       Game       @relation(fields: [gameId], references: [id])
   platform   Platform   @relation(fields: [platformId], references: [id])
   user       User       @relation(fields: [userId], references: [id])
+
+  @@unique([userId, gameId, platformId])
 }
 
 model LikeReview {
