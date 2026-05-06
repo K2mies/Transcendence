@@ -34,7 +34,7 @@ model Game {
   reviews     Review[]
   userGames   UserGameRelation[]
   genres      Genre[]            @relation("GameToGenre")
-  platform    Platform[]         @relation("GameToPlatform")
+  platforms   Platform[]         @relation("GameToPlatform")
 }
 
 model Platform {
