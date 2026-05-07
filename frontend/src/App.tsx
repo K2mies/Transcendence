@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import MyForm from "./Form.jsx"
-
-let signed:boolean = false;
+import isSigned from "./IsSigned.ts"
 
 function Header() {
 	return (
@@ -17,7 +16,7 @@ function Header() {
 }
 
 function Home() {
-	if (!signed) {
+	if (!isSigned.value) {
 		return (
 			<div>
 				<h1>GoodPlays</h1>
@@ -26,6 +25,12 @@ function Home() {
 				<p>New user?</p>
 				<Link to="/register">Sign up!</Link>
 			</div>
+		)
+	} else {
+		return (
+			<Header></Header>
+			/* Here we should have the home page displayed after signing in.
+				What is displayed, how does it differ from Explore? */
 		)
 	}
 }
@@ -42,7 +47,6 @@ function SignUp() {
 function App() {
   return (
     <BrowserRouter>
-		<Header></Header>
 		<Routes>
 			<Route path="/" element={<Home />} />
 			{/* <Route path="/explore" element={<Explore />} />
