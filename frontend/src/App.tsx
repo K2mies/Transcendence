@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 import MyForm from "./Form.jsx";
 
@@ -29,27 +35,36 @@ function Home() {
       </div>
     );
   }
+  return <div>Signed in homepage</div>;
 }
 
 function SignUp() {
   return (
     <div>
       <h2>Sign up to GoodPlays</h2>
-      <MyForm>FORM</MyForm>
+      <MyForm></MyForm>
     </div>
+  );
+}
+
+function Layout() {
+  const location = useLocation();
+  return (
+    <>
+      {location.pathname !== "/" && <Header />}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="register" element={<SignUp />} />
+      </Routes>
+    </>
   );
 }
 
 function App() {
   return (
     <BrowserRouter>
-      <Header></Header>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/explore" element={<Explore />} />
-			<Route path="/mygames" element={<MyGames />} /> */}
-        <Route path="/register" element={<SignUp />} />
-      </Routes>
+      <Layout />
     </BrowserRouter>
   );
 }
