@@ -6,9 +6,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
-import MyForm from "./Form.jsx";
-
-let signed: boolean = false;
+import RegisterForm from "./RegisterForm";
+import isSigned from "./IsSigned"
 
 function Header() {
   return (
@@ -23,7 +22,7 @@ function Header() {
 }
 
 function Home() {
-  if (!signed) {
+  if (!isSigned.value) {
     return (
       <div style={{ marginTop: "0px" }}>
         <img src="/logo_03.jpg" alt="GoodPlays logo" />
@@ -43,7 +42,7 @@ function SignUp() {
   return (
     <div>
       <h2>Sign up to GoodPlays</h2>
-      <MyForm></MyForm>
+      <RegisterForm></RegisterForm>
     </div>
   );
 }
@@ -52,7 +51,7 @@ function Layout() {
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/" && <Header />}
+      {location.pathname !== "/" && location.pathname !== "/register" && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
