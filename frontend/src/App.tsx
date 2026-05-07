@@ -25,8 +25,9 @@ function Header() {
 function Home() {
   if (!signed) {
     return (
-      <div>
+      <div style={{ marginTop: "0px" }}>
         <img src="/logo_03.jpg" alt="GoodPlays logo" />
+
         <h1>GoodPlays</h1>
         <h2>Welcome to GoodPlays!</h2>
         <p>Already have an account?</p>
