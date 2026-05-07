@@ -1,5 +1,36 @@
 import Form from "./Form";
 import Form02 from "./Form_02";
+import { useState } from "react";
+
+//class Person {
+//  constructor(name, age) {
+//    this.name = name;
+//    this.age = age;
+//  }
+//  greet() {
+//    console.log("hello my name is " + this.name);
+//  }
+//}
+//
+//const adam = new Person("Adam Ondra", 33);
+//adam.greet();
+//
+//const janja = new Person("Janja Garnbret", 27);
+//janja.greet();
+
+const Hello = ({ name, age }) => {
+  const bornYear = () => new Date().getFullYear() - age;
+
+  return (
+    <div>
+      <p>
+        Hello {name}, you are {age} years old
+      </p>
+
+      <p>So you were probably born in {bornYear()}</p>
+    </div>
+  );
+};
 
 const Header = (props) => {
   return (
@@ -39,8 +70,52 @@ const Total = (props) => {
   );
 };
 
-const App = () => {
+//Component to display the counter result
+const Display = ({ counter }) => {
+  return <div>{counter}</div>;
+};
+
+//Button Component to update with a referenced function
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
+
+const App = (props) => {
   // const-definitions
+  const [allClicks, setAll] = useState([]);
+  const [counter, setCounter] = useState(0);
+  console.log("rendering with counter value", counter);
+  const increaseByOne = () => {
+    console.log("increasing, value before", counter);
+    setCounter(counter + 1);
+  };
+  const decreaseByOne = () => {
+    console.log("decreasing, value before", counter);
+    setCounter(counter - 1);
+  };
+  const setToZero = () => {
+    console.log("resetting to zero, value before", counter);
+    setCounter(0);
+  };
+
+  //const [left, setLeft] = useState(0);
+  //const [right, setRight] = useState(0);
+  const [clicks, setClicks] = useState({
+    left: 0,
+    right: 0,
+  });
+
+  const handleLeftClick = () => {
+    setAll(allClicks.concat("L"));
+    setClicks({ ...clicks, right: clicks.right + 1 });
+  };
+
+  const handleRightClick = () => {
+    setAll(allClicks.concat("R"));
+    setClicks({ ...clicks, left: clicks.left + 1 });
+  };
+  //setTimeout(() => setCounter(counter + 1), 1000);
+  const name = "Peter";
+  const age = 10;
+
   const course = {
     name: "Half Stack application development",
     parts: [
@@ -61,6 +136,23 @@ const App = () => {
 
   return (
     <div>
+      <div>
+        {clicks.left}
+        <button onClick={handleLeftClick}>left</button>
+        <button onClick={handleRightClick}>right</button>
+        {clicks.right}
+        <p>{allClicks.join(" ")}</p>
+      </div>
+      <div>clicks.left + clicks.right = {clicks.left + clicks.right}</div>
+      <div>
+        <Display counter={counter} />
+        <Button onClick={increaseByOne} text="plus" />
+        <Button onClick={setToZero} text="zero" />
+        <Button onClick={decreaseByOne} text="minus" />
+      </div>
+      <h1>Greetings</h1>
+      <Hello name="Maya" age={26 + 10} />
+      <Hello name={name} age={age} />
       <Header course={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts} />

@@ -39,13 +39,25 @@ const schema = z
     path: ["confirmPassword"],
   });
 
+const BirthYear = (props) => {
+  const age = props.age;
+  const bornYear = () => {
+    const yearNow = new Date().getFullYear();
+    return yearNow - age;
+  };
+
+  return (
+    <div>
+      <p>So you were probably born in {bornYear()}</p>
+    </div>
+  );
+};
 const MyForm = () => {
   const { handleSubmit, control, watch } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       username: "",
       email: "",
-      age: 18,
       password: "",
       confirmPassword: "",
     },
@@ -66,34 +78,47 @@ const MyForm = () => {
     console.log(submitData);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <ControlledInput control={control} name="username" label="Username" />
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <ControlledInput control={control} name="username" label="Username" />
 
-      <ControlledInput
-        control={control}
-        name="email"
-        label="Email"
-        type="email"
-      />
+        <ControlledInput
+          control={control}
+          name="email"
+          label="Email"
+          type="email"
+        />
 
-      <ControlledInput
-        control={control}
-        name="password"
-        label="Password"
-        type="password"
-      />
+        <ControlledInput
+          control={control}
+          name="password"
+          label="Password"
+          type="password"
+        />
 
-      <ControlledInput
-        control={control}
-        name="confirmPassword"
-        label="Retype password"
-        type="password"
-      />
+        <ControlledInput
+          control={control}
+          name="confirmPassword"
+          label="Retype password"
+          type="password"
+        />
 
-      <ControlledInput control={control} name="age" label="Age" type="number" />
+        <ControlledInput
+          control={control}
+          name="age"
+          label="Age"
+          type="number"
+        />
 
-      <input type="submit" />
-    </form>
+        <input type="submit" />
+      </form>
+      <div>
+        <p>
+          your name is {username} and you are {age} years old!
+        </p>
+        <BirthYear age={age} />
+      </div>
+    </div>
   );
 };
 
