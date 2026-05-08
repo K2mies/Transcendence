@@ -8,6 +8,10 @@ const games = JSON.parse(fs.readFileSync("./prisma/games.json", "utf-8"));
 async function main() {
 	console.log(`Seeding ${games.length} games...`);
 
+	await prisma.$transaction([
+ 		prisma.game.deleteMany(),
+ 	]);
+
 	for (const g of games) {
 		const created = await prisma.game.create({
 			data: {
@@ -17,8 +21,8 @@ async function main() {
 				description: g.description,
 				releaseDate: new Date(g.releaseDate),
 				updateDate: new Date(g.updateDate),
-				developer: g.developer || "",
-				publisher: g.publisher || "",
+				developer: g.developer ?? null,
+				publisher: g.publisher ?? null,
 				rating: Number(g.rating) || 0,
 				genres: {
 					connectOrCreate: (g.genres || []).map((name) => ({
@@ -40,7 +44,7 @@ async function main() {
 				},
 			},
 		});
-		console.log(`Inserted: ${created.name}`);
+		// console.log(`Inserted: ${created.name}`);
 	}
 	console.log("DONE: games.json seeded.")
 }
