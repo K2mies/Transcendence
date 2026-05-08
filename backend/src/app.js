@@ -1,14 +1,16 @@
 // We use ES modules (in package.json need to add "type": "module")
 import express from "express";
 import cors from "cors";
-
-import healthRoutes from "./routes/health.route.js";
+import healthRoutes from "./routes/health.routes.js";
+import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 // Initialize express
 const app = express();
 
 // Parses incoming JSON -> puts it in req.body; limit is protection against huge payload
 app.use(express.json({limit:"10kb"}));
+app.use(express.urlencoded({extended: true}));
 
 /* Define security between frontend and backend in development stage.
  * CORS (Cross-Origin Resource Sharing)
@@ -17,7 +19,8 @@ app.use(express.json({limit:"10kb"}));
  * Only allowed headers are "Content-Type" and "Authorization"
 */
 const allowedOrigins = [
-	"http://localhost:8080"
+	"http://localhost:8080",
+	"http://localhost:4242"
 ];
 
 /* This section configures the CORS middleware, which controls which browser origins are allowed to access the backend API.
@@ -45,6 +48,8 @@ app.use(cors({
 
 // Routes
 app.use("/api/v1/health", healthRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 // 404 handler
 app.use((req, res) => {
