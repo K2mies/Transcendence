@@ -4,6 +4,7 @@ import cors from "cors";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import {protect} from "./utils/protectJWT.js";
 
 // Initialize express
 const app = express();
@@ -49,7 +50,7 @@ app.use(cors({
 // Routes
 app.use("/api/v1/health", healthRoutes);
 app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
+app.use("/user", protect, userRoutes);
 
 // 404 handler
 app.use((req, res) => {

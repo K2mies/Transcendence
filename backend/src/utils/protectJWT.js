@@ -14,7 +14,9 @@ export const protect = async (req, res, next) => {
 		else if (req.cookies?.jwt) {
 			token = req.cookies.jwt;
 		}
-		if (!token) {return res.status(401).json({error: "Unauthorized"})};
+		if (!token) {
+			return res.status(401).json({error: "Unauthorized"})
+		}
 
 		const verifToken = jwt.verify(token, process.env.JWT_SECRET);
 
