@@ -38,8 +38,8 @@ const register = async (req, res) => {
 		data: {
 			user: {
 				id: user.id,
-				name: name,
-				email: email,
+				name: user.name,
+				email: user.email,
 			},
 			token,
 		},
