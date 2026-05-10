@@ -22,7 +22,7 @@ model User {
 
 model Game {
   id          Int                @id @default(autoincrement())
-  name        String
+  name        String             @unique
   imageSmall  String
   imageBig    String
   description String
@@ -52,9 +52,11 @@ model GameMode {
 }
 
 model Genre {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  games Game[] @relation("GameToGenre")
+  id    Int                    @id @default(autoincrement())
+  name  String                 @unique
+  games Game[]                 @relation("GameToGenre")
+
+  @@index([name])
 }
 
 model Review {

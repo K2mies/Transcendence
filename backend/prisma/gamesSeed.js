@@ -1,52 +1,61 @@
 import {PrismaClient} from "@prisma/client";
 import fs from "fs";
+import path from "path";
+import {fileURLToPath} from "url";
 
 const prisma = new PrismaClient();
 
-const games = JSON.parse(fs.readFileSync("./prisma/games.json", "utf-8"));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const gamesPath = path.join(__dirname, "games.json");
+const games = JSON.parse(fs.readFileSync(gamesPath, "utf-8"));
 
 async function main() {
 	console.log(`Seeding ${games.length} games...`);
 
-	await prisma.$transaction([
- 		prisma.game.deleteMany(),
- 	]);
+	await prisma.$transaction(async (tx) => {
+		for (const g of games) {
+		await tx.game.upsert({
+			where: { name: g.name },   // ⚠️ requires UNIQUE constraint on name
+			update: {},                // no overwrite
+			create: {
+			name: g.name,
+			imageSmall: g.imageSmall,
+			imageBig: g.imageBig,
+			description: g.description,
+			releaseDate: new Date(g.releaseDate),
+			updateDate: new Date(g.updateDate),
+			developer: g.developer ?? null,
+			publisher: g.publisher ?? null,
+			rating: Number(g.rating) || 0,
 
-	for (const g of games) {
-		const created = await prisma.game.create({
-			data: {
-				name: g.name,
-				imageSmall: g.imageSmall,
-				imageBig: g.imageBig,
-				description: g.description,
-				releaseDate: new Date(g.releaseDate),
-				updateDate: new Date(g.updateDate),
-				developer: g.developer ?? null,
-				publisher: g.publisher ?? null,
-				rating: Number(g.rating) || 0,
-				genres: {
-					connectOrCreate: (g.genres || []).map((name) => ({
-						where: {name},
-						create: {name},
-					})),
-				},
-				platforms: {
-					connectOrCreate: (g.platforms || []).map((name) => ({
-						where: {name},
-						create: {name},
-					})),
-				},
-				modes: {
-					connectOrCreate: (g.modes || []).map((name) => ({
-						where: {name},
-						create: {name},
-					})),
-				},
+			genres: {
+				connectOrCreate: (g.genres || []).map(name => ({
+				where: { name },
+				create: { name },
+				})),
+			},
+
+			platforms: {
+				connectOrCreate: (g.platforms || []).map(name => ({
+				where: { name },
+				create: { name },
+				})),
+			},
+
+			modes: {
+				connectOrCreate: (g.modes || []).map(name => ({
+				where: { name },
+				create: { name },
+				})),
+			},
 			},
 		});
-		// console.log(`Inserted: ${created.name}`);
-	}
-	console.log("DONE: games.json seeded.")
+		}
+	});
+
+	console.log("✔ Seed completed safely");
 }
 
 main()

@@ -11,6 +11,9 @@ services:
       postgres_db:
         condition: service_healthy
     env_file: .env
+    # In development only opened (to test out API calls to backend)
+    ports:
+      - "4242:4242"
     expose:
       - "${BACK_PORT}"
     networks:
@@ -29,22 +32,26 @@ services:
       - POSTGRES_DB=${DB_NAME:-goodplays_db}
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    volumes: # need to get back to this later to see if this is the best option
-      - ./data/postgres:/var/lib/postgresql/data
+    volumes: # need to get back to this later to see if this is the best option 
+      - postgres:/var/lib/postgresql/data
     networks:
       - gp_internal
     restart: always
-  frontend:
-    container_name: frontend
-    build: ./frontend
-    ports:
-      - "8080:80"
-    networks:
-      - gp_internal
-    restart: always
+  # frontend:
+  #   container_name: frontend
+  #   build: ./frontend
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - gp_internal
+  #   restart: always
+
+volumes:
+  postgres:
 
 networks:
   gp_internal:
     name: gp_internal
-    internal: true
+    # In development only commented out! (to test out API calls to backend)
+    # internal: true
     driver: bridge
