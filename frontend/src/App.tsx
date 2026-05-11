@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 import isSigned from "./IsSigned"
 
 function Header() {
@@ -30,6 +31,7 @@ function Home() {
         <h1>GoodPlays</h1>
         <h2>Welcome to GoodPlays!</h2>
         <p>Already have an account?</p>
+        <Link to="/login">Log in</Link>
         <p>New user?</p>
         <Link to="/register">Sign up!</Link>
       </div>
@@ -47,15 +49,26 @@ function SignUp() {
   );
 }
 
+function Login() {
+  return (
+    <div>
+      <h2>Login to Goodplays</h2>
+      <LoginForm></LoginForm>
+    </div>
+  );
+}
+
 function Layout() {
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/" && location.pathname !== "/register" && <Header />}
+      {location.pathname !== "/" && location.pathname !== "/register"
+      && location.pathname !== "/login" && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="register" element={<SignUp />} />
+        <Route path="login" element={<Login />} />
       </Routes>
     </>
   );
