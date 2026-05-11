@@ -55,8 +55,6 @@ model Genre {
   id    Int                    @id @default(autoincrement())
   name  String                 @unique
   games Game[]                 @relation("GameToGenre")
-
-  @@index([name])
 }
 
 model Review {

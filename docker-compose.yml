@@ -3,7 +3,7 @@ services:
     container_name: backend
     build: ./backend
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:${BACK_PORT}/api/v1/health || exit 1"] # requires defined healthpoint and curl installed in the container!
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:' + process.env.BACK_PORT + '/api/v1/health', res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"] # requires defined healthpoint and curl installed in the container!
       interval: 5s
       timeout: 5s
       retries: 10
@@ -13,9 +13,7 @@ services:
     env_file: .env
     # In development only opened (to test out API calls to backend)
     ports:
-      - "4242:4242"
-    expose:
-      - "${BACK_PORT}"
+      - "${BACK_PORT}:${BACK_PORT}"
     networks:
       - gp_internal
     restart: always

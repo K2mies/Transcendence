@@ -14,46 +14,44 @@ const games = JSON.parse(fs.readFileSync(gamesPath, "utf-8"));
 async function main() {
 	console.log(`Seeding ${games.length} games...`);
 
-	await prisma.$transaction(async (tx) => {
-		for (const g of games) {
-		await tx.game.upsert({
+	for (const g of games) {
+		await prisma.game.upsert({
 			where: { name: g.name },   // ⚠️ requires UNIQUE constraint on name
 			update: {},                // no overwrite
 			create: {
-			name: g.name,
-			imageSmall: g.imageSmall,
-			imageBig: g.imageBig,
-			description: g.description,
-			releaseDate: new Date(g.releaseDate),
-			updateDate: new Date(g.updateDate),
-			developer: g.developer ?? null,
-			publisher: g.publisher ?? null,
-			rating: Number(g.rating) || 0,
+				name: g.name,
+				imageSmall: g.imageSmall,
+				imageBig: g.imageBig,
+				description: g.description,
+				releaseDate: new Date(g.releaseDate),
+				updateDate: new Date(g.updateDate),
+				developer: g.developer ?? null,
+				publisher: g.publisher ?? null,
+				rating: Number(g.rating) || 0,
 
-			genres: {
-				connectOrCreate: (g.genres || []).map(name => ({
-				where: { name },
-				create: { name },
-				})),
-			},
+				genres: {
+					connectOrCreate: (g.genres || []).map(name => ({
+					where: { name },
+					create: { name },
+					})),
+				},
 
-			platforms: {
-				connectOrCreate: (g.platforms || []).map(name => ({
-				where: { name },
-				create: { name },
-				})),
-			},
+				platforms: {
+					connectOrCreate: (g.platforms || []).map(name => ({
+					where: { name },
+					create: { name },
+					})),
+				},
 
-			modes: {
-				connectOrCreate: (g.modes || []).map(name => ({
-				where: { name },
-				create: { name },
-				})),
-			},
+				modes: {
+					connectOrCreate: (g.modes || []).map(name => ({
+					where: { name },
+					create: { name },
+					})),
+				},
 			},
 		});
-		}
-	});
+	}
 
 	console.log("✔ Seed completed safely");
 }
