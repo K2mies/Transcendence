@@ -19,9 +19,23 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    const submitData = data;
-    console.log(submitData);
+  const onSubmit = async (data) => {
+	try {
+		const response = await fetch("https://backend:4242/api/v1/login", {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		});
+		const res = response.json();
+		if (response.ok)
+			console.log("Login was successful");
+		else
+			console.error(res);
+	} catch (error) {
+		console.error(error);
+	}
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
