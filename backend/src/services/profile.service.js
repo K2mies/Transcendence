@@ -1,63 +1,81 @@
 import {prisma} from "../../prisma/client.js"
 
+function filterGameInfo(games, status) //Also do we want to make profile helpers file?
+{
+	return games
+	.filter(game => game.status === status)
+	.map(g => ({
+	id: g.game.id,
+	name: g.game.name,
+	image: g.game.image
+	}))
+}
+
+/*
+Fetch info from the user table by using id.
+- In addition to the "basic/static user info" we may get, we also want to include the user's games (so all rows in UserGameRelation that belongs to user),
+including more information on the game and platform
+- We also want to include more information on their friends
+
+-Previously, we also had include reviews and likereviews so then on the profile page we could showcase these are all the reviews written by the user
+and all the reviews that the user has liked. This however feels more like nice to have!
+reviews: true,
+likeReviews: true,
+*/
 export async function getProfile(profileId)
 {
-	const user = await prisma.user.findUnique({ //Go to the User Table and find exactly one row!
-	where: { id: profileId }, //I expect that we get the id info from frontend..?
-	include: { //Don't just give the basic user info but bring related data! (Without include, we would only get id name and bio, all the STATIC info)
-		userGames: { //Include all rows in UserGameRelation that belong to this user
-		include: {
-			game: true, //instead of just giving me gameid, fetch full game object (so instead of gameId5, we get game id, title image)
-			platform: true, //same goes here, we get the platform name rather than only the id!
+	const user = await prisma.user.findUnique({
+	where: { id: profileId },
+	include: {
+		userGames: {
+			include: {
+				game: true,
+				platform: true,
+			},
 		},
+		sentRequests: {
+			include: {
+				friend: true,
+			},
 		},
-		sentRequests: true,
-		receivedRequests: true,
-		reviews: true, //give me all reviews written by this user... this is kinda nice to have, I dont know if we want "my reviews" section there
-		likeReviews: true, //same goes here.. not maybe necessary here
+		receivedRequests: {
+			include: {
+				friend: true,
+			},
 		},
+	},
 	})
 	console.log(JSON.stringify(user, null, 2))
 	return {
 		id: user.id,
 		name: user.name,
 		bio: user.bio,
-		friends : [
-			...user.receivedRequests.filter(f => f.status === "FRIENDS"), //using the spread operator ... it gets combined into one array
-			...user.sentRequests.filter(f => f.status === "FRIENDS") // perhaps we want to fetch both id and name?
+		friends : [ //... combines these into one array
+			...user.receivedRequests
+			.filter(f => f.status === "FRIENDS")
+			.map(f => ({
+			id: f.friend.id,
+			name: f.friend.name				
+		})),
+			...user.sentRequests
+			.filter(f => f.status === "FRIENDS")
+			.map(f => ({
+			id: f.friend.id,
+			name: f.friend.name
+		})),
 		],
 		favourites: user.userGames
-		.filter(game => game.favorite === true) //For these view, we probably want to only see the title and the image of the game!
+		.filter(game => game.favorite === true)
 		.map(g => ({
+		id: g.game.id,
 		title: g.game.name,
 		image: g.game.image
   		})),
-		to_play: user.userGames
-		.filter(game => game.status === "WANT_TO_PLAY") //can we have a helper function for these as they are doing the same...
-		.map(g => ({
-		title: g.game.name,
-		image: g.game.image
-		})),
-		playing: user.userGames
-		.filter(game => game.status === "PLAYING")
-		.map(g => ({
-		title: g.game.name,
-		image: g.game.image
-		})),
-		completed: user.userGames
-		.filter(game => game.status === "COMPLETED")
-		.map(g => ({
-		title: g.game.name,
-		image: g.game.image
-		})),
-		dnf: user.userGames
-		.filter(game => game.status === "DNF")
-		.map(g => ({
-		title: g.game.name,
-		image: g.game.image
-		})),
-		}
-	console.log(JSON.stringify(user, null, 2))
-
+		to_play: filterGameInfo(user.userGames, "WANT_TO_PLAY"),
+		playing: filterGameInfo(user.userGames, "PLAYING"),
+		completed: filterGameInfo(user.userGames, "COMPLETED"),
+		dnf: filterGameInfo(user.userGames, "DNF"),
+	}
 }
+
 
