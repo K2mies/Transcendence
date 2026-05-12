@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { email, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
 
 const schema = z
   .object({
-    username: z.string(),
-
+    email: z.string(),
     password: z.string(),
   })
 
@@ -14,14 +13,14 @@ const LoginForm = () => {
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      user: "",
+      email: "",
       password: ""
     },
   });
 
   const onSubmit = async (data) => {
 	try {
-		const response = await fetch("https://backend:4242/api/v1/login", {
+		const response = await fetch("http://backend:4242/auth/login", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
@@ -31,6 +30,8 @@ const LoginForm = () => {
 		const res = response.json();
 		if (response.ok)
 			console.log("Login was successful");
+		else if (response.status === "401")
+			console.error("Username or password incorrect") // How to render this text?
 		else
 			console.error(res);
 	} catch (error) {
@@ -40,9 +41,9 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
 
-      <ControlledInput control={control} name="username" label="Username" />
+      <ControlledInput control={control} name="email" label="Email" autoComplete="on" type="email" />
 
-      <ControlledInput control={control} name="password" label="Password" type="password" />
+      <ControlledInput control={control} name="password" label="Password" autoComplete="off" type="password" />
 
       <input type="submit" />
     </form>

@@ -67,12 +67,13 @@ const RegisterForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ControlledInput control={control} name="username" label="Username" />
+      <ControlledInput control={control} name="username" label="Username" autoComplete="off" />
 
       <ControlledInput
         control={control}
         name="email"
         label="Email"
+        autoComplete="on"
         type="email"
       />
 
@@ -80,6 +81,7 @@ const RegisterForm = () => {
         control={control}
         name="password"
         label="Password"
+        autoComplete="off"
         type="password"
       />
 
@@ -87,10 +89,11 @@ const RegisterForm = () => {
         control={control}
         name="confirmPassword"
         label="Retype password"
+        autoComplete="off"
         type="password"
       />
 
-      <ControlledInput control={control} name="age" label="Age" type="number" />
+      <ControlledInput control={control} name="age" label="Age" autoComplete="off" type="number" />
 
       <input type="submit" />
     </form>

@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 
-const ControlledInput = ({ control, name, label, rules, type = "text" }) => {
+const ControlledInput = ({ control, name, label, rules, autoComplete, type = "text" }) => {
   const {
     field,
     fieldState: { error },
@@ -18,6 +18,7 @@ const ControlledInput = ({ control, name, label, rules, type = "text" }) => {
         style={{ width: "350px" }}
         label={label}
         type={type}
+        autoComplete={autoComplete}
         onChange={(e) =>
           field.onChange(
             type === "number" ? Number(e.target.value) : e.target.value,
