@@ -7,7 +7,7 @@ function filterGameInfo(games, status) //Also do we want to make profile helpers
 	.map(g => ({
 	id: g.game.id,
 	name: g.game.name,
-	image: g.game.image
+	image: g.game.imageSmall
 	}))
 }
 
@@ -69,7 +69,7 @@ export async function getProfile(profileId)
 		.map(g => ({
 		id: g.game.id,
 		title: g.game.name,
-		image: g.game.image
+		image: g.game.imageSmall
   		})),
 		to_play: filterGameInfo(user.userGames, "WANT_TO_PLAY"),
 		playing: filterGameInfo(user.userGames, "PLAYING"),

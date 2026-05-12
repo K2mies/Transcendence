@@ -4,6 +4,6 @@ console.log(profileController)
 // Creating Router instance
 const router = express.Router();
 
-router.get("/", profileController.getProfile)
+router.get("/:id", profileController.getProfile)
 
 export default router;
