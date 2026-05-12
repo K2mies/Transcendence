@@ -2,3 +2,4 @@ task.md
 node_modules
 .env
 migrations
+package-lock.json

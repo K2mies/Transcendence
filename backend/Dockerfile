@@ -3,19 +3,14 @@ FROM node:20-alpine3.22
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm ci
-
-RUN apk add --no-cache openssl
-
-# Used for health check, to remove it, the health check must be adjusted
-RUN apk add --no-cache curl
 
 COPY . .
 
-RUN npx prisma generate
+RUN chmod +x docker-entryscript.sh
 
 # should match with BACK_PORT in .env (used in docker-compose.yml)
-EXPOSE 4242
+EXPOSE 4243
 
-# in package.json, we need to define in "scripts": { "start": "node server.js" } or similar
-CMD ["npm", "start"]
+CMD ["sh", "docker-entryscript.sh"]

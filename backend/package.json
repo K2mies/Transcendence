@@ -4,8 +4,9 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "nodemon src/server.js",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "seed": "dotenv -e ../.env -- node prisma/gamesSeed.js",
     "db:migrate": "dotenv -e ../.env -- prisma migrate dev",
     "db:generate": "dotenv -e ../.env -- prisma generate",
     "db:reset": "dotenv -e ../.env -- prisma migrate reset",
