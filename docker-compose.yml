@@ -3,7 +3,7 @@ services:
     container_name: backend
     build: ./backend
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:${BACK_PORT}/api/v1/health || exit 1"] # requires defined healthpoint and curl installed in the container!
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:' + process.env.BACK_PORT + '/api/v1/health', res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -11,8 +11,9 @@ services:
       postgres_db:
         condition: service_healthy
     env_file: .env
-    expose:
-      - "${BACK_PORT}"
+    # In development only opened (to test out API calls to backend)
+    ports:
+      - "${BACK_PORT}:${BACK_PORT}"
     networks:
       - gp_internal
     restart: always
@@ -29,22 +30,26 @@ services:
       - POSTGRES_DB=${DB_NAME:-goodplays_db}
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    volumes: # need to get back to this later to see if this is the best option
-      - ./data/postgres:/var/lib/postgresql/data
+    volumes: # need to get back to this later to see if this is the best option 
+      - postgres:/var/lib/postgresql/data
     networks:
       - gp_internal
     restart: always
-  frontend:
-    container_name: frontend
-    build: ./frontend
-    ports:
-      - "8080:80"
-    networks:
-      - gp_internal
-    restart: always
+  # frontend:
+  #   container_name: frontend
+  #   build: ./frontend
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - gp_internal
+  #   restart: always
+
+volumes:
+  postgres:
 
 networks:
   gp_internal:
     name: gp_internal
-    internal: true
+    # In development only commented out! (to test out API calls to backend)
+    # internal: true
     driver: bridge
