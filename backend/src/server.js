@@ -3,17 +3,17 @@ import {dirname, resolve} from "path";
 import {fileURLToPath} from "url";
 import app from "./app.js";
 import {portCheck} from "./utils/portCheck.js";
-import {exit} from "process";
 import {shutdown} from "./utils/shutdown.js";
 import {connectDB, disconnectDB} from "./config/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-let isShuttingDown = false;
-let backPort;
+const isShuttingDown = {value: false};
 
 dotenv.config({path: resolve(__dirname, "../../.env")})
 const BACK_PORT = process.env.BACK_PORT;
+
+let backPort;
 
 try {
 	backPort = portCheck(BACK_PORT);
@@ -22,7 +22,7 @@ try {
 	process.exit(1);
 }
 
-connectDB();
+await connectDB();
 
 // Open port that is defined in .env and the callback function to indicate that the PORT is listening
 const server = app.listen(backPort, () => {

@@ -3,16 +3,14 @@ export const validateRequest = (schema) => {
 		const result = schema.safeParse(req.body);
 
 		if (!result.success) {
-			const formatted = result.error.format();
-			const flatErrors = Object.values(formatted)
-				.flat()
-				.filter(Boolean)
-				.map((err) => err._errors)
-				.flat();
-
-				console.log(flatErrors);
-				return res.status(400).json({message: "Invalid data!"});
+			return res.status(400).json({
+				message: "Data validation failed",
+				errors: result.error.flatten().fieldErrors,
+			});
 		}
+
+		// Passing on parsed data of the body, so next function can use that data!
+		req.validBody = result.data;
 		next();
 	}
 }

@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import {generateToken} from "../utils/generateToken.js";
 
 const register = async (req, res) => {
-	const{name, email, password} = req.body;
+	const{name, email, password} = req.validBody;
 	// Check if user already exists
 	const userExists = await prisma.user.findFirst({
 		where: {
@@ -47,7 +47,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-	const{email, password} = req.body;
+	const{email, password} = req.validBody;
 
 	// Check if user email exists in the table
 	const user = await prisma.user.findUnique({

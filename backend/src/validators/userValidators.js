@@ -12,7 +12,9 @@ const registerToUserSchema = z.object({
 		.refine((value) => !/[_-]$/.test(value), {
 			message: "Username cannot end with _ or -",
 		}),
-	email: z.email("Please enter a valid email"),
+	email: z
+		.string()
+		.email("Please enter a valid email"),
 	password: z
 		.string()
 		.min(8, "Password must be at least 8 characters")
@@ -23,7 +25,9 @@ const registerToUserSchema = z.object({
 })
 
 const loginUserSchema = z.object({
-	email: z.email("Please enter a valid email"),
+	email: z
+		.string()
+		.email("Please enter a valid email"),
 	password: z
 		.string()
 		.min(8, "Password must be at least 8 characters")

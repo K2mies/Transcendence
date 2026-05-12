@@ -4,6 +4,6 @@ import {meUser, deleteUser} from "../controllers/user.controllers.js";
 const router = express.Router();
 
 router.get("/me", meUser);
-router.delete("/delete/me", deleteUser);
+router.delete("/me", deleteUser);
 
 export default router;

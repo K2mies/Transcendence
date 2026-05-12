@@ -18,11 +18,16 @@ export const protect = async (req, res, next) => {
 			return res.status(401).json({error: "Unauthorized"})
 		}
 
-		const verifToken = jwt.verify(token, process.env.JWT_SECRET);
+		const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
 
 		const user = await prisma.user.findUnique({
 			where: {
-				id: verifToken.id,
+				id: verifiedToken.id,
+			},
+			select: {
+				id: true,
+				name: true,
+				email: true,
 			},
 		});
 
