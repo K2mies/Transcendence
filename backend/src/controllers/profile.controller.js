@@ -7,3 +7,12 @@ export async function getProfile(req, res)
 	console.log(profile)
 	res.json(profile)
 }
+
+export async function updateProfile(req, res)
+{
+	const userId = Number(req.params.id)
+	const newData = req.body
+	const profile = await profileService.updateProfile(userId, newData)
+	console.log(profile)
+	res.json(profile)
+}
