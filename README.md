@@ -126,9 +126,9 @@ Example [fields]:
 
 Example:
   ```
-	/api/v1/users
-	/api/v1/games
-	/api/v1/reviews
+	/users
+	/games
+	/reviews
   ```
 
 ### Websocket Events

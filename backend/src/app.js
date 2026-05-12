@@ -1,4 +1,3 @@
-// We use ES modules (in package.json need to add "type": "module")
 import express from "express";
 import cors from "cors";
 import healthRoutes from "./routes/health.routes.js";
@@ -17,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(corsValidator);
 
 // Routes
-app.use("/api/v1/health", healthRoutes);
+app.use("/health", healthRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", protect, userRoutes);
 

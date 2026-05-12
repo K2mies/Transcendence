@@ -11,7 +11,7 @@ export const validateRequest = (schema) => {
 				.flat();
 
 				console.log(flatErrors);
-				return res.status(400).json({message: flatErrors.join(", ")});
+				return res.status(400).json({message: "Invalid data!"});
 		}
 		next();
 	}

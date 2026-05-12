@@ -3,7 +3,7 @@ services:
     container_name: backend
     build: ./backend
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:${BACK_PORT}/api/v1/health || exit 1"] # requires defined healthpoint and curl installed in the container!
+      test: ["CMD-SHELL", "curl -f http://localhost:${BACK_PORT}/health || exit 1"] # requires defined healthpoint and curl installed in the container!
       interval: 5s
       timeout: 5s
       retries: 10
