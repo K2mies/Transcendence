@@ -30,19 +30,19 @@ services:
       - POSTGRES_DB=${DB_NAME:-goodplays_db}
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    volumes: # need to get back to this later to see if this is the best option 
+    volumes: # need to get back to this later to see if this is the best option
       - postgres:/var/lib/postgresql/data
     networks:
       - gp_internal
     restart: always
-  # frontend:
-  #   container_name: frontend
-  #   build: ./frontend
-  #   ports:
-  #     - "8080:80"
-  #   networks:
-  #     - gp_internal
-  #   restart: always
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "8080:80"
+    networks:
+      - gp_internal
+    restart: always
 
 volumes:
   postgres:

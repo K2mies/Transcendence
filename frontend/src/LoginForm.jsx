@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
 	try {
-		const response = await fetch("http://backend:4242/auth/login", {
+		const response = await fetch("http://backend:4243/auth/login", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
