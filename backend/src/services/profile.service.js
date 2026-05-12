@@ -1,14 +1,9 @@
-import { PrismaClient } from "@prisma/client"
+import {prisma} from "../../prisma/client.js"
 
-const prisma = new PrismaClient({
-
-})
-
-
-export async function collectProfile()
+export async function getProfile(profileId)
 {
 	const user = await prisma.user.findUnique({ //Go to the User Table and find exactly one row!
-	where: { id: 1 }, //I expect that we get the id info from frontend..?
+	where: { id: profileId }, //I expect that we get the id info from frontend..?
 	include: { //Don't just give the basic user info but bring related data! (Without include, we would only get id name and bio, all the STATIC info)
 		userGames: { //Include all rows in UserGameRelation that belong to this user
 		include: {
@@ -23,7 +18,7 @@ export async function collectProfile()
 		},
 	})
 	console.log(JSON.stringify(user, null, 2))
-	const dto = {
+	return {
 		id: user.id,
 		name: user.name,
 		bio: user.bio,
@@ -61,81 +56,8 @@ export async function collectProfile()
 		title: g.game.name,
 		image: g.game.image
 		})),
-	}
+		}
 	console.log(JSON.stringify(user, null, 2))
-	console.log(dto)
+
 }
-
-async function main() {
-
-await prisma.game.create({
-  data: {
-    name: "Lovely lovely Game",
-    image: "img",
-    description: "desc",
-    releaseDate: new Date(),
-    updateDate: new Date(),
-    developer: "PlaplaDev",
-    publisher: "PleplePub",
-    mode: "Solo",
-    rating: 90,
-    // platform: {
-    // connect: [{ id: 1 }, { id: 2}]
-    // },
-    // genres: {
-    // connect: [{ id: 1 }]
-    // }
-  }})
-
-await prisma.user.create({
-	data: {
-		name: "Peruna2",
-		email: "Meili3!!",
-		password: "Supersalainen",
-		bio: "Tama on minun pelikirjastoni",
-	}
-})
-
-await prisma.platform.create({
-	data: {
-		name: "Nintendo",
-	}
-})
-
-await prisma.userGameRelation.create({
-  data: {
-    user: {
-      connect: { id: 1 }
-    },
-    game: {
-      connect: { id: 1 }
-    },
-    platform: {
-      connect: { id: 1 }
-    },
-    status: "PLAYING",
-    favorite: false
-  }
-})
-
-await prisma.userUserRelation.create({
-	data: {
-		user: {
-			connect: { id: 1 }
-		},
-		friend: {
-			connect: { id: 5 }
-		},
-		status: "FRIENDS",
-	}
-})
-console.log("Here we are")
- const users = await prisma.user.findMany()
- console.log(users)
-await collectProfile()
-}
-
-main()
-  .catch(console.error)
-  .finally(() => prisma.$disconnect())
 
