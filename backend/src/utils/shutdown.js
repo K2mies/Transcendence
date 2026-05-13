@@ -12,7 +12,7 @@ export async function shutdown(signal, isShuttingDown, server) {
 			await disconnectDB();
 			process.exit(0);
 		} catch (error) {
-			console.error("Shutdown error:", err);
+			console.error("Shutdown error:", error);
 			process.exit(1);
 		}
 	});

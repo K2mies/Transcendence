@@ -1,16 +1,18 @@
 import dotenv from "dotenv";
 import {dirname, resolve} from "path";
 import {fileURLToPath} from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+dotenv.config({path: resolve(__dirname, "../../.env")})
+
 import app from "./app.js";
 import {portCheck} from "./utils/portCheck.js";
 import {shutdown} from "./utils/shutdown.js";
 import {connectDB, disconnectDB} from "./config/db.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const isShuttingDown = {value: false};
 
-dotenv.config({path: resolve(__dirname, "../../.env")})
 const BACK_PORT = process.env.BACK_PORT;
 
 let backPort;

@@ -1,10 +1,9 @@
 import {prisma} from "../config/db.js";
 
 const meUser = async (req, res) => {
-	req.user = {
-		name: req.user.name,
-	};
-	res.status(200).json(req.user);
+	res.status(200).json({
+		user: req.user},
+	);
 }
 
 const deleteUser = async (req, res) => {

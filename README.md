@@ -47,7 +47,7 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 			- \l || \d || \q
 		- npx prisma migrate dev --name add_tables	(npm run db:migrate)  -> Needed to call to set up tables from schema.prisma
 		- npx prisma generate						(npm run db:generate) -> Needs to be called after migrate
-		- npx prisma studio							(npm run dp:studio)   -> To see database tables in browser UI
+		- npx prisma studio							(npm run db:studio)   -> To see database tables in browser UI
 	- npm install (to install node packages defined in package.json)
 	- npm run dev (sets up a local development server, enabling real-time code changes and instant feedback)
 
