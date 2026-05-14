@@ -15,8 +15,8 @@ function Header() {
     <div>
       <nav className="header">
         <Link to="/">GoodPlays</Link>
-        <Link to="/explore">Explore</Link>
-        <Link to="/mygames">My games</Link>
+        {/* <Link to="/explore">Explore</Link>
+        <Link to="/mygames">My games</Link> */}
       </nav>
     </div>
   );

@@ -6,7 +6,7 @@
     "module": "esnext",
     "types": ["vite/client"],
     "skipLibCheck": true,
-	"allowJs": true,
+    "allowJs": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",

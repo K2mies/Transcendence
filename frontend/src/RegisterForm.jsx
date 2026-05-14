@@ -40,7 +40,7 @@ const schema = z
   });
 
 const RegisterForm = () => {
-  const { handleSubmit, control, watch } = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       username: "",
@@ -50,20 +50,11 @@ const RegisterForm = () => {
       confirmPassword: "",
     },
   });
-  //here we create the variables to be watched and then passed to the console
-  //this should be removed when in production to avoid information leaks
-  const username = watch("username");
-  const email = watch("email");
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
-  const age = watch("age");
-  //this should be removed when in production to avoid information leaks
-  console.log(username, email, password, confirmPassword, age);
 
   //this is excluding confirm password and age from the final object created(add any exceptions here)
   const onSubmit = (data) => {
     const { confirmPassword, age, ...submitData } = data;
-    console.log(submitData);
+    // send data to backend to be stored in database
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
