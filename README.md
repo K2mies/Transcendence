@@ -37,6 +37,17 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 ### Backend
 	- create .env in repository root (fill it using the .env section at the bottom of this README)
 	- cd backend/
+	- Local postgresql setup:
+		- sudo apt install postgresql
+		- sudo systemctl status postgresql
+		- pg_lsclusters
+		- sudo -u postgres psql
+			- CREATE DATABASE goodplays_db;
+			- ALTER USER postgres WITH PASSWORD 'password';
+			- \l || \d || \q
+		- npx prisma migrate dev --name add_tables	(npm run db:migrate)  -> Needed to call to set up tables from schema.prisma
+		- npx prisma generate						(npm run db:generate) -> Needs to be called after migrate
+		- npx prisma studio							(npm run db:studio)   -> To see database tables in browser UI
 	- npm install (to install node packages defined in package.json)
 	- npm run dev (sets up a local development server, enabling real-time code changes and instant feedback)
 
@@ -115,9 +126,9 @@ Example [fields]:
 
 Example:
   ```
-	/api/v1/users
-	/api/v1/games
-	/api/v1/reviews
+	/users
+	/games
+	/reviews
   ```
 
 ### Websocket Events
@@ -153,11 +164,14 @@ Examples:
 
 ### .env
   ```
-  BACK_PORT="4242"
-  DB_NAME="goodplays_db"
-  DB_USER="postgres"
-  DB_PASSWORD="password"
-  DATABASE_URL="postgresql://postgres:password@postgres_db:5432/goodplays_db"
+	BACK_PORT="4242"
+	DB_NAME="goodplays_db"
+	DB_USER="postgres"
+	DB_PASSWORD="password"
+	DATABASE_URL="postgresql://postgres:password@postgres_db:5432/goodplays_db"
+	NODE_ENV="development"
+	JWT_SECRET="FF3TiU2cuYBp1sINjwjKS/cVa9G1Fp9ZwG3cyWJtxME="
+	JWT_EXPIRES_IN="1d"
   ```
 
 ---
