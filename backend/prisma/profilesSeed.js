@@ -4,8 +4,10 @@ const prisma = new PrismaClient();
 
 async function main() {
 //Example profile
-await prisma.user.create({
- data: {
+await prisma.user.upsert({
+ where: { name: "evitaplays"},
+ update: { },
+ create: {
         name: "evitaplays",
         email: "evitaplays@example.com",
         password: "password",
@@ -48,8 +50,10 @@ await prisma.user.create({
 
   // ── 1. THE ZEN FARMER ──────────────────────────────────────
   // Cozy/casual gamer, mostly plays to unwind. Writes a lot.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "mossy.saves"},
+	update: { },
+    create: {
       name: "mossy.saves",
       email: "mossy.saves@example.com",
       password: "password",
@@ -109,8 +113,10 @@ await prisma.user.create({
  
   // ── 2. THE SOULS VETERAN ───────────────────────────────────
   // Hardcore, minimal bio, let the completed list speak.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "ashenone_"},
+	update: { },
+    create: {
       name: "ashenone_",
       email: "ashenone_@example.com",
       password: "password",
@@ -171,8 +177,10 @@ await prisma.user.create({
  
   // ── 3. THE NARRATIVE CHASER ────────────────────────────────
   // Plays for story and themes, writes mini-essays in their bio.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "lore.and.lucia"},
+	update: { },
+    create: {
       name: "lore.and.lucia",
       email: "lore.and.lucia@example.com",
       password: "password",
@@ -238,8 +246,10 @@ await prisma.user.create({
  
   // ── 4. THE MULTIPLAYER LURKER ──────────────────────────────
   // Only plays online games, barely touches their profile.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "xKr4t0sx"},
+	update: { },
+    create: {
       name: "xKr4t0sx",
       email: "xkr4t0sx@example.com",
       password: "password",
@@ -289,8 +299,10 @@ await prisma.user.create({
  
   // ── 5. THE TROPHY HUNTER ───────────────────────────────────
   // PlayStation-loyal, obsessed with 100%-ing games, quite active.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "platinum.petra"},
+	update: { },
+    create: {
       name: "platinum.petra",
       email: "platinum.petra@example.com",
       password: "password",
@@ -352,8 +364,10 @@ await prisma.user.create({
  
   // ── 6. THE INDIE EXPLORER ──────────────────────────────────
   // Seeks out hidden gems, dislikes AAA bloat, very opinionated.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "neon.felix"},
+	update: { },
+    create: {
       name: "neon.felix",
       email: "neon.felix@example.com",
       password: "password",
@@ -431,8 +445,10 @@ await prisma.user.create({
  
   // ── 7. THE WEEKEND CO-OP DAD ───────────────────────────────
   // Parent gamer, plays with family/friends, nostalgic but limited time.
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+	where: { name: "daveplays_sometimes"},
+	update: { },
+    create: {
       name: "daveplays_sometimes",
       email: "daveplays_sometimes@example.com",
       password: "password",
@@ -504,5 +520,8 @@ await prisma.user.create({
 }
 
 main()
-  .catch(console.error)
+   .catch((error) => {
+     console.error(error);
+     process.exitCode = 1;
+   })
   .finally(() => prisma.$disconnect())
