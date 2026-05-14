@@ -73,7 +73,7 @@ CREATE TABLE "UserGameRelation" (
     "gameId" INTEGER NOT NULL,
     "status" "GameStatus" NOT NULL,
     "favorite" BOOLEAN NOT NULL DEFAULT false,
-    "platformId" INTEGER NOT NULL,
+    "platformId" INTEGER,
 
     CONSTRAINT "UserGameRelation_pkey" PRIMARY KEY ("id")
 );
@@ -140,9 +140,6 @@ CREATE UNIQUE INDEX "GameMode_name_key" ON "GameMode"("name");
 CREATE UNIQUE INDEX "Genre_name_key" ON "Genre"("name");
 
 -- CreateIndex
-CREATE INDEX "Genre_name_idx" ON "Genre"("name");
-
--- CreateIndex
 CREATE UNIQUE INDEX "UserGameRelation_userId_gameId_platformId_key" ON "UserGameRelation"("userId", "gameId", "platformId");
 
 -- CreateIndex
@@ -161,31 +158,31 @@ CREATE INDEX "_GameToGenre_B_index" ON "_GameToGenre"("B");
 CREATE INDEX "_GameToPlatform_B_index" ON "_GameToPlatform"("B");
 
 -- AddForeignKey
-ALTER TABLE "Review" ADD CONSTRAINT "Review_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Review" ADD CONSTRAINT "Review_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Review" ADD CONSTRAINT "Review_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Review" ADD CONSTRAINT "Review_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserGameRelation" ADD CONSTRAINT "UserGameRelation_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserGameRelation" ADD CONSTRAINT "UserGameRelation_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserGameRelation" ADD CONSTRAINT "UserGameRelation_platformId_fkey" FOREIGN KEY ("platformId") REFERENCES "Platform"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserGameRelation" ADD CONSTRAINT "UserGameRelation_platformId_fkey" FOREIGN KEY ("platformId") REFERENCES "Platform"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserGameRelation" ADD CONSTRAINT "UserGameRelation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserGameRelation" ADD CONSTRAINT "UserGameRelation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "LikeReview" ADD CONSTRAINT "LikeReview_reviewId_fkey" FOREIGN KEY ("reviewId") REFERENCES "Review"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "LikeReview" ADD CONSTRAINT "LikeReview_reviewId_fkey" FOREIGN KEY ("reviewId") REFERENCES "Review"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "LikeReview" ADD CONSTRAINT "LikeReview_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "LikeReview" ADD CONSTRAINT "LikeReview_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserUserRelation" ADD CONSTRAINT "UserUserRelation_friendId_fkey" FOREIGN KEY ("friendId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserUserRelation" ADD CONSTRAINT "UserUserRelation_friendId_fkey" FOREIGN KEY ("friendId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserUserRelation" ADD CONSTRAINT "UserUserRelation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "UserUserRelation" ADD CONSTRAINT "UserUserRelation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_GameToMode" ADD CONSTRAINT "_GameToMode_A_fkey" FOREIGN KEY ("A") REFERENCES "Game"("id") ON DELETE CASCADE ON UPDATE CASCADE;

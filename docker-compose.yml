@@ -2,8 +2,11 @@ services:
   backend:
     container_name: backend
     build: ./backend
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:' + process.env.BACK_PORT + '/api/v1/health', res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:' + process.env.BACK_PORT + '/health', res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
       interval: 5s
       timeout: 5s
       retries: 10

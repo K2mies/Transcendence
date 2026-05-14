@@ -1,52 +1,29 @@
-// We use ES modules (in package.json need to add "type": "module")
 import express from "express";
 import cors from "cors";
 
-import healthRoutes from "./routes/health.route.js";
 import profileRoutes from "./routes/profile.route.js";
+import cookieParser from "cookie-parser";
+import healthRoutes from "./routes/health.routes.js";
+import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
+import {protect} from "./utils/protectJWT.js";
+import {corsValidator} from "./middlewares/validateCors.js";
 
 // Initialize express
 const app = express();
 
 // Parses incoming JSON -> puts it in req.body; limit is protection against huge payload
 app.use(express.json({limit:"10kb"}));
+app.use(express.urlencoded({extended: true}));
 
-/* Define security between frontend and backend in development stage.
- * CORS (Cross-Origin Resource Sharing)
- * cors allows only requests from port 8080 (frontend),
- * allowed methods: GET, POST, PUT, DELETE.
- * Only allowed headers are "Content-Type" and "Authorization"
-*/
-const allowedOrigins = [
-	"http://localhost:8080"
-];
-
-/* This section configures the CORS middleware, which controls which browser origins are allowed to access the backend API.
- * When a request includes an Origin header, the middleware checks whether it is in the allowedOrigins list.
- * If the origin is valid, the request is allowed to proceed.
- * If not, an error is passed to the callback, which results in the request being rejected (typically with a 403 status via error handling).
- * This acts as a browser-enforced access control layer, preventing unauthorized websites from reading API responses.
-*/
-
-app.use(cors({
-	origin: function (origin, callback) {
-		if (!origin || allowedOrigins.includes(origin)) {
-			callback(null, true);
-		} else {
-			const err = new Error("Not allowed by CORS");
-			err.type = "CORS";
-			err.statusCode = 403;
-			callback(err);
-		}
-	},
-	methods: ["GET", "POST", "PUT", "DELETE"],
-	allowedHeaders: ["Content-Type", "Authorization"],
-	credentials: true
-}));
+app.use(cookieParser());
+app.use(corsValidator);
 
 // Routes
-app.use("/api/v1/health", healthRoutes);
-app.use("/api/v1/profile", profileRoutes);
+app.use("/health", healthRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", protect, userRoutes);
+app.use("/profile", profileRoutes);
 
 // 404 handler
 app.use((req, res) => {

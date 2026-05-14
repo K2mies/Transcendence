@@ -4,50 +4,58 @@ import {fileURLToPath} from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 dotenv.config({path: resolve(__dirname, "../../.env")})
 
 import app from "./app.js";
+import {portCheck} from "./utils/portCheck.js";
+import {shutdown} from "./utils/shutdown.js";
+import {connectDB, disconnectDB} from "./config/db.js";
+
+const isShuttingDown = {value: false};
 
 const BACK_PORT = process.env.BACK_PORT;
 
-if (!BACK_PORT)
-	throw new Error("BACK_PORT is not defined in .env!");
+let backPort;
 
-const backPort = Number.parseInt(BACK_PORT, 10);
+try {
+	backPort = portCheck(BACK_PORT);
+} catch (error) {
+	console.error(`${error}`);
+	process.exit(1);
+}
 
-if (
-	!Number.isInteger(backPort) ||
-	String(backPort) !== BACK_PORT.trim() ||
-	backPort < 1 ||
-	backPort > 65535
-)
-	throw new Error("BACK_PORT must be a valid integer between 1 and 65535.");
+await connectDB();
 
 // Open port that is defined in .env and the callback function to indicate that the PORT is listening
 const server = app.listen(backPort, () => {
 	console.log(`Server running on ${BACK_PORT}`);
 });
 
-// Handle termination signals
-let isShuttingDown = false;
+process.on("SIGINT", () => shutdown("SIGINT", isShuttingDown, server));
+process.on("SIGTERM", () => shutdown("SIGTERM", isShuttingDown, server));
 
-function shutdown(signal) {
-	if (isShuttingDown)
-		return;
-	isShuttingDown = true;
-	console.log(`\nSignal [ ${signal} ] received. Shutting down...`);
-	server.close(() => {
-		console.log("Server closed.");
-		process.exit(0);
+// Handle unhandled promises rejections (e.g., database connection errors)
+process.on("unhandledRejection", (err) => {
+	console.error("Unhandled Rejection:", err);
+	server.close(async () => {
+		try {
+			await disconnectDB();
+		} catch (error) {
+			console.error("Error disconnectiong DB during unhandeled rejection shutdown:", error);
+		} finally {
+			process.exit(1);
+		}
 	});
+});
 
-	// Force exit if still hanging
-	setTimeout(() => {
-		console.log("Forced shutdown (timeout)");
+// Handle uncaught exceptions
+process.on("uncaughtException", async (err) => {
+	console.error("Uncaught Exception:", err);
+	try {
+		await disconnectDB();
+	} catch (error) {
+		console.error("Error disconnectiong DB during uncaught exception shutdown:", error);
+	} finally {
 		process.exit(1);
-	}, 5000);
-}
-
-process.on("SIGINT", () => shutdown("SIGINT"));
-process.on("SIGTERM", () => shutdown("SIGTERM"));
+	}
+});
