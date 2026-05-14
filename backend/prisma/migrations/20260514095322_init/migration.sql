@@ -73,7 +73,7 @@ CREATE TABLE "UserGameRelation" (
     "gameId" INTEGER NOT NULL,
     "status" "GameStatus" NOT NULL,
     "favorite" BOOLEAN NOT NULL DEFAULT false,
-    "platformId" INTEGER NOT NULL,
+    "platformId" INTEGER,
 
     CONSTRAINT "UserGameRelation_pkey" PRIMARY KEY ("id")
 );
