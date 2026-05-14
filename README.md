@@ -164,7 +164,7 @@ Examples:
 
 ### .env
   ```
-	BACK_PORT="4242"
+	BACK_PORT="4243"
 	DB_NAME="goodplays_db"
 	DB_USER="postgres"
 	DB_PASSWORD="password"

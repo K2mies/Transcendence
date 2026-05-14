@@ -11,6 +11,9 @@ npx prisma@6 generate
 echo "🌱 Running seed (idempotent)..."
 node prisma/gamesSeed.js
 
+echo "🌱 Running profile seed..."
+node prisma/profilesSeed.js
+
 echo "🚀 Starting server..."
 # in package.json, we need to define in "scripts": { "start": "node server.js" } or similar
 exec npm start
