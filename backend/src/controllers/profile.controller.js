@@ -12,7 +12,7 @@ export async function updateProfile(req, res)
 {
 	const userId = Number(req.params.id)
 	// if (userId != req.user.id) { //This is commented out for now but we need this as the user can only update their own profile
-	// 	res.status(403).json({ "Request forbidden" })
+	// 	return res.status(403).json({ "Request forbidden" })
 	// }
 	const newData = req.body
 	try {
