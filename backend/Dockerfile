@@ -11,6 +11,6 @@ COPY . .
 RUN chmod +x docker-entryscript.sh
 
 # should match with BACK_PORT in .env (used in docker-compose.yml)
-EXPOSE 4242
+EXPOSE 4243
 
 CMD ["sh", "docker-entryscript.sh"]
