@@ -38,14 +38,24 @@ process.on("SIGTERM", () => shutdown("SIGTERM", isShuttingDown, server));
 process.on("unhandledRejection", (err) => {
 	console.error("Unhandled Rejection:", err);
 	server.close(async () => {
-		await disconnectDB();
-		process.exit(1);
+		try {
+			await disconnectDB();
+		} catch (error) {
+			console.error("Error disconnectiong DB during unhandeled rejection shutdown:", error);
+		} finally {
+			process.exit(1);
+		}
 	});
 });
 
 // Handle uncaught exceptions
 process.on("uncaughtException", async (err) => {
 	console.error("Uncaught Exception:", err);
-	await disconnectDB();
-	process.exit(1);
+	try {
+		await disconnectDB();
+	} catch (error) {
+		console.error("Error disconnectiong DB during uncaught exception shutdown:", error);
+	} finally {
+		process.exit(1);
+	}
 });

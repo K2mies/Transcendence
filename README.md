@@ -168,7 +168,7 @@ Examples:
 	DB_NAME="goodplays_db"
 	DB_USER="postgres"
 	DB_PASSWORD="password"
-	DATABASE_URL="postgresql://postgres:password@localhost:5432/goodplays_db"
+	DATABASE_URL="postgresql://postgres:password@postgres_db:5432/goodplays_db"
 	NODE_ENV="development"
 	JWT_SECRET="FF3TiU2cuYBp1sINjwjKS/cVa9G1Fp9ZwG3cyWJtxME="
 	JWT_EXPIRES_IN="1d"
