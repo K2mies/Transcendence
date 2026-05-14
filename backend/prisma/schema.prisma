@@ -74,9 +74,9 @@ model UserGameRelation {
   gameId     Int
   status     GameStatus
   favorite   Boolean    @default(false)
-  platformId Int
+  platformId Int?
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  platform   Platform   @relation(fields: [platformId], references: [id], onDelete: Cascade)
+  platform   Platform?  @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, gameId, platformId])
