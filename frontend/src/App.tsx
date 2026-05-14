@@ -9,6 +9,7 @@ import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import isSigned from "./IsSigned"
+import TestGame from "./TestGame"
 
 function Header() {
   return (
@@ -34,6 +35,7 @@ function Home() {
         <Link to="/login">Log in</Link>
         <p>New user?</p>
         <Link to="/register">Sign up!</Link>
+		<Link to="/testgame">Show one game</Link>
       </div>
     );
   }
@@ -58,6 +60,15 @@ function Login() {
   );
 }
 
+function GameTest() {
+  return (
+    <div>
+      <h2>Test of game display</h2>
+      <TestGame></TestGame>
+    </div>
+  );
+}
+
 function Layout() {
   const location = useLocation();
   return (
@@ -69,6 +80,7 @@ function Layout() {
         <Route path="/" element={<Home />} />
         <Route path="register" element={<SignUp />} />
         <Route path="login" element={<Login />} />
+        <Route path="testgame" element={<GameTest />} />
       </Routes>
     </>
   );

@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 import healthRoutes from "./routes/health.route.js";
+import testGameRoute from "./routes/testgame.route.js";
 
 // Initialize express
 const app = express();
@@ -45,6 +46,7 @@ app.use(cors({
 
 // Routes
 app.use("/api/v1/health", healthRoutes);
+app.use("/testgame", testGameRoute);
 
 // 404 handler
 app.use((req, res) => {
