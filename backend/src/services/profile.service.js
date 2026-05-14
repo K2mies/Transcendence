@@ -1,4 +1,4 @@
-import {prisma} from "../../prisma/client.js"
+import {prisma} from "../config/db.js";
 
 function filterGameInfo(games, status) //Also do we want to make profile helpers file?
 {
@@ -21,6 +21,7 @@ including more information on the game and platform
 and all the reviews that the user has liked. This however feels more like nice to have!
 reviews: true,
 likeReviews: true,
+Do I need to somehow filter even more on what info we include from the user, now it returns the entire game object but we don't really need that
 */
 export async function getProfile(profileId)
 {

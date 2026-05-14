@@ -1,4 +1,4 @@
-import {prisma} from "./client.js"
+import {prisma} from "../src/config/db.js"
 import fs from "fs";
 import path from "path";
 import {fileURLToPath} from "url";

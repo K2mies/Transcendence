@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import profileRoutes from "./routes/profile.route.js";
+import profileRoutes from "./routes/profile.routes.js";
 import cookieParser from "cookie-parser";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
