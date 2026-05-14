@@ -64,8 +64,8 @@ model Review {
   review      String?
   rating      Int
   likeReviews LikeReview[]
-  game        Game         @relation(fields: [gameId], references: [id])
-  user        User         @relation(fields: [userId], references: [id])
+  game        Game         @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserGameRelation {
@@ -75,9 +75,9 @@ model UserGameRelation {
   status     GameStatus
   favorite   Boolean    @default(false)
   platformId Int
-  game       Game       @relation(fields: [gameId], references: [id])
-  platform   Platform   @relation(fields: [platformId], references: [id])
-  user       User       @relation(fields: [userId], references: [id])
+  game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  platform   Platform   @relation(fields: [platformId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, gameId, platformId])
 }
@@ -86,8 +86,8 @@ model LikeReview {
   id       Int    @id @default(autoincrement())
   userId   Int
   reviewId Int
-  review   Review @relation(fields: [reviewId], references: [id])
-  user     User   @relation(fields: [userId], references: [id])
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, reviewId])
 }
@@ -97,8 +97,8 @@ model UserUserRelation {
   userId   Int
   friendId Int
   status   FriendshipStatus
-  friend   User             @relation("receivedRequests", fields: [friendId], references: [id])
-  user     User             @relation("sentRequests", fields: [userId], references: [id])
+  friend   User             @relation("receivedRequests", fields: [friendId], references: [id], onDelete: Cascade)
+  user     User             @relation("sentRequests", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, friendId])
 }
