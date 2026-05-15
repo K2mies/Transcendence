@@ -20,17 +20,17 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
-        const response = await fetch("http://backend:4243/auth/login", {
+        const response = await fetch("http://localhost:4243/auth/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
 	            },
             body: JSON.stringify(data)
         });
-        const res = response.json();
+        const res = await response.json();
         if (response.ok)
             console.log("Login was successful");
-        else if (response.status === "401")
+        else if (response.status === 401)
             console.error("Username or password incorrect") // How to render this text?
         else
             console.error(res);

@@ -8,7 +8,7 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import isSigned from "./IsSigned"
+import isSigned from "./isSigned"
 
 function Header() {
   return (
