@@ -8,16 +8,16 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import isSigned from "./IsSigned"
 import TestGame from "./TestGame"
+import isSigned from "./isSigned"
 
 function Header() {
   return (
     <div>
       <nav className="header">
         <Link to="/">GoodPlays</Link>
-        <Link to="/explore">Explore</Link>
-        <Link to="/mygames">My games</Link>
+        {/* <Link to="/explore">Explore</Link>
+        <Link to="/mygames">My games</Link> */}
       </nav>
     </div>
   );
