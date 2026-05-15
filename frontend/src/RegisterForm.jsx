@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
@@ -40,6 +41,7 @@ const schema = z
   });
 
 const RegisterForm = () => {
+  const [registerStatus, setRegisterStatus,] = useState("init");
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -63,7 +65,12 @@ const RegisterForm = () => {
       body: JSON.stringify(submitData)
     })
     .then(response => response.json())
-    .then(data => console.log('Success!', data))
+    .then((res) => {
+		if (res.status === "success")
+			setRegisterStatus("Registration was successful!");
+		else
+			setRegisterStatus(res.error);
+	})
     .catch((error) => {
       console.error('Error:', error);
     })
@@ -99,6 +106,13 @@ const RegisterForm = () => {
       <ControlledInput control={control} name="age" label="Age" autoComplete="off" type="number" />
 
       <input type="submit" />
+
+      {registerStatus !== "init" && (
+        <div>
+			<p>{registerStatus}</p>
+		</div>
+	  )}
+
     </form>
   );
 };
