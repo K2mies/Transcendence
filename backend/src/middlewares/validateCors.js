@@ -8,7 +8,8 @@ import cors from "cors";
 */
 const allowedOrigins = [
 	"http://localhost:8080",
-	"http://localhost:4242"
+	"http://localhost:4243",
+	"http://localhost:5173"
 ];
 
 /*

@@ -5,7 +5,7 @@ import ControlledInput from "./ControlledInput";
 
 const schema = z
   .object({
-    username: z
+    name: z
       .string()
       .min(3, "Username must be at least 3 characters")
       .max(20, "Username must be max 20 characters")
@@ -40,34 +40,37 @@ const schema = z
   });
 
 const RegisterForm = () => {
-  const { handleSubmit, control, watch } = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       age: 18,
       password: "",
       confirmPassword: "",
     },
   });
-  //here we create the variables to be watched and then passed to the console
-  //this should be removed when in production to avoid information leaks
-  const username = watch("username");
-  const email = watch("email");
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
-  const age = watch("age");
-  //this should be removed when in production to avoid information leaks
-  console.log(username, email, password, confirmPassword, age);
 
   //this is excluding confirm password and age from the final object created(add any exceptions here)
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { confirmPassword, age, ...submitData } = data;
     console.log(submitData);
-  };
+    await fetch("http://localhost:4243/auth/register", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(submitData)
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success!', data))
+    .catch((error) => {
+      console.error('Error:', error);
+    })
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ControlledInput control={control} name="username" label="Username" autoComplete="off" />
+      <ControlledInput control={control} name="name" label="Username" autoComplete="off" />
 
       <ControlledInput
         control={control}

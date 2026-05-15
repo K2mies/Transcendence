@@ -5,8 +5,8 @@ import ControlledInput from "./ControlledInput";
 
 const schema = z
   .object({
-    email: z.string(),
-    password: z.string(),
+    email: z.email(),
+    password: z.string().min(1, "Password is required"),
   })
 
 const LoginForm = () => {
@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
 	try {
-		const response = await fetch("http://backend:4243/auth/login", {
+		const response = await fetch("http://localhost:4243/auth/login", {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const LoginForm = () => {
 		else if (response.status === "401")
 			console.error("Username or password incorrect") // How to render this text?
 		else
-			console.error(res);
+			console.error(res.status);
 	} catch (error) {
 		console.error(error);
 	}

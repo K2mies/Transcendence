@@ -21,7 +21,7 @@ app.use(corsValidator);
 app.use("/health", healthRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", protect, userRoutes);
-app.use("/testgame", GameRoutes)
+app.use("/testgame", testGameRoute)
 
 // 404 handler
 app.use((req, res) => {
