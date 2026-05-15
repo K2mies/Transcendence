@@ -31,10 +31,14 @@ function Home() {
 
         <h1>GoodPlays</h1>
         <h2>Welcome to GoodPlays!</h2>
-        <p>Already have an account?</p>
-        <Link to="/login">Log in</Link>
-        <p>New user?</p>
-        <Link to="/register">Sign up!</Link>
+		<div>
+			<p>Already have an account?</p>
+			<Link to="/login">Log in</Link>
+		</div>
+		<div>
+			<p>New user?</p>
+			<Link to="/register">Sign up!</Link>
+		</div>
 		<Link to="/testgame">Show one game</Link>
       </div>
     );
@@ -47,6 +51,8 @@ function SignUp() {
     <div>
       <h2>Sign up to GoodPlays</h2>
       <RegisterForm></RegisterForm>
+	  <p>Already have an account?</p>
+	  <Link to="/login">Log in</Link>
     </div>
   );
 }
