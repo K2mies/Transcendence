@@ -42,7 +42,7 @@ services:
     container_name: frontend
     build: ./frontend
     ports:
-      - "8080:80"
+      - "5173:80"
     networks:
       - gp_internal
     restart: always
