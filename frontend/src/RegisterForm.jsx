@@ -56,7 +56,6 @@ const RegisterForm = () => {
   //this is excluding confirm password and age from the final object created(add any exceptions here)
   const onSubmit = async (data) => {
     const { confirmPassword, age, ...submitData } = data;
-    console.log(submitData);
     await fetch("http://localhost:4243/auth/register", {
       method: "POST",
       headers: {
