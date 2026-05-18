@@ -3,6 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -41,7 +42,11 @@ const schema = z
   });
 
 const RegisterForm = () => {
-  const [registerStatus, setRegisterStatus,] = useState("init");
+  const navigate = useNavigate();
+  if (localStorage.getItem("token")) {
+    navigate("/dashboard");
+  }
+  const [registerStatus, setRegisterStatus] = useState("init");
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -59,24 +64,31 @@ const RegisterForm = () => {
     await fetch("http://localhost:4243/auth/register", {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitData)
+      body: JSON.stringify(submitData),
     })
-    .then(response => response.json())
-    .then((res) => {
-		if (res.status === "success")
-			setRegisterStatus("Registration was successful!");
-		else
-			setRegisterStatus(res.error);
-	})
-    .catch((error) => {
-      console.error('Error:', error);
-    })
-  }
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.status === "success") {
+          setRegisterStatus("Registration was successful!");
+          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("user", JSON.stringify(result.data.user));
+          navigate("/dashboard");
+        } else setRegisterStatus(result.error);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ControlledInput control={control} name="name" label="Username" autoComplete="off" />
+      <ControlledInput
+        control={control}
+        name="name"
+        label="Username"
+        autoComplete="off"
+      />
 
       <ControlledInput
         control={control}
@@ -102,16 +114,21 @@ const RegisterForm = () => {
         type="password"
       />
 
-      <ControlledInput control={control} name="age" label="Age" autoComplete="off" type="number" />
+      <ControlledInput
+        control={control}
+        name="age"
+        label="Age"
+        autoComplete="off"
+        type="number"
+      />
 
       <input type="submit" />
 
       {registerStatus !== "init" && (
         <div>
-			<p>{registerStatus}</p>
-		</div>
-	  )}
-
+          <p>{registerStatus}</p>
+        </div>
+      )}
     </form>
   );
 };

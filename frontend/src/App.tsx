@@ -8,8 +8,9 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import DisplayProfile from "./Profile"
-import isSigned from "./isSigned"
+import isSigned from "./IsSigned";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 
 function Header() {
   return (
@@ -80,14 +81,20 @@ function Layout() {
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/" && location.pathname !== "/register"
-      && location.pathname !== "/login" && <Header />}
+      {location.pathname !== "/" &&
+        location.pathname !== "/register" &&
+        location.pathname !== "/login" && <Header />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="register" element={<SignUp />} />
-        <Route path="login" element={<Login />} />
-		<Route path="user/:username" element={<Profile />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="register" element={<SignUp />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </>
   );
