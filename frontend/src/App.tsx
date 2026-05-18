@@ -8,7 +8,7 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import isSigned from "./isSigned"
+import isSigned from "./IsSigned"
 
 function Header() {
   return (
@@ -30,10 +30,14 @@ function Home() {
 
         <h1>GoodPlays</h1>
         <h2>Welcome to GoodPlays!</h2>
-        <p>Already have an account?</p>
-        <Link to="/login">Log in</Link>
-        <p>New user?</p>
-        <Link to="/register">Sign up!</Link>
+        <div>
+          <p>Already have an account?</p>
+          <Link to="/login">Log in</Link>
+        </div>
+        <div>
+          <p>New user?</p>
+          <Link to="/register">Sign up!</Link>
+        </div>
       </div>
     );
   }

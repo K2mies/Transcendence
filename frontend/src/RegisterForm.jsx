@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
 
 const schema = z
   .object({
-    username: z
+    name: z
       .string()
       .min(3, "Username must be at least 3 characters")
       .max(20, "Username must be max 20 characters")
@@ -40,10 +41,11 @@ const schema = z
   });
 
 const RegisterForm = () => {
+  const [registerStatus, setRegisterStatus,] = useState("init");
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       age: 18,
       password: "",
@@ -52,13 +54,29 @@ const RegisterForm = () => {
   });
 
   //this is excluding confirm password and age from the final object created(add any exceptions here)
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { confirmPassword, age, ...submitData } = data;
-    // send data to backend to be stored in database
-  };
+    await fetch("http://localhost:4243/auth/register", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(submitData)
+    })
+    .then(response => response.json())
+    .then((res) => {
+		if (res.status === "success")
+			setRegisterStatus("Registration was successful!");
+		else
+			setRegisterStatus(res.error);
+	})
+    .catch((error) => {
+      console.error('Error:', error);
+    })
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ControlledInput control={control} name="username" label="Username" autoComplete="off" />
+      <ControlledInput control={control} name="name" label="Username" autoComplete="off" />
 
       <ControlledInput
         control={control}
@@ -87,6 +105,13 @@ const RegisterForm = () => {
       <ControlledInput control={control} name="age" label="Age" autoComplete="off" type="number" />
 
       <input type="submit" />
+
+      {registerStatus !== "init" && (
+        <div>
+			<p>{registerStatus}</p>
+		</div>
+	  )}
+
     </form>
   );
 };
