@@ -3,3 +3,64 @@
 	flex-direction: row;
 	justify-content: space-around;
 }
+
+.user-info {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.user-header {
+	display: flex;
+	justify-content: left;
+	margin-left: 1em;
+	grid-row: 1;
+	grid-column: 1;
+}
+
+.user-content {
+	margin-left: 1em;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 1em;
+}
+
+.user-bio {
+	width: 50%;
+	text-align: left;
+}
+
+.user-img {
+	width: 90px;
+	height: 120px;
+	grid-row: 2;
+	grid-column: 1;
+}
+
+.user-fav-games {
+	display: flex;
+	margin: 1em;
+	flex-direction: column;
+}
+
+.user-fav-games-header {
+	display: flex;
+	justify-content: left;
+}
+
+.user-fav-game-cards {
+	display: flex;
+	flex-direction: row;
+	gap: 2em;
+}
+
+.game-card {
+	list-style: none;
+	width: 100px;
+}
+
+.game-card-img {
+	width: 90px;
+	height: 120px;
+}
