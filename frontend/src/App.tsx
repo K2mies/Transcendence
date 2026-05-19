@@ -27,7 +27,7 @@ function Header() {
 function Home() {
   if (!isSigned.value) {
     return (
-      <div style={{ marginTop: "0px" }}>
+      <div style={{ margin: "0px" }}>
         <img src="/logo_03.jpg" alt="GoodPlays logo" />
 
         <h1>GoodPlays</h1>
@@ -41,7 +41,7 @@ function Home() {
 			<Link to="/register">Sign up!</Link>
 		</div>
 		<Link to="/testgame">Show one game</Link>
-		<Link to="/user/evitaplays">Show one profile</Link>
+		<Link to="/user/xKr4t0sx">Show one profile</Link>
       </div>
     );
   }

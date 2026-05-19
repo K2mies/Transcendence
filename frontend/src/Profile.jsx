@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 function DisplayProfile() {
 	const [profile, setProfile] = useState({});
 	const [favGames, setFavGames] = useState([]);
+	const [currGames, setCurrGames] = useState([]);
 	const { username } = useParams();
 
 	useEffect(() => {
@@ -18,7 +19,10 @@ function DisplayProfile() {
 				);
 			}
 			setProfile(res);
-			setFavGames(res.userGames);
+			let favorites = (res.userGames).filter((game) => game.favorite === true);
+			setFavGames(favorites);
+			let playing = (res.userGames).filter((game) => game.status === "PLAYING");
+			setCurrGames(playing);
 		}
 
 		loadProfile();
@@ -33,9 +37,9 @@ function DisplayProfile() {
 					<p className="user-bio">{profile.bio}</p>
 				</div>
 			</div>
-			<div className="user-fav-games">
-				<h4 className="user-fav-games-header">Favorite games</h4>
-				<ul className="user-fav-game-cards">
+			{favGames && <div className="user-games">
+				<h4 className="user-games-header">Favorite games</h4>
+				<ul className="user-game-cards">
 					{favGames.map((game) => (
 						<li key={game.game.id} className="game-card">
 							<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
@@ -43,7 +47,18 @@ function DisplayProfile() {
 						</li>
 					))}
 				</ul>
-			</div>
+			</div>}
+			{currGames && <div className="user-games">
+				<h4 className="user-games-header">Currently playing</h4>
+				<ul className="user-game-cards">
+					{currGames.map((game) => (
+						<li key={game.game.id} className="game-card">
+							<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
+							<p>{game.game.name}</p>
+						</li>
+					))}
+				</ul>
+			</div>}
 		</div>
 	);
 }

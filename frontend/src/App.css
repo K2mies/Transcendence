@@ -1,3 +1,7 @@
+.body {
+	width: 100%;
+}
+
 .header {
 	display: flex;
 	flex-direction: row;
@@ -13,17 +17,15 @@
 .user-header {
 	display: flex;
 	justify-content: left;
-	margin-left: 1em;
 	grid-row: 1;
 	grid-column: 1;
 }
 
 .user-content {
-	margin-left: 1em;
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
-	gap: 1em;
+	gap: 3em;
 }
 
 .user-bio {
@@ -38,18 +40,19 @@
 	grid-column: 1;
 }
 
-.user-fav-games {
+.user-games {
 	display: flex;
-	margin: 1em;
 	flex-direction: column;
+	overflow-x: auto;
+	width: 100%;
 }
 
-.user-fav-games-header {
+.user-games-header {
 	display: flex;
 	justify-content: left;
 }
 
-.user-fav-game-cards {
+.user-game-cards {
 	display: flex;
 	flex-direction: row;
 	gap: 2em;
