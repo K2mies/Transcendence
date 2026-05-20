@@ -1,0 +1,29 @@
+import {PrismaClient} from "@prisma/client";
+import express from "express";
+
+const router = express.Router();
+
+router.get("/", async (req, res) => {
+	const username = req.query.name;
+	try {
+		const prisma = new PrismaClient();
+		const response = await prisma.user.findUnique({
+			where: { name: username, },
+			include: {
+				userGames: {
+					include: {
+						game: true,
+					},
+				},
+			}
+		});
+		if (!response)
+			res.status(404).json({ error: "User not found" });
+		else
+			res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ error: "Internal server error" });
+	}
+});
+
+export default router;
