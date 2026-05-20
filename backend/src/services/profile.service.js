@@ -1,6 +1,6 @@
 import {prisma} from "../config/db.js";
 
-function filterGameInfo(games, status) //Also do we want to make profile helpers file?
+function filterGameInfo(games, status)
 {
 	return games
 	.filter(game => game.status === status)
@@ -11,22 +11,10 @@ function filterGameInfo(games, status) //Also do we want to make profile helpers
 	}))
 }
 
-/*
-Fetch info from the user table by using id.
-- In addition to the "basic/static user info" we may get, we also want to include the user's games (so all rows in UserGameRelation that belongs to user),
-including more information on the game and platform
-- We also want to include more information on their friends
-
--Previously, we also had include reviews and likereviews so then on the profile page we could showcase these are all the reviews written by the user
-and all the reviews that the user has liked. This however feels more like nice to have!
-reviews: true,
-likeReviews: true,
-Do I need to somehow filter even more on what info we include from the user, now it returns the entire game object but we don't really need that
-*/
-export async function getProfile(profileId)
+export async function getProfile(profileName)
 {
 	const user = await prisma.user.findUnique({
-	where: { id: profileId },
+	where: { name: profileName },
 	include: {
 		userGames: {
 			include: {
@@ -69,7 +57,7 @@ export async function getProfile(profileId)
 		.filter(game => game.favorite === true)
 		.map(g => ({
 		id: g.game.id,
-		title: g.game.name,
+		name: g.game.name,
 		image: g.game.imageSmall
   		})),
 		to_play: filterGameInfo(user.userGames, "WANT_TO_PLAY"),
@@ -79,14 +67,14 @@ export async function getProfile(profileId)
 	}
 }
 
-export async function updateProfile(profileId, newData)
+export async function updateProfile(profileName, newData)
 {
 	if (await prisma.user.findUnique({ where: { name: newData.name}}))
 	{
 		throw "Username already taken"
 	}
 	const updateUser = await prisma.user.update({
-	where: { id: profileId },
+	where: { name: profileName },
 	data: {
 	name: newData.name,
 	bio: newData.bio 
