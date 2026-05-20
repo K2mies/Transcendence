@@ -8,7 +8,6 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import TestGame from "./TestGame"
 import DisplayProfile from "./Profile"
 import isSigned from "./isSigned"
 
@@ -40,7 +39,6 @@ function Home() {
 			<p>New user?</p>
 			<Link to="/register">Sign up!</Link>
 		</div>
-		<Link to="/testgame">Show one game</Link>
 		<Link to="/user/xKr4t0sx">Show one profile</Link>
       </div>
     );
@@ -64,14 +62,8 @@ function Login() {
     <div>
       <h2>Login to Goodplays</h2>
       <LoginForm></LoginForm>
-    </div>
-  );
-}
-
-function GameTest() {
-  return (
-    <div>
-      <TestGame></TestGame>
+	  <p>New user?</p>
+	  <Link to="/register">Sign up</Link>
     </div>
   );
 }
@@ -95,7 +87,6 @@ function Layout() {
         <Route path="/" element={<Home />} />
         <Route path="register" element={<SignUp />} />
         <Route path="login" element={<Login />} />
-        <Route path="testgame" element={<GameTest />} />
 		<Route path="user/:username" element={<Profile />} />
       </Routes>
     </>

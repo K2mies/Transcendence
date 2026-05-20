@@ -16,9 +16,10 @@
 
 .user-header {
 	display: flex;
-	justify-content: left;
-	grid-row: 1;
-	grid-column: 1;
+}
+
+.user-header h2 {
+	margin-right: 2em;
 }
 
 .user-content {
@@ -43,8 +44,6 @@
 .user-games {
 	display: flex;
 	flex-direction: column;
-	overflow-x: auto;
-	width: 100%;
 }
 
 .user-games-header {
@@ -52,7 +51,12 @@
 	justify-content: left;
 }
 
-.user-game-cards {
+.game-cards-scroll-cont {
+	overflow-x: auto;
+	width: 100%;
+}
+
+.game-cards {
 	display: flex;
 	flex-direction: row;
 	gap: 2em;

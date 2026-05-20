@@ -18,12 +18,11 @@ router.get("/", async (req, res) => {
 			}
 		});
 		if (!response)
-			res.status(404).error("NOT FOUND!");
+			res.status(404).json({ error: "User not found" });
 		else
-			await res.json(response);
+			res.status(200).json(response);
 	} catch (error) {
-		res.status(404);
-		console.error(error);
+		res.status(500).json({ error: "Internal server error" });
 	}
 });
 
