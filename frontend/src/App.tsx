@@ -39,7 +39,7 @@ function Home() {
 			<p>New user?</p>
 			<Link to="/register">Sign up!</Link>
 		</div>
-		<Link to="/user/xKr4t0sx">Show one profile</Link>
+		<Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
       </div>
     );
   }
