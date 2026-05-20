@@ -46,6 +46,11 @@
 	flex-direction: column;
 }
 
+.custom-prev,
+.custom-next {
+	color: black;
+}
+
 .user-games-header {
 	display: flex;
 	justify-content: left;

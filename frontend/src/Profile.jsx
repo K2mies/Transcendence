@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useSwiper } from "swiper/react";
+
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 function ProfileInfo(props) {
 	return (
@@ -13,42 +19,108 @@ function ProfileInfo(props) {
 				<p className="user-bio">{props.profile.bio}</p>
 			</div>
 		</div>
-	)
+	);
+}
+
+const SwiperButtonPrev = ({ children }) => {
+	const swiper = useSwiper();
+	return (
+		<button onClick={() => swiper.slidePrev()}>{children}</button>
+	);
+}
+
+const SwiperButtonNext = ({ children }) => {
+	const swiper = useSwiper();
+	return (
+		<button onClick={() => swiper.slideNext()}>{children}</button>
+	);
 }
 
 function FavoriteGames(props) {
 	return (
-		<div className="user-games">
-			<h4 className="user-games-header">Favorite games</h4>
-			<div className="game-cards-scroll-cont">
-				<ul className="game-cards">
-					{props.favGames.map((game) => (
-						<li key={game.game.id} className="game-card">
-							<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-							<p>{game.game.name}</p>
-						</li>
+		<>
+		<h4 className="user-games-header">Favorite games</h4>
+		{props.favGames.length > 5 ? (
+			<div>
+				<Swiper
+					modules={Navigation}
+					spaceBetween={30}
+					slidesPerView={5}
+					navigation={{
+						prevEl: '.custom-prev',
+						nextEl: '.custom-next',
+					}}
+					allowTouchMove={false}
+					>
+					<SwiperButtonPrev>←</SwiperButtonPrev>
+					{props.favGames.map((game, index) => (
+					<SwiperSlide key={game.game.id}>
+						<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
+						<p>{game.game.name}</p>
+					</SwiperSlide>
 					))}
-				</ul>
+					<SwiperButtonNext>→</SwiperButtonNext>
+				</Swiper>
 			</div>
-		</div>
+		) : (
+			<div className="user-games">
+				<div className="game-cards-scroll-cont">
+					<ul className="game-cards">
+						{props.favGames.map((game) => (
+							<li key={game.game.id} className="game-card">
+								<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
+								<p>{game.game.name}</p>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		)}
+		</>
 	)
 }
 
 function CurrentGames(props) {
 	return (
-		<div className="user-games">
-			<h4 className="user-games-header">Currently playing</h4>
-			<div className="game-cards-scroll-cont">
-				<ul className="game-cards">
-					{props.currGames.map((game) => (
-						<li key={game.game.id} className="game-card">
-							<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-							<p>{game.game.name}</p>
-						</li>
+		<>
+		<h4 className="user-games-header">Currently playing</h4>
+		{props.currGames.length > 5 ? (
+			<div>
+				<Swiper
+					modules={Navigation}
+					spaceBetween={30}
+					slidesPerView={5}
+					navigation={{
+						prevEl: '.custom-prev',
+						nextEl: '.custom-next',
+					}}
+					allowTouchMove={false}
+					>
+					<SwiperButtonPrev>←</SwiperButtonPrev>
+					{props.currGames.map((game, index) => (
+					<SwiperSlide key={game.game.id}>
+						<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
+						<p>{game.game.name}</p>
+					</SwiperSlide>
 					))}
-				</ul>
+					<SwiperButtonNext>→</SwiperButtonNext>
+				</Swiper>
 			</div>
-		</div>
+		) : (
+			<div className="user-games">
+				<div className="game-cards-scroll-cont">
+					<ul className="game-cards">
+						{props.currGames.map((game) => (
+							<li key={game.game.id} className="game-card">
+								<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
+								<p>{game.game.name}</p>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		)}
+		</>
 	)
 }
 
