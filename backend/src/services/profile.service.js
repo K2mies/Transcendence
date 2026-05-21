@@ -34,7 +34,6 @@ export async function getProfile(profileName)
 		},
 	},
 	})
-	console.log(JSON.stringify(user, null, 2))
 	return {
 		id: user.id,
 		name: user.name,
@@ -69,7 +68,8 @@ export async function getProfile(profileName)
 
 export async function updateProfile(profileName, newData)
 {
-	if (await prisma.user.findUnique({ where: { name: newData.name}}))
+	const existingUser = await prisma.user.findUnique({ where: { name: newData.name}})
+	if (existingUser && existingUser.name != profileName)
 	{
 		throw "Username already taken"
 	}

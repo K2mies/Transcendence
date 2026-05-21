@@ -3,9 +3,14 @@ import * as profileService from "../services/profile.service.js"
 export async function getProfile(req, res)
 {
 	const userName = req.params.name
-	const profile = await profileService.getProfile(userName)
-	console.log(profile)
-	res.json(profile)
+	try {
+		const profile = await profileService.getProfile(userName)
+		if (!profile)
+			return res.status(404).json({ error: "User not found" });
+		res.status(200).json(profile);			
+	} catch (error) {
+		return res.status(500).json({ error: "Internal server error" });		
+	}
 }
 
 export async function updateProfile(req, res)
@@ -18,9 +23,8 @@ export async function updateProfile(req, res)
 	try {
 		const profile = await profileService.updateProfile(userName, newData)
 		if (!profile)
-			res.status(404).json({ error: "User not found" });		
-		else
-			res.status(200).json(profile);
+			return res.status(404).json({ error: "User not found" });		
+		res.status(200).json(profile);
 	} catch (error) {
 		res.status(409).json({ error })		
 	}
