@@ -46,10 +46,7 @@ function DisplayGames(props) {
 					modules={Navigation}
 					spaceBetween={30}
 					slidesPerView={5}
-					navigation={{
-						prevEl: '.custom-prev',
-						nextEl: '.custom-next',
-					}}
+					navigation={true}
 					allowTouchMove={false}
 					>
 					<SwiperButtonPrev>←</SwiperButtonPrev>
@@ -87,15 +84,16 @@ function DisplayProfile() {
 
 	useEffect(() => {
 		async function loadProfile() {
-			const response = await fetch(`http://localhost:4243/profile/${username}`);
+			const user = encodeURIComponent(username);
+			const response = await fetch(`http://localhost:4243/profile/${user}`);
 			if (response.status === 200) {
 				const res = await response.json();
 				setIsUserFound(true);
 				setProfile(res);
-				let favorites = res.favorites
-				setFavGames(favorites);
-				let playing = res.playing
-				setCurrGames(playing);
+				if (res.favorites)
+					setFavGames(res.favorites);
+				if (res.playing)
+					setCurrGames(res.playing);
 			} else {
 				setIsUserFound(false);
 			}
