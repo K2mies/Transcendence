@@ -54,9 +54,9 @@ function DisplayGames(props) {
 					>
 					<SwiperButtonPrev>←</SwiperButtonPrev>
 					{props.games.map((game, index) => (
-					<SwiperSlide key={game.game.id}>
-						<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-						<p>{game.game.name}</p>
+					<SwiperSlide key={game.id}>
+						<img className="game-card-img" src={game.image} alt={game.name}></img>
+						<p>{game.name}</p>
 					</SwiperSlide>
 					))}
 					<SwiperButtonNext>→</SwiperButtonNext>
@@ -66,9 +66,9 @@ function DisplayGames(props) {
 			<div className="user-games">
 				<ul className="game-cards">
 					{props.games.map((game) => (
-						<li key={game.game.id} className="game-card">
-							<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-							<p>{game.game.name}</p>
+						<li key={game.id} className="game-card">
+							<img className="game-card-img" src={game.image} alt={game.name}></img>
+							<p>{game.name}</p>
 						</li>
 					))}
 				</ul>
@@ -87,14 +87,14 @@ function DisplayProfile() {
 
 	useEffect(() => {
 		async function loadProfile() {
-			const response = await fetch(`http://localhost:4243/profile?name=${username}`);
+			const response = await fetch(`http://localhost:4243/profile/${username}`);
 			if (response.status === 200) {
 				const res = await response.json();
 				setIsUserFound(true);
 				setProfile(res);
-				let favorites = (res.userGames).filter((game) => game.favorite === true);
+				let favorites = res.favorites
 				setFavGames(favorites);
-				let playing = (res.userGames).filter((game) => game.status === "PLAYING");
+				let playing = res.playing
 				setCurrGames(playing);
 			} else {
 				setIsUserFound(false);
