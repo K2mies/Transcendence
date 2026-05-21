@@ -66,7 +66,7 @@ function DisplayProfile() {
 				const res = await response.json();
 				setIsUserFound(true);
 				setProfile(res);
-				let favorites = res.favourites
+				let favorites = res.favorites
 				setFavGames(favorites);
 				let playing = res.playing
 				setCurrGames(playing);

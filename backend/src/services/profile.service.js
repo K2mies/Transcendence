@@ -43,7 +43,7 @@ export async function getProfile(profileName)
 			.filter(f => f.status === "FRIENDS")
 			.map(f => ({
 			id: f.friend.id,
-			name: f.friend.name				
+			name: f.friend.name
 		})),
 			...user.sentRequests
 			.filter(f => f.status === "FRIENDS")
@@ -52,7 +52,7 @@ export async function getProfile(profileName)
 			name: f.friend.name
 		})),
 		],
-		favourites: user.userGames
+		favorites: user.userGames
 		.filter(game => game.favorite === true)
 		.map(g => ({
 		id: g.game.id,
@@ -77,7 +77,7 @@ export async function updateProfile(profileName, newData)
 	where: { name: profileName },
 	data: {
 	name: newData.name,
-	bio: newData.bio 
+	bio: newData.bio
 	},
 	});
 	return updateUser
