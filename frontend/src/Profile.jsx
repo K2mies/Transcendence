@@ -36,11 +36,11 @@ const SwiperButtonNext = ({ children }) => {
 	);
 }
 
-function FavoriteGames(props) {
+function DisplayGames(props) {
 	return (
 		<>
-		<h4 className="user-games-header">Favorite games</h4>
-		{props.favGames.length > 5 ? (
+		<h4 className="user-games-header">{props.header}</h4>
+		{props.games.length > 5 ? (
 			<div>
 				<Swiper
 					modules={Navigation}
@@ -53,7 +53,7 @@ function FavoriteGames(props) {
 					allowTouchMove={false}
 					>
 					<SwiperButtonPrev>←</SwiperButtonPrev>
-					{props.favGames.map((game, index) => (
+					{props.games.map((game, index) => (
 					<SwiperSlide key={game.game.id}>
 						<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
 						<p>{game.game.name}</p>
@@ -64,60 +64,14 @@ function FavoriteGames(props) {
 			</div>
 		) : (
 			<div className="user-games">
-				<div className="game-cards-scroll-cont">
-					<ul className="game-cards">
-						{props.favGames.map((game) => (
-							<li key={game.game.id} className="game-card">
-								<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-								<p>{game.game.name}</p>
-							</li>
-						))}
-					</ul>
-				</div>
-			</div>
-		)}
-		</>
-	)
-}
-
-function CurrentGames(props) {
-	return (
-		<>
-		<h4 className="user-games-header">Currently playing</h4>
-		{props.currGames.length > 5 ? (
-			<div>
-				<Swiper
-					modules={Navigation}
-					spaceBetween={30}
-					slidesPerView={5}
-					navigation={{
-						prevEl: '.custom-prev',
-						nextEl: '.custom-next',
-					}}
-					allowTouchMove={false}
-					>
-					<SwiperButtonPrev>←</SwiperButtonPrev>
-					{props.currGames.map((game, index) => (
-					<SwiperSlide key={game.game.id}>
-						<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-						<p>{game.game.name}</p>
-					</SwiperSlide>
+				<ul className="game-cards">
+					{props.games.map((game) => (
+						<li key={game.game.id} className="game-card">
+							<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
+							<p>{game.game.name}</p>
+						</li>
 					))}
-					<SwiperButtonNext>→</SwiperButtonNext>
-				</Swiper>
-			</div>
-		) : (
-			<div className="user-games">
-				<div className="game-cards-scroll-cont">
-					<ul className="game-cards">
-						{props.currGames.map((game) => (
-							<li key={game.game.id} className="game-card">
-								<img className="game-card-img" src={game.game.imageSmall} alt={game.game.name}></img>
-								<p>{game.game.name}</p>
-							</li>
-						))}
-					</ul>
-				</div>
+				</ul>
 			</div>
 		)}
 		</>
@@ -155,8 +109,16 @@ function DisplayProfile() {
 			{isUserFound &&
 			<div>
 				<ProfileInfo profile={profile}></ProfileInfo>
-				{favGames && <FavoriteGames favGames={favGames}></FavoriteGames>}
-				{currGames && <CurrentGames currGames={currGames}></CurrentGames>}
+				{favGames &&
+				<DisplayGames
+					header="Favorite games"
+					games={favGames}>
+				</DisplayGames>}
+				{currGames &&
+				<DisplayGames
+					header="Currently playing"
+					games={currGames}>
+				</DisplayGames>}
 			</div>}
 			{isUserFound === false &&
 			<div>

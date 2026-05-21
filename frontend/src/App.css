@@ -56,11 +56,6 @@
 	justify-content: left;
 }
 
-.game-cards-scroll-cont {
-	overflow-x: auto;
-	width: 100%;
-}
-
 .game-cards {
 	display: flex;
 	flex-direction: row;
