@@ -59,8 +59,8 @@ function DisplayGames(props) {
 						<p>{game.name}</p>
 					</SwiperSlide>
 					))}
-					<SwiperButtonPrev>←</SwiperButtonPrev>
-					<SwiperButtonNext>→</SwiperButtonNext>
+					<SwiperButtonPrev>&lt;</SwiperButtonPrev>
+					<SwiperButtonNext>&gt;</SwiperButtonNext>
 				</Swiper>
 			</div>
 		) : (

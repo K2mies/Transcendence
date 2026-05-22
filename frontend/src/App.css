@@ -51,6 +51,7 @@
 	color: black !important;
 	background: none !important;
 	border: none !important;
+	align-items: start !important;
 }
 
 .user-games-header {
