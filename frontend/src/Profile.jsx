@@ -25,14 +25,14 @@ function ProfileInfo(props) {
 const SwiperButtonPrev = ({ children }) => {
 	const swiper = useSwiper();
 	return (
-		<button onClick={() => swiper.slidePrev()}>{children}</button>
+		<div className="swiper-button-prev" onClick={() => swiper.slidePrev()}>{children}</div>
 	);
 }
 
 const SwiperButtonNext = ({ children }) => {
 	const swiper = useSwiper();
 	return (
-		<button onClick={() => swiper.slideNext()}>{children}</button>
+		<div className="swiper-button-next" onClick={() => swiper.slideNext()}>{children}</div>
 	);
 }
 
@@ -43,19 +43,23 @@ function DisplayGames(props) {
 		{props.games.length > 5 ? (
 			<div>
 				<Swiper
+					style={{ '--swiper-navigation-color': 'red' }}
 					modules={Navigation}
 					spaceBetween={30}
 					slidesPerView={5}
-					navigation={true}
+					navigation={{
+						prevEl: ".swiper-button-prev",
+						nextEl: ".swiper-button-next",
+					}}
 					allowTouchMove={false}
 					>
-					<SwiperButtonPrev>←</SwiperButtonPrev>
 					{props.games.map((game, index) => (
-					<SwiperSlide key={game.id}>
+						<SwiperSlide key={game.id}>
 						<img className="game-card-img" src={game.image} alt={game.name}></img>
 						<p>{game.name}</p>
 					</SwiperSlide>
 					))}
+					<SwiperButtonPrev>←</SwiperButtonPrev>
 					<SwiperButtonNext>→</SwiperButtonNext>
 				</Swiper>
 			</div>

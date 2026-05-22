@@ -46,9 +46,11 @@
 	flex-direction: column;
 }
 
-.custom-prev,
-.custom-next {
-	color: black;
+.swiper-button-prev,
+.swiper-button-next {
+	color: black !important;
+	background: none !important;
+	border: none !important;
 }
 
 .user-games-header {
