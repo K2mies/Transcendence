@@ -29,29 +29,28 @@ export async function updateProfile(req, res)
 
 export async function addFriend(req, res)
 {
-	const targetId = Number(req.params.id)
-	//Then here we run a check if this userid is the same as your user id, return error because you cant add yourself!
-	//same goes for other controller functions, you cannot accept, decline or remove yourself.
-	await profileService.addFriend(targetId, req.user.id)
+	const friend = await prisma.user.findUnique({ where: { name: req.params.name }})
+	if (!friend)
+		return res.status(404).json({ error: "No user found" }); //friend must exist, double check error code
+	if (friend.name == req.user.name)
+		return res.status(404).json({ error: "Operation forbidden" }); //cannot add yourself as friend, double check the error code
+	await profileService.addFriend(friend.id, req.user.id)
 }
 
-export async function addFriend(target, user)
+export async function addFriend(friend, user)
 {
 	//We need to check the UserUserRelation from both angles as the friend request (User Relation) can be initiated from both users
-	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { userId: user, friendId: target }})
-	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { userId: target, friendId: user }})
+	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId: user, receiverId: friend }})
+	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId: friend, receiverId: user }})
 	if (userRelation1 || userRelation2) //this means the relation is already in PENDING or FRIENDS state
-	{
-		throw "User relation already exists"
-	}
-
+		throw "User relation already exists" //error code?
 	await prisma.user.update({
 	where: { id: user },
 	data: {
 	sentRequests: {
 		create: [
 			{
-				friendId: { connect: { id: target }},
+				receiverId: { connect: { id: friend }},
 				status: "PENDING"
 			}
 		]
@@ -60,40 +59,35 @@ export async function addFriend(target, user)
 	});
 }
 
-export async function acceptFriendRequest(target, user)
+export async function acceptFriendRequest(friend, user)
 {
 	//here we are only interested in userrelation where the other one initiated the relation to the user
-	const userRelation = await prisma.userUserRelation.findUnique({ where: { userId: target, friendId: user}})
+	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId: friend, receiverId: user}})
 	if (!userRelation || userRelation.status != "PENDING")
-	{
 		throw "No pending user relation"		
-	}
 	await prisma.userUserRelation.update({
-	where: { userId: target, friendId: user}, //now since i am accepting, the friend here is the user
+	where: { senderId: friend, receiverId: user}, //now since i am accepting, the friend here is the user
 	data: {
 			status: "FRIENDS"
 	},
 	});
 }
 
-export async function declineFriendRequest(target, user)
+export async function declineFriendRequest(friend, user)
 {
-	const userRelation = await prisma.userUserRelation.findUnique({ where: { userId: target, friendId: user}})
+	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId: friend, receiverId: user}})
 	if (!userRelation || userRelation.status != "PENDING")
-	{
 		throw "No pending user relation"		
-	}
 	await prisma.userUserRelation.delete({ //As we remove friend, we can remove the entire UserUserRelation db entry
-	where: { userId: target, friendId: user},
+	where: { senderId: friend, receiverId: user},
 	});
 }
-//as a side note, we should remove the NONE enum status from the schema because in that case, we just remove the db entry
 //remove friend can be done by the initiater to both pending and friends. the accepter can only remove FRIENDS because they have the decline
-export async function removeFriend(target, user)
+export async function removeFriend(friend, user)
 {
 	//We need to check the UserUserRelation from both angles as the friend request (User Relation) can be initiated from both users
-	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { userId: user, friendId: target }})
-	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { userId: target, friendId: user }})
+	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId: user, receiverId: friend }})
+	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId: friend, receiverId: user }})
 	if (!userRelation1 && !userRelation2)
 	{
 		throw "User relation does not exist"
@@ -104,17 +98,14 @@ export async function removeFriend(target, user)
 	}
 	if (userRelation1)
 	{
-	await prisma.userUserRelation.delete({ //As we remove friend, we can remove the entire UserUserRelation db entry
-	where: { userId: user, friendId: target},
+		await prisma.userUserRelation.delete({ //As we remove friend, we can remove the entire UserUserRelation db entry
+		where: { senderId: user, receiverId: friend},
 	});
 	}
 	if (userRelation2)
 	{
-	await prisma.userUserRelation.delete({ //As we remove friend, we can remove the entire UserUserRelation db entry
-	where: { userId: target, friendId: user},
+		await prisma.userUserRelation.delete({ //As we remove friend, we can remove the entire UserUserRelation db entry
+		where: { senderId: friend, receiverId: user},
 	});
 	}
 }
-//another side note, maybe the given arguments could be worded better as it was pretty confusing to implement this
-//also maybe the schema is not user and friend but it should be requester and target or something because this is pretty confusing as in
-//this code the friend is sometimes the user
