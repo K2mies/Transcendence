@@ -1,11 +1,11 @@
 import express from "express";
-import * as profileController from "../controllers/profile.controller.js" //again we import the entire file as it may contain multiple functions
-console.log(profileController)
-// Creating Router instance
+import * as profileController from "../controllers/profile.controller.js"
+import {protect} from "../utils/protectJWT.js";
+
 const router = express.Router();
 
-router.get("/:id", profileController.getProfile)
-router.put("/:id", profileController.updateProfile)
-router.put("/:id/friend", profileController.addFriend)
+router.get("/:name", profileController.getProfile)
+router.put("/:name", protect, profileController.updateProfile)
+router.put("/:name/friend", profileController.addFriend)
 
 export default router;

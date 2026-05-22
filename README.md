@@ -80,15 +80,15 @@ Example:
 
 Example:
   ```
-	Login.jsx
-	GameDetails.jsx
-	UserProfile.jsx
+	Login.tsx
+	GameDetails.tsx
+	UserProfile.tsx
   ```
 
 ### Variable naming
 
 👉 Rule:
-  - camelCase in JS
+  - camelCase in JS/TS
 
 Example:
   ```
