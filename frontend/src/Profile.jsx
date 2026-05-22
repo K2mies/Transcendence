@@ -83,6 +83,8 @@ function DisplayProfile() {
 	const [profile, setProfile] = useState({});
 	const [favGames, setFavGames] = useState([]);
 	const [currGames, setCurrGames] = useState([]);
+	const [toPlayGames, setToPlayGames] = useState([]);
+	const [completedGames, setCompletedGames] = useState([]);
 	const [isUserFound, setIsUserFound] = useState(undefined);
 	const { username } = useParams();
 
@@ -94,10 +96,16 @@ function DisplayProfile() {
 				const res = await response.json();
 				setIsUserFound(true);
 				setProfile(res);
-				if (res.favorites)
+				console.log(res.to_play.length);
+				if (res.favorites.length > 0)
 					setFavGames(res.favorites);
-				if (res.playing)
+				if (res.playing.length > 0)
 					setCurrGames(res.playing);
+				if (res.to_play.length > 0)
+					setToPlayGames(res.to_play);
+				if (res.completed.length > 0)
+					setCompletedGames(res.completed);
+				console.log(toPlayGames);
 			} else {
 				setIsUserFound(false);
 			}
@@ -111,15 +119,25 @@ function DisplayProfile() {
 			{isUserFound &&
 			<div>
 				<ProfileInfo profile={profile}></ProfileInfo>
-				{favGames &&
+				{favGames.length > 0 &&
 				<DisplayGames
 					header="Favorite games"
 					games={favGames}>
 				</DisplayGames>}
-				{currGames &&
+				{currGames.length > 0 &&
 				<DisplayGames
 					header="Currently playing"
 					games={currGames}>
+				</DisplayGames>}
+				{toPlayGames.length > 0 &&
+				<DisplayGames
+					header="Games to play"
+					games={toPlayGames}>
+				</DisplayGames>}
+				{completedGames.length > 0 &&
+				<DisplayGames
+					header="Completed games"
+					games={completedGames}>
 				</DisplayGames>}
 			</div>}
 			{isUserFound === false &&
