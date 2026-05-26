@@ -9,6 +9,7 @@ import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import DisplayProfile from "./Profile"
+import DisplayGame from "./Game"
 import isSigned from "./isSigned"
 
 function Header() {
@@ -73,7 +74,15 @@ function Profile() {
 		<div>
 			<DisplayProfile></DisplayProfile>
 		</div>
-	)
+	);
+}
+
+function Game() {
+	return (
+		<div>
+			<DisplayGame></DisplayGame>
+		</div>
+	);
 }
 
 function Layout() {
@@ -88,6 +97,7 @@ function Layout() {
         <Route path="register" element={<SignUp />} />
         <Route path="login" element={<Login />} />
 		<Route path="user/:username" element={<Profile />} />
+		<Route path="game/:name" element={<Game />} />
       </Routes>
     </>
   );

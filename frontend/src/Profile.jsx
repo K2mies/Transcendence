@@ -90,13 +90,11 @@ function DisplayProfile() {
 
 	useEffect(() => {
 		async function loadProfile() {
-			const user = encodeURIComponent(username);
 			const response = await fetch(`http://localhost:4243/profile/${user}`);
 			if (response.status === 200) {
 				const res = await response.json();
 				setIsUserFound(true);
 				setProfile(res);
-				console.log(res.to_play.length);
 				if (res.favorites.length > 0)
 					setFavGames(res.favorites);
 				if (res.playing.length > 0)
@@ -105,7 +103,6 @@ function DisplayProfile() {
 					setToPlayGames(res.to_play);
 				if (res.completed.length > 0)
 					setCompletedGames(res.completed);
-				console.log(toPlayGames);
 			} else {
 				setIsUserFound(false);
 			}
@@ -144,7 +141,6 @@ function DisplayProfile() {
 			<div>
 				<p>404 User not found</p>
 			</div>}
-
 		</div>
 	);
 }

@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import gameRoutes from "./routes/game.routes.js";
 import {protect} from "./utils/protectJWT.js";
 import {corsValidator} from "./middlewares/validateCors.js";
 
@@ -23,6 +24,7 @@ app.use("/health", healthRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", protect, userRoutes);
 app.use("/profile", profileRoutes);
+app.use("/game", gameRoutes);
 
 // 404 handler
 app.use((req, res) => {
