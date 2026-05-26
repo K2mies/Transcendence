@@ -11,6 +11,7 @@ import LoginForm from "./LoginForm";
 import isSigned from "./IsSigned";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import DisplayProfile from "./Profile";
 
 function Header() {
   return (
@@ -32,15 +33,15 @@ function Home() {
 
         <h1>GoodPlays</h1>
         <h2>Welcome to GoodPlays!</h2>
-		<div>
-			<p>Already have an account?</p>
-			<Link to="/login">Log in</Link>
-		</div>
-		<div>
-			<p>New user?</p>
-			<Link to="/register">Sign up!</Link>
-		</div>
-		<Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
+        <div>
+          <p>Already have an account?</p>
+          <Link to="/login">Log in</Link>
+        </div>
+        <div>
+          <p>New user?</p>
+          <Link to="/register">Sign up!</Link>
+        </div>
+        <Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
       </div>
     );
   }
@@ -52,8 +53,8 @@ function SignUp() {
     <div>
       <h2>Sign up to GoodPlays</h2>
       <RegisterForm></RegisterForm>
-	  <p>Already have an account?</p>
-	  <Link to="/login">Log in</Link>
+      <p>Already have an account?</p>
+      <Link to="/login">Log in</Link>
     </div>
   );
 }
@@ -63,20 +64,27 @@ function Login() {
     <div>
       <h2>Login to Goodplays</h2>
       <LoginForm></LoginForm>
-	  <p>New user?</p>
-	  <Link to="/register">Sign up</Link>
+      <p>New user?</p>
+      <Link to="/register">Sign up</Link>
     </div>
   );
 }
 
 function Profile() {
-	return (
-		<div>
-			<DisplayProfile></DisplayProfile>
-		</div>
-	)
+  return (
+    <div>
+      <DisplayProfile></DisplayProfile>
+    </div>
+  );
 }
 
+function Dashboard() {
+  return (
+    <div>
+      <h2>Welcome to the Dashboard</h2>
+    </div>
+  );
+}
 function Layout() {
   const location = useLocation();
   return (

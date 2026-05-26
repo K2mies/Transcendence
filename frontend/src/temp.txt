@@ -1,28 +1,18 @@
-[plugin:vite:oxc] Transform failed with 2 errors:
-
-[PARSE_ERROR] Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
-    ╭─[ src/App.tsx:92:1 ]
-    │
- 92 │ }
-    │ │ 
-    │ ╰─ 
-────╯
-
-[PARSE_ERROR] Expected corresponding JSX closing tag for 'Route'.
-    ╭─[ src/App.tsx:89:9 ]
-    │
- 86 │         <Route element={<ProtectedRoute />}>
-    │          ──┬──  
-    │            ╰──── Opened here
-    │ 
- 89 │       </Routes>
-    │         ───┬──  
-    │            ╰──── Expected `</Route>`
-────╯
-/app/src/App.tsx
-    at transformWithOxc (file:///app/node_modules/vite/dist/node/chunks/node.js:3339:19)
-    at TransformPluginContext.transform (file:///app/node_modules/vite/dist/node/chunks/node.js:3410:26)
-    at EnvironmentPluginContainer.transform (file:///app/node_modules/vite/dist/node/chunks/node.js:30271:51)
+[plugin:vite:import-analysis] Failed to resolve import "./IsSigned" from "src/App.tsx". Does the file exist?
+/app/src/App.tsx:11:21
+3  |  import RegisterForm from "./RegisterForm";
+4  |  import LoginForm from "./LoginForm";
+5  |  import isSigned from "./IsSigned";
+   |                        ^
+6  |  import ProtectedRoute from "./ProtectedRoute";
+7  |  import PublicRoute from "./PublicRoute";
+    at TransformPluginContext._formatLog (file:///app/node_modules/vite/dist/node/chunks/node.js:30486:39)
+    at TransformPluginContext.error (file:///app/node_modules/vite/dist/node/chunks/node.js:30483:14)
+    at normalizeUrl (file:///app/node_modules/vite/dist/node/chunks/node.js:27725:18)
+    at async file:///app/node_modules/vite/dist/node/chunks/node.js:27788:30
+    at async Promise.all (index 4)
+    at async TransformPluginContext.transform (file:///app/node_modules/vite/dist/node/chunks/node.js:27756:4)
+    at async EnvironmentPluginContainer.transform (file:///app/node_modules/vite/dist/node/chunks/node.js:30271:14)
     at async loadAndTransform (file:///app/node_modules/vite/dist/node/chunks/node.js:24532:26)
     at async viteTransformMiddleware (file:///app/node_modules/vite/dist/node/chunks/node.js:24326:20)
 Click outside, press Esc key, or fix the code to dismiss.
