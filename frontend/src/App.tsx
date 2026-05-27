@@ -8,7 +8,6 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import isSigned from "./IsSigned";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import DisplayProfile from "./Profile";
@@ -26,7 +25,8 @@ function Header() {
 }
 
 function Home() {
-  if (!isSigned.value) {
+  const token = localStorage.getItem("token");
+  if (!token) {
     return (
       <div style={{ margin: "0px" }}>
         <img src="/logo_03.jpg" alt="GoodPlays logo" />
