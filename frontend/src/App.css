@@ -8,30 +8,46 @@
 	justify-content: space-around;
 }
 
-.user-info {
+.user-game-info {
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
 }
 
-.user-header {
+.user-game-header {
 	display: flex;
 }
 
-.user-header h2 {
+.user-game-header h2 {
 	margin-right: 2em;
 }
 
-.user-content {
+.user-game-content {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
 	gap: 3em;
 }
 
-.user-bio {
+.user-game-bio {
 	width: 50%;
 	text-align: left;
+}
+
+.platform-items {
+	display: flex;
+	flex-direction: row;
+	gap: 3em;
+}
+
+.platform-item {
+	list-style: none;
+}
+
+.game-reviews {
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
 }
 
 .user-img {
