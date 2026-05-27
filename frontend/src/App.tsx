@@ -10,7 +10,6 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import DisplayProfile from "./Profile"
 import DisplayGame from "./Game"
-import isSigned from "./isSigned"
 
 function Header() {
   return (
@@ -25,26 +24,22 @@ function Header() {
 }
 
 function Home() {
-  if (!isSigned.value) {
-    return (
-      <div style={{ margin: "0px" }}>
-        <img src="/logo_03.jpg" alt="GoodPlays logo" />
-
-        <h1>GoodPlays</h1>
-        <h2>Welcome to GoodPlays!</h2>
-		<div>
-			<p>Already have an account?</p>
-			<Link to="/login">Log in</Link>
-		</div>
-		<div>
-			<p>New user?</p>
-			<Link to="/register">Sign up!</Link>
-		</div>
-		<Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
+  return (
+    <div style={{ margin: "0px" }}>
+      <img src="/logo_03.jpg" alt="GoodPlays logo" />
+      <h1>GoodPlays</h1>
+      <h2>Welcome to GoodPlays!</h2>
+      <div>
+        <p>Already have an account?</p>
+        <Link to="/login">Log in</Link>
       </div>
-    );
-  }
-  return <div>Signed in homepage</div>;
+      <div>
+        <p>New user?</p>
+        <Link to="/register">Sign up!</Link>
+      </div>
+      <Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
+    </div>
+  );
 }
 
 function SignUp() {
