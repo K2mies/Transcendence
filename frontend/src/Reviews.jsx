@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Reviews(props) {
 	return (
         <div>
@@ -6,8 +8,13 @@ function Reviews(props) {
             {props.reviews.map((review) => (
               <li key={review.id} className="review-item">
 				<div className="review-header">
-                  <h4>{review.game || review.user.name}</h4>
-				  <div>{<Star rating={review.rating} />}</div>
+				  {props.page === "profile" &&
+                    <Link to={"/game/" + review.game}>{review.game}</Link>
+				  }
+				  {props.page === "game" &&
+				    <Link to={"/user/" + review.user.name}>{review.user.name}</Link>
+                  }
+				  <p>{review.rating}</p>
 				</div>
 				<p className="review-text">{review.review}</p>
               </li>

@@ -2,6 +2,32 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Reviews from "./Reviews";
 
+function GameData(props) {
+  let temp = new Date(props.game.releaseDate);
+  const released = (temp).toLocaleDateString("fi-FI");
+  temp = new Date(props.game.updateDate);
+  const updated = (temp).toLocaleDateString("fi-FI");
+  return (
+	<div className="user-game-data">
+		<p><span style={{ fontWeight: "bold" }}>Developer:</span> {props.game.developer}</p>
+		<p><span style={{ fontWeight: "bold" }}>Released:</span> {released}</p>
+		<p><span style={{ fontWeight: "bold" }}>Updated:</span> {updated}</p>
+		{props.game.genres.length > 0 && (
+			<p style={{ fontWeight: "bold" }}>Genres: </p>
+		)}
+		{props.game.genres.map((genre) => (
+			<p>{genre}</p>
+		))}
+		{props.game.modes.length > 0 && (
+			<p style={{ fontWeight: "bold" }}>Modes: </p>
+		)}
+		{props.game.modes.map((mode) => (
+			<p>{mode}</p>
+		))}
+	</div>
+  )
+}
+
 function GameInfo(props) {
   return (
     <div className="user-game-info">
@@ -10,8 +36,8 @@ function GameInfo(props) {
         <div>
           <ul className="platform-items">
             {props.game.platforms.map((platform) => (
-              <li key={platform.id} className="platform-item">
-                <p>{platform.name}</p>
+              <li className="platform-item">
+                <p>{platform}</p>
               </li>
             ))}
           </ul>
@@ -19,7 +45,8 @@ function GameInfo(props) {
       </div>
       <div className="user-game-content">
         <img src={props.game.image} alt={props.game.name}></img>
-        <p>{props.game.description}</p>
+        <p className="user-game-description" >{props.game.description}</p>
+        <GameData game={props.game}></GameData>
       </div>
     </div>
   );
@@ -52,7 +79,7 @@ function DisplayGame() {
         <div>
           <GameInfo game={game}></GameInfo>
 		  {reviews.length > 0 && (
-	          <Reviews reviews={reviews}></Reviews>
+	          <Reviews reviews={reviews} page="game"></Reviews>
 		  )}
         </div>
       )}

@@ -14,6 +14,10 @@
 	gap: 1em;
 }
 
+.user-game-data {
+	font-size: 75%;
+}
+
 .user-game-header {
 	display: flex;
 }
@@ -27,6 +31,10 @@
 	flex-direction: row;
 	align-items: flex-start;
 	gap: 3em;
+}
+
+.user-game-description {
+	width: 45%;
 }
 
 .user-game-bio {

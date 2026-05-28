@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -69,7 +70,7 @@ function DisplayGames(props) {
                   src={game.image}
                   alt={game.name}
                 ></img>
-                <p>{game.name}</p>
+                <Link to={"/game/" + game.name}>{game.name}</Link>
               </SwiperSlide>
             ))}
             <SwiperButtonPrev>&lt;</SwiperButtonPrev>
@@ -86,7 +87,7 @@ function DisplayGames(props) {
                   src={game.image}
                   alt={game.name}
                 ></img>
-                <p>{game.name}</p>
+                <Link to={"/game/" + game.name}>{game.name}</Link>
               </li>
             ))}
           </ul>
@@ -156,7 +157,7 @@ function DisplayProfile() {
             ></DisplayGames>
           )}
 		  {reviews.length > 0 && (
-	          <Reviews reviews={reviews}></Reviews>
+	          <Reviews reviews={reviews} page="profile"></Reviews>
 		  )}
         </div>
       )}
