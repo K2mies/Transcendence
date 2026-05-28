@@ -44,10 +44,27 @@
 	list-style: none;
 }
 
+.review-item {
+	list-style: none;
+}
+
+.review-header {
+	display: flex;
+	flex-direction: row;
+	gap: 3em;
+}
+
+.review-text {
+	text-align: left;
+}
+
 .game-reviews {
 	display: flex;
 	flex-direction: column;
-	justify-content: left;
+}
+
+.game-reviews h3 {
+	text-align: left;
 }
 
 .user-img {

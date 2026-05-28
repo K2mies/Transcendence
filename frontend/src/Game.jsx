@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+// import Review from "./Review";
 
 function GameInfo(props) {
   return (
@@ -20,16 +21,13 @@ function GameInfo(props) {
         <img src={props.game.image} alt={props.game.name}></img>
         <p>{props.game.description}</p>
       </div>
-      <div className="game-reviews">
-        <h3>Reviews</h3>
-        <p>{props.game.rating}</p>
-      </div>
     </div>
   );
 }
 
 function DisplayGame() {
   const [game, setGame] = useState({});
+  const [reviews, setReviews] = useState([]);
   const [isGameFound, setIsGameFound] = useState(undefined);
   const { name } = useParams();
 
@@ -40,6 +38,7 @@ function DisplayGame() {
         const res = await response.json();
         setIsGameFound(true);
         setGame(res);
+		if (res.reviews.length > 0) setReviews(res.reviews);
       } else {
         setIsGameFound(false);
       }
@@ -52,6 +51,7 @@ function DisplayGame() {
       {isGameFound && (
         <div>
           <GameInfo game={game}></GameInfo>
+          {/* <Review reviews={reviews}></Review> */}
         </div>
       )}
       {isGameFound === false && (

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "swiper/react";
+import Reviews from "./Reviews";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -61,7 +62,7 @@ function DisplayGames(props) {
             }}
             allowTouchMove={false}
           >
-            {props.games.map((game, index) => (
+            {props.games.map((game) => (
               <SwiperSlide key={game.id}>
                 <img
                   className="game-card-img"
@@ -101,6 +102,7 @@ function DisplayProfile() {
   const [currGames, setCurrGames] = useState([]);
   const [toPlayGames, setToPlayGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isUserFound, setIsUserFound] = useState(undefined);
   const { username } = useParams();
 
@@ -115,6 +117,7 @@ function DisplayProfile() {
         if (res.playing.length > 0) setCurrGames(res.playing);
         if (res.to_play.length > 0) setToPlayGames(res.to_play);
         if (res.completed.length > 0) setCompletedGames(res.completed);
+		if (res.reviews.length > 0) setReviews(res.reviews);
       } else {
         setIsUserFound(false);
       }
@@ -152,6 +155,7 @@ function DisplayProfile() {
               games={completedGames}
             ></DisplayGames>
           )}
+          <Reviews reviews={reviews}></Reviews>
         </div>
       )}
       {isUserFound === false && (
