@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import Review from "./Review";
+import Reviews from "./Reviews";
 
 function GameInfo(props) {
   return (
@@ -51,7 +51,9 @@ function DisplayGame() {
       {isGameFound && (
         <div>
           <GameInfo game={game}></GameInfo>
-          {/* <Review reviews={reviews}></Review> */}
+		  {reviews.length > 0 && (
+	          <Reviews reviews={reviews}></Reviews>
+		  )}
         </div>
       )}
       {isGameFound === false && (

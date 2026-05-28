@@ -6,8 +6,8 @@ function Reviews(props) {
             {props.reviews.map((review) => (
               <li key={review.id} className="review-item">
 				<div className="review-header">
-                  <h4>{review.game ? review.game : review.name}</h4>
-				  <p>{review.rating}</p>
+                  <h4>{review.game || review.user.name}</h4>
+				  <div>{<Star rating={review.rating} />}</div>
 				</div>
 				<p className="review-text">{review.review}</p>
               </li>

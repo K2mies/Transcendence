@@ -155,7 +155,9 @@ function DisplayProfile() {
               games={completedGames}
             ></DisplayGames>
           )}
-          <Reviews reviews={reviews}></Reviews>
+		  {reviews.length > 0 && (
+	          <Reviews reviews={reviews}></Reviews>
+		  )}
         </div>
       )}
       {isUserFound === false && (
