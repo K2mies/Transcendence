@@ -6,8 +6,8 @@ function Reviews(props) {
 		  <h3>Reviews</h3>
           <ul>
             {props.reviews.map((review) => (
-              <li key={review.id} className="review-item">
-				<div className="review-header">
+              <li key={review.id} className="list-none">
+				<div className="flex flex-row gap-[3em]">
 				  {props.page === "profile" &&
                     <Link to={"/game/" + review.game}>{review.game}</Link>
 				  }
@@ -16,7 +16,7 @@ function Reviews(props) {
                   }
 				  <p>{review.rating}</p>
 				</div>
-				<p className="review-text">{review.review}</p>
+				<p className="text-left">{review.review}</p>
               </li>
             ))}
           </ul>

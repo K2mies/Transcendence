@@ -11,18 +11,18 @@ import "swiper/css/navigation";
 
 function ProfileInfo(props) {
   return (
-    <div className="user-game-info">
-      <div className="user-game-header">
-        <h2>{props.profile.name}</h2>
+    <div className="flex flex-col gap-[1em]">
+      <div className="flex">
+        <h2 className="mr-[2em]">{props.profile.name}</h2>
         <button>Add friend</button>
       </div>
-      <div className="user-game-content">
+      <div className="flex flex-row items-start gap-[2em]">
         <img
-          className="user-img"
+          className="w-22.5 h-30"
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        <p className="user-game-bio">{props.profile.bio}</p>
+        <p className="w-[50%] text-left">{props.profile.bio}</p>
       </div>
     </div>
   );
@@ -31,7 +31,7 @@ function ProfileInfo(props) {
 const SwiperButtonPrev = ({ children }) => {
   const swiper = useSwiper();
   return (
-    <div className="swiper-button-prev" onClick={() => swiper.slidePrev()}>
+    <div className="swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 z-10" onClick={() => swiper.slidePrev()}>
       {children}
     </div>
   );
@@ -48,12 +48,11 @@ const SwiperButtonNext = ({ children }) => {
 
 function DisplayGames(props) {
   return (
-    <>
-      <h4 className="user-game-header">{props.header}</h4>
+    <div className="my-4.5">
+      <h4 className="flex justify-start">{props.header}</h4>
       {props.games.length > 5 ? (
         <div>
           <Swiper
-            style={{ "--swiper-navigation-color": "red" }}
             modules={Navigation}
             spaceBetween={30}
             slidesPerView={5}
@@ -66,11 +65,13 @@ function DisplayGames(props) {
             {props.games.map((game) => (
               <SwiperSlide key={game.id}>
                 <img
-                  className="game-card-img"
+                  className="w-22.5 h-30"
                   src={game.image}
                   alt={game.name}
                 ></img>
-                <Link to={"/game/" + game.name}>{game.name}</Link>
+				<div className="max-w-22.5">
+                  <Link to={"/game/" + game.name}>{game.name}</Link>
+				</div>
               </SwiperSlide>
             ))}
             <SwiperButtonPrev>&lt;</SwiperButtonPrev>
@@ -78,12 +79,12 @@ function DisplayGames(props) {
           </Swiper>
         </div>
       ) : (
-        <div className="user-games">
-          <ul className="game-cards">
+        <div className="flex flex-col">
+          <ul className="flex flex-row gap-[2em]">
             {props.games.map((game) => (
-              <li key={game.id} className="game-card">
+              <li key={game.id} className="list-none w-25">
                 <img
-                  className="game-card-img"
+                  className="w-22.5 h-30"
                   src={game.image}
                   alt={game.name}
                 ></img>
@@ -93,7 +94,7 @@ function DisplayGames(props) {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

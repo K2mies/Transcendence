@@ -8,7 +8,7 @@ function GameData(props) {
   temp = new Date(props.game.updateDate);
   const updated = (temp).toLocaleDateString("fi-FI");
   return (
-	<div className="user-game-data">
+	<div className="text-[75%]">
 		<p><span style={{ fontWeight: "bold" }}>Developer:</span> {props.game.developer}</p>
 		<p><span style={{ fontWeight: "bold" }}>Released:</span> {released}</p>
 		<p><span style={{ fontWeight: "bold" }}>Updated:</span> {updated}</p>
@@ -30,22 +30,22 @@ function GameData(props) {
 
 function GameInfo(props) {
   return (
-    <div className="user-game-info">
-      <div className="user-game-header">
+    <div className="flex flex-col gap-[1em]">
+      <div className="mr-[2em]">
         <h2>{props.game.name}</h2>
         <div>
-          <ul className="platform-items">
+          <ul className="flex flex-row gap-[3em]">
             {props.game.platforms.map((platform) => (
-              <li className="platform-item">
+              <li className="list-none">
                 <p>{platform}</p>
               </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="user-game-content">
+      <div className="flex flex-row items-start gap-[2em]">
         <img src={props.game.image} alt={props.game.name}></img>
-        <p className="user-game-description" >{props.game.description}</p>
+        <p className="w-[45%]" >{props.game.description}</p>
         <GameData game={props.game}></GameData>
       </div>
     </div>
