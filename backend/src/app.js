@@ -1,5 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import passport from "passport";
+import "./config/passport.js";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -15,6 +17,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 app.use(corsValidator);
+app.use(passport.initialize());
 
 // Routes
 app.use("/health", healthRoutes);
