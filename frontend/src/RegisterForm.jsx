@@ -43,9 +43,6 @@ const schema = z
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  if (localStorage.getItem("token")) {
-    navigate("/dashboard");
-  }
   const [registerStatus, setRegisterStatus] = useState("init");
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
@@ -72,7 +69,7 @@ const RegisterForm = () => {
       .then((result) => {
         if (result.status === "success") {
           setRegisterStatus("Registration was successful!");
-          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", JSON.stringify(result.data.user));
           navigate("/dashboard");
         } else setRegisterStatus(result.error);

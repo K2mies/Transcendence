@@ -33,7 +33,7 @@ const LoginForm = () => {
         throw new Error(result.message || "Login failed");
       }
 
-      localStorage.setItem("token", result.data.token);
+      localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("user", JSON.stringify(result.data.user));
 
       navigate("/dashboard");
