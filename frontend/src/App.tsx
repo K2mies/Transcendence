@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 import DisplayProfile from "./Profile";
 import DisplayGame from "./Game";
 
@@ -83,6 +85,13 @@ function Game() {
   );
 }
 
+function Dashboard() {
+  return (
+    <div>
+      <h2>Welcome to the Dashboard</h2>
+    </div>
+  );
+}
 function Layout() {
   const location = useLocation();
   return (
@@ -92,11 +101,17 @@ function Layout() {
         location.pathname !== "/login" && <Header />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="register" element={<SignUp />} />
-        <Route path="login" element={<Login />} />
-        <Route path="user/:username" element={<Profile />} />
-        <Route path="game/:name" element={<Game />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="register" element={<SignUp />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="user/:username" element={<Profile />} />
+          <Route path="game/:name" element={<Game />} />
+        </Route>
       </Routes>
     </>
   );

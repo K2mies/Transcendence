@@ -3,6 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -41,6 +42,7 @@ const schema = z
   });
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [registerStatus, setRegisterStatus] = useState("init");
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
@@ -64,10 +66,13 @@ const RegisterForm = () => {
       body: JSON.stringify(submitData),
     })
       .then((response) => response.json())
-      .then((res) => {
-        if (res.status === "success")
+      .then((result) => {
+        if (result.status === "success") {
           setRegisterStatus("Registration was successful!");
-        else setRegisterStatus(res.error);
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("user", JSON.stringify(result.data.user));
+          navigate("/dashboard");
+        } else setRegisterStatus(result.error);
       })
       .catch((error) => {
         console.error("Error:", error);

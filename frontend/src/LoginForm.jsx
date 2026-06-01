@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "./ControlledInput";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   email: z.email(),
@@ -9,6 +10,7 @@ const schema = z.object({
 });
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -26,11 +28,15 @@ const LoginForm = () => {
         },
         body: JSON.stringify(data),
       });
-      const res = response.json();
-      if (response.ok) console.log("Login was successful");
-      else if (response.status === "401")
-        console.error("Username or password incorrect"); // How to render this text?
-      else console.error(res.status);
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || "Login failed");
+      }
+
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("user", JSON.stringify(result.data.user));
+
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
     }

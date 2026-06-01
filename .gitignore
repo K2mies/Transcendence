@@ -1,6 +1,6 @@
 task.md
 node_modules
 .env
-git_source_files
 data/
 package-lock.json
+temp.txt

@@ -127,6 +127,8 @@ function DisplayProfile() {
 
     loadProfile();
   }, []);
+    loadProfile();
+  }, []);
 
   return (
     <div>
