@@ -8,7 +8,8 @@ import {
 import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import isSigned from "./IsSigned"
+import DisplayProfile from "./Profile"
+import isSigned from "./isSigned"
 
 function Header() {
   return (
@@ -25,19 +26,20 @@ function Header() {
 function Home() {
   if (!isSigned.value) {
     return (
-      <div style={{ marginTop: "0px" }}>
+      <div style={{ margin: "0px" }}>
         <img src="/logo_03.jpg" alt="GoodPlays logo" />
 
         <h1>GoodPlays</h1>
         <h2>Welcome to GoodPlays!</h2>
-        <div>
-          <p>Already have an account?</p>
-          <Link to="/login">Log in</Link>
-        </div>
-        <div>
-          <p>New user?</p>
-          <Link to="/register">Sign up!</Link>
-        </div>
+		<div>
+			<p>Already have an account?</p>
+			<Link to="/login">Log in</Link>
+		</div>
+		<div>
+			<p>New user?</p>
+			<Link to="/register">Sign up!</Link>
+		</div>
+		<Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
       </div>
     );
   }
@@ -49,6 +51,8 @@ function SignUp() {
     <div>
       <h2>Sign up to GoodPlays</h2>
       <RegisterForm></RegisterForm>
+	  <p>Already have an account?</p>
+	  <Link to="/login">Log in</Link>
     </div>
   );
 }
@@ -58,8 +62,18 @@ function Login() {
     <div>
       <h2>Login to Goodplays</h2>
       <LoginForm></LoginForm>
+	  <p>New user?</p>
+	  <Link to="/register">Sign up</Link>
     </div>
   );
+}
+
+function Profile() {
+	return (
+		<div>
+			<DisplayProfile></DisplayProfile>
+		</div>
+	)
 }
 
 function Layout() {
@@ -73,6 +87,7 @@ function Layout() {
         <Route path="/" element={<Home />} />
         <Route path="register" element={<SignUp />} />
         <Route path="login" element={<Login />} />
+		<Route path="user/:username" element={<Profile />} />
       </Routes>
     </>
   );

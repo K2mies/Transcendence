@@ -1,5 +1,73 @@
+.body {
+	width: 100%;
+}
+
 .header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+}
+
+.user-info {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.user-header {
+	display: flex;
+}
+
+.user-header h2 {
+	margin-right: 2em;
+}
+
+.user-content {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 3em;
+}
+
+.user-bio {
+	width: 50%;
+	text-align: left;
+}
+
+.user-img {
+	width: 90px;
+	height: 120px;
+	grid-row: 2;
+	grid-column: 1;
+}
+
+.user-games {
+	display: flex;
+	flex-direction: column;
+}
+
+.user-games-header {
+	display: flex;
+	justify-content: left;
+}
+
+.game-cards-scroll-cont {
+	overflow-x: auto;
+	width: 100%;
+}
+
+.game-cards {
+	display: flex;
+	flex-direction: row;
+	gap: 2em;
+}
+
+.game-card {
+	list-style: none;
+	width: 100px;
+}
+
+.game-card-img {
+	width: 90px;
+	height: 120px;
 }

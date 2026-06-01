@@ -1,6 +1,4 @@
-import {PrismaClient} from "@prisma/client";
-
-const prisma = new PrismaClient();
+import {prisma} from "../src/config/db.js"
 
 async function main() {
 //Example profile
@@ -110,7 +108,7 @@ await prisma.user.upsert({
       },
     },
   });
- 
+
   // ── 2. THE SOULS VETERAN ───────────────────────────────────
   // Hardcore, minimal bio, let the completed list speak.
   await prisma.user.upsert({
@@ -174,7 +172,7 @@ await prisma.user.upsert({
       },
     },
   });
- 
+
   // ── 3. THE NARRATIVE CHASER ────────────────────────────────
   // Plays for story and themes, writes mini-essays in their bio.
   await prisma.user.upsert({
@@ -243,7 +241,7 @@ await prisma.user.upsert({
       },
     },
   });
- 
+
   // ── 4. THE MULTIPLAYER LURKER ──────────────────────────────
   // Only plays online games, barely touches their profile.
   await prisma.user.upsert({
@@ -269,34 +267,58 @@ await prisma.user.upsert({
             favorite: true,
           },
           {
+            game: { connect: { name: "The Witcher 3: Wild Hunt" } },
+            platform: { connect: { name: "PC (Microsoft Windows)" } },
+            status: "COMPLETED",
+            favorite: true,
+          },
+          {
+            game: { connect: { name: "Red Dead Redemption 2" } },
+            platform: { connect: { name: "PC (Microsoft Windows)" } },
+            status: "COMPLETED",
+            favorite: true,
+          },
+          {
+            game: { connect: { name: "God of War" } },
+            platform: { connect: { name: "PC (Microsoft Windows)" } },
+            status: "COMPLETED",
+            favorite: true,
+          },
+          {
+            game: { connect: { name: "Portal 2" } },
+            platform: { connect: { name: "PC (Microsoft Windows)" } },
+            status: "COMPLETED",
+            favorite: true,
+          },
+          {
             game: { connect: { name: "Left 4 Dead 2" } },
             platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
-            favorite: false,
+            favorite: true,
           },
           {
             game: { connect: { name: "Overwatch" } },
             platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
-            favorite: false,
+            favorite: true,
           },
           {
             game: { connect: { name: "Titanfall 2" } },
             platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
-            favorite: false,
+            favorite: true,
           },
           {
             game: { connect: { name: "Battlefield 3" } },
             platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "DNF",
-            favorite: false,
+            favorite: true,
           },
         ],
       },
     },
   });
- 
+
   // ── 5. THE TROPHY HUNTER ───────────────────────────────────
   // PlayStation-loyal, obsessed with 100%-ing games, quite active.
   await prisma.user.upsert({
@@ -361,7 +383,7 @@ await prisma.user.upsert({
       },
     },
   });
- 
+
   // ── 6. THE INDIE EXPLORER ──────────────────────────────────
   // Seeks out hidden gems, dislikes AAA bloat, very opinionated.
   await prisma.user.upsert({
@@ -442,7 +464,7 @@ await prisma.user.upsert({
       },
     },
   });
- 
+
   // ── 7. THE WEEKEND CO-OP DAD ───────────────────────────────
   // Parent gamer, plays with family/friends, nostalgic but limited time.
   await prisma.user.upsert({

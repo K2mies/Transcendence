@@ -1,4 +1,6 @@
 import express from "express";
+
+import profileRoutes from "./routes/profile.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./config/passport.js";
@@ -23,6 +25,7 @@ app.use(passport.initialize());
 app.use("/health", healthRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", protect, userRoutes);
+app.use("/profile", profileRoutes);
 
 // 404 handler
 app.use((req, res) => {
