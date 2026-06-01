@@ -31,7 +31,7 @@ function ProfileInfo(props) {
 const SwiperButtonPrev = ({ children }) => {
   const swiper = useSwiper();
   return (
-    <div className="swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 z-10" onClick={() => swiper.slidePrev()}>
+    <div className="swiper-button-prev" onClick={() => swiper.slidePrev()}>
       {children}
     </div>
   );
@@ -69,9 +69,9 @@ function DisplayGames(props) {
                   src={game.image}
                   alt={game.name}
                 ></img>
-				<div className="max-w-22.5">
+                <div className="max-w-22.5">
                   <Link to={"/game/" + game.name}>{game.name}</Link>
-				</div>
+                </div>
               </SwiperSlide>
             ))}
             <SwiperButtonPrev>&lt;</SwiperButtonPrev>
@@ -79,7 +79,7 @@ function DisplayGames(props) {
           </Swiper>
         </div>
       ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col ml-[3em]">
           <ul className="flex flex-row gap-[2em]">
             {props.games.map((game) => (
               <li key={game.id} className="list-none w-25">
@@ -119,7 +119,7 @@ function DisplayProfile() {
         if (res.playing.length > 0) setCurrGames(res.playing);
         if (res.to_play.length > 0) setToPlayGames(res.to_play);
         if (res.completed.length > 0) setCompletedGames(res.completed);
-		if (res.reviews.length > 0) setReviews(res.reviews);
+        if (res.reviews.length > 0) setReviews(res.reviews);
       } else {
         setIsUserFound(false);
       }
@@ -157,9 +157,9 @@ function DisplayProfile() {
               games={completedGames}
             ></DisplayGames>
           )}
-		  {reviews.length > 0 && (
-	          <Reviews reviews={reviews} page="profile"></Reviews>
-		  )}
+          {reviews.length > 0 && (
+            <Reviews reviews={reviews} page="profile"></Reviews>
+          )}
         </div>
       )}
       {isUserFound === false && (

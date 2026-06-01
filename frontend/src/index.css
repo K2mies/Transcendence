@@ -1,31 +1,35 @@
 @import "tailwindcss";
 
 @layer base {
-	h1 {
-		font-size: 2rem;
-	}
+  h1 {
+    font-size: 2rem;
+  }
 
-	h2 {
-		font-size: 1.6rem;
-	}
+  h2 {
+    font-size: 1.6rem;
+  }
 
-	h3 {
-		font-size: 1.3rem;
-	}
+  h3 {
+    font-size: 1.3rem;
+  }
 
-	h4 {
-		font-size: 1.2rem;
-	}
+  h4 {
+    font-size: 1.2rem;
+  }
 
-	a {
-		text-decoration-line: underline;
-	}
+  a {
+    text-decoration-line: underline;
+  }
 
-	.swiper-button-prev,
-	.swiper-button-next {
-		color: black !important;
-		background: none !important;
-		border: none !important;
-		align-items: start !important;
-	}
+  .swiper-wrapper {
+    margin-left: 3em;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: black !important;
+    background: none !important;
+    border: none !important;
+    align-items: start !important;
+  }
 }
