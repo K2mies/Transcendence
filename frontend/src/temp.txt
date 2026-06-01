@@ -1,2 +1,0 @@
-Cannot update a component (`BrowserRouter`) while rendering a different component (`RegisterForm`). To locate the bad setState() call inside `RegisterForm`, follow the stack trace as described in https://react.dev/link/setstate-in-render
-(anonymous)	@	RegisterForm.jsx:47
