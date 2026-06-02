@@ -29,13 +29,11 @@ export async function updateProfile(req, res)
 
 export async function addFriend(req, res)
 {
-	const friend = await prisma.user.findUnique({ where: { name: req.params.name }})
-	if (!friend)
-		return res.status(404).json({ error: "No user found" });
-	if (friend.name == req.user.name)
+	const friendName = req.params.name
+	if (friendName == req.user.name)
 		return res.status(400).json({ error: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.addFriend(friend.id, req.user.id)
+		const friendStatus = await profileService.addFriend(friendName, req.user.id)
 		res.status(200).json(friendStatus)
 	} catch (error) {
 		res.status(409).json({ error }) //user relation already exists
@@ -44,13 +42,11 @@ export async function addFriend(req, res)
 
 export async function acceptFriendRequest(req, res)
 {
-	const friend = await prisma.user.findUnique({ where: { name: req.params.name }})
-	if (!friend)
-		return res.status(404).json({ error: "No user found" });
-	if (friend.name == req.user.name)
+	const friendName = req.params.name
+	if (friendName == req.user.name)
 		return res.status(400).json({ error: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.acceptFriendRequest(friend.id, req.user.id)
+		const friendStatus = await profileService.acceptFriendRequest(friendName, req.user.id)
 		res.status(200).json(friendStatus)
 	} catch (error) {
 		res.status(409).json({ error }) //no pending user relation
@@ -59,13 +55,11 @@ export async function acceptFriendRequest(req, res)
 
 export async function declineFriendRequest(req, res)
 {
-	const friend = await prisma.user.findUnique({ where: { name: req.params.name }})
-	if (!friend)
-		return res.status(404).json({ error: "No user found" });
-	if (friend.name == req.user.name)
+	const friendName = req.params.name
+	if (friendName == req.user.name)
 		return res.status(400).json({ error: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.declineFriendRequest(friend.id, req.user.id)
+		const friendStatus = await profileService.declineFriendRequest(friendName, req.user.id)
 		res.status(200).json(friendStatus)
 	} catch (error) {
 		res.status(409).json({ error }) //no pending user relation
@@ -74,13 +68,11 @@ export async function declineFriendRequest(req, res)
 
 export async function removeFriend(req, res)
 {
-	const friend = await prisma.user.findUnique({ where: { name: req.params.name }})
-	if (!friend)
-		return res.status(404).json({ error: "No user found" });
-	if (friend.name == req.user.name)
+	const friendName = req.params.name
+	if (friendName == req.user.name)
 		return res.status(400).json({ error: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.removeFriend(friend.id, req.user.id)
+		const friendStatus = await profileService.removeFriend(friendName, req.user.id)
 		res.status(200).json(friendStatus)
 	} catch (error) {
 		res.status(409).json({ error }) //user relation does not exist or no removal allowed
