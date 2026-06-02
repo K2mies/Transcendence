@@ -5,15 +5,16 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
-import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import DisplayProfile from "./Profile"
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+import DisplayProfile from "./Profile";
 
 function Header() {
   return (
     <div>
-      <nav className="header">
+      <nav className="flex flex-row justify-around">
         <Link to="/">GoodPlays</Link>
         {/* <Link to="/explore">Explore</Link>
         <Link to="/mygames">My games</Link> */}
@@ -24,30 +25,34 @@ function Header() {
 
 function Home() {
   return (
-    <div style={{ margin: "0px" }}>
-      <img src="/logo_03.jpg" alt="GoodPlays logo" />
+    <div className="m-0 flex flex-col">
+      <img
+        className="w-126.25 h-107.75"
+        src="/logo_03.jpg"
+        alt="GoodPlays logo"
+      />
       <h1>GoodPlays</h1>
       <h2>Welcome to GoodPlays!</h2>
-        <div>
-          <p>Already have an account?</p>
-          <Link to="/login">Log in</Link>
-        </div>
-        <div>
-          <p>New user?</p>
-          <Link to="/register">Sign up!</Link>
-        </div>
-        <Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
+      <div>
+        <p>Already have an account?</p>
+        <Link to="/login">Log in</Link>
       </div>
-    );
-  }
+      <div>
+        <p>New user?</p>
+        <Link to="/register">Sign up!</Link>
+      </div>
+      <Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
+    </div>
+  );
+}
 
 function SignUp() {
   return (
     <div>
       <h2>Sign up to GoodPlays</h2>
       <RegisterForm></RegisterForm>
-	  <p>Already have an account?</p>
-	  <Link to="/login">Log in</Link>
+      <p>Already have an account?</p>
+      <Link to="/login">Log in</Link>
     </div>
   );
 }
@@ -57,32 +62,46 @@ function Login() {
     <div>
       <h2>Login to Goodplays</h2>
       <LoginForm></LoginForm>
-	  <p>New user?</p>
-	  <Link to="/register">Sign up</Link>
+      <p>New user?</p>
+      <Link to="/register">Sign up</Link>
     </div>
   );
 }
 
 function Profile() {
-	return (
-		<div>
-			<DisplayProfile></DisplayProfile>
-		</div>
-	)
+  return (
+    <div>
+      <DisplayProfile></DisplayProfile>
+    </div>
+  );
 }
 
+function Dashboard() {
+  return (
+    <div>
+      <h2>Welcome to the Dashboard</h2>
+    </div>
+  );
+}
 function Layout() {
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/" && location.pathname !== "/register"
-      && location.pathname !== "/login" && <Header />}
+      {location.pathname !== "/" &&
+        location.pathname !== "/register" &&
+        location.pathname !== "/login" && <Header />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="register" element={<SignUp />} />
-        <Route path="login" element={<Login />} />
-		<Route path="user/:username" element={<Profile />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="register" element={<SignUp />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="user/:username" element={<Profile />} />
+        </Route>
       </Routes>
     </>
   );

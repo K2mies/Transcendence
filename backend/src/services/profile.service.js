@@ -15,21 +15,47 @@ export async function getProfile(profileName)
 {
 	const user = await prisma.user.findUnique({
 	where: { name: profileName },
-	include: {
+	select: {
+		id: true,
+		name: true,
+		bio: true,
 		userGames: {
-			include: {
-				game: true,
-				platform: true,
+			select: {
+				status: true,
+				favorite: true,
+				game: {
+					select: {
+						id: true,
+						name: true,
+						imageSmall: true,
+					},
+				},
+				platform: {
+					select: {
+						name: true,
+					},
+				},
 			},
 		},
 		sentRequests: {
-			include: {
+			select: {
 				friend: true,
 			},
 		},
 		receivedRequests: {
 			include: {
 				friend: true,
+			},
+		},
+		reviews: {
+			select: {
+				game: {
+					select: {
+						name: true,
+					},
+				},
+				rating: true,
+				review: true,
 			},
 		},
 	},
@@ -63,6 +89,12 @@ export async function getProfile(profileName)
 		playing: filterGameInfo(user.userGames, "PLAYING"),
 		completed: filterGameInfo(user.userGames, "COMPLETED"),
 		dnf: filterGameInfo(user.userGames, "DNF"),
+		reviews: user.reviews.map(r => ({
+            id: r.id,
+			game: r.game.name,
+            rating: r.rating,
+            review: r.review,
+        })),
 	}
 }
 
