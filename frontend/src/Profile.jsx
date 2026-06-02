@@ -9,6 +9,26 @@ import Reviews from "./Reviews";
 import "swiper/css";
 import "swiper/css/navigation";
 
+function SendRequest({ user }) {
+	const [friendStatus, setFriendStatus] = useState("Add friend");
+	return (
+		<button onClick={async() => {
+			const response = await fetch(`http://localhost:4243/profile/${user}/friend-request`, {
+			  method: "POST",
+			  headers: {
+				"Content-Type": "application/json",
+			  },
+			});
+			if (response.status === 200) {
+			  await response.json();
+			  setFriendStatus("Pending");
+			} else {
+				console.error("Error sending friend request");
+			}
+		}}>{friendStatus}</button>
+	)
+}
+
 function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = (myUser.name === props.profile.name);
@@ -17,7 +37,7 @@ function ProfileInfo(props) {
       <div className="flex">
         <h2 className="mr-[2em]">{props.profile.name}</h2>
         {!isMyUser &&
-          <button>Add friend</button>
+          <SendRequest user={props.profile.name}></SendRequest>
         }
         {isMyUser &&
           <button>Edit profile info</button>

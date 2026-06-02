@@ -16,6 +16,10 @@
     background-color: var(--color-lemon);
   }
 
+  button {
+    cursor: pointer;
+  }
+
   h1 {
     font-size: 2rem;
   }
