@@ -93,21 +93,19 @@ export async function addFriend(friendName, user)
 	const friend = await prisma.user.findUnique({ where: { name: friendName }})
 	if (!friend)
 		throw "No user found"
-	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId: user, receiverId: friend.id }})
-	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId: friend.id, receiverId: user }})
+	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: user, receiverId: friend.id }}})
+	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user }}})
 	if (userRelation1 || userRelation2)
 		throw "User relation already exists"
 	await prisma.user.update({
 	where: { id: user },
 	data: {
 	sentRequests: {
-		create: [
-			{
-				receiverId: { connect: { id: friend.id }},
+		create: {
+				receiverId: friend.id,
 				status: "PENDING"
-			}
-		]
-	}
+				}
+		}
 	},
 	});
 }
@@ -121,11 +119,11 @@ export async function acceptFriendRequest(friendName, user)
 	const friend = await prisma.user.findUnique({ where: { name: friendName }})
 	if (!friend)
 		throw "No user found"
-	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId: friend.id, receiverId: user}})
+	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
 	if (!userRelation || userRelation.status != "PENDING")
 		throw "No pending user relation"		
 	await prisma.userUserRelation.update({
-	where: { senderId: friend.id, receiverId: user},
+	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
 	data: {
 			status: "FRIENDS"
 	},
@@ -141,11 +139,11 @@ export async function declineFriendRequest(friendName, user)
 	const friend = await prisma.user.findUnique({ where: { name: friendName }})
 	if (!friend)
 		throw "No user found"
-	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId: friend.id, receiverId: user}})
+	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
 	if (!userRelation || userRelation.status != "PENDING")
 		throw "No pending user relation"		
 	await prisma.userUserRelation.delete({
-	where: { senderId: friend.id, receiverId: user},
+	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
 	});
 }
 
@@ -158,8 +156,8 @@ export async function removeFriend(friendName, user)
 	const friend = await prisma.user.findUnique({ where: { name: friendName }})
 	if (!friend)
 		throw "No user found"
-	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId: user, receiverId: friend.id }})
-	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId: friend.id, receiverId: user }})
+	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: user, receiverId: friend.id }}})
+	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user }}})
 	if (!userRelation1 && !userRelation2)
 	{
 		throw "User relation does not exist"
@@ -171,13 +169,13 @@ export async function removeFriend(friendName, user)
 	if (userRelation1)
 	{
 		await prisma.userUserRelation.delete({
-		where: { senderId: user, receiverId: friend.id},
+		where: { senderId_receiverId: { senderId: user, receiverId: friend.id}},
 	});
 	}
 	if (userRelation2)
 	{
 		await prisma.userUserRelation.delete({
-		where: { senderId: friend.id, receiverId: user},
+		where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
 	});
 	}
 }
