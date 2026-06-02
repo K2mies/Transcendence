@@ -31,13 +31,13 @@ function Home() {
         src="/logo_03.jpg"
         alt="GoodPlays logo"
       />
-      <h1>GoodPlays</h1>
+      <h1 className="font-header text-orange">GoodPlays</h1>
       <h2>Welcome to GoodPlays!</h2>
-      <div>
+      <div className="text-green">
         <p>Already have an account?</p>
         <Link to="/login">Log in</Link>
       </div>
-      <div>
+      <div className="text-blue">
         <p>New user?</p>
         <Link to="/register">Sign up!</Link>
       </div>
