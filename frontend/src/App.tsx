@@ -9,8 +9,8 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import DisplayProfile from "./Profile";
-import DisplayGame from "./Game";
+import Profile from "./Profile";
+import Game from "./Game";
 
 function Header() {
   return (
@@ -65,22 +65,6 @@ function Login() {
       <LoginForm></LoginForm>
       <p>New user?</p>
       <Link to="/register">Sign up</Link>
-    </div>
-  );
-}
-
-function Profile() {
-  return (
-    <div>
-      <DisplayProfile></DisplayProfile>
-    </div>
-  );
-}
-
-function Game() {
-  return (
-    <div>
-      <DisplayGame></DisplayGame>
     </div>
   );
 }

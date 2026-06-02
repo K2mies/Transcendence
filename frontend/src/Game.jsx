@@ -59,7 +59,7 @@ function GameInfo(props) {
   );
 }
 
-function DisplayGame() {
+function Game() {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isGameFound, setIsGameFound] = useState(undefined);
@@ -99,4 +99,4 @@ function DisplayGame() {
   );
 }
 
-export default DisplayGame;
+export default Game;
