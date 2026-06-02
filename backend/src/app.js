@@ -1,5 +1,5 @@
 import express from "express";
-
+import session from "express-session";
 import profileRoutes from "./routes/profile.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -19,7 +19,14 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 app.use(corsValidator);
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: false,
+	cookie: { secure: process.env.NODE_ENV === "production", maxAge: 5 * 60 * 1000 }, // 5 minutes — only needed for OAuth flow
+}));
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use("/health", healthRoutes);

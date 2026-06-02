@@ -30,7 +30,7 @@ model OAuthAccount {
   providerUserId String
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerUserId])  // one account per provider per user
+  @@unique([provider, providerUserId])
 }
 
 model Game {

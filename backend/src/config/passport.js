@@ -3,6 +3,12 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { OAuthProvider } from "@prisma/client";
 import { prisma } from "./db.js";
 
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.GOOGLE_CALLBACK_URL) {
+	throw new Error(
+		"Missing Google OAuth env vars: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL"
+	);
+}
+
 // Generates a unique username from Google display name or email
 const generateUsername = async (displayName, email) => {
 	// Use displayName if available, otherwise use the part before @ in email
@@ -95,5 +101,21 @@ passport.use(
 		}
 	)
 );
+
+// Required by passport when sessions are enabled
+// serializeUser: what to store in the session (just the user id)
+passport.serializeUser((user, done) => {
+	done(null, user.id);
+});
+
+// deserializeUser: how to retrieve the user from the session id
+passport.deserializeUser(async (id, done) => {
+	try {
+		const user = await prisma.user.findUnique({ where: { id } });
+		done(null, user);
+	} catch (error) {
+		done(error);
+	}
+});
 
 export default passport;
