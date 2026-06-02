@@ -10,11 +10,18 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 function ProfileInfo(props) {
+  const myUser = JSON.parse(localStorage.getItem("user"));
+  const isMyUser = (myUser.name === props.profile.name);
   return (
     <div className="flex flex-col gap-[1em]">
       <div className="flex">
         <h2 className="mr-[2em]">{props.profile.name}</h2>
-        <button>Add friend</button>
+        {!isMyUser &&
+          <button>Add friend</button>
+        }
+        {isMyUser &&
+          <button>Edit profile info</button>
+        }
       </div>
       <div className="flex flex-row items-start gap-[2em]">
         <img
