@@ -1,11 +1,25 @@
+import { useEffect, useState } from "react";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
 const filterOptions = createFilterOptions({
-  limit: 5,
+  limit: 4,
 });
 
-const SearchBar = ({ games }) => {
+const SearchBar = () => {
+  const [games, setGames] = useState([]);
+  useEffect(() => {
+    async function fetchGames() {
+      const response = await fetch("http://localhost:4243/games");
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setGames(result.data);
+      }
+    }
+
+    fetchGames();
+  }, []);
   return (
     <Autocomplete
       sx={{ width: "100%" }}
