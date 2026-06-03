@@ -11,13 +11,26 @@ model User {
   id               Int                @id @default(autoincrement())
   name             String             @unique
   email            String             @unique
-  password         String
+  password         String?
   bio              String?
+  createdAt        DateTime           @default(now())
+  
+  oauthAccounts    OAuthAccount[]
   likeReviews      LikeReview[]
   reviews          Review[]
   userGames        UserGameRelation[]
   receivedRequests UserUserRelation[] @relation("receivedRequests")
   sentRequests     UserUserRelation[] @relation("sentRequests")
+}
+
+model OAuthAccount {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  provider       OAuthProvider
+  providerUserId String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerUserId])
 }
 
 model Game {
@@ -113,4 +126,9 @@ enum GameStatus {
 enum FriendshipStatus {
   PENDING
   FRIENDS
+}
+
+enum OAuthProvider {
+  GOOGLE
+  FT
 }
