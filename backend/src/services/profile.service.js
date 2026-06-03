@@ -39,23 +39,12 @@ export async function getProfile(profileName)
 		},
 		sentRequests: {
 			select: {
-				friend: true,
+				receiver: true,
 			},
 		},
 		receivedRequests: {
-			include: {
-				friend: true,
-			},
-		},
-		reviews: {
 			select: {
-				game: {
-					select: {
-						name: true,
-					},
-				},
-				rating: true,
-				review: true,
+				sender: true,
 			},
 		},
 	},
@@ -68,14 +57,14 @@ export async function getProfile(profileName)
 			...user.receivedRequests
 			.filter(f => f.status === "FRIENDS")
 			.map(f => ({
-			id: f.friend.id,
-			name: f.friend.name
+			id: f.sender.id,
+			name: f.sender.name
 		})),
 			...user.sentRequests
 			.filter(f => f.status === "FRIENDS")
 			.map(f => ({
-			id: f.friend.id,
-			name: f.friend.name
+			id: f.receiver.id,
+			name: f.receiver.name
 		})),
 		],
 		favorites: user.userGames
@@ -89,12 +78,6 @@ export async function getProfile(profileName)
 		playing: filterGameInfo(user.userGames, "PLAYING"),
 		completed: filterGameInfo(user.userGames, "COMPLETED"),
 		dnf: filterGameInfo(user.userGames, "DNF"),
-		reviews: user.reviews.map(r => ({
-            id: r.id,
-			game: r.game.name,
-            rating: r.rating,
-            review: r.review,
-        })),
 	}
 }
 
@@ -113,4 +96,101 @@ export async function updateProfile(profileName, newData)
 	},
 	});
 	return updateUser
+}
+
+//Friend functions
+/*
+- Checking the UserUserRelation from both angles as the friend request (User Relation) can be initiated by both parties.
+- If relation already exists, we throw an error.
+*/
+export async function addFriend(friendName, user)
+{
+	const friend = await prisma.user.findUnique({ where: { name: friendName }})
+	if (!friend)
+		throw "No user found"
+	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: user, receiverId: friend.id }}})
+	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user }}})
+	if (userRelation1 || userRelation2)
+		throw "User relation already exists"
+	await prisma.user.update({
+	where: { id: user },
+	data: {
+	sentRequests: {
+		create: {
+				receiverId: friend.id,
+				status: "PENDING"
+				}
+		}
+	},
+	});
+}
+
+/*
+- Here we are only interested in UserRelation where the other party, the friend, initiated the relation to the user.
+- If there is no UserRelation or it's not in PENDING state, we throw an error.
+*/
+export async function acceptFriendRequest(friendName, user)
+{
+	const friend = await prisma.user.findUnique({ where: { name: friendName }})
+	if (!friend)
+		throw "No user found"
+	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
+	if (!userRelation || userRelation.status != "PENDING")
+		throw "No pending user relation"
+	await prisma.userUserRelation.update({
+	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
+	data: {
+			status: "FRIENDS"
+	},
+	});
+}
+
+/*
+- Same rules apply here as to acceptFriendRequest.
+- As we decline friend request, we can remove entire UserUserRelation database entry.
+*/
+export async function declineFriendRequest(friendName, user)
+{
+	const friend = await prisma.user.findUnique({ where: { name: friendName }})
+	if (!friend)
+		throw "No user found"
+	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
+	if (!userRelation || userRelation.status != "PENDING")
+		throw "No pending user relation"
+	await prisma.userUserRelation.delete({
+	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
+	});
+}
+
+/*
+- Remove friend can be done by the initiator to both PENDING and FRIENDS statuses. The accepter can only remove FRIENDS because for PENDING requests, they may use decline.
+- As we remove friend, we can remove entire UserUserRelation database entry.
+*/
+export async function removeFriend(friendName, user)
+{
+	const friend = await prisma.user.findUnique({ where: { name: friendName }})
+	if (!friend)
+		throw "No user found"
+	const userRelation1 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: user, receiverId: friend.id }}})
+	const userRelation2 = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user }}})
+	if (!userRelation1 && !userRelation2)
+	{
+		throw "User relation does not exist"
+	}
+	if (userRelation2 && userRelation2.status == "PENDING")
+	{
+		throw "No remove action is allowed"
+	}
+	if (userRelation1)
+	{
+		await prisma.userUserRelation.delete({
+		where: { senderId_receiverId: { senderId: user, receiverId: friend.id}},
+	});
+	}
+	if (userRelation2)
+	{
+		await prisma.userUserRelation.delete({
+		where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
+	});
+	}
 }

@@ -15,9 +15,7 @@ function SendRequest({ user }) {
 		<button onClick={async() => {
 			const response = await fetch(`http://localhost:4243/profile/${user}/friend-request`, {
 			  method: "POST",
-			  headers: {
-				"Content-Type": "application/json",
-			  },
+			  credentials: "include",
 			});
 			if (response.status === 200) {
 			  await response.json();
