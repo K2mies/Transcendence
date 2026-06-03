@@ -123,7 +123,7 @@ function DisplayGames(props) {
   );
 }
 
-function DisplayProfile() {
+function Profile() {
   const [profile, setProfile] = useState({});
   const [favGames, setFavGames] = useState([]);
   const [currGames, setCurrGames] = useState([]);
@@ -150,8 +150,6 @@ function DisplayProfile() {
       }
     }
 
-    loadProfile();
-  }, []);
     loadProfile();
   }, []);
 
@@ -198,4 +196,4 @@ function DisplayProfile() {
   );
 }
 
-export default DisplayProfile;
+export default Profile;
