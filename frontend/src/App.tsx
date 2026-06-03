@@ -9,19 +9,9 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import Profile from "./Profile";
-
-function Header() {
-  return (
-    <div>
-      <nav className="flex flex-row justify-around">
-        <Link to="/">GoodPlays</Link>
-        {/* <Link to="/explore">Explore</Link>
-        <Link to="/mygames">My games</Link> */}
-      </nav>
-    </div>
-  );
-}
+import DisplayProfile from "./Profile";
+import Dashboard from "./Dashboard";
+import Header from "./Header";
 
 function Home() {
   return (
@@ -67,13 +57,14 @@ function Login() {
   );
 }
 
-function Dashboard() {
+function Profile() {
   return (
     <div>
-      <h2>Welcome to the Dashboard</h2>
+      <DisplayProfile></DisplayProfile>
     </div>
   );
 }
+
 function Layout() {
   const location = useLocation();
   return (
