@@ -12,6 +12,7 @@ import PublicRoute from "./PublicRoute";
 import DisplayProfile from "./Profile";
 import Dashboard from "./Dashboard";
 import Header from "./Header";
+import Game from "./Game";
 
 function Home() {
   return (
@@ -82,7 +83,8 @@ function Layout() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="user/:username" element={<Profile />} />
+          <Route path="user/:username" element={<DisplayProfile />} />
+          <Route path="game/:name" element={<Game />} />
         </Route>
       </Routes>
     </>
