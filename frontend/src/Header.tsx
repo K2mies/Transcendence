@@ -8,26 +8,13 @@ import {
 import SearchBar from "./SearchBar";
 
 function Header() {
-  // const games = [
-  //   { title: "Elden Ring" },
-  //   { title: "Baldur's Gate 3" },
-  //   { title: "Stardew Valley" },
-  //   { title: "Left 4 Dead 2" },
-  //   { title: "Left 4 Dead" },
-  //   { title: "Portal" },
-  //   { title: "Portal 2" },
-  //   { title: "God of War" },
-  //   { title: "Overwatch" },
-  //   {
-  //     title:
-  //       "Counter-Strike: Global Offensive, testing longer game names that go on for a while",
-  //   },
-  // ];
   return (
-    <nav className="header">
-      <Link to="/">Home</Link>
+    <nav className="flex w-full flex-row items-center gap-4 p-4">
+      <Link to="/">GoodPlays</Link>
+
       <Link to="/user/xKr4t0sx">Profile</Link>
-      <div className="search-container">
+
+      <div className="ml-auto w-[400px] shrink-0">
         <SearchBar />
       </div>
     </nav>
