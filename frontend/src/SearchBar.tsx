@@ -10,7 +10,10 @@ const SearchBar = () => {
   const [games, setGames] = useState([]);
   useEffect(() => {
     async function fetchGames() {
-      const response = await fetch("http://localhost:4243/games");
+      const response = await fetch("http://localhost:4243/games", {
+        method: "GET",
+        credentials: "include",
+      });
       const result = await response.json();
 
       if (result.status === "success") {
