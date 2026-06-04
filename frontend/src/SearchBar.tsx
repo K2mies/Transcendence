@@ -37,7 +37,15 @@ const SearchBar = () => {
         }
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Search games" size="small" />
+        <TextField
+          {...params}
+          label="Search games"
+          size="small"
+          sx={{
+            backgroundColor: "#cfcccc",
+            borderRadius: 1,
+          }}
+        />
       )}
     />
   );
