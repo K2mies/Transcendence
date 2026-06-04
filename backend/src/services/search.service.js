@@ -14,7 +14,7 @@ export async function getAllGames() {
 
   return games.map((game) => ({
     id: game.id,
-    title: game.name,
+    name: game.name,
     image: game.imageSmall,
   }));
 }

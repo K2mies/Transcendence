@@ -78,8 +78,10 @@ function Game() {
       }
     }
 
-    loadGame();
-  }, []);
+    if (name) {
+      loadGame();
+    }
+  }, [name]);
   return (
     <div>
       {isGameFound && (
