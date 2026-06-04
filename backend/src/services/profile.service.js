@@ -98,6 +98,51 @@ export async function updateProfile(profileName, newData)
 	return updateUser
 }
 
+export async function getFriendStatus(friendName, user)
+{
+	const friend = await prisma.user.findUnique({ where: { name: friendName }})
+	if (!friend)
+		throw "No user found"
+	const userRelation1 = await prisma.userUserRelation.findUnique({
+		where: { senderId_receiverId: { senderId: user, receiverId: friend.id }},
+		select: {
+			status: true,
+			sender: {
+				select: {
+					name: true,
+				},
+			},
+			receiver: {
+				select: {
+					name: true,
+				},
+			}
+		}
+	})
+	const userRelation2 = await prisma.userUserRelation.findUnique({
+		where: { senderId_receiverId: { senderId: friend.id, receiverId: user }},
+		select: {
+			status: true,
+			sender: {
+				select: {
+					name: true,
+				},
+			},
+			receiver: {
+				select: {
+					name: true,
+				},
+			}
+		}
+	})
+	if (!userRelation1 && !userRelation2)
+		return ({ status: undefined })
+	if (userRelation1)
+		return ({ status: userRelation1.status, sender: userRelation1.sender.name, receiver: userRelation1.receiver.name })
+	if (userRelation2)
+		return ({ status: userRelation2.status, sender: userRelation2.sender.name, receiver: userRelation2.receiver.name })
+}
+
 //Friend functions
 /*
 - Checking the UserUserRelation from both angles as the friend request (User Relation) can be initiated by both parties.
