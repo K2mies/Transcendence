@@ -13,47 +13,26 @@ function filterGameInfo(games, status) {
 export async function getProfile(profileName) {
   const user = await prisma.user.findUnique({
     where: { name: profileName },
-    select: {
-      id: true,
-      name: true,
-      bio: true,
+    include: {
       userGames: {
-        select: {
-          status: true,
-          favorite: true,
-          game: {
-            select: {
-              id: true,
-              name: true,
-              imageSmall: true,
-            },
-          },
-          platform: {
-            select: {
-              name: true,
-            },
+        include: {
+          game: true,
+          platform: true,
           },
         },
-      },
       sentRequests: {
-        select: {
+        include: {
           receiver: true,
         },
       },
       receivedRequests: {
-        select: {
+        include: {
           sender: true,
         },
       },
       reviews: {
-        select: {
-          game: {
-            select: {
-              name: true,
-            },
-          },
-          rating: true,
-          review: true,
+        include: {
+          game: true,
         },
       },
     },
@@ -116,54 +95,30 @@ export async function updateProfile(profileName, newData) {
   return updateUser;
 }
 
-export async function getFriendStatus(friendName, user) {
+export async function getFriendStatus(friendName, userId, userName) {
   const friend = await prisma.user.findUnique({ where: { name: friendName } });
-  if (!friend) throw "No user found";
+  if (!friend) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
   const userRelation1 = await prisma.userUserRelation.findUnique({
-    where: { senderId_receiverId: { senderId: user, receiverId: friend.id } },
-    select: {
-      status: true,
-      sender: {
-        select: {
-          name: true,
-        },
-      },
-      receiver: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  });
+    where: { senderId_receiverId: { senderId: userId, receiverId: friend.id } }});
   const userRelation2 = await prisma.userUserRelation.findUnique({
-    where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
-    select: {
-      status: true,
-      sender: {
-        select: {
-          name: true,
-        },
-      },
-      receiver: {
-        select: {
-          name: true,
-        },
-      },
-    },
-  });
-  if (!userRelation1 && !userRelation2) return { status: undefined };
-  if (userRelation1)
+    where: { senderId_receiverId: { senderId: friend.id, receiverId: userId } }});
+  if (!userRelation1 && !userRelation2) return { friendStatus: undefined };
+  if (userRelation1) {
     return {
-      status: userRelation1.status,
-      sender: userRelation1.sender.name,
-      receiver: userRelation1.receiver.name,
-    };
-  if (userRelation2)
+      friendStatus: userRelation1.status,
+      sender: userName,
+    }
+  }
+  if (userRelation2) {
     return {
-      status: userRelation2.status,
-      sender: userRelation2.sender.name,
-      receiver: userRelation2.receiver.name,
-    };
+      friendStatus: userRelation2.status,
+      sender: friendName,
+    }
+  }
 }
 
 //Friend functions

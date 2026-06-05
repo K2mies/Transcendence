@@ -18,10 +18,10 @@ function FriendButton({ user }) {
 				credentials: "include",
 			});
 			const res = await response.json();
-			if (res.status === "PENDING" && res.sender === user)
+			if (res.friendStatus === "PENDING" && res.sender === user)
 				setFriendStatus("RECEIVED")
 			else
-				setFriendStatus(res.status);
+				setFriendStatus(res.friendStatus);
 		}
 
 		getStatus();
