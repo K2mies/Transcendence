@@ -77,7 +77,9 @@ model Review {
   review      String?
   rating      Int
   likeReviews LikeReview[]
+  platformId  Int?
   game        Game         @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  platform    Platform?     @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -87,12 +89,10 @@ model UserGameRelation {
   gameId     Int
   status     GameStatus
   favorite   Boolean    @default(false)
-  platformId Int?
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  platform   Platform?  @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, gameId, platformId])
+  @@unique([userId, gameId])
 }
 
 model LikeReview {

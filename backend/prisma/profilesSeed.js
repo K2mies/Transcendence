@@ -14,25 +14,21 @@ await prisma.user.upsert({
             create: [
             {
                 game: { connect: { name: "World of Warcraft" }},
-                platform: { connect: { name: "PC (Microsoft Windows)" }},
                 status: "COMPLETED",
                 favorite: true
             },
             {
                 game: { connect: { name: "Overwatch" }},
-                platform: { connect: { name: "PC (Microsoft Windows)" }},
                 status: "PLAYING",
                 favorite: true
             },
             {
                 game: { connect: { name: "Journey" }},
-                platform: { connect: { name: "PlayStation 4" }},
                 status: "COMPLETED",
                 favorite: true
             },
             {
                 game: { connect: { name: "Bloodborne" }},
-                platform: { connect: { name: "PlayStation 4" }},
                 status: "DNF",
                 favorite: false
             },
@@ -69,31 +65,26 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Stardew Valley" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Journey" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "What Remains of Edith Finch" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Firewatch" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Ori and the Blind Forest" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "PLAYING",
             favorite: false,
           },
@@ -109,7 +100,6 @@ await prisma.user.upsert({
           },
           {
             game: { connect: { name: "Celeste" } },
-            platform: { connect: { name: "Nintendo Switch" } },
             status: "DNF",
             favorite: false,
           },
@@ -132,43 +122,36 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Dark Souls" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Dark Souls III" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Bloodborne" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Elden Ring" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Sekiro: Shadows Die Twice" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Dark Souls II" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Hollow Knight" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
@@ -196,37 +179,31 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Disco Elysium" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "The Last of Us" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "The Walking Dead" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Hellblade: Senua's Sacrifice" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Life is Strange" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Outer Wilds" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "PLAYING",
             favorite: false,
           },
@@ -242,7 +219,6 @@ await prisma.user.upsert({
           },
           {
             game: { connect: { name: "Heavy Rain" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "DNF",
             favorite: false,
           },
@@ -265,61 +241,51 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Counter-Strike: Global Offensive" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "PLAYING",
             favorite: true,
           },
           {
             game: { connect: { name: "Dota 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "The Witcher 3: Wild Hunt" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Red Dead Redemption 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "God of War" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Portal 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Left 4 Dead 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Overwatch" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Titanfall 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Battlefield 3" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "DNF",
             favorite: true,
           },
@@ -342,49 +308,41 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "God of War" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "God of War Ragnarök" } },
-            platform: { connect: { name: "PlayStation 5" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Bloodborne" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Marvel's Spider-Man" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Ghost of Tsushima" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Uncharted 4: A Thief's End" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Horizon Zero Dawn" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "The Last of Us Part II" } },
-            platform: { connect: { name: "PlayStation 4" } },
             status: "PLAYING",
             favorite: false,
           },
@@ -407,43 +365,36 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Undertale" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Hades" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Return of the Obra Dinn" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Inside" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Dead Cells" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Hotline Miami" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Clair Obscur: Expedition 33" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "PLAYING",
             favorite: false,
           },
@@ -459,13 +410,11 @@ await prisma.user.upsert({
           },
           {
             game: { connect: { name: "The Stanley Parable" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Cyberpunk 2077" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "DNF",
             favorite: false,
           },
@@ -488,43 +437,36 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Halo: Combat Evolved" } },
-            platform: { connect: { name: "Xbox" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Halo 3" } },
-            platform: { connect: { name: "Xbox 360" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "It Takes Two" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Portal 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Mario Kart 8 Deluxe" } },
-            platform: { connect: { name: "Nintendo Switch" } },
             status: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Minecraft: Java Edition" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Left 4 Dead 2" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "COMPLETED",
             favorite: false,
           },
@@ -540,7 +482,6 @@ await prisma.user.upsert({
           },
           {
             game: { connect: { name: "The Witcher 3: Wild Hunt" } },
-            platform: { connect: { name: "PC (Microsoft Windows)" } },
             status: "DNF",
             favorite: false,
           },

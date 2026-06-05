@@ -5,6 +5,7 @@ import {protect} from "../utils/protectJWT.js";
 const router = express.Router();
 
 router.get("/:name", profileController.getProfile)
+//here we actually wouldnt need the name either because you can only update yours
 router.put("/:name", protect, profileController.updateProfile)
 
 router.post("/:name/friend-request", protect, profileController.addFriend)
