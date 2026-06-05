@@ -16,7 +16,7 @@ export async function getProfile(req, res)
 
 export async function updateProfile(req, res)
 {
-	const userName = req.params.name
+	const userName = req.user.name
 	const newData = req.body
 	try {
 		const profile = await profileService.updateProfile(userName, newData)
@@ -85,6 +85,8 @@ export async function removeFriend(req, res)
 //profiles seed and add new migrations)
 //and also make sure you add the reviews
 //we could also add this same setup with favourite
+//we need also remove review. ONLY YOURS
+
 export async function updateGameRelation(req, res)
 {
 	const game = req.params.gameName
@@ -94,13 +96,44 @@ export async function updateGameRelation(req, res)
 		await profileService.updateGameRelation(userId, newData, game)
 		res.status(200).json({ message: "Status updated"});
 	} catch (error) {
-		return res.status(500).json({ message: "Internal server error" });
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+	}
+}
+
+export async function addReview(req, res)
+{
+	const game = req.params.gameName
+	const userId = req.user.id
+	const newData = req.body
+	try {
+		await profileService.addReview(userId, newData, game)
+		res.status(200).json({ message: "Review added"});
+	} catch (error) {
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+	}
+}
+
+export async function deleteReview(req, res)
+{
+	const game = req.params.gameName
+	const userId = req.user.id
+	try {
+		await profileService.deleteReview(userId, game)
+		res.status(200).json({ message: "Review removed"});
+	} catch (error) {
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
 export async function updateGameRelation(userId, newData, gameName)
 {
 	const game = await prisma.game.findUnique({ where: { name: gameName }})
+	if (!game)
+	{
+		const error = new Error("Game not found")
+		error.status = 404
+		throw error
+	}
 	await prisma.userGameRelation.upsert({
 		where: {
 			userId_gameId: {
@@ -124,7 +157,13 @@ export async function updateGameRelation(userId, newData, gameName)
 export async function addReview(userId, newData, gameName)
 {
 	const game = await prisma.game.findUnique({ where: { name: gameName }})
-	const platform = await prisma.platform.findUnique({ where: { name: newData.platform }}) //this is voluntary
+	if (!game)
+	{
+		const error = new Error("Game not found")
+		error.status = 404
+		throw error
+	}
+	const platform = await prisma.platform.findUnique({ where: { name: newData.platform }})
 	await prisma.review.upsert({
 		where: { userId_gameId: { userId: userId, gameId: game.id }},
 		update: {
@@ -140,4 +179,18 @@ export async function addReview(userId, newData, gameName)
 			platformId: platform?.id
 		}
 	})
+}
+
+export async function deleteReview(userId, gameName)
+{
+	const game = await prisma.game.findUnique({ where: { name: gameName }})
+	if (!game)
+	{
+		const error = new Error("Game not found")
+		error.status = 404
+		throw error
+	}
+	await prisma.review.delete({
+	where: { userId_gameId: { userId: userId, gameId: game.id}},
+	});
 }
