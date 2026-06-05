@@ -23,71 +23,58 @@ export async function updateProfile(req, res)
 			return res.status(404).json({ message: "User not found" });
 		res.status(200).json(profile);
 	} catch (error) {
-		res.status(409).json({ message: error })
-	}
-}
-
-export async function getFriendStatus(req, res)
-{
-	const friendName = req.params.name
-	if (friendName == req.user.name)
-		return res.status(400).json({ message: "Operation forbidden" });
-	try {
-		const friendStatus = await profileService.getFriendStatus(friendName, req.user.id)
-		res.status(200).json(friendStatus)
-	} catch (error) {
-		res.status(error.status).json({ message: error.message })
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
 export async function addFriend(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.addFriend(friendName, req.user.id)
+		await profileService.addFriend(friendName, req.user.id)
 		res.status(200).json({ message: "Friend request sent" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message }) //user relation already exists
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
 export async function acceptFriendRequest(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.acceptFriendRequest(friendName, req.user.id)
+		await profileService.acceptFriendRequest(friendName, req.user.id)
 		res.status(200).json({ message: "Friend request accepted" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message }) //no pending user relation
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
 export async function declineFriendRequest(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.declineFriendRequest(friendName, req.user.id)
+		await profileService.declineFriendRequest(friendName, req.user.id)
 		res.status(200).json({ message: "Friend request declined" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message }) //no pending user relation
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
 export async function removeFriend(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.removeFriend(friendName, req.user.id)
+		await profileService.removeFriend(friendName, req.user.id)
 		res.status(200).json({ message: "Friend removed" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message }) //user relation does not exist or no removal allowed
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
