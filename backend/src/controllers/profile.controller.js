@@ -30,7 +30,7 @@ export async function updateProfile(req, res)
 export async function addFriend(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
 		await profileService.addFriend(friendName, req.user.id)
@@ -43,7 +43,7 @@ export async function addFriend(req, res)
 export async function acceptFriendRequest(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
 		await profileService.acceptFriendRequest(friendName, req.user.id)
@@ -56,7 +56,7 @@ export async function acceptFriendRequest(req, res)
 export async function declineFriendRequest(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
 		await profileService.declineFriendRequest(friendName, req.user.id)
@@ -69,7 +69,7 @@ export async function declineFriendRequest(req, res)
 export async function removeFriend(req, res)
 {
 	const friendName = req.params.name
-	if (friendName == req.user.name)
+	if (friendName === req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
 		await profileService.removeFriend(friendName, req.user.id)

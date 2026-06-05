@@ -131,7 +131,7 @@ export async function acceptFriendRequest(friendName, user)
 		throw error
 	}
 	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
-	if (!userRelation || userRelation.status != "PENDING") {
+	if (!userRelation || userRelation.status !== "PENDING") {
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
@@ -157,7 +157,7 @@ export async function declineFriendRequest(friendName, user)
 		throw error
 	}
 	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
-	if (!userRelation || userRelation.status != "PENDING") {
+	if (!userRelation || userRelation.status !== "PENDING") {
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
