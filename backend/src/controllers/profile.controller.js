@@ -33,7 +33,7 @@ export async function getFriendStatus(req, res)
 	if (friendName == req.user.name)
 		return res.status(400).json({ message: "Operation forbidden" });
 	try {
-		const friendStatus = await profileService.getFriendStatus(friendName, req.user.id)
+		const friendStatus = await profileService.getFriendStatus(friendName, req.user.id, req.user.name)
 		res.status(200).json(friendStatus)
 	} catch (error) {
 		res.status(error.status).json({ message: error.message })
