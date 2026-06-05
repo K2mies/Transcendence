@@ -42,7 +42,16 @@ await prisma.user.upsert({
                 favorite: false
             },
             ]
-        }
+        },
+		reviews: {
+			create: [
+			{
+				game: { connect: { name: "World of Warcraft" }},
+				rating: 5,
+				review: "This game keeps blowing my mind, it's amazing, it's beautiful. I always come back to it..."
+			},
+			]
+		}
     }
 })
 

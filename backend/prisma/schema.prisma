@@ -106,14 +106,14 @@ model LikeReview {
 }
 
 model UserUserRelation {
-  id       Int              @id @default(autoincrement())
-  userId   Int
-  friendId Int
-  status   FriendshipStatus
-  friend   User             @relation("receivedRequests", fields: [friendId], references: [id], onDelete: Cascade)
-  user     User             @relation("sentRequests", fields: [userId], references: [id], onDelete: Cascade)
+  id         Int              @id @default(autoincrement())
+  senderId   Int
+  receiverId Int
+  status     FriendshipStatus
+  receiver   User             @relation("receivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+  sender     User             @relation("sentRequests", fields: [senderId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, friendId])
+  @@unique([senderId, receiverId])
 }
 
 enum GameStatus {
@@ -124,7 +124,6 @@ enum GameStatus {
 }
 
 enum FriendshipStatus {
-  NONE
   PENDING
   FRIENDS
 }
