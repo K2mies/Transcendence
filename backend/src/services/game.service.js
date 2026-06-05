@@ -4,34 +4,16 @@ export async function getGame(gameName, currentUserId)
 {
     const game = await prisma.game.findUnique({
     where: { name: gameName },
-    select: {
-		id: true,
-		name: true,
-		imageBig: true,
-		description: true,
-		releaseDate: true,
-		updateDate: true,
-		developer: true,
-		publisher: true,
-		rating: true,
-        reviews: {
-            select: {
-				id: true,
-				rating: true,
-				review: true,
-                user: {
-					select: {
-						id: true,
-						name: true,
-					},
-				},
-            },
+    include: {
+      reviews: {
+        include: {
+          user: true,
         },
-        userGames: true,
-        modes: true,
-        genres: true,
-        platforms: true,
-        },
+      },
+	  modes: true,
+	  genres: true,
+	  platforms: true,
+    },
     })
     return {
         id: game.id,
