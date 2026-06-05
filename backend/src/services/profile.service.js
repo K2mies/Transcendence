@@ -47,6 +47,17 @@ export async function getProfile(profileName)
 				sender: true,
 			},
 		},
+		reviews: {
+			select: {
+				game: {
+					select: {
+						name: true,
+					},
+				},
+				rating: true,
+				review: true,
+			},
+		},
 	},
 	})
 	return {
@@ -67,6 +78,7 @@ export async function getProfile(profileName)
 			name: f.receiver.name
 		})),
 		],
+		reviews: user.reviews,
 		favorites: user.userGames
 		.filter(game => game.favorite === true)
 		.map(g => ({
@@ -78,6 +90,12 @@ export async function getProfile(profileName)
 		playing: filterGameInfo(user.userGames, "PLAYING"),
 		completed: filterGameInfo(user.userGames, "COMPLETED"),
 		dnf: filterGameInfo(user.userGames, "DNF"),
+		reviews: user.reviews.map(r => ({
+			id: r.id,
+			game: r.game.name,
+			rating: r.rating,
+			review: r.review,
+		})),
 	}
 }
 
