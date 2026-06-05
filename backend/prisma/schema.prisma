@@ -81,13 +81,14 @@ model Review {
   game        Game         @relation(fields: [gameId], references: [id], onDelete: Cascade)
   platform    Platform?     @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId, gameId])
 }
 
 model UserGameRelation {
   id         Int        @id @default(autoincrement())
   userId     Int
   gameId     Int
-  status     GameStatus
+  status     GameStatus?
   favorite   Boolean    @default(false)
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -84,20 +84,21 @@ export async function removeFriend(req, res)
 //Also maybe we want to have the platform specification rather in review and not in usergamerelation (remember to push 
 //profiles seed and add new migrations)
 //and also make sure you add the reviews
-export async function updateGameStatus(req, res)
+//we could also add this same setup with favourite
+export async function updateGameRelation(req, res)
 {
 	const game = req.params.gameName
 	const userId = req.user.id
-	const status = req.body
+	const newData = req.body
 	try {
-		await profileService.updateGameStatus(userId, status, game)
+		await profileService.updateGameRelation(userId, newData, game)
 		res.status(200).json({ message: "Status updated"});
 	} catch (error) {
 		return res.status(500).json({ message: "Internal server error" });
 	}
 }
 
-export async function updateGameStatus(userId, newData, gameName)
+export async function updateGameRelation(userId, newData, gameName)
 {
 	const game = await prisma.game.findUnique({ where: { name: gameName }})
 	await prisma.userGameRelation.upsert({
@@ -108,12 +109,35 @@ export async function updateGameStatus(userId, newData, gameName)
 			}
 		},
 		update: {
-			status: newData
+			status: newData.status,
+			favorite: newData.favorite
 		},
 		create: {
 			userId: userId,
 			gameId: game.id,
-			status: newData
+			status: newData.status,
+			favorite: newData.favorite
+		}
+	})
+}
+
+export async function addReview(userId, newData, gameName)
+{
+	const game = await prisma.game.findUnique({ where: { name: gameName }})
+	const platform = await prisma.platform.findUnique({ where: { name: newData.platform }}) //this is voluntary
+	await prisma.review.upsert({
+		where: { userId_gameId: { userId: userId, gameId: game.id }},
+		update: {
+			review: newData.review,
+			rating: newData.rating,
+			platformId: platform?.id
+		},	
+		create: {
+			gameId: game.id,
+			userId: userId,
+			review: newData.review,
+			rating: newData.rating,
+			platformId: platform?.id
 		}
 	})
 }
