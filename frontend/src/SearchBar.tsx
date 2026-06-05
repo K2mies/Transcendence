@@ -42,8 +42,25 @@ const SearchBar = () => {
           label="Search games"
           size="small"
           sx={{
-            backgroundColor: "#cfcccc",
-            borderRadius: 1,
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "var(--color-tertiary)",
+              "& fieldset": {
+                borderColor: "var(--color-primary)",
+              },
+              "&:hover fieldset": {
+                borderColor: "var(--color-secondary)",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "var(--color-secondary)",
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: "var(--color-primary)",
+            },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "var(--color-secondary)",
+            },
+            borderRadius: 10,
           }}
         />
       )}

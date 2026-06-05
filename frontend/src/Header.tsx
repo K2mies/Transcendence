@@ -4,37 +4,34 @@ import Button from "@mui/material/Button";
 
 function Header() {
   return (
-    <nav className="flex w-full flex-row items-center gap-4 p-4 bg-[#242424] text-[#cfcccc] rounded-2xl ">
-      <Button
-        component={Link}
+    <nav className="flex w-full flex-row items-center gap-4 py-2 px-4 bg-[var(--color-primary)] text-[var(--color-tertiary)]">
+      <Link
         to="/"
-        variant="contained"
-        sx={{
-          textTransform: "none",
-          backgroundColor: "var(--color-primary)",
-          "&:hover": {
-            backgroundColor: "var(--color-secondary)",
-          },
-        }}
+        className="
+    no-underline
+    px-2
+    rounded-md
+    text-[var(--color-tertiary)]
+    bg-[var(--color-primary)]
+    transition-colors
+  "
       >
         GoodPlays
-      </Button>
+      </Link>
 
-      <Button
-        component={Link}
+      <Link
         to="/user/xKr4t0sx"
-        variant="contained"
-        sx={{
-          textTransform: "none",
-          backgroundColor: "var(--color-primary)",
-          "&:hover": {
-            backgroundColor: "var(--color-secondary)",
-          },
-        }}
+        className="
+    no-underline
+    px-2
+    rounded-md
+    text-[var(--color-tertiary)]
+    bg-[var(--color-primary)]
+    transition-colors
+  "
       >
         Profile
-      </Button>
-
+      </Link>
       <div className="ml-auto w-[400px] shrink-0">
         <SearchBar />
       </div>

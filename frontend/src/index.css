@@ -1,12 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poller+One&display=swap");
 @import "tailwindcss";
 
+/*:root {
+  --color-primary: #121212;
+  --color-secondary: #8f8f8f;
+  --color-tertiary: #d2d2d2;
+}*/
 :root {
-  --color-primary: #242424;
-  --color-secondary: #dbdbdb;
-  --color-tertiary: #a3a0a0;
+  --color-primary: #121212;
+  --color-secondary: #c59113;
+  --color-tertiary: #d2d2d2;
 }
-
 @layer base {
   button {
     cursor: pointer;
