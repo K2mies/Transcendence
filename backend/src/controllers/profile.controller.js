@@ -23,7 +23,7 @@ export async function updateProfile(req, res)
 			return res.status(404).json({ message: "User not found" });
 		res.status(200).json(profile);
 	} catch (error) {
-		res.status(409).json({ message: error })
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
@@ -36,7 +36,7 @@ export async function addFriend(req, res)
 		await profileService.addFriend(friendName, req.user.id)
 		res.status(200).json({ message: "Friend request sent" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message })
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
@@ -49,7 +49,7 @@ export async function acceptFriendRequest(req, res)
 		await profileService.acceptFriendRequest(friendName, req.user.id)
 		res.status(200).json({ message: "Friend request accepted" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message }) //no pending user relation
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
@@ -62,7 +62,7 @@ export async function declineFriendRequest(req, res)
 		await profileService.declineFriendRequest(friendName, req.user.id)
 		res.status(200).json({ message: "Friend request declined" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message })
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 
@@ -75,6 +75,6 @@ export async function removeFriend(req, res)
 		await profileService.removeFriend(friendName, req.user.id)
 		res.status(200).json({ message: "Friend removed" })
 	} catch (error) {
-		res.status(error.status).json({ message: error.message }) //user relation does not exist or no removal allowed
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }

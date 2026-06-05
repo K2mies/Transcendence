@@ -71,7 +71,9 @@ export async function updateProfile(profileName, newData)
 	const existingUser = await prisma.user.findUnique({ where: { name: newData.name}})
 	if (existingUser && existingUser.name != profileName)
 	{
-		throw "Username already taken"
+		const error = new Error("Username already taken")
+		error.status = 409
+		throw error
 	}
 	const updateUser = await prisma.user.update({
 	where: { name: profileName },
