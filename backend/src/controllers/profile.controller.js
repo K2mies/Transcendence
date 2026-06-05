@@ -27,6 +27,19 @@ export async function updateProfile(req, res)
 	}
 }
 
+export async function getFriendStatus(req, res)
+{
+	const friendName = req.params.name
+	if (friendName == req.user.name)
+		return res.status(400).json({ message: "Operation forbidden" });
+	try {
+		const friendStatus = await profileService.getFriendStatus(friendName, req.user.id)
+		res.status(200).json(friendStatus)
+	} catch (error) {
+		res.status(error.status).json({ message: error.message })
+	}
+}
+
 export async function addFriend(req, res)
 {
 	const friendName = req.params.name
