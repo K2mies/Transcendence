@@ -57,6 +57,11 @@ const login = async (req, res) => {
 		return res.status(401).json({error: "Invalid email or password"});
 	}
 
+	// OAuth user trying to use password login
+	if (!user.password) {
+		return res.status(401).json({error: "This account uses Google sign-in"});
+	}
+
 	// Verify the password
 	const isPasswordValid = await bcrypt.compare(password, user.password);
 	if (!isPasswordValid) {
@@ -89,4 +94,19 @@ const logout = async (req, res) => {
 	});
 };
 
-export {register, login, logout};
+const googleCallback = (res, user) => {
+	const token = generateToken(user.id, res);
+	res.status(200).json({
+		status: "success",
+		data: {
+			user: {
+				id: user.id,
+				name: user.name,
+				email: user.email,
+			},
+			token,
+		},
+	});
+};
+
+export {register, login, logout, googleCallback};

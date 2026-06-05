@@ -1,6 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Poller+One&display=swap");
 @import "tailwindcss";
 
+@theme {
+  --color-orange: rgb(235, 80, 39);
+  --color-yellow: rgb(252, 230, 22);
+  --color-green: rgb(6, 127, 92);
+  --color-blue: rgb(82, 182, 245);
+  --color-lemon: rgb(241, 237, 198);
+
+  --font-header: "Poller One", sans-serif;
+}
+
 @layer base {
+  html {
+    background-color: var(--color-lemon);
+  }
+
+  button {
+    cursor: pointer;
+  }
+
   h1 {
     font-size: 2rem;
   }
