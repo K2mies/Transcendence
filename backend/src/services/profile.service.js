@@ -78,7 +78,6 @@ export async function getProfile(profileName)
 			name: f.receiver.name
 		})),
 		],
-		reviews: user.reviews,
 		favorites: user.userGames
 		.filter(game => game.favorite === true)
 		.map(g => ({
