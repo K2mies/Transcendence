@@ -41,6 +41,11 @@ export function setupWebSocket(server) {
 			}
 
 			ws.userId = user.id;
+
+			const existing = connectedUsers.get(user.id);
+			if (existing && existing !== ws) {
+				existing.close(1000, "Replaced by new connection");
+			}
 			connectedUsers.set(user.id, ws);
 
 			console.log(`User ${user.name} (${user.id}) connected`);
@@ -56,7 +61,9 @@ export function setupWebSocket(server) {
 
 			ws.on("close", () => {
 				console.log(`User ${user.id} disconnected`);
-				connectedUsers.delete(user.id);
+				if (connectedUsers.get(user.id) === ws) {
+					connectedUsers.delete(user.id);
+				}
 			});
 
 			ws.on("error", (error) => {

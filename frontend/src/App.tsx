@@ -100,7 +100,7 @@ function Layout() {
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="user/:username" element={<Profile />} />
-          <Route path="/ws-test" element={<WebSocketTest/>} />
+          <Route path="ws-test" element={<WebSocketTest/>} />
         </Route>
       </Routes>
     </>

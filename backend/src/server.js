@@ -10,7 +10,7 @@ import app from "./app.js";
 import {portCheck} from "./utils/portCheck.js";
 import {shutdown} from "./utils/shutdown.js";
 import {connectDB, disconnectDB} from "./config/db.js";
-import {setupWebSocket} from "./websocket/wsServer.js";
+import {setupWebSocket} from "./websocket/websocket.server.js";
 import http from "http";
 
 const isShuttingDown = {value: false};
@@ -48,7 +48,7 @@ process.on("unhandledRejection", (err) => {
 		try {
 			await disconnectDB();
 		} catch (error) {
-			console.error("Error disconnecting DB during unhandeled rejection shutdown:", error);
+			console.error("Error disconnecting DB during unhandled rejection shutdown:", error);
 		} finally {
 			process.exit(1);
 		}

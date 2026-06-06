@@ -3,15 +3,6 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { OAuthProvider } from "@prisma/client";
 import { prisma } from "./db.js";
 
-// Need env import for local development
-import dotenv from "dotenv";
-import {dirname, resolve} from "path";
-import {fileURLToPath} from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-dotenv.config({path: resolve(__dirname, "../../../.env")})
-
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.GOOGLE_CALLBACK_URL) {
 	throw new Error(
 		"Missing Google OAuth env vars: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL"
