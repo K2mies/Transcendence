@@ -63,6 +63,7 @@ const RegisterForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(submitData),
     })
       .then((response) => response.json())

@@ -11,6 +11,7 @@ import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import DisplayProfile from "./Profile";
+import WebSocketTest from "./WebSocketTest";
 
 function Header() {
   return (
@@ -99,6 +100,7 @@ function Layout() {
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="user/:username" element={<Profile />} />
+          <Route path="/ws-test" element={<WebSocketTest/>} />
         </Route>
       </Routes>
     </>
