@@ -50,11 +50,11 @@ function GameInfo(props) {
           </ul>
         </div>
       </div>
-      <div className="flex flex-row items-start gap-[2em] text-[var(--color-primary)] bg-[var(--color-tertiary)] p-4 rounded-b-lg">
+      <div className="flex flex-row items-start gap-[2em] bg-[var(--color-tertiary)] text-[var(--color-primary)] p-4 rounded-b-lg">
         <img
           src={props.game.image}
           alt={props.game.name}
-          className="rounded-3xl border-5 border-[var(--color-secondary)]"
+          className="rounded-xl border-5 border-[var(--color-secondary)]"
         ></img>
         <p className="w-[45%]">{props.game.description}</p>
         <GameData game={props.game}></GameData>

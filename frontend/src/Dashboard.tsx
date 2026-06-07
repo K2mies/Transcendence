@@ -1,6 +1,6 @@
 function Dashboard() {
   return (
-    <div>
+    <div className="min-h-screen bg-[var(--color-secondary)] text-[var(--color-primary)]">
       <h2>Welcome to the Dashboard</h2>
     </div>
   );

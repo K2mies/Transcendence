@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
 const filterOptions = createFilterOptions({
-  limit: 4,
+  limit: 6000,
 });
 
 const SearchBar = () => {
@@ -31,6 +31,13 @@ const SearchBar = () => {
       options={games}
       filterOptions={filterOptions}
       getOptionLabel={(option) => option.name}
+      slotProps={{
+        listbox: {
+          sx: {
+            maxHeight: 400,
+          },
+        },
+      }}
       onChange={(event, value) => {
         if (value) {
           navigate(`/game/${encodeURIComponent(value.name)}`);
