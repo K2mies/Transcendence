@@ -4,9 +4,9 @@ function Home() {
   return (
     <div className="min-h-screen m-0 flex flex-col items-center gap-4 text-center bg-[var(--color-secondary)]">
       <div>
-        <div className="bg-[var(--color-tertiary)] p-4 rounded-t-lg mt-4">
+        <div className="border-3 border-[var(--color-primary)] p-4 rounded-t-lg mt-6">
           <img
-            className="w-96 h-auto"
+            className="w-67 h-auto"
             src="/logo_03_with_alpha.png"
             alt="GoodPlays logo"
           />
