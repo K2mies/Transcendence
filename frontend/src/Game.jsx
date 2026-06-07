@@ -8,7 +8,7 @@ function GameData(props) {
   temp = new Date(props.game.updateDate);
   const updated = temp.toLocaleDateString("fi-FI");
   return (
-    <div className="text-[75%] text-[var(--color-primary)] ">
+    <div className="text-[75%] ml-auto mr-10 text-[var(--color-primary)] ">
       <p>
         <span style={{ fontWeight: "bold" }}>Developer:</span>{" "}
         {props.game.developer}
@@ -51,7 +51,11 @@ function GameInfo(props) {
         </div>
       </div>
       <div className="flex flex-row items-start gap-[2em] text-[var(--color-primary)] bg-[var(--color-tertiary)] p-4 rounded-b-lg">
-        <img src={props.game.image} alt={props.game.name}></img>
+        <img
+          src={props.game.image}
+          alt={props.game.name}
+          className="rounded-3xl border-5 border-[var(--color-secondary)]"
+        ></img>
         <p className="w-[45%]">{props.game.description}</p>
         <GameData game={props.game}></GameData>
       </div>
