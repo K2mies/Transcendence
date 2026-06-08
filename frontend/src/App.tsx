@@ -93,7 +93,7 @@ function Layout() {
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="user/:username" element={<Profile />} />
-          <Route path="game/:name" element={<Game />} />
+          <Route path="game/:gamename" element={<Game />} />
         </Route>
       </Routes>
     </>

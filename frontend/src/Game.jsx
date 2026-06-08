@@ -36,6 +36,23 @@ function GameData(props) {
 }
 
 function GameInfo(props) {
+  let myStatus;
+  switch (props.game.status) {
+	case "WANT_TO_PLAY":
+		myStatus = "Want to play";
+		break;
+	case "PLAYING":
+		myStatus = "Playing";
+		break;
+	case "COMPLETED":
+		myStatus = "Completed";
+		break;
+	case "DNF":
+		myStatus = "Did not finish";
+		break;
+	default:
+		myStatus = "No status";
+  }
   return (
     <div className="flex flex-col gap-[1em]">
       <div className="mr-[2em]">
@@ -53,6 +70,8 @@ function GameInfo(props) {
       <div className="flex flex-row items-start gap-[2em]">
         <img src={props.game.image} alt={props.game.name}></img>
         <p className="w-[45%]">{props.game.description}</p>
+		<p>{props.game.favorite}</p>
+		<p>{myStatus}</p>
         <GameData game={props.game}></GameData>
       </div>
     </div>
@@ -63,11 +82,16 @@ function Game() {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isGameFound, setIsGameFound] = useState(undefined);
-  const { name } = useParams();
+  const { gamename } = useParams();
 
   useEffect(() => {
+	if (!gamename) return;
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${name}`);
+      const response = await fetch(`http://localhost:4243/game/${gamename}`,
+        {
+          credentials: "include",
+        },
+	  );
       if (response.status === 200) {
         const res = await response.json();
         setIsGameFound(true);
@@ -79,7 +103,7 @@ function Game() {
     }
 
     loadGame();
-  }, []);
+  }, [gamename]);
   return (
     <div>
       {isGameFound && (

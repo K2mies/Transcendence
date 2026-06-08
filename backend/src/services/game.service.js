@@ -10,11 +10,24 @@ export async function getGame(gameName, currentUserId)
           user: true,
         },
       },
+	  userGames: true,
 	  modes: true,
 	  genres: true,
 	  platforms: true,
     },
     })
+	const isFave = game.userGames.find(ug => ug.userId === Number(currentUserId));
+	let isFavorite;
+	if (isFave === undefined)
+		isFavorite = null;
+	else
+		isFavorite = isFave.favorite;
+	const gameStatus = game.userGames.find(ug => ug.userId === Number(currentUserId));
+	let myGameStatus;
+	if (gameStatus === undefined)
+		myGameStatus = null;
+	else
+		myGameStatus = gameStatus.status;
     return {
         id: game.id,
         name: game.name,
@@ -37,7 +50,7 @@ export async function getGame(gameName, currentUserId)
         modes: game.modes.map(m => m.name),
         genres: game.genres.map(g => g.name),
         platforms: game.platforms.map(p => p.name),
-        // favorite: game.userGames.find(ug => ug.userId == currentUserId).favorite,
-        // status: game.userGames.find(ug => ug.userId == currentUserId).status
+        favorite: isFavorite,
+        status: myGameStatus,
     }
 }
