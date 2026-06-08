@@ -10,107 +10,124 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 function FriendButton({ user }) {
-	const [friendStatus, setFriendStatus] = useState(undefined);
+  const [friendStatus, setFriendStatus] = useState(undefined);
 
-	useEffect(() => {
-		async function getStatus() {
-			const response = await fetch(`http://localhost:4243/profile/${user}/friend-status`, {
-				credentials: "include",
-			});
-			const res = await response.json();
-			if (res.friendStatus === "PENDING" && res.sender === user)
-				setFriendStatus("RECEIVED")
-			else
-				setFriendStatus(res.friendStatus);
-		}
+  useEffect(() => {
+    if (!user) return;
+    async function getStatus() {
+      const response = await fetch(
+        `http://localhost:4243/profile/${user}/friend-status`,
+        {
+          credentials: "include",
+        },
+      );
+      const res = await response.json();
+      if (res.friendStatus === "PENDING" && res.sender === user)
+        setFriendStatus("RECEIVED");
+      else setFriendStatus(res.friendStatus);
+    }
 
-		getStatus();
-	}, []);
+    getStatus();
+  }, [user]);
 
-	const handleClick = async () => {
-		if (friendStatus === undefined) {
-			const response = await fetch(`http://localhost:4243/profile/${user}/friend-request`, {
-				method: "POST",
-				credentials: "include",
-			});
-			if (response.status === 200) {
-				await response.json();
-				setFriendStatus("PENDING");
-			} else {
-				console.error("Error sending friend request");
-			}
-		} else if (friendStatus === "RECEIVED") {
-			const response = await fetch(`http://localhost:4243/profile/${user}/accept-request`, {
-				method: "PUT",
-				credentials: "include",
-			});
-			if (response.ok) {
-				await response.json();
-				setFriendStatus("FRIENDS");
-			} else {
-				console.error("Error accepting friend request");
-			}
-		} else if (friendStatus === "FRIENDS") {
-			const response = await fetch(`http://localhost:4243/profile/${user}/remove-friend`, {
-				method: "DELETE",
-				credentials: "include",
-			});
-			if (response.ok) {
-				await response.json();
-				setFriendStatus(undefined);
-			} else {
-				console.error("Error removing friend");
-			}
-		}
-	};
+  const handleClick = async () => {
+    if (friendStatus === undefined) {
+      const response = await fetch(
+        `http://localhost:4243/profile/${user}/friend-request`,
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
+      if (response.status === 200) {
+        await response.json();
+        setFriendStatus("PENDING");
+      } else {
+        console.error("Error sending friend request");
+      }
+    } else if (friendStatus === "RECEIVED") {
+      const response = await fetch(
+        `http://localhost:4243/profile/${user}/accept-request`,
+        {
+          method: "PUT",
+          credentials: "include",
+        },
+      );
+      if (response.ok) {
+        await response.json();
+        setFriendStatus("FRIENDS");
+      } else {
+        console.error("Error accepting friend request");
+      }
+    } else if (friendStatus === "FRIENDS") {
+      const response = await fetch(
+        `http://localhost:4243/profile/${user}/remove-friend`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+      if (response.ok) {
+        await response.json();
+        setFriendStatus(undefined);
+      } else {
+        console.error("Error removing friend");
+      }
+    }
+  };
 
-	let buttonText;
-	switch (friendStatus) {
-		case undefined:
-			buttonText = "Add friend";
-			break;
-		case "RECEIVED":
-			buttonText = "Accept request";
-			break;
-		case "PENDING":
-			buttonText = "Request pending";
-			break;
-		default:
-			buttonText = "Remove friend";
-	}
-	return (
-		<>
-			<button onClick={handleClick}>{buttonText}</button>
-			{(friendStatus === "RECEIVED") &&
-				<button className="ml-1.5" onClick={async () => {
-				const response = await fetch(`http://localhost:4243/profile/${user}/decline-request`, {
-				method: "DELETE",
-				credentials: "include",
-			});
-			if (response.ok) {
-				await response.json();
-				setFriendStatus(undefined);
-			} else {
-				console.error("Error declining friend request");
-			}}}>Decline request</button>
-			}
-		</>
-	)
+  let buttonText;
+  switch (friendStatus) {
+    case undefined:
+      buttonText = "Add friend";
+      break;
+    case "RECEIVED":
+      buttonText = "Accept request";
+      break;
+    case "PENDING":
+      buttonText = "Request pending";
+      break;
+    default:
+      buttonText = "Remove friend";
+  }
+  return (
+    <>
+      <button onClick={handleClick}>{buttonText}</button>
+      {friendStatus === "RECEIVED" && (
+        <button
+          className="ml-1.5"
+          onClick={async () => {
+            const response = await fetch(
+              `http://localhost:4243/profile/${user}/decline-request`,
+              {
+                method: "DELETE",
+                credentials: "include",
+              },
+            );
+            if (response.ok) {
+              await response.json();
+              setFriendStatus(undefined);
+            } else {
+              console.error("Error declining friend request");
+            }
+          }}
+        >
+          Decline request
+        </button>
+      )}
+    </>
+  );
 }
 
 function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
-  const isMyUser = (myUser.name === props.profile.name);
+  const isMyUser = myUser.name === props.profile.name;
   return (
     <div className="flex flex-col gap-[1em]">
       <div className="flex">
         <h2 className="mr-[2em]">{props.profile.name}</h2>
-        {!isMyUser &&
-          <FriendButton user={props.profile.name}></FriendButton>
-        }
-        {isMyUser &&
-          <button>Edit profile info</button>
-        }
+        {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
+        {isMyUser && <button>Edit profile info</button>}
       </div>
       <div className="flex flex-row items-start gap-[2em]">
         <img
@@ -205,10 +222,14 @@ function Profile() {
   const { username } = useParams();
 
   useEffect(() => {
+    if (!username) return;
     async function loadProfile() {
-      const response = await fetch(`http://localhost:4243/profile/${username}`, {
-		credentials: "include",
-	  });
+      const response = await fetch(
+        `http://localhost:4243/profile/${username}`,
+        {
+          credentials: "include",
+        },
+      );
       if (response.status === 200) {
         const res = await response.json();
         setIsUserFound(true);
@@ -224,7 +245,7 @@ function Profile() {
     }
 
     loadProfile();
-  }, []);
+  }, [username]);
 
   return (
     <div>
