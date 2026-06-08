@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="min-h-screen m-0 flex flex-col items-center gap-4 text-center bg-[var(--color-secondary)]">
+    <div className="bg-secondary min-h-screen m-0 flex flex-col items-center gap-4 text-center">
       <div>
-        <div className="border-3 border-[var(--color-primary)] p-4 rounded-t-lg mt-6">
+        <div className="border-primary border-3 p-4 rounded-t-lg mt-6">
           <img
             className="w-67 h-auto"
             src="/logo_03_with_alpha.png"
@@ -12,16 +12,14 @@ function Home() {
           />
         </div>
 
-        <h1 className="bg-[var(--color-primary)] text-[var(--color-tertiary)] rounded-b-lg">
-          GoodPlays
-        </h1>
+        <h1 className="bg-primary text-tertiary rounded-b-lg">GoodPlays</h1>
       </div>
       <div className="mb-4">
-        <h2 className=" bg-[var(--color-primary)] text-[var(--color-tertiary)] p-4 rounded-t-lg">
+        <h2 className=" bg-primary text-tertiary p-4 rounded-t-lg">
           Welcome to GoodPlays!
         </h2>
 
-        <div className="w-full bg-[var(--color-tertiary)] text-[var(--color-primary)] p-4 rounded-b-lg">
+        <div className="bg-tertiary text-primary border-primary border-3 w-full p-4 rounded-b-lg">
           <div>
             <p>Already have an account?</p>
             <Link to="/login">Log in</Link>

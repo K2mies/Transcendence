@@ -1,0 +1,6 @@
+
+
+
+x  gS          * <Plug>(nvim-surround-visual-line)
+                 Add a surrounding pair around a visual selection, on new lines
+	Last set from ~/.local/share/nvim/lazy/nvim-surround/plugin/nvim-surround.lua (run Nvim with -V1 for more details)

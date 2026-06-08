@@ -8,7 +8,7 @@ function GameData(props) {
   temp = new Date(props.game.updateDate);
   const updated = temp.toLocaleDateString("fi-FI");
   return (
-    <div className="text-[75%] ml-auto mr-10 text-[var(--color-primary)] ">
+    <div className="text-primary text-[75%] ml-auto mr-10">
       <p>
         <span style={{ fontWeight: "bold" }}>Developer:</span>{" "}
         {props.game.developer}
@@ -38,10 +38,10 @@ function GameData(props) {
 function GameInfo(props) {
   return (
     <div className="flex flex-col">
-      <div className=" text-[var(--color-tertiary)] bg-[var(--color-primary)] rounded-t-lg p-2">
+      <div className="bg-primary text-tertiary rounded-t-lg p-2">
         <h2>{props.game.name}</h2>
         <div>
-          <ul className="flex flex-row gap-[3em] bg-[var(--color-tertiary)] text-[var(--color-primary)] rounded-lg px-1">
+          <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
             {props.game.platforms.map((platform) => (
               <li className="list-none">
                 <p>{platform}</p>
@@ -50,11 +50,11 @@ function GameInfo(props) {
           </ul>
         </div>
       </div>
-      <div className="flex flex-row items-start gap-[2em] bg-[var(--color-tertiary)] text-[var(--color-primary)] p-4 rounded-b-lg">
+      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2em] p-4 rounded-b-lg">
         <img
           src={props.game.image}
           alt={props.game.name}
-          className="rounded-xl border-5 border-[var(--color-secondary)]"
+          className="rounded-xl border-5 border-secondary"
         ></img>
         <p className="w-[45%]">{props.game.description}</p>
         <GameData game={props.game}></GameData>
@@ -87,7 +87,7 @@ function Game() {
     }
   }, [name]);
   return (
-    <div className="bg-[var(--color-secondary)] min-h-screen text-[var(--color-primary)] p-6">
+    <div className="bg-secondary text-primary min-h-screen p-6">
       {isGameFound && (
         <div>
           <GameInfo game={game}></GameInfo>

@@ -4,28 +4,28 @@
 /*------------ COLOR THEME SETTINGS ------------- */
 
 /*Grey theme*/
-/*:root {
+/*@theme {
   --color-primary: #121212;
   --color-secondary: #8f8f8f;
   --color-tertiary: #d2d2d2;
 }*/
 
 /* Yellow Theme */
-:root {
+@theme {
   --color-primary: #121212;
   --color-secondary: #c59113;
   --color-tertiary: #d2d2d2;
 }
 
 /*Blue Theme*/
-/*:root {
+/*@theme {
   --color-primary: #121212;
   --color-secondary: #2f00d8;
   --color-tertiary: #d2d2d2;
 }*/
 
 /* Brighter Primary Theme */
-/*:root {
+/*@theme {
   --color-primary: #484848;
   --color-secondary: #c59113;
   --color-tertiary: #d2d2d2;
