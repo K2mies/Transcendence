@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (!user) return;
@@ -28,7 +29,11 @@ function FriendButton({ user }) {
     }
 
     getStatus();
-  }, [user]);
+  }, [user, refreshKey]);
+
+  const updateRefreshKey = () => {
+    setRefreshKey((value) => value + 1);
+  }
 
   const handleClick = async () => {
     if (friendStatus === undefined) {
@@ -41,7 +46,6 @@ function FriendButton({ user }) {
       );
       if (response.status === 200) {
         await response.json();
-        setFriendStatus("PENDING");
       } else {
         console.error("Error sending friend request");
       }
@@ -55,11 +59,10 @@ function FriendButton({ user }) {
       );
       if (response.ok) {
         await response.json();
-        setFriendStatus("FRIENDS");
       } else {
         console.error("Error accepting friend request");
       }
-    } else if (friendStatus === "FRIENDS") {
+    } else if (friendStatus === "FRIENDS" || friendStatus === "PENDING") {
       const response = await fetch(
         `http://localhost:4243/profile/${user}/remove-friend`,
         {
@@ -69,11 +72,11 @@ function FriendButton({ user }) {
       );
       if (response.ok) {
         await response.json();
-        setFriendStatus(undefined);
       } else {
         console.error("Error removing friend");
       }
     }
+    updateRefreshKey();
   };
 
   let buttonText;
@@ -85,7 +88,7 @@ function FriendButton({ user }) {
       buttonText = "Accept request";
       break;
     case "PENDING":
-      buttonText = "Request pending";
+      buttonText = "Request pending - delete";
       break;
     default:
       buttonText = "Remove friend";
@@ -106,10 +109,10 @@ function FriendButton({ user }) {
             );
             if (response.ok) {
               await response.json();
-              setFriendStatus(undefined);
             } else {
               console.error("Error declining friend request");
             }
+            updateRefreshKey();
           }}
         >
           Decline request
