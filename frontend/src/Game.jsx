@@ -35,6 +35,38 @@ function GameData(props) {
   );
 }
 
+function TestButton(props) {
+  const gamename = props.gamename;
+  const handleTestClick = async () => {
+	  const newData = {
+		status: "PLAYING",
+		favorite: true,
+	  };
+	  console.log(JSON.stringify(newData))
+      const response = await fetch(
+        `http://localhost:4243/game/${gamename}/update-game-relation`,
+        {
+          method: "POST",
+          headers: {
+			"Content-Type": "application/json",
+		  },
+          credentials: "include",
+		  body: JSON.stringify(newData),
+        },
+      );
+      if (response.status === 200) {
+        await response.json();
+      } else {
+        console.error("Error updating game relation");
+      }
+    }
+  return (
+    <>
+      <button onClick={handleTestClick}>Test updating</button>
+    </>
+  );
+};
+
 function GameInfo(props) {
   let myStatus;
   switch (props.game.status) {
@@ -72,6 +104,7 @@ function GameInfo(props) {
         <p className="w-[45%]">{props.game.description}</p>
 		<p>{props.game.favorite}</p>
 		<p>{myStatus}</p>
+		<TestButton gamename={props.name}></TestButton>
         <GameData game={props.game}></GameData>
       </div>
     </div>
@@ -82,12 +115,12 @@ function Game() {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isGameFound, setIsGameFound] = useState(undefined);
-  const { gamename } = useParams();
+  const { name } = useParams();
 
   useEffect(() => {
-	if (!gamename) return;
+	if (!name) return;
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${gamename}`,
+      const response = await fetch(`http://localhost:4243/game/${name}`,
         {
           credentials: "include",
         },
@@ -103,12 +136,12 @@ function Game() {
     }
 
     loadGame();
-  }, [gamename]);
+  }, [name]);
   return (
     <div>
       {isGameFound && (
         <div>
-          <GameInfo game={game}></GameInfo>
+          <GameInfo game={game} name={name}></GameInfo>
           {reviews.length > 0 && (
             <Reviews reviews={reviews} page="game"></Reviews>
           )}

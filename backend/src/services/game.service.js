@@ -54,3 +54,73 @@ export async function getGame(gameName, currentUserId)
         status: myGameStatus,
     }
 }
+
+export async function updateGameRelation(userId, newData, gameName)
+{
+	const game = await prisma.game.findUnique({ where: { name: gameName }})
+	if (!game)
+	{
+		const error = new Error("Game not found")
+		error.status = 404
+		throw error
+	}
+	await prisma.userGameRelation.upsert({
+		where: {
+			userId_gameId_platformId: {
+				userId: userId,
+				gameId: game.id
+			}
+		},
+		update: {
+			status: newData.status,
+			favorite: newData.favorite
+		},
+		create: {
+			userId: userId,
+			gameId: game.id,
+			status: newData.status,
+			favorite: newData.favorite
+		}
+	})
+}
+
+export async function addReview(userId, newData, gameName)
+{
+	const game = await prisma.game.findUnique({ where: { name: gameName }})
+	if (!game)
+	{
+		const error = new Error("Game not found")
+		error.status = 404
+		throw error
+	}
+	const platform = await prisma.platform.findUnique({ where: { name: newData.platform }})
+	await prisma.review.upsert({
+		where: { userId_gameId: { userId: userId, gameId: game.id }},
+		update: {
+			review: newData.review,
+			rating: newData.rating,
+			platformId: platform?.id
+		},
+		create: {
+			gameId: game.id,
+			userId: userId,
+			review: newData.review,
+			rating: newData.rating,
+			platformId: platform?.id
+		}
+	})
+}
+
+export async function deleteReview(userId, gameName)
+{
+	const game = await prisma.game.findUnique({ where: { name: gameName }})
+	if (!game)
+	{
+		const error = new Error("Game not found")
+		error.status = 404
+		throw error
+	}
+	await prisma.review.delete({
+	where: { userId_gameId: { userId: userId, gameId: game.id}},
+	});
+}
