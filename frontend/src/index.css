@@ -2,10 +2,6 @@
 @import "tailwindcss";
 
 @layer base {
-  html {
-    background-color: var(--color-lemon);
-  }
-
   button {
     cursor: pointer;
   }
