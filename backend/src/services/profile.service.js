@@ -37,6 +37,11 @@ export async function getProfile(profileName) {
       },
     },
   });
+  if (!user) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
   return {
     id: user.id,
     name: user.name,
@@ -80,6 +85,11 @@ export async function updateProfile(profileName, newData) {
   const existingUser = await prisma.user.findUnique({
     where: { name: newData.name },
   });
+  if (!existingUser) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
   if (existingUser && existingUser.name != profileName) {
     const error = new Error("Username already taken");
     error.status = 409;
