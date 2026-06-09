@@ -27,7 +27,7 @@ export async function getGame(gameName, currentUserId)
 	if (gameStatus === undefined)
 		myGameStatus = null;
 	else
-		myGameStatus = gameStatus.status;
+		myGameStatus = gameStatus.gameStatus;
     return {
         id: game.id,
         name: game.name,
@@ -72,13 +72,13 @@ export async function updateGameRelation(userId, newData, gameName)
 			}
 		},
 		update: {
-			status: newData.status,
+			gameStatus: newData.gameStatus,
 			favorite: newData.favorite
 		},
 		create: {
 			userId: userId,
 			gameId: game.id,
-			status: newData.status,
+			gameStatus: newData.gameStatus,
 			favorite: newData.favorite
 		}
 	})

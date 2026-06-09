@@ -14,7 +14,7 @@ model User {
   password         String?
   bio              String?
   createdAt        DateTime           @default(now())
-  
+
   oauthAccounts    OAuthAccount[]
   likeReviews      LikeReview[]
   reviews          Review[]
@@ -85,7 +85,7 @@ model UserGameRelation {
   id         Int        @id @default(autoincrement())
   userId     Int
   gameId     Int
-  status     GameStatus
+  gameStatus     GameStatus
   favorite   Boolean    @default(false)
   platformId Int?
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
@@ -109,7 +109,7 @@ model UserUserRelation {
   id         Int              @id @default(autoincrement())
   senderId   Int
   receiverId Int
-  status     FriendshipStatus
+  friendStatus     FriendshipStatus
   receiver   User             @relation("receivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
   sender     User             @relation("sentRequests", fields: [senderId], references: [id], onDelete: Cascade)
 

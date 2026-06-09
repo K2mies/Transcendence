@@ -35,56 +35,55 @@ function GameData(props) {
   );
 }
 
-function TestButton(props) {
+function Status(props) {
+  let initStatus;
+  if (!props.game.gameStatus)
+    initStatus = "WANT_TO_PLAY"
+  else
+    initStatus = props.game.gameStatus;
+  const [currentStatus, setCurrentStatus] = useState(initStatus);
   const gamename = props.gamename;
-  const handleTestClick = async () => {
-	  const newData = {
-		status: "PLAYING",
-		favorite: true,
-	  };
-	  console.log(JSON.stringify(newData))
-      const response = await fetch(
-        `http://localhost:4243/game/${gamename}/update-game-relation`,
-        {
-          method: "POST",
-          headers: {
-			"Content-Type": "application/json",
-		  },
-          credentials: "include",
-		  body: JSON.stringify(newData),
+
+  async function UpdateStatus() {
+    const newData = {
+      gameStatus: currentStatus,
+    };
+    const response = await fetch(
+      `http://localhost:4243/game/${gamename}/update-game-relation`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
-      if (response.status === 200) {
-        await response.json();
-      } else {
-        console.error("Error updating game relation");
-      }
+        credentials: "include",
+        body: JSON.stringify(newData),
+      },
+    );
+    if (response.status === 200) {
+      await response.json();
+    } else {
+      console.error("Error updating game relation");
     }
+  }
   return (
     <>
-      <button onClick={handleTestClick}>Test updating</button>
+      <select
+        value={currentStatus}
+        onChange={(e) => {
+          setCurrentStatus(e.target.value);
+          UpdateStatus();
+        }}
+      >
+        <option value="WANT_TO_PLAY">Want to play</option>
+        <option value="PLAYING">Playing</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="DNF">Did not finish</option>
+      </select>
     </>
   );
-};
+}
 
 function GameInfo(props) {
-  let myStatus;
-  switch (props.game.status) {
-	case "WANT_TO_PLAY":
-		myStatus = "Want to play";
-		break;
-	case "PLAYING":
-		myStatus = "Playing";
-		break;
-	case "COMPLETED":
-		myStatus = "Completed";
-		break;
-	case "DNF":
-		myStatus = "Did not finish";
-		break;
-	default:
-		myStatus = "No status";
-  }
   return (
     <div className="flex flex-col gap-[1em]">
       <div className="mr-[2em]">
@@ -102,9 +101,7 @@ function GameInfo(props) {
       <div className="flex flex-row items-start gap-[2em]">
         <img src={props.game.image} alt={props.game.name}></img>
         <p className="w-[45%]">{props.game.description}</p>
-		<p>{props.game.favorite}</p>
-		<p>{myStatus}</p>
-		<TestButton gamename={props.name}></TestButton>
+        <Status gamename={props.game.name}></Status>
         <GameData game={props.game}></GameData>
       </div>
     </div>
@@ -118,13 +115,11 @@ function Game() {
   const { name } = useParams();
 
   useEffect(() => {
-	if (!name) return;
+    if (!name) return;
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${name}`,
-        {
-          credentials: "include",
-        },
-	  );
+      const response = await fetch(`http://localhost:4243/game/${name}`, {
+        credentials: "include",
+      });
       if (response.status === 200) {
         const res = await response.json();
         setIsGameFound(true);
