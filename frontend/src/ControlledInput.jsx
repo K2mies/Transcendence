@@ -13,9 +13,9 @@ const ControlledInput = ({ control, name, label, rules, autoComplete, type = "te
   });
 
   return (
-    <div style={{ marginBottom: "12px" }}>
+    <div className="mb-3">
       <TextField
-        style={{ width: "350px" }}
+        className="w-87.5"
         label={label}
         type={type}
         autoComplete={autoComplete}
