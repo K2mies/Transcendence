@@ -8,6 +8,9 @@ import {
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import DisplayProfile from "./Profile";
+import WebSocketTest from "./WebSocketTest";
+import Profile from "./Profile";
 
 import Header from "./Header";
 
@@ -39,6 +42,7 @@ function Layout() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="user/:username" element={<Profile />} />
           <Route path="game/:name" element={<Game />} />
+          <Route path="ws-test" element={<WebSocketTest/>} />
         </Route>
       </Routes>
     </>
