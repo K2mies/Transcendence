@@ -46,7 +46,7 @@ const SearchBar = () => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Search games"
+          placeholder="Search games"
           size="small"
           sx={{
             "& .MuiOutlinedInput-root": {

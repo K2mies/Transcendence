@@ -28,7 +28,13 @@ function Home() {
 
           <h1 className="bg-primary text-tertiary rounded-b-lg">GoodPlays</h1>
         </div>
-        <div className="mb-4">
+        <div
+          className={`
+            mb-4
+            transition-translate duration-1000
+            ${visible ? "translate-y-0" : "translate-y-8"}
+          `}
+        >
           <h2 className=" bg-primary text-tertiary p-4 rounded-t-lg">
             Welcome to GoodPlays!
           </h2>
