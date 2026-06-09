@@ -11,7 +11,7 @@ export async function getGame(req, res)
 		}
 		res.status(200).json(game);
 	} catch (error) {
-		return res.status(500).json({ message: "Inernal server error" });
+		return res.status(500).json({ message: "Internal server error" });
 	}
 }
 
