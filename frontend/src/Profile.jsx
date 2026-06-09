@@ -33,7 +33,7 @@ function FriendButton({ user }) {
 
   const updateRefreshKey = () => {
     setRefreshKey((value) => value + 1);
-  }
+  };
 
   const handleClick = async () => {
     if (friendStatus === undefined) {
@@ -94,7 +94,7 @@ function FriendButton({ user }) {
       buttonText = "Remove friend";
   }
   return (
-    <>
+    <div className="bg-primary text-tertiary ml-auto m-6">
       <button onClick={handleClick}>{buttonText}</button>
       {friendStatus === "RECEIVED" && (
         <button
@@ -118,7 +118,7 @@ function FriendButton({ user }) {
           Decline request
         </button>
       )}
-    </>
+    </div>
   );
 }
 
@@ -126,9 +126,9 @@ function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
   return (
-    <div className="flex flex-col gap-[1em]">
+    <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
-        <h2 className="mr-[2em]">{props.profile.name}</h2>
+        <h2>{props.profile.name}</h2>
         {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
         {isMyUser && <button>Edit profile info</button>}
       </div>
