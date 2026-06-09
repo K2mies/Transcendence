@@ -26,6 +26,7 @@ const LoginForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
+		credentials: "include",
         body: JSON.stringify(data),
       });
       const result = await response.json();
@@ -37,11 +38,6 @@ const LoginForm = () => {
       localStorage.setItem("user", JSON.stringify(result.data.user));
 
       navigate("/dashboard");
-      //if (response.ok)
-      //    console.log("Login was successful");
-      //else if (response.status === 401)
-      //  console.error("Username or password incorrect"); // How to render this text?
-      //else console.error(res);
     } catch (error) {
       console.error(error);
     }

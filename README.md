@@ -170,7 +170,8 @@ Examples:
 	DB_PASSWORD="password"
 	DATABASE_URL="postgresql://postgres:password@postgres_db:5432/goodplays_db"
 	NODE_ENV="development"
-	JWT_SECRET="FF3TiU2cuYBp1sINjwjKS/cVa9G1Fp9ZwG3cyWJtxME="
+	# To generate a new JWT_SECRET to your environment run in terminal: openssl rand -base64 32
+	JWT_SECRET="change-me="
 	JWT_EXPIRES_IN="1d"
   ```
 

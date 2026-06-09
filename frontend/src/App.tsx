@@ -5,17 +5,16 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
-import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import DisplayProfile from "./Profile";
+import Profile from "./Profile";
 
 function Header() {
   return (
     <div>
-      <nav className="header">
+      <nav className="flex flex-row justify-around">
         <Link to="/">GoodPlays</Link>
         {/* <Link to="/explore">Explore</Link>
         <Link to="/mygames">My games</Link> */}
@@ -26,9 +25,12 @@ function Header() {
 
 function Home() {
   return (
-    <div style={{ margin: "0px" }}>
-      <img src="/logo_03.jpg" alt="GoodPlays logo" />
-
+    <div className="m-0 flex flex-col">
+      <img
+        className="w-126.25 h-107.75"
+        src="/logo_03.jpg"
+        alt="GoodPlays logo"
+      />
       <h1>GoodPlays</h1>
       <h2>Welcome to GoodPlays!</h2>
       <div>
@@ -39,7 +41,6 @@ function Home() {
         <p>New user?</p>
         <Link to="/register">Sign up!</Link>
       </div>
-      <Link to="/user/xKr4t0sx">Test profile display (user xKr4t0sx)</Link>
     </div>
   );
 }
@@ -62,14 +63,6 @@ function Login() {
       <LoginForm></LoginForm>
       <p>New user?</p>
       <Link to="/register">Sign up</Link>
-    </div>
-  );
-}
-
-function Profile() {
-  return (
-    <div>
-      <DisplayProfile></DisplayProfile>
     </div>
   );
 }
