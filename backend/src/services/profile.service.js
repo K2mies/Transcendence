@@ -1,6 +1,5 @@
 import { prisma } from "../config/db.js";
 
-<<<<<<< HEAD
 function filterGameInfo(games, status)
 {
 	return games
@@ -12,8 +11,7 @@ function filterGameInfo(games, status)
 	}))
 }
 
-export async function getProfile(profileName)
-{
+export async function getProfile(profileName) {
 	const user = await prisma.user.findUnique({
 	where: { name: profileName },
 	include: {
@@ -33,8 +31,18 @@ export async function getProfile(profileName)
 				sender: true,
 			},
 		},
+		reviews: {
+			include: {
+				game: true,
+			},
+		},
 	},
-	})
+	});
+	if (!user) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
 	return {
 		id: user.id,
 		name: user.name,
@@ -59,143 +67,66 @@ export async function getProfile(profileName)
 		id: g.game.id,
 		name: g.game.name,
 		image: g.game.imageSmall
-  		})),
+		})),
 		to_play: filterGameInfo(user.userGames, "WANT_TO_PLAY"),
 		playing: filterGameInfo(user.userGames, "PLAYING"),
 		completed: filterGameInfo(user.userGames, "COMPLETED"),
 		dnf: filterGameInfo(user.userGames, "DNF"),
-	}
-=======
-function filterGameInfo(games, status) {
-  return games
-    .filter((game) => game.status === status)
-    .map((g) => ({
-      id: g.game.id,
-      name: g.game.name,
-      image: g.game.imageSmall,
-    }));
-}
-
-export async function getProfile(profileName) {
-  const user = await prisma.user.findUnique({
-    where: { name: profileName },
-    include: {
-      userGames: {
-        include: {
-          game: true,
-          platform: true,
-          },
-        },
-      sentRequests: {
-        include: {
-          receiver: true,
-        },
-      },
-      receivedRequests: {
-        include: {
-          sender: true,
-        },
-      },
-      reviews: {
-        include: {
-          game: true,
-        },
-      },
-    },
-  });
-  if (!user) {
-    const error = new Error("No user found");
-    error.status = 404;
-    throw error;
-  }
-  return {
-    id: user.id,
-    name: user.name,
-    bio: user.bio,
-    friends: [
-      //... combines these into one array
-      ...user.receivedRequests
-        .filter((f) => f.status === "FRIENDS")
-        .map((f) => ({
-          id: f.sender.id,
-          name: f.sender.name,
-        })),
-      ...user.sentRequests
-        .filter((f) => f.status === "FRIENDS")
-        .map((f) => ({
-          id: f.receiver.id,
-          name: f.receiver.name,
-        })),
-    ],
-    favorites: user.userGames
-      .filter((game) => game.favorite === true)
-      .map((g) => ({
-        id: g.game.id,
-        name: g.game.name,
-        image: g.game.imageSmall,
-      })),
-    to_play: filterGameInfo(user.userGames, "WANT_TO_PLAY"),
-    playing: filterGameInfo(user.userGames, "PLAYING"),
-    completed: filterGameInfo(user.userGames, "COMPLETED"),
-    dnf: filterGameInfo(user.userGames, "DNF"),
-    reviews: user.reviews.map((r) => ({
-      id: r.id,
-      game: r.game.name,
-      rating: r.rating,
-      review: r.review,
-    })),
-  };
->>>>>>> main
+		reviews: user.reviews.map((r) => ({ //include the platform here??
+		id: r.id,
+		game: r.game.name,
+		rating: r.rating,
+		review: r.review,
+		})),
+	};
 }
 
 export async function updateProfile(profileName, newData) {
-  const existingUser = await prisma.user.findUnique({
-    where: { name: newData.name },
-  });
-  if (!existingUser) {
-    const error = new Error("No user found");
-    error.status = 404;
-    throw error;
-  }
-  if (existingUser && existingUser.name != profileName) {
-    const error = new Error("Username already taken");
-    error.status = 409;
-    throw error;
-  }
-  const updateUser = await prisma.user.update({
-    where: { name: profileName },
-    data: {
-      name: newData.name,
-      bio: newData.bio,
-    },
-  });
-  return updateUser;
+	const existingUser = await prisma.user.findUnique({ where: { name: newData.name } });
+	if (!existingUser) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
+	if (existingUser && existingUser.name != profileName) {
+		const error = new Error("Username already taken");
+		error.status = 409;
+		throw error;
+	}
+	const updateUser = await prisma.user.update({
+	where: { name: profileName },
+	data: {
+		name: newData.name,
+		bio: newData.bio,
+	},
+	});
+	return updateUser;
 }
 
 export async function getFriendStatus(friendName, userId, userName) {
-  const friend = await prisma.user.findUnique({ where: { name: friendName } });
-  if (!friend) {
-    const error = new Error("No user found");
-    error.status = 404;
-    throw error;
-  }
-  const userRelation1 = await prisma.userUserRelation.findUnique({
-    where: { senderId_receiverId: { senderId: userId, receiverId: friend.id } }});
-  const userRelation2 = await prisma.userUserRelation.findUnique({
-    where: { senderId_receiverId: { senderId: friend.id, receiverId: userId } }});
-  if (!userRelation1 && !userRelation2) return { friendStatus: undefined };
-  if (userRelation1) {
-    return {
-      friendStatus: userRelation1.status,
-      sender: userName,
-    }
-  }
-  if (userRelation2) {
-    return {
-      friendStatus: userRelation2.status,
-      sender: friendName,
-    }
-  }
+	const friend = await prisma.user.findUnique({ where: { name: friendName } });
+	if (!friend) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
+	const userRelation1 = await prisma.userUserRelation.findUnique({
+		where: { senderId_receiverId: { senderId: userId, receiverId: friend.id } }});
+	const userRelation2 = await prisma.userUserRelation.findUnique({
+		where: { senderId_receiverId: { senderId: friend.id, receiverId: userId } }});
+	if (!userRelation1 && !userRelation2) return { friendStatus: undefined };
+	if (userRelation1) {
+	return {
+		friendStatus: userRelation1.status,
+		sender: userName,
+	}
+	}
+	if (userRelation2) {
+	return {
+		friendStatus: userRelation2.status,
+		sender: friendName,
+	}
+	}
 }
 
 //Friend functions
