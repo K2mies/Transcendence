@@ -14,27 +14,27 @@ await prisma.user.upsert({
             create: [
             {
                 game: { connect: { name: "World of Warcraft" }},
-                status: "COMPLETED",
+                gameStatus: "COMPLETED",
                 favorite: true
             },
             {
                 game: { connect: { name: "Overwatch" }},
-                status: "PLAYING",
+                gameStatus: "PLAYING",
                 favorite: true
             },
             {
                 game: { connect: { name: "Journey" }},
-                status: "COMPLETED",
+                gameStatus: "COMPLETED",
                 favorite: true
             },
             {
                 game: { connect: { name: "Bloodborne" }},
-                status: "DNF",
+                gameStatus: "DNF",
                 favorite: false
             },
             {
                 game: { connect: { name: "Firewatch" }},
-                status: "WANT_TO_PLAY",
+                gameStatus: "WANT_TO_PLAY",
                 favorite: false
             },
             ]
@@ -65,42 +65,42 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Stardew Valley" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Journey" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "What Remains of Edith Finch" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Firewatch" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Ori and the Blind Forest" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Ori and the Will of the Wisps" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "Limbo" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "Celeste" } },
-            status: "DNF",
+            gameStatus: "DNF",
             favorite: false,
           },
         ],
@@ -122,42 +122,42 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Dark Souls" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Dark Souls III" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Bloodborne" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Elden Ring" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Sekiro: Shadows Die Twice" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Dark Souls II" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Hollow Knight" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Hollow Knight: Silksong" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
         ],
@@ -179,47 +179,47 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Disco Elysium" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "The Last of Us" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "The Walking Dead" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Hellblade: Senua's Sacrifice" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Life is Strange" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Outer Wilds" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Baldur's Gate III" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "Detroit: Become Human" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "Heavy Rain" } },
-            status: "DNF",
+            gameStatus: "DNF",
             favorite: false,
           },
         ],
@@ -241,52 +241,52 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Counter-Strike: Global Offensive" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: true,
           },
           {
             game: { connect: { name: "Dota 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "The Witcher 3: Wild Hunt" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Red Dead Redemption 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "God of War" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Portal 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Left 4 Dead 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Overwatch" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Titanfall 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Battlefield 3" } },
-            status: "DNF",
+            gameStatus: "DNF",
             favorite: true,
           },
         ],
@@ -308,42 +308,42 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "God of War" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "God of War Ragnarök" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Bloodborne" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Marvel's Spider-Man" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Ghost of Tsushima" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Uncharted 4: A Thief's End" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Horizon Zero Dawn" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "The Last of Us Part II" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: false,
           },
         ],
@@ -365,57 +365,57 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Undertale" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Hades" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Return of the Obra Dinn" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Inside" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Dead Cells" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Hotline Miami" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Clair Obscur: Expedition 33" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Disco Elysium" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "Hollow Knight: Silksong" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "The Stanley Parable" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Cyberpunk 2077" } },
-            status: "DNF",
+            gameStatus: "DNF",
             favorite: false,
           },
         ],
@@ -437,52 +437,52 @@ await prisma.user.upsert({
         create: [
           {
             game: { connect: { name: "Halo: Combat Evolved" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Halo 3" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "It Takes Two" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Portal 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: true,
           },
           {
             game: { connect: { name: "Mario Kart 8 Deluxe" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Minecraft: Java Edition" } },
-            status: "PLAYING",
+            gameStatus: "PLAYING",
             favorite: false,
           },
           {
             game: { connect: { name: "Left 4 Dead 2" } },
-            status: "COMPLETED",
+            gameStatus: "COMPLETED",
             favorite: false,
           },
           {
             game: { connect: { name: "Baldur's Gate III" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "Red Dead Redemption 2" } },
-            status: "WANT_TO_PLAY",
+            gameStatus: "WANT_TO_PLAY",
             favorite: false,
           },
           {
             game: { connect: { name: "The Witcher 3: Wild Hunt" } },
-            status: "DNF",
+            gameStatus: "DNF",
             favorite: false,
           },
         ],

@@ -3,7 +3,7 @@ import {prisma} from "../config/db.js";
 function filterGameInfo(games, status)
 {
 	return games
-	.filter(game => game.status === status)
+	.filter(game => game.gameStatus === status)
 	.map(g => ({
 	id: g.game.id,
 	name: g.game.name,
@@ -40,13 +40,13 @@ export async function getProfile(profileName)
 		bio: user.bio,
 		friends : [ //... combines these into one array
 			...user.receivedRequests
-			.filter(f => f.status === "FRIENDS")
+			.filter(f => f.friendStatus === "FRIENDS")
 			.map(f => ({
 			id: f.sender.id,
 			name: f.sender.name
 		})),
 			...user.sentRequests
-			.filter(f => f.status === "FRIENDS")
+			.filter(f => f.friendStatus === "FRIENDS")
 			.map(f => ({
 			id: f.receiver.id,
 			name: f.receiver.name
@@ -111,7 +111,7 @@ export async function addFriend(friendName, user)
 	sentRequests: {
 		create: {
 				receiverId: friend.id,
-				status: "PENDING"
+				friendStatus: "PENDING"
 				}
 		}
 	},
@@ -131,7 +131,7 @@ export async function acceptFriendRequest(friendName, user)
 		throw error
 	}
 	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
-	if (!userRelation || userRelation.status !== "PENDING") {
+	if (!userRelation || userRelation.friendshipStatus !== "PENDING") {
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
@@ -139,7 +139,7 @@ export async function acceptFriendRequest(friendName, user)
 	await prisma.userUserRelation.update({
 	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
 	data: {
-			status: "FRIENDS"
+			friendStatus: "FRIENDS"
 	},
 	});
 }
@@ -157,7 +157,7 @@ export async function declineFriendRequest(friendName, user)
 		throw error
 	}
 	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
-	if (!userRelation || userRelation.status !== "PENDING") {
+	if (!userRelation || userRelation.friendStatus !== "PENDING") {
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
@@ -187,7 +187,7 @@ export async function removeFriend(friendName, user)
 		error.status = 404
 		throw error
 	}
-	if (userRelation2 && userRelation2.status == "PENDING")
+	if (userRelation2 && userRelation2.friendStatus == "PENDING")
 	{
 		const error = new Error("No remove action is allowed")
 		error.status = 403

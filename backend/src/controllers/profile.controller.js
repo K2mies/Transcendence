@@ -142,13 +142,13 @@ export async function updateGameRelation(userId, newData, gameName)
 			}
 		},
 		update: {
-			status: newData.status,
+			gameStatus: newData.status,
 			favorite: newData.favorite
 		},
 		create: {
 			userId: userId,
 			gameId: game.id,
-			status: newData.status,
+			gameStatus: newData.status,
 			favorite: newData.favorite
 		}
 	})
