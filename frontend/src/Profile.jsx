@@ -128,7 +128,7 @@ function ProfileInfo(props) {
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
-        <h2>{props.profile.name}</h2>
+        <h2 className="p-4">{props.profile.name}</h2>
         {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
         {isMyUser && <button>Edit profile info</button>}
       </div>
@@ -165,7 +165,7 @@ const SwiperButtonNext = ({ children }) => {
 function DisplayGames(props) {
   return (
     <div className="mt-6">
-      <h4 className=" bg-primary text-tertiary flex justify-start p-4 rounded-t-lg">
+      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg">
         {props.header}
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
