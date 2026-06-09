@@ -28,6 +28,12 @@ export async function getGame(gameName, currentUserId)
 		myGameStatus = null;
 	else
 		myGameStatus = gameStatus.gameStatus;
+	let sum = 0;
+	for (let i = 0; i < game.reviews.length; i++)
+	{
+		sum += game.reviews[i].rating;
+	}
+	const reviewAverage1 = sum / reviews.length;
 	return {
 		id: game.id,
 		name: game.name,
@@ -38,15 +44,17 @@ export async function getGame(gameName, currentUserId)
 		developer: game.developer,
 		publisher: game.publisher,
 		rating: game.rating,
-		reviews: game.reviews.map(r => ({ //platform needs to be added here.. Also average rating of the reviews
+		reviews: game.reviews.map(r => ({
 			id: r.id,
 			rating: r.rating,
 			review: r.review,
+			platform: r.platform.name,
 			user: {
 				id: r.user.id,
 				name: r.user.name,
 			},
 		})),
+		reviewAverage: reviewAverage1,
 		modes: game.modes.map(m => m.name),
 		genres: game.genres.map(g => g.name),
 		platforms: game.platforms.map(p => p.name),

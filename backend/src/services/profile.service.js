@@ -18,7 +18,6 @@ export async function getProfile(profileName) {
 		userGames: {
 			include: {
 				game: true,
-				platform: true,
 			},
 		},
 		sentRequests: {
@@ -37,7 +36,7 @@ export async function getProfile(profileName) {
 			},
 		},
 	},
-	});
+	})
 	if (!user) {
 		const error = new Error("No user found");
 		error.status = 404;
@@ -72,11 +71,12 @@ export async function getProfile(profileName) {
 		playing: filterGameInfo(user.userGames, "PLAYING"),
 		completed: filterGameInfo(user.userGames, "COMPLETED"),
 		dnf: filterGameInfo(user.userGames, "DNF"),
-		reviews: user.reviews.map((r) => ({ //include the platform here??
+		reviews: user.reviews.map((r) => ({
 		id: r.id,
 		game: r.game.name,
 		rating: r.rating,
 		review: r.review,
+		platform: r.platform?.name
 		})),
 	};
 }
