@@ -87,110 +87,110 @@ export async function removeFriend(req, res)
 //we could also add this same setup with favourite
 //we need also remove review. ONLY YOURS
 
-export async function updateGameRelation(req, res)
-{
-	const game = req.params.gameName
-	const userId = req.user.id
-	const newData = req.body
-	try {
-		await profileService.updateGameRelation(userId, newData, game)
-		res.status(200).json({ message: "Status updated"});
-	} catch (error) {
-		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
-	}
-}
+// export async function updateGameRelation(req, res)
+// {
+// 	const game = req.params.gameName
+// 	const userId = req.user.id
+// 	const newData = req.body
+// 	try {
+// 		await profileService.updateGameRelation(userId, newData, game)
+// 		res.status(200).json({ message: "Status updated"});
+// 	} catch (error) {
+// 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+// 	}
+// }
 
-export async function addReview(req, res)
-{
-	const game = req.params.gameName
-	const userId = req.user.id
-	const newData = req.body
-	try {
-		await profileService.addReview(userId, newData, game)
-		res.status(200).json({ message: "Review added"});
-	} catch (error) {
-		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
-	}
-}
+// export async function addReview(req, res)
+// {
+// 	const game = req.params.gameName
+// 	const userId = req.user.id
+// 	const newData = req.body
+// 	try {
+// 		await profileService.addReview(userId, newData, game)
+// 		res.status(200).json({ message: "Review added"});
+// 	} catch (error) {
+// 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+// 	}
+// }
 
-export async function deleteReview(req, res)
-{
-	const game = req.params.gameName
-	const userId = req.user.id
-	try {
-		await profileService.deleteReview(userId, game)
-		res.status(200).json({ message: "Review removed"});
-	} catch (error) {
-		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
-	}
-}
+// export async function deleteReview(req, res)
+// {
+// 	const game = req.params.gameName
+// 	const userId = req.user.id
+// 	try {
+// 		await profileService.deleteReview(userId, game)
+// 		res.status(200).json({ message: "Review removed"});
+// 	} catch (error) {
+// 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+// 	}
+// }
 
-export async function updateGameRelation(userId, newData, gameName)
-{
-	const game = await prisma.game.findUnique({ where: { name: gameName }})
-	if (!game)
-	{
-		const error = new Error("Game not found")
-		error.status = 404
-		throw error
-	}
-	await prisma.userGameRelation.upsert({
-		where: {
-			userId_gameId: {
-				userId: userId,
-				gameId: game.id
-			}
-		},
-		update: {
-			gameStatus: newData.status,
-			favorite: newData.favorite
-		},
-		create: {
-			userId: userId,
-			gameId: game.id,
-			gameStatus: newData.status,
-			favorite: newData.favorite
-		}
-	})
-}
+// export async function updateGameRelation(userId, newData, gameName)
+// {
+// 	const game = await prisma.game.findUnique({ where: { name: gameName }})
+// 	if (!game)
+// 	{
+// 		const error = new Error("Game not found")
+// 		error.status = 404
+// 		throw error
+// 	}
+// 	await prisma.userGameRelation.upsert({
+// 		where: {
+// 			userId_gameId: {
+// 				userId: userId,
+// 				gameId: game.id
+// 			}
+// 		},
+// 		update: {
+// 			gameStatus: newData.status,
+// 			favorite: newData.favorite
+// 		},
+// 		create: {
+// 			userId: userId,
+// 			gameId: game.id,
+// 			gameStatus: newData.status,
+// 			favorite: newData.favorite
+// 		}
+// 	})
+// }
 
-export async function addReview(userId, newData, gameName)
-{
-	const game = await prisma.game.findUnique({ where: { name: gameName }})
-	if (!game)
-	{
-		const error = new Error("Game not found")
-		error.status = 404
-		throw error
-	}
-	const platform = await prisma.platform.findUnique({ where: { name: newData.platform }})
-	await prisma.review.upsert({
-		where: { userId_gameId: { userId: userId, gameId: game.id }},
-		update: {
-			review: newData.review,
-			rating: newData.rating,
-			platformId: platform?.id
-		},	
-		create: {
-			gameId: game.id,
-			userId: userId,
-			review: newData.review,
-			rating: newData.rating,
-			platformId: platform?.id
-		}
-	})
-}
+// export async function addReview(userId, newData, gameName)
+// {
+// 	const game = await prisma.game.findUnique({ where: { name: gameName }})
+// 	if (!game)
+// 	{
+// 		const error = new Error("Game not found")
+// 		error.status = 404
+// 		throw error
+// 	}
+// 	const platform = await prisma.platform.findUnique({ where: { name: newData.platform }})
+// 	await prisma.review.upsert({
+// 		where: { userId_gameId: { userId: userId, gameId: game.id }},
+// 		update: {
+// 			review: newData.review,
+// 			rating: newData.rating,
+// 			platformId: platform?.id
+// 		},	
+// 		create: {
+// 			gameId: game.id,
+// 			userId: userId,
+// 			review: newData.review,
+// 			rating: newData.rating,
+// 			platformId: platform?.id
+// 		}
+// 	})
+// }
 
-export async function deleteReview(userId, gameName)
-{
-	const game = await prisma.game.findUnique({ where: { name: gameName }})
-	if (!game)
-	{
-		const error = new Error("Game not found")
-		error.status = 404
-		throw error
-	}
-	await prisma.review.delete({
-	where: { userId_gameId: { userId: userId, gameId: game.id}},
-	});
-}
+// export async function deleteReview(userId, gameName)
+// {
+// 	const game = await prisma.game.findUnique({ where: { name: gameName }})
+// 	if (!game)
+// 	{
+// 		const error = new Error("Game not found")
+// 		error.status = 404
+// 		throw error
+// 	}
+// 	await prisma.review.delete({
+// 	where: { userId_gameId: { userId: userId, gameId: game.id}},
+// 	});
+// }

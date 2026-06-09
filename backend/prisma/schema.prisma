@@ -54,7 +54,7 @@ model Game {
 model Platform {
   id        Int                @id @default(autoincrement())
   name      String             @unique
-  userGames UserGameRelation[]
+  reviews   Review[]
   games     Game[]             @relation("GameToPlatform")
 }
 
