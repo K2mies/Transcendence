@@ -173,8 +173,8 @@ function DisplayGames(props) {
           <div>
             <Swiper
               modules={Navigation}
-              spaceBetween={30}
-              slidesPerView={5}
+              spaceBetween={10}
+              slidesPerView={15}
               navigation={{
                 prevEl: ".swiper-button-prev",
                 nextEl: ".swiper-button-next",
@@ -188,7 +188,7 @@ function DisplayGames(props) {
                     src={game.image}
                     alt={game.name}
                   ></img>
-                  <div className="bg-secondary text-primary max-w-22.5 p-2 rounded-b-lg">
+                  <div className="bg-secondary text-primary max-w-22.5 p-2 rounded-b-lg text-center">
                     <Link to={"/game/" + game.name} className="no-underline">
                       {game.name}
                     </Link>
@@ -210,7 +210,7 @@ function DisplayGames(props) {
                       src={game.image}
                       alt={game.name}
                     ></img>
-                    <div className="bg-secondary text-primary p-2 rounded-b-lg">
+                    <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
                       <Link to={"/game/" + game.name} className="no-underline">
                         {game.name}
                       </Link>
