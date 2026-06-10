@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import gameRoutes from "./routes/game.routes.js";
+import gamesRoutes from "./routes/games.routes.js";
 import searchRoutes from "./routes/search.routes.js";
 import { protect } from "./utils/protectJWT.js";
 import { corsValidator } from "./middlewares/validateCors.js";
@@ -22,12 +23,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 app.use(corsValidator);
-app.use(session({
-	secret: process.env.SESSION_SECRET,
-	resave: false,
-	saveUninitialized: false,
-	cookie: { secure: process.env.NODE_ENV === "production", maxAge: 5 * 60 * 1000 }, // 5 minutes — only needed for OAuth flow
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 5 * 60 * 1000,
+    }, // 5 minutes — only needed for OAuth flow
+  }),
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -39,6 +45,7 @@ app.use("/profile", profileRoutes);
 app.use("/games", searchRoutes);
 app.use("/game", gameRoutes);
 app.use("/message", protect, messageRoutes);
+app.use("/search", gamesRoutes);
 
 // 404 handler
 app.use((req, res) => {
