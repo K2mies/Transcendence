@@ -164,7 +164,7 @@ const SwiperButtonNext = ({ children }) => {
 
 function DisplayGames(props) {
   return (
-    <div className="mt-6">
+    <div className="mt-[1.5rem]">
       <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
         {props.header}
       </h4>
