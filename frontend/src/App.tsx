@@ -9,7 +9,6 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import DisplayProfile from "./Profile";
 import WebSocketTest from "./WebSocketTest";
 import Profile from "./Profile";
 import Game from "./Game";
