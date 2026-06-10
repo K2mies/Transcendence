@@ -14,11 +14,7 @@ const filterOptions = createFilterOptions<Game>({
 
 const SearchBar = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const [games, setGames] = useState<{ id: number; name: string; image: string }[]>([]);
-=======
-  const [games, setGames] = useState<Game[]>([]);
->>>>>>> 13113ee (fixed value.name error by creating a Game type and feeding that into a few places)
   useEffect(() => {
     async function fetchGames() {
       const response = await fetch("http://localhost:4243/games", {
