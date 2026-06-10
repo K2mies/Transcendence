@@ -2,15 +2,12 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link,
   useLocation,
 } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import DisplayProfile from "./Profile";
 import WebSocketTest from "./WebSocketTest";
-import Profile from "./Profile";
 
 import Header from "./Header";
 

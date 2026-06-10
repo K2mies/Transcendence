@@ -23,13 +23,13 @@ function GameData(props) {
         <p style={{ fontWeight: "bold" }}>Genres: </p>
       )}
       {props.game.genres.map((genre) => (
-        <p>{genre}</p>
+        <p key={genre}>{genre}</p>
       ))}
       {props.game.modes.length > 0 && (
         <p style={{ fontWeight: "bold" }}>Modes: </p>
       )}
       {props.game.modes.map((mode) => (
-        <p>{mode}</p>
+        <p key={mode}>{mode}</p>
       ))}
     </div>
   );
@@ -43,7 +43,7 @@ function GameInfo(props) {
         <div>
           <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
             {props.game.platforms.map((platform) => (
-              <li className="list-none">
+              <li key={platform} className="list-none">
                 <p>{platform}</p>
               </li>
             ))}

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import Button from "@mui/material/Button";
 
 function Header() {
   return (
