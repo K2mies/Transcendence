@@ -9,7 +9,7 @@ const filterOptions = createFilterOptions({
 
 const SearchBar = () => {
   const navigate = useNavigate();
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState<{ id: number; name: string; image: string }[]>([]);
   useEffect(() => {
     async function fetchGames() {
       const response = await fetch("http://localhost:4243/games", {
