@@ -1,7 +1,14 @@
 import { TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 
-const ControlledInput = ({ control, name, label, rules, autoComplete, type = "text" }) => {
+const ControlledInput = ({
+  control,
+  name,
+  label,
+  rules,
+  autoComplete,
+  type = "text",
+}) => {
   const {
     field,
     fieldState: { error },
@@ -17,6 +24,11 @@ const ControlledInput = ({ control, name, label, rules, autoComplete, type = "te
       <TextField
         className="w-87.5"
         label={label}
+        sx={{
+          "& .MuiOutlinedInput-root": {
+            backgroundColor: "var(--color-tertiary)",
+          },
+        }}
         type={type}
         autoComplete={autoComplete}
         onChange={(e) =>

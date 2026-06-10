@@ -1,4 +1,4 @@
-import {prisma} from "../config/db.js";
+import { prisma } from "../config/db.js";
 
 export async function getGame(gameName, currentUserId)
 {
@@ -28,6 +28,7 @@ export async function getGame(gameName, currentUserId)
 		myGameStatus = null;
 	else
 		myGameStatus = gameStatus.gameStatus;
+	if (!game) return null;
     return {
         id: game.id,
         name: game.name,

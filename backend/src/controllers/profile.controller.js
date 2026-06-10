@@ -10,7 +10,7 @@ export async function getProfile(req, res)
 			return res.status(404).json({ message: "User not found" });
 		res.status(200).json(profile);
 	} catch (error) {
-		return res.status(500).json({ message: "Internal server error" });
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 

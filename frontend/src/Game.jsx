@@ -8,7 +8,7 @@ function GameData(props) {
   temp = new Date(props.game.updateDate);
   const updated = temp.toLocaleDateString("fi-FI");
   return (
-    <div className="text-[75%]">
+    <div className="text-primary text-[75%] ml-auto mr-10">
       <p>
         <span style={{ fontWeight: "bold" }}>Developer:</span>{" "}
         {props.game.developer}
@@ -23,13 +23,13 @@ function GameData(props) {
         <p style={{ fontWeight: "bold" }}>Genres: </p>
       )}
       {props.game.genres.map((genre) => (
-        <p>{genre}</p>
+        <p key={genre}>{genre}</p>
       ))}
       {props.game.modes.length > 0 && (
         <p style={{ fontWeight: "bold" }}>Modes: </p>
       )}
       {props.game.modes.map((mode) => (
-        <p>{mode}</p>
+        <p key={mode}>{mode}</p>
       ))}
     </div>
   );
@@ -85,23 +85,26 @@ function Status(props) {
 
 function GameInfo(props) {
   return (
-    <div className="flex flex-col gap-[1em]">
-      <div className="mr-[2em]">
+    <div className="flex flex-col">
+      <div className="bg-primary text-tertiary rounded-t-lg p-2">
         <h2>{props.game.name}</h2>
         <div>
-          <ul className="flex flex-row gap-[3em]">
+          <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
             {props.game.platforms.map((platform) => (
-              <li className="list-none">
+              <li key={platform} className="list-none">
                 <p>{platform}</p>
               </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="flex flex-row items-start gap-[2em]">
-        <img src={props.game.image} alt={props.game.name}></img>
+      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2em] p-4 rounded-b-lg">
+        <img
+          src={props.game.image}
+          alt={props.game.name}
+          className="rounded-xl border-5 border-secondary"
+        ></img>
         <p className="w-[45%]">{props.game.description}</p>
-        <Status gamename={props.game.name}></Status>
         <GameData game={props.game}></GameData>
       </div>
     </div>
@@ -133,7 +136,7 @@ function Game() {
     loadGame();
   }, [name]);
   return (
-    <div>
+    <div className="bg-secondary text-primary min-h-screen p-6">
       {isGameFound && (
         <div>
           <GameInfo game={game} name={name}></GameInfo>
