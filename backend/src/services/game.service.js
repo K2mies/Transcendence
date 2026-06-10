@@ -8,6 +8,7 @@ export async function getGame(gameName, currentUserId)
 		reviews: {
 		include: {
 			user: true,
+			platform: true,
 		},
 		},
 		userGames: true,
@@ -16,24 +17,20 @@ export async function getGame(gameName, currentUserId)
 		platforms: true,
 	},
 	})
-	const isFave = game.userGames.find(ug => ug.userId === Number(currentUserId));
-	let isFavorite;
-	if (isFave === undefined)
-		isFavorite = null;
-	else
-		isFavorite = isFave.favorite;
-	const gameStatus = game.userGames.find(ug => ug.userId === Number(currentUserId));
-	let myGameStatus;
-	if (gameStatus === undefined)
-		myGameStatus = null;
-	else
-		myGameStatus = gameStatus.gameStatus;
+	if (!game) {
+		const error = new Error("Game not found");
+		error.status = 404;
+		throw error;
+	}
+	const userRelation = game.userGames.find(ug => ug.userId === Number(currentUserId))
 	let sum = 0;
 	for (let i = 0; i < game.reviews.length; i++)
 	{
 		sum += game.reviews[i].rating;
 	}
-	const reviewAverage1 = sum / reviews.length;
+	let averageResult = null
+	if (game.reviews.length != 0)
+		averageResult = sum / game.reviews.length;
 	return {
 		id: game.id,
 		name: game.name,
@@ -48,18 +45,18 @@ export async function getGame(gameName, currentUserId)
 			id: r.id,
 			rating: r.rating,
 			review: r.review,
-			platform: r.platform.name,
+			platform: r.platform?.name,
 			user: {
 				id: r.user.id,
 				name: r.user.name,
 			},
 		})),
-		reviewAverage: reviewAverage1,
+		reviewAverage: averageResult,
 		modes: game.modes.map(m => m.name),
 		genres: game.genres.map(g => g.name),
 		platforms: game.platforms.map(p => p.name),
-		favorite: isFavorite,
-		status: myGameStatus,
+		favorite: userRelation?.favorite ?? null,
+		gameStatus: userRelation?.gameStatus ?? null
 	}
 }
 

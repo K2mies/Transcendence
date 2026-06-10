@@ -1,4 +1,3 @@
-import { prisma } from "../config/db.js";
 import * as profileService from "../services/profile.service.js"
 
 export async function getProfile(req, res)

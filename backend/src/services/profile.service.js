@@ -33,6 +33,7 @@ export async function getProfile(profileName) {
 		reviews: {
 			include: {
 				game: true,
+				platform: true,
 			},
 		},
 	},
@@ -82,16 +83,19 @@ export async function getProfile(profileName) {
 }
 
 export async function updateProfile(profileName, newData) {
-	const existingUser = await prisma.user.findUnique({ where: { name: newData.name } });
-	if (!existingUser) {
+	const currentUser = await prisma.user.findUnique({ where: { name: profileName } });
+	if (!currentUser) {
 		const error = new Error("No user found");
 		error.status = 404;
 		throw error;
 	}
-	if (existingUser && existingUser.name != profileName) {
-		const error = new Error("Username already taken");
-		error.status = 409;
-		throw error;
+	if (profileName !== newData.name) { //we check if there is ANOTHER user with the wanted name
+		const existingUser = await prisma.user.findUnique({ where: { name: newData.name } });
+		if (existingUser) {
+			const error = new Error("Username already taken");
+			error.status = 409;
+			throw error;
+		}		
 	}
 	const updateUser = await prisma.user.update({
 	where: { name: profileName },
@@ -117,13 +121,13 @@ export async function getFriendStatus(friendName, userId, userName) {
 	if (!userRelation1 && !userRelation2) return { friendStatus: undefined };
 	if (userRelation1) {
 	return {
-		friendStatus: userRelation1.status,
+		friendStatus: userRelation1.friendStatus,
 		sender: userName,
 	}
 	}
 	if (userRelation2) {
 	return {
-		friendStatus: userRelation2.status,
+		friendStatus: userRelation2.friendStatus,
 		sender: friendName,
 	}
 	}
@@ -175,7 +179,7 @@ export async function acceptFriendRequest(friendName, user)
 		throw error
 	}
 	const userRelation = await prisma.userUserRelation.findUnique({ where: { senderId_receiverId: { senderId: friend.id, receiverId: user}}})
-	if (!userRelation || userRelation.friendshipStatus !== "PENDING") {
+	if (!userRelation || userRelation.friendStatus !== "PENDING") {
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
