@@ -16,13 +16,13 @@ function Header() {
       <Link
         to="/"
         className="
-    no-underline
-    px-2
-    rounded-md
-    text-[var(--color-tertiary)]
-    bg-[var(--color-primary)]
-    transition-colors
-  "
+          no-underline
+          px-2
+          rounded-md
+          text-[var(--color-tertiary)]
+          bg-[var(--color-primary)]
+          transition-colors
+        "
       >
         GoodPlays
       </Link>

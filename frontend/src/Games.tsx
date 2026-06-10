@@ -45,7 +45,7 @@ function Games() {
     <div className="bg-secondary text-primary min-h-screen p-6">
       <h1>Games</h1>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-4 gap-6 px-2">
         {games.map((game) => (
           <div key={game.id} className="w-[234px]">
             <Link to={"/game/" + game.name}>
@@ -62,7 +62,6 @@ function Games() {
                   {game.name}
                 </Link>
               </h2>
-              <p className="p-2">{game.developer}</p>
               <p> Rating: {game.rating}</p>
               <Stars rating={game.rating} />
             </div>
