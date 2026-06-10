@@ -10,6 +10,8 @@ import app from "./app.js";
 import {portCheck} from "./utils/portCheck.js";
 import {shutdown} from "./utils/shutdown.js";
 import {connectDB, disconnectDB} from "./config/db.js";
+import {setupWebSocket} from "./websocket/websocket.server.js";
+import http from "http";
 
 const isShuttingDown = {value: false};
 
@@ -26,11 +28,16 @@ try {
 
 await connectDB();
 
+// Create express server (app) and attach websocket server to it
+const server = http.createServer(app);
+setupWebSocket(server);
+
 // Open port that is defined in .env and the callback function to indicate that the PORT is listening
-const server = app.listen(backPort, () => {
+server.listen(backPort, () => {
 	console.log(`Server running on ${BACK_PORT}`);
 });
 
+// Signal handlers
 process.on("SIGINT", () => shutdown("SIGINT", isShuttingDown, server));
 process.on("SIGTERM", () => shutdown("SIGTERM", isShuttingDown, server));
 
@@ -41,7 +48,7 @@ process.on("unhandledRejection", (err) => {
 		try {
 			await disconnectDB();
 		} catch (error) {
-			console.error("Error disconnectiong DB during unhandeled rejection shutdown:", error);
+			console.error("Error disconnecting DB during unhandled rejection shutdown:", error);
 		} finally {
 			process.exit(1);
 		}
@@ -54,7 +61,7 @@ process.on("uncaughtException", async (err) => {
 	try {
 		await disconnectDB();
 	} catch (error) {
-		console.error("Error disconnectiong DB during uncaught exception shutdown:", error);
+		console.error("Error disconnecting DB during uncaught exception shutdown:", error);
 	} finally {
 		process.exit(1);
 	}
