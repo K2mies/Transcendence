@@ -3,13 +3,22 @@ import { useNavigate } from "react-router-dom";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-const filterOptions = createFilterOptions({
+type Game = {
+  id: number;
+  name: string;
+};
+
+const filterOptions = createFilterOptions<Game>({
   limit: 6000,
 });
 
 const SearchBar = () => {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [games, setGames] = useState<{ id: number; name: string; image: string }[]>([]);
+=======
+  const [games, setGames] = useState<Game[]>([]);
+>>>>>>> 13113ee (fixed value.name error by creating a Game type and feeding that into a few places)
   useEffect(() => {
     async function fetchGames() {
       const response = await fetch("http://localhost:4243/games", {
@@ -26,7 +35,7 @@ const SearchBar = () => {
     fetchGames();
   }, []);
   return (
-    <Autocomplete
+    <Autocomplete<Game>
       sx={{ width: "100%" }}
       options={games}
       filterOptions={filterOptions}
@@ -38,7 +47,7 @@ const SearchBar = () => {
           },
         },
       }}
-      onChange={(event, value) => {
+      onChange={(_, value) => {
         if (value) {
           navigate(`/game/${encodeURIComponent(value.name)}`);
         }
