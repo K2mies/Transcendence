@@ -37,11 +37,7 @@ export async function getProfile(profileName) {
       },
     },
   });
-  if (!user) {
-    const error = new Error("No user found");
-    error.status = 404;
-    throw error;
-  }
+  if (!user) return null;
   return {
     id: user.id,
     name: user.name,
