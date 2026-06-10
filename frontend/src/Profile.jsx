@@ -33,7 +33,7 @@ function FriendButton({ user }) {
 
   const updateRefreshKey = () => {
     setRefreshKey((value) => value + 1);
-  }
+  };
 
   const handleClick = async () => {
     if (friendStatus === undefined) {
@@ -94,7 +94,7 @@ function FriendButton({ user }) {
       buttonText = "Remove friend";
   }
   return (
-    <>
+    <div className="bg-primary text-tertiary ml-auto m-6">
       <button onClick={handleClick}>{buttonText}</button>
       {friendStatus === "RECEIVED" && (
         <button
@@ -118,7 +118,7 @@ function FriendButton({ user }) {
           Decline request
         </button>
       )}
-    </>
+    </div>
   );
 }
 
@@ -126,19 +126,19 @@ function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
   return (
-    <div className="flex flex-col gap-[1em]">
+    <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
-        <h2 className="mr-[2em]">{props.profile.name}</h2>
+        <h2 className="p-4">{props.profile.name}</h2>
         {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
         {isMyUser && <button>Edit profile info</button>}
       </div>
-      <div className="flex flex-row items-start gap-[2em]">
+      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2rem] rounded-b-lg">
         <img
-          className="w-22.5 h-30"
+          className="border-secondary border-4 w-40 h-auto rounded-lg m-[1rem]"
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        <p className="w-[50%] text-left">{props.profile.bio}</p>
+        <p className=" mt-[1rem] w-[50%] text-left">{props.profile.bio}</p>
       </div>
     </div>
   );
@@ -164,52 +164,64 @@ const SwiperButtonNext = ({ children }) => {
 
 function DisplayGames(props) {
   return (
-    <div className="my-4.5">
-      <h4 className="flex justify-start">{props.header}</h4>
-      {props.games.length > 5 ? (
-        <div>
-          <Swiper
-            modules={Navigation}
-            spaceBetween={30}
-            slidesPerView={5}
-            navigation={{
-              prevEl: ".swiper-button-prev",
-              nextEl: ".swiper-button-next",
-            }}
-            allowTouchMove={false}
-          >
-            {props.games.map((game) => (
-              <SwiperSlide key={game.id}>
-                <img
-                  className="w-22.5 h-30"
-                  src={game.image}
-                  alt={game.name}
-                ></img>
-                <div className="max-w-22.5">
-                  <Link to={"/game/" + game.name}>{game.name}</Link>
-                </div>
-              </SwiperSlide>
-            ))}
-            <SwiperButtonPrev>&lt;</SwiperButtonPrev>
-            <SwiperButtonNext>&gt;</SwiperButtonNext>
-          </Swiper>
-        </div>
-      ) : (
-        <div className="flex flex-col ml-[3em]">
-          <ul className="flex flex-row gap-[2em]">
-            {props.games.map((game) => (
-              <li key={game.id} className="list-none w-25">
-                <img
-                  className="w-22.5 h-30"
-                  src={game.image}
-                  alt={game.name}
-                ></img>
-                <Link to={"/game/" + game.name}>{game.name}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <div className="mt-[1.5rem]">
+      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
+        {props.header}
+      </h4>
+      <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
+        {props.games.length > 5 ? (
+          <div>
+            <Swiper
+              modules={Navigation}
+              spaceBetween={10}
+              slidesPerView={15}
+              navigation={{
+                prevEl: ".swiper-button-prev",
+                nextEl: ".swiper-button-next",
+              }}
+              allowTouchMove={false}
+            >
+              {props.games.map((game) => (
+                <SwiperSlide key={game.id}>
+                  <img
+                    className="border-3 border-secondary w-full h-auto rounded-t-lg"
+                    src={game.image}
+                    alt={game.name}
+                  ></img>
+                  <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
+                    <Link to={"/game/" + game.name} className="no-underline">
+                      {game.name}
+                    </Link>
+                  </div>
+                </SwiperSlide>
+              ))}
+              <SwiperButtonPrev>&lt;</SwiperButtonPrev>
+              <SwiperButtonNext>&gt;</SwiperButtonNext>
+            </Swiper>
+          </div>
+        ) : (
+          <div className="flex flex-col ml-[3em]">
+            <ul className="flex flex-row gap-[2em]">
+              {props.games.map((game) => (
+                <li key={game.id} className="list-none w-25">
+                  <div>
+                    <img
+                      className="border-3 border-secondary w-full h-auto rounded-t-lg"
+                      src={game.image}
+                      alt={game.name}
+                    ></img>
+                    <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
+                      <Link to={"/game/" + game.name} className="no-underline">
+                        {game.name}
+                      </Link>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -251,7 +263,7 @@ function Profile() {
   }, [username]);
 
   return (
-    <div>
+    <div className="bg-secondary p-6">
       {isUserFound && (
         <div>
           <ProfileInfo profile={profile}></ProfileInfo>

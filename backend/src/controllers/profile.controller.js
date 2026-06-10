@@ -7,7 +7,7 @@ export async function getProfile(req, res)
 		const profile = await profileService.getProfile(userName)
 		res.status(200).json(profile);
 	} catch (error) {
-		return res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
 

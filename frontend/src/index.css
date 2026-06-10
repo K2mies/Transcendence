@@ -1,6 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Poller+One&display=swap");
 @import "tailwindcss";
 
+/*------------ COLOR THEME SETTINGS ------------- */
+
+/*Grey theme*/
+/*@theme {
+  --color-primary: #121212;
+  --color-secondary: #8f8f8f;
+  --color-tertiary: #d2d2d2;
+}*/
+
+/* Yellow Theme */
+@theme {
+  --color-primary: #121212;
+  --color-secondary: #c59113;
+  --color-tertiary: #d2d2d2;
+}
+
+/*Blue Theme*/
+/*@theme {
+  --color-primary: #121212;
+  --color-secondary: #2f00d8;
+  --color-tertiary: #d2d2d2;
+}*/
+
+/* Brighter Primary Theme */
+/*@theme {
+  --color-primary: #484848;
+  --color-secondary: #c59113;
+  --color-tertiary: #d2d2d2;
+}*/
 @layer base {
   button {
     cursor: pointer;

@@ -1,6 +1,6 @@
 import express from "express";
-import * as profileController from "../controllers/profile.controller.js"
-import {protect} from "../utils/protectJWT.js";
+import * as profileController from "../controllers/profile.controller.js";
+import { protect } from "../utils/protectJWT.js";
 
 const router = express.Router();
 
