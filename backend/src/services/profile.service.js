@@ -37,6 +37,7 @@ export async function getProfile(profileName) {
       },
     },
   });
+  if (!user) return null;
   return {
     id: user.id,
     name: user.name,

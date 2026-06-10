@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Reviews from "./Reviews";
 
 function GameData(props) {
-  //temporary comment
   let temp = new Date(props.game.releaseDate);
   const released = temp.toLocaleDateString("fi-FI");
   temp = new Date(props.game.updateDate);

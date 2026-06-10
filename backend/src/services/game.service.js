@@ -1,6 +1,6 @@
 import { prisma } from "../config/db.js";
 
-export async function getGame(gameName, currentUserId) {
+export async function getGame(gameName) {
   const game = await prisma.game.findUnique({
     where: { name: gameName },
     select: {
@@ -26,12 +26,12 @@ export async function getGame(gameName, currentUserId) {
           },
         },
       },
-      userGames: true,
       modes: true,
       genres: true,
       platforms: true,
     },
   });
+  if (!game) return null;
   return {
     id: game.id,
     name: game.name,
