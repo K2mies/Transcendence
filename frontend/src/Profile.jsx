@@ -165,7 +165,7 @@ const SwiperButtonNext = ({ children }) => {
 function DisplayGames(props) {
   return (
     <div className="mt-6">
-      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg">
+      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
         {props.header}
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
@@ -184,11 +184,11 @@ function DisplayGames(props) {
               {props.games.map((game) => (
                 <SwiperSlide key={game.id}>
                   <img
-                    className="border-3 border-secondary w-22.5 h-30 rounded-t-lg"
+                    className="border-3 border-secondary w-full h-auto rounded-t-lg"
                     src={game.image}
                     alt={game.name}
                   ></img>
-                  <div className="bg-secondary text-primary max-w-22.5 p-2 rounded-b-lg text-center">
+                  <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
                     <Link to={"/game/" + game.name} className="no-underline">
                       {game.name}
                     </Link>
@@ -206,7 +206,7 @@ function DisplayGames(props) {
                 <li key={game.id} className="list-none w-25">
                   <div>
                     <img
-                      className="border-3 border-secondary w-full h-30 rounded-t-lg"
+                      className="border-3 border-secondary w-full h-auto rounded-t-lg"
                       src={game.image}
                       alt={game.name}
                     ></img>
