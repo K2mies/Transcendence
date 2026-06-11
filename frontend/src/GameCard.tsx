@@ -13,7 +13,7 @@ type GameCardProps = {
 
 function GameCard({ game }: GameCardProps) {
   return (
-    <div className="w-[174px] relative group">
+    <div className="basis-1/5 relative group">
       <Link to={"/game/" + game.name}>
         <img
           src={game.imageBig}
@@ -26,12 +26,14 @@ function GameCard({ game }: GameCardProps) {
         className="
           bg-primary
           text-tertiary
+
           relative
           -mt-14
           z-10
           w-full
           p-2
           h-[3.5rem]
+
           flex
           items-center
           justify-center
@@ -43,6 +45,8 @@ function GameCard({ game }: GameCardProps) {
           group-hover:opacity-100
           transition-opacity
           duration-300
+          
+          rounded-t-lg
         "
       >
         <Link to={"/game/" + game.name} className="no-underline">

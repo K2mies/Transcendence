@@ -42,15 +42,13 @@ function Games() {
     fetchGames();
   }, [page]);
   return (
-    <div className="bg-secondary text-primary min-h-screen p-6">
-      <h1 className="bg-primary text-tertiary text-center mb-5 w-full rounded-t-lg">
-        Games
-      </h1>
-
-      <div className="relative grid grid-cols-5 gap-6 px-2 mt-7">
-        {games.map((game) => (
-          <GameCard key={game.id} game={game} />
-        ))}
+    <div>
+      <div className="bg-secondary text-primary min-h-screen px-6 py-4">
+        <div className="relative grid grid-cols-5 gap-2">
+          {games.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
+        </div>
       </div>
       <PaginationControls
         page={page}
