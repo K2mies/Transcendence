@@ -96,7 +96,7 @@ function FriendButton({ user }) {
       buttonText = "Remove friend";
   }
   return (
-    <div className="bg-primary text-tertiary ml-auto m-6">
+    <>
       <button onClick={handleClick}>{buttonText}</button>
       {friendStatus === "RECEIVED" && (
         <button
@@ -120,7 +120,7 @@ function FriendButton({ user }) {
           Decline request
         </button>
       )}
-    </div>
+    </>
   );
 }
 

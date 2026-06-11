@@ -16,7 +16,6 @@ function Reviews(props) {
               {props.page === "game" && (
                 <Link to={"/user/" + review.user.name}>{review.user.name}</Link>
               )}
-              <p>{review.rating}</p>
 
               <div className="flex px-5">
                 {Array.from({ length: 5 }).map((_, index) => (
