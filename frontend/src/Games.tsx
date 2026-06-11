@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Stars from "./Stars";
+import GameCard from "./GameCard";
+import PaginationControls from "./PaginationControls";
 
 type Game = {
   id: number;
@@ -43,94 +43,21 @@ function Games() {
   }, [page]);
   return (
     <div className="bg-secondary text-primary min-h-screen p-6">
-      <h1>Games</h1>
+      <h1 className="bg-primary text-tertiary text-center mb-5 w-full rounded-t-lg">
+        Games
+      </h1>
 
-      <div className="relative grid grid-cols-5 gap-6 px-2">
+      <div className="relative grid grid-cols-5 gap-6 px-2 mt-7">
         {games.map((game) => (
-          <div key={game.id} className="w-[185px] group">
-            <Link to={"/game/" + game.name}>
-              <img
-                src={game.imageBig}
-                alt={game.name}
-                className="border-primary border-x-3 border-t-3 w-full rounded-t-lg"
-              />
-            </Link>
-
-            <h2
-              className=" 
-                bg-primary
-                text-tertiary
-
-                relative
-                -mt-15
-                z-10
-                w-full
-
-                break-words
-                p-2
-                h-[3.5rem]
-
-                flex
-                items-center
-                justify-center
-
-                text-center
-                text-[90%]
-                line-clamp-2
-
-                opacity-0
-                group-hover:opacity-100
-                
-                transition-opacity
-                duration-300
-                
-                rounded-t-lg
-                "
-            >
-              <Link to={"/game/" + game.name} className="no-underline">
-                {game.name}
-              </Link>
-            </h2>
-            <div
-              className=" 
-                bg-tertiary
-                text-primary
-                border-primary
-                border-x-3
-                border-b-3
-                text-center
-                rounded-b-lg
-                relative group
-                "
-            >
-              <p> Rating: {game.rating}</p>
-              <Stars rating={game.rating} />
-            </div>
-          </div>
+          <GameCard key={game.id} game={game} />
         ))}
       </div>
-
-      <div>
-        <button
-          disabled={page === 1}
-          onClick={() => setPage((prev) => prev - 1)}
-        >
-          Previous
-        </button>
-        <span>
-          Page {pagination?.page} of {pagination?.totalPages}
-        </span>
-
-        <button
-          disabled={page === pagination?.totalPages}
-          onClick={() => {
-            console.log("Next clicked");
-            setPage((prev) => prev + 1);
-          }}
-        >
-          Next
-        </button>
-      </div>
+      <PaginationControls
+        page={page}
+        totalPages={pagination?.totalPages ?? 1}
+        onPrevious={() => setPage((prev) => prev - 1)}
+        onNext={() => setPage((prev) => prev + 1)}
+      />
     </div>
   );
 }
