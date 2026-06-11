@@ -19,57 +19,62 @@ function Header() {
     "/mygames": "My Games",
   };
 
-  const pageTitle = pageTitles[location.pathname] || "GoodPlays";
+  let pageTitle: string;
 
+  if (location.pathname.startsWith("/user/")) {
+    pageTitle = decodeURIComponent(location.pathname.replace("/user/", ""));
+  } else if (location.pathname.startsWith("/game/")) {
+    pageTitle = decodeURIComponent(location.pathname.replace("/game/", ""));
+  } else {
+    pageTitle = pageTitles[location.pathname] || "GoodPlays";
+  }
   return (
-    <div>
-      <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-4 sticky top-0 z-50">
-        <h1 className="bg-primary text-tertiary">{pageTitle}</h1>
+    <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-4 sticky top-0 z-50">
+      <h1 className="text-tertiary">{pageTitle}</h1>
 
-        <div className="flex items-center ml-auto">
-          <button onClick={() => setShowSearch(!showSearch)}>
-            <FaSearch size={18} />
-          </button>
+      <div className="flex items-center ml-auto">
+        <button onClick={() => setShowSearch(!showSearch)}>
+          <FaSearch size={18} className="-mr-2" />
+        </button>
 
-          {showSearch && (
-            <div className=" w-96">
-              <SearchBar />
-            </div>
-          )}
-        </div>
-        <div className="flex items-center gap-4">
-          <Link
-            to="/"
-            className="
-            no-underline 
-            text-tertiary
-            "
-          >
-            <FaHome className="text-tertiary" size={16} />
-          </Link>
+        {showSearch && (
+          <div className=" w-96 ml-5">
+            <SearchBar />
+          </div>
+        )}
+      </div>
+      <div className="flex items-center gap-6 mr-5">
+        <Link
+          to="/"
+          className="
+           no-underline 
+           text-tertiary
+           "
+        >
+          <FaHome className="text-tertiary" size={16} />
+        </Link>
 
-          <Link
-            to="/user/xKr4t0sx"
-            className="
-            no-underline
-            text-tertiary
-            "
-          >
-            <FaUser className="text-tertiary" size={15} />
-          </Link>
+        <Link
+          to="/user/xKr4t0sx"
+          className="
+           no-underline
+           text-tertiary
+           "
+        >
+          <FaUser className="text-tertiary" size={15} />
+        </Link>
 
-          <Link
-            to="/games"
-            className="
-            no-underline
-            text-tertiary
-            "
-          >
-            <FaGamepad className="text-tertiary" size={18} />
-          </Link>
-        </div>
-      </nav>
-    </div>
+        <Link
+          to="/games"
+          className="
+           no-underline
+           text-tertiary
+           "
+        >
+          <FaGamepad className="text-tertiary" size={18} />
+        </Link>
+      </div>
+    </nav>
   );
 }
 export default Header;
