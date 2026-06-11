@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Reviews from "./Reviews";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 function GameData(props) {
   let temp = new Date(props.game.releaseDate);
@@ -35,59 +36,86 @@ function GameData(props) {
   );
 }
 
-function Status(props) {
-  let initStatus;
-  if (!props.game.gameStatus)
-    initStatus = "WANT_TO_PLAY"
-  else
-    initStatus = props.game.gameStatus;
-  const [currentStatus, setCurrentStatus] = useState(initStatus);
-  const gamename = props.gamename;
-
-  async function UpdateStatus() {
-    const newData = {
-      gameStatus: currentStatus,
-    };
-    const response = await fetch(
-      `http://localhost:4243/game/${gamename}/update-game-relation`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(newData),
+async function UpdateGameRelation(gamename, newData) {
+  const response = await fetch(
+    `http://localhost:4243/game/${gamename}/update-game-relation`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-    if (response.status === 200) {
-      await response.json();
-    } else {
-      console.error("Error updating game relation");
-    }
+      credentials: "include",
+      body: JSON.stringify(newData),
+    },
+  );
+  if (response.status === 200) {
+    await response.json();
+  } else {
+    console.error("Error updating game relation");
+  }
+}
+
+function Favorite(props) {
+  const initValue = props.game.favorite || false;
+  const [currentValue, setCurrentValue] = useState(initValue);
+  const gamename = props.game.name;
+
+  function changeValue() {
+    const newValue = !currentValue;
+    setCurrentValue(newValue);
+    const newData = {
+    favorite: newValue,
+    };
+    UpdateGameRelation(gamename, newData);
   }
   return (
     <>
-      <select
-        value={currentStatus}
-        onChange={(e) => {
-          setCurrentStatus(e.target.value);
-          UpdateStatus();
-        }}
-      >
+      <button onClick={changeValue}>
+        {currentValue ? <FaHeart /> : <FaRegHeart />}
+      </button>
+    </>
+  );
+}
+
+function Status(props) {
+  const initStatus = props.game.gameStatus || "";
+  const [currentStatus, setCurrentStatus] = useState(initStatus);
+  const gamename = props.game.name;
+
+  function changeStatus(e) {
+    const newStatus = e.target.value;
+    setCurrentStatus(newStatus);
+    const newData = {
+      gameStatus: newStatus,
+    };
+    UpdateGameRelation(gamename, newData);
+  }
+  return (
+    <div className="flex flex-row">
+      <select value={currentStatus} onChange={changeStatus}>
+        <option value="" disabled>
+          Choose status
+        </option>
         <option value="WANT_TO_PLAY">Want to play</option>
         <option value="PLAYING">Playing</option>
         <option value="COMPLETED">Completed</option>
         <option value="DNF">Did not finish</option>
       </select>
-    </>
+    </div>
   );
 }
 
 function GameInfo(props) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg p-2">
-        <h2>{props.game.name}</h2>
+        <div className="flex justify-between">
+          <div className="flex">
+            <h2 className="mr-20">{props.game.name}</h2>
+            <Favorite game={props.game}></Favorite>
+          </div>
+          <Status game={props.game}></Status>
+        </div>
         <div>
           <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
             {props.game.platforms.map((platform) => (

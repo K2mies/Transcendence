@@ -94,7 +94,7 @@ function FriendButton({ user }) {
       buttonText = "Remove friend";
   }
   return (
-    <div className="bg-primary text-tertiary ml-auto m-6">
+    <>
       <button onClick={handleClick}>{buttonText}</button>
       {friendStatus === "RECEIVED" && (
         <button
@@ -118,7 +118,7 @@ function FriendButton({ user }) {
           Decline request
         </button>
       )}
-    </div>
+    </>
   );
 }
 
@@ -129,8 +129,10 @@ function ProfileInfo(props) {
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
         <h2 className="p-4">{props.profile.name}</h2>
-        {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
-        {isMyUser && <button>Edit profile info</button>}
+        <div className="bg-primary text-tertiary ml-auto m-6">
+          {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
+          {isMyUser && <button>Edit profile info</button>}
+        </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2rem] rounded-b-lg">
         <img
