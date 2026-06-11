@@ -71,7 +71,11 @@ function Game() {
 
   useEffect(() => {
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${name}`);
+      const response = await fetch(`http://localhost:4243/game/${name}`,
+        {
+          credentials: "include",
+        },
+	  );
       if (response.status === 200) {
         const res = await response.json();
         setIsGameFound(true);

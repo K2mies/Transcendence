@@ -13,7 +13,7 @@ export async function getProfile(req, res)
 
 export async function updateProfile(req, res)
 {
-	const userName = req.params.name
+	const userName = req.user.name
 	const newData = req.body
 	try {
 		const profile = await profileService.updateProfile(userName, newData)

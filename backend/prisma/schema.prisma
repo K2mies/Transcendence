@@ -54,7 +54,7 @@ model Game {
 model Platform {
   id        Int                @id @default(autoincrement())
   name      String             @unique
-  userGames UserGameRelation[]
+  reviews   Review[]
   games     Game[]             @relation("GameToPlatform")
 }
 
@@ -77,22 +77,23 @@ model Review {
   review      String?
   rating      Int
   likeReviews LikeReview[]
+  platformId  Int?
   game        Game         @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  platform    Platform?     @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId, gameId])
 }
 
 model UserGameRelation {
   id         Int        @id @default(autoincrement())
   userId     Int
   gameId     Int
-  status     GameStatus
+  gameStatus GameStatus?
   favorite   Boolean    @default(false)
-  platformId Int?
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  platform   Platform?  @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, gameId, platformId])
+  @@unique([userId, gameId])
 }
 
 model LikeReview {
@@ -106,12 +107,12 @@ model LikeReview {
 }
 
 model UserUserRelation {
-  id         Int              @id @default(autoincrement())
-  senderId   Int
-  receiverId Int
-  status     FriendshipStatus
-  receiver   User             @relation("receivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
-  sender     User             @relation("sentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  id           Int              @id @default(autoincrement())
+  senderId     Int
+  receiverId   Int
+  friendStatus FriendshipStatus
+  receiver     User             @relation("receivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+  sender       User             @relation("sentRequests", fields: [senderId], references: [id], onDelete: Cascade)
 
   @@unique([senderId, receiverId])
 }
