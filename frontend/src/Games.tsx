@@ -45,23 +45,64 @@ function Games() {
     <div className="bg-secondary text-primary min-h-screen p-6">
       <h1>Games</h1>
 
-      <div className="grid grid-cols-4 gap-6 px-2">
+      <div className="relative grid grid-cols-5 gap-6 px-2">
         {games.map((game) => (
-          <div key={game.id} className="w-[234px]">
+          <div key={game.id} className="w-[185px] group">
             <Link to={"/game/" + game.name}>
               <img
                 src={game.imageBig}
                 alt={game.name}
-                className="border-primary border-3 w-full rounded-t-lg"
+                className="border-primary border-x-3 border-t-3 w-full rounded-t-lg"
               />
             </Link>
 
-            <div className=" bg-tertiary text-primary border-primary border-3 text-center rounded-b-lg">
-              <h2 className=" bg-primary text-tertiary break-words p-2 text-[90%]">
-                <Link to={"/game/" + game.name} className="no-underline">
-                  {game.name}
-                </Link>
-              </h2>
+            <h2
+              className=" 
+                bg-primary
+                text-tertiary
+
+                relative
+                -mt-15
+                z-10
+                w-full
+
+                break-words
+                p-2
+                h-[3.5rem]
+
+                flex
+                items-center
+                justify-center
+
+                text-center
+                text-[90%]
+                line-clamp-2
+
+                opacity-0
+                group-hover:opacity-100
+                
+                transition-opacity
+                duration-300
+                
+                rounded-t-lg
+                "
+            >
+              <Link to={"/game/" + game.name} className="no-underline">
+                {game.name}
+              </Link>
+            </h2>
+            <div
+              className=" 
+                bg-tertiary
+                text-primary
+                border-primary
+                border-x-3
+                border-b-3
+                text-center
+                rounded-b-lg
+                relative group
+                "
+            >
               <p> Rating: {game.rating}</p>
               <Stars rating={game.rating} />
             </div>
