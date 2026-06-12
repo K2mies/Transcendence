@@ -93,9 +93,7 @@ function Status(props) {
   return (
     <div className="flex flex-row">
       <select value={currentStatus} onChange={changeStatus}>
-        <option value="" disabled>
-          Choose status
-        </option>
+        <option value="" disabled>Choose status</option>
         <option value="WANT_TO_PLAY">Want to play</option>
         <option value="PLAYING">Playing</option>
         <option value="COMPLETED">Completed</option>
