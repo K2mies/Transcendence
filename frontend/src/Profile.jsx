@@ -181,8 +181,8 @@ function DisplayGames(props) {
           <div>
             <Swiper
               modules={Navigation}
-              spaceBetween={10}
-              slidesPerView={15}
+              spaceBetween={30}
+              slidesPerView={5}
               navigation={{
                 prevEl: ".swiper-button-prev",
                 nextEl: ".swiper-button-next",
@@ -192,11 +192,11 @@ function DisplayGames(props) {
               {props.games.map((game) => (
                 <SwiperSlide key={game.id}>
                   <img
-                    className="border-3 border-secondary w-full h-auto rounded-t-lg"
+                    className="border-3 border-secondary 22.5 h-30 rounded-t-lg"
                     src={game.image}
                     alt={game.name}
                   ></img>
-                  <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
+                  <div className="bg-secondary text-primary p-2 max-w-22.5 rounded-b-lg text-center">
                     <Link to={"/game/" + game.name} className="no-underline">
                       {game.name}
                     </Link>
@@ -214,7 +214,7 @@ function DisplayGames(props) {
                 <li key={game.id} className="list-none w-25">
                   <div>
                     <img
-                      className="border-3 border-secondary w-full h-auto rounded-t-lg"
+                      className="border-3 border-secondary w-full h-30 rounded-t-lg"
                       src={game.image}
                       alt={game.name}
                     ></img>
