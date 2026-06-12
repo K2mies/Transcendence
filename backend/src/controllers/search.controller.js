@@ -1,4 +1,5 @@
 import { getAllGames } from "../services/search.service.js";
+import { prisma } from "../config/db.js"; //temp delete used to get genre list
 
 export async function getGames(req, res) {
   try {
@@ -14,4 +15,17 @@ export async function getGames(req, res) {
       error: "Failed to get games",
     });
   }
+}
+
+//temp function delete gets all the genre's for the front end
+export async function getGenres(req, res) {
+  const genres = await prisma.genre.findMany({
+    select: { id: true, name: true },
+    orderBy: { name: "asc" },
+  });
+
+  res.json({
+    status: "success",
+    data: genres,
+  });
 }
