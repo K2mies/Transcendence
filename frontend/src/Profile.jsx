@@ -172,35 +172,33 @@ function DisplayGames(props) {
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
         {props.games.length > 5 ? (
-          <div>
-            <Swiper
-              modules={Navigation}
-              spaceBetween={30}
-              slidesPerView={5}
-              navigation={{
-                prevEl: ".swiper-button-prev",
-                nextEl: ".swiper-button-next",
-              }}
-              allowTouchMove={false}
-            >
-              {props.games.map((game) => (
-                <SwiperSlide key={game.id}>
-                  <img
-                    className="border-3 border-secondary 22.5 h-30 rounded-t-lg"
-                    src={game.image}
-                    alt={game.name}
-                  ></img>
-                  <div className="bg-secondary text-primary p-2 max-w-22.5 rounded-b-lg text-center">
-                    <Link to={"/game/" + game.name} className="no-underline">
-                      {game.name}
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              ))}
-              <SwiperButtonPrev>&lt;</SwiperButtonPrev>
-              <SwiperButtonNext>&gt;</SwiperButtonNext>
-            </Swiper>
-          </div>
+			<div className="mt-[1.5rem]">
+				<div className="bg-tertiary text-primary rounded-b-lg p-3">
+					<div className="relative">
+					<div
+						className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+					>
+						{props.games.map((game) => (
+						<div
+							key={game.id}
+							className="shrink-0 w-25 snap-start"
+						>
+							<img
+							className="border-3 border-secondary w-full h-30 rounded-t-lg object-cover"
+							src={game.image}
+							alt={game.name}
+							/>
+							<div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
+							<Link to={"/game/" + game.name} className="no-underline">
+								{game.name}
+							</Link>
+							</div>
+						</div>
+						))}
+					</div>
+					</div>
+				</div>
+				</div>
         ) : (
           <div className="flex flex-col ml-[3em]">
             <ul className="flex flex-row gap-[2em]">
@@ -242,8 +240,7 @@ function Profile() {
     if (!username) return;
     async function loadProfile() {
       const response = await fetch(
-        `http://localhost:4243/profile/${username}`,
-        {
+        `http://localhost:4243/profile/${username}`, {
           credentials: "include",
         },
       );
