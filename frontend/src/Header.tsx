@@ -1,11 +1,32 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import UseChat from "./chat/UseChat";
+import { FaGamepad } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { SiWechat } from "react-icons/si";
+import { useLocation } from "react-router-dom";
 
-function Header() {
+type HeaderProps = {
+  showSearch: boolean;
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function Header({ showSearch, setShowSearch }: HeaderProps) {
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
+  const location = useLocation();
 
+  const pageTitles: Record<string, string> = {
+    "/": "Home",
+    "/games": "Games",
+    "/dashboard": "Home",
+    "/profile": "Profile",
+    "/mygames": "My Games",
+  };
+
+  console.log("render", showSearch);
   let pageTitle: string;
 
   if (location.pathname.startsWith("/user/")) {
@@ -62,7 +83,7 @@ function Header() {
             transition-colors
           "
         >
-        Chat
+        <SiWechat className="text-tertiary" size={18} />
 
         {hasUnreadMessages && (
           <span className="

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+import GenreTags from "./GenreTags";
+import GenreSelector from "./GenreSelector";
+import PlatformTags from "./PlatformTags";
+import PlatformSelector from "./PlatformSelector";
 
 type GameFilterProps = {
   minRating: number;
@@ -11,6 +12,8 @@ type GameFilterProps = {
   setSearchTerm: (value: string) => void;
   genres: string[];
   setGenres: (genres: string[]) => void;
+  platforms: string[];
+  setPlatforms: (platforms: string[]) => void;
 };
 
 function GameFilter({
@@ -22,27 +25,9 @@ function GameFilter({
   setSearchTerm,
   genres,
   setGenres,
+  platforms,
+  setPlatforms,
 }: GameFilterProps) {
-  const [genreOptions, setGenreOptions] = useState<string[]>([]);
-
-  useEffect(() => {
-    async function fetchGenres() {
-      const response = await fetch("http://localhost:4243/games/genres", {
-        credentials: "include",
-      });
-
-      const result = await response.json();
-
-      if (result.status === "success") {
-        setGenreOptions(
-          result.data.map((genre: { name: string }) => genre.name),
-        );
-      }
-    }
-
-    fetchGenres();
-  }, []);
-
   return (
     <div className="mb-6 flex flex-wrap items-center gap-4">
       <input
@@ -53,25 +38,9 @@ function GameFilter({
         className="rounded border px-3 py-2"
       />
 
-      <Autocomplete
-        options={genreOptions.filter((genre) => !genres.includes(genre))}
-        onChange={(_, value) => {
-          if (value) {
-            setGenres([...genres, value]);
-          }
-        }}
-        renderInput={(params) => (
-          <TextField {...params} placeholder="Add Genre" size="small" />
-        )}
-        sx={{ width: 250 }}
-        slotProps={{
-          listbox: {
-            sx: {
-              maxHeight: 300,
-            },
-          },
-        }}
-      />
+      <GenreSelector genres={genres} setGenres={setGenres} />
+
+      <PlatformSelector platforms={platforms} setPlatforms={setPlatforms} />
 
       <select
         value={minRating}
@@ -97,28 +66,9 @@ function GameFilter({
         <option value="rating-asc">Lowest rated</option>
       </select>
 
-      {genres.length > 0 && (
-        <div className="w-full">
-          <h3 className="mb-2 font-semibold text-sm">Genres</h3>
-          <div className="flex flex-row flex-wrap gap-2">
-            {genres.map((genre) => (
-              <div
-                key={genre}
-                className="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1"
-              >
-                <span>{genre}</span>
+      <GenreTags genres={genres} setGenres={setGenres} />
 
-                <button
-                  onClick={() => setGenres(genres.filter((g) => g !== genre))}
-                  className="font-bold"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <PlatformTags platforms={platforms} setPlatforms={setPlatforms} />
     </div>
   );
 }

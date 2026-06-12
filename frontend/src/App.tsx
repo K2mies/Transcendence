@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -20,11 +21,15 @@ import Chat from "./chat/Chat";
 
 function Layout() {
   const location = useLocation();
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <>
       {location.pathname !== "/" &&
         location.pathname !== "/register" &&
-        location.pathname !== "/login" && <Header />}
+        location.pathname !== "/login" && (
+          <Header showSearch={showSearch} setShowSearch={setShowSearch} />
+        )}
 
       <Routes>
         <Route element={<PublicRoute />}>
