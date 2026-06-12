@@ -6,8 +6,6 @@ export async function getProfile(req, res)
 	const userName = req.params.name
 	try {
 		const profile = await profileService.getProfile(userName)
-		if (!profile)
-			return res.status(404).json({ message: "User not found" });
 		res.status(200).json(profile);
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
@@ -20,8 +18,6 @@ export async function updateProfile(req, res)
 	const newData = req.body
 	try {
 		const profile = await profileService.updateProfile(userName, newData)
-		if (!profile)
-			return res.status(404).json({ message: "User not found" });
 		res.status(200).json(profile);
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
