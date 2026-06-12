@@ -6,9 +6,9 @@ function Reviews(props) {
       <h3 className="bg-primary text-tertiary mt-[1.5rem] p-4 rounded-t-lg">
         Reviews
       </h3>
-      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-6">
+      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {props.reviews.map((review) => (
-          <li key={review.id} className="list-none">
+          <li key={review.id} className="list-none m-8">
             <div className="flex flex-row">
               {props.page === "profile" && (
                 <Link to={"/game/" + review.game}>{review.game}</Link>
