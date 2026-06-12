@@ -27,6 +27,7 @@ function Games() {
   const [sortBy, setSortBy] = useState("name-asc");
   const [searchTerm, setSearchTerm] = useState("");
   const [genres, setGenres] = useState<string[]>([]);
+  const [platforms, setPlatforms] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetchGames() {
@@ -40,6 +41,10 @@ function Games() {
 
       if (genres.length > 0) {
         params.set("genres", genres.join(","));
+      }
+
+      if (platforms.length > 0) {
+        params.set("platforms", platforms.join(","));
       }
 
       const response = await fetch(
@@ -58,7 +63,7 @@ function Games() {
     }
 
     fetchGames();
-  }, [page, searchTerm, genres]);
+  }, [page, searchTerm, genres, platforms]);
   return (
     <div>
       <GameFilter
@@ -70,6 +75,8 @@ function Games() {
         setSearchTerm={setSearchTerm}
         genres={genres}
         setGenres={setGenres}
+        platforms={platforms}
+        setPlatforms={setPlatforms}
       />
       <div className="bg-secondary text-primary min-h-screen px-6 py-4">
         <div className="relative grid grid-cols-5 gap-2">

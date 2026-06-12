@@ -4,21 +4,25 @@ import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function Header() {
-  const [showSearch, setShowSearch] = useState(false);
+type HeaderProps = {
+  showSearch: boolean;
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function Header({ showSearch, setShowSearch }: HeaderProps) {
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
     "/": "Home",
     "/games": "Games",
-    "/dashboard": "Dashboard",
+    "/dashboard": "Home",
     "/profile": "Profile",
     "/mygames": "My Games",
   };
 
+  console.log("render", showSearch);
   let pageTitle: string;
 
   if (location.pathname.startsWith("/user/")) {
