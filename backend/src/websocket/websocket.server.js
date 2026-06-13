@@ -1,4 +1,4 @@
-import {WebSocketServer} from "ws";
+import {WebSocketServer, WebSocket} from "ws";
 import jwt from "jsonwebtoken";
 import {prisma} from "../config/db.js";
 import cookie from "cookie";
@@ -57,13 +57,15 @@ export function setupWebSocket(server) {
 
 			ws.on("message", async (message) => {
 				try {
-					const data = JSON.parse(message);
+					const data = JSON.parse(message.toString());
 
-					console.log(`${user.name} connected via websocket`);
+					if (!data || typeof data !== "object")
+						return;
+					console.log(`${user.name} sent a message`);
 					if (data.type === "broadcast") {
 						for (const [userId, receiverSocket] of connectedUsers) {
 							if (userId !== user.id) {
-								if (receiverSocket && receiverSocket.readyState === receiverSocket.OPEN) {
+								if (receiverSocket && receiverSocket.readyState === WebSocket.OPEN) {
 									receiverSocket.send(
 										JSON.stringify({
 											type: "broadcast",
@@ -77,22 +79,25 @@ export function setupWebSocket(server) {
 						return;
 					}
 
-					if (data.type !== "chat" || data.receiverId === user.id || !data.content?.trim())
+					const receiverId = Number(data.receiverId);
+					const content = typeof data.content === "string" ? data.content.trim() : "";
+
+					if (data.type !== "chat" || receiverId === user.id || !Number.isInteger(receiverId) || !content)
 						return;
 
 					const msg = await prisma.message.create({
 						data: {
 							senderId: user.id,
-							receiverId: data.receiverId,
-							content: data.content,
+							receiverId,
+							content,
 						},
 					});
 
 					console.log("Message stored:", msg.id);
 
-					const receiverSocket = connectedUsers.get(data.receiverId);
+					const receiverSocket = connectedUsers.get(receiverId);
 
-					if (receiverSocket && receiverSocket.readyState === receiverSocket.OPEN) {
+					if (receiverSocket && receiverSocket.readyState === WebSocket.OPEN) {
 						receiverSocket.send(
 							JSON.stringify({
 								type: "chat",

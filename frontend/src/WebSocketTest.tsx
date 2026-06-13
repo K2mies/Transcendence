@@ -20,12 +20,21 @@ export default function WebSocketTest() {
 		};
 
 		ws.onmessage = (event) => {
-			console.log("Received:", JSON.parse(event.data));
+			try {
+				const data = JSON.parse(event.data);
+				console.log("Received:", data);
+			} catch (error) {
+				console.error("Invalid message:", event.data);
+			}
 		};
 
 		ws.onclose = () => {
 			console.log("Disconnected");
 		};
+
+		ws.onerror = (err) => {
+			console.error("WebSocket error:", err);
+		}
 
 		return () => ws.close();
 	}, []);
