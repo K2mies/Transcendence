@@ -55,8 +55,57 @@ export function setupWebSocket(server) {
 				userId: user.id,
 			}));
 
-			ws.on("message", (message) => {
-				console.log(`Message from ${user.id}:`, message.toString());
+			ws.on("message", async (message) => {
+				try {
+					const data = JSON.parse(message);
+
+					console.log(`${user.name} connected via websocket`);
+					if (data.type === "broadcast") {
+						for (const [userId, receiverSocket] of connectedUsers) {
+							if (userId !== user.id) {
+								if (receiverSocket && receiverSocket.readyState === receiverSocket.OPEN) {
+									receiverSocket.send(
+										JSON.stringify({
+											type: "broadcast",
+											senderId: user.id,
+											content: data.content,
+										})
+									);
+								}
+							}
+						}
+						return;
+					}
+
+					if (data.type !== "chat" || data.receiverId === user.id || !data.content?.trim())
+						return;
+
+					const msg = await prisma.message.create({
+						data: {
+							senderId: user.id,
+							receiverId: data.receiverId,
+							content: data.content,
+						},
+					});
+
+					console.log("Message stored:", msg.id);
+
+					const receiverSocket = connectedUsers.get(data.receiverId);
+
+					if (receiverSocket && receiverSocket.readyState === receiverSocket.OPEN) {
+						receiverSocket.send(
+							JSON.stringify({
+								type: "chat",
+								id: msg.id,
+								senderId: user.id,
+								content: data.content,
+								createdAt: msg.createdAt,
+							})
+						);
+					}
+				} catch (error) {
+					console.error(error);
+				}
 			});
 
 			ws.on("close", () => {
