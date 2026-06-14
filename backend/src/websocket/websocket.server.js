@@ -96,6 +96,7 @@ export function setupWebSocket(server) {
 					console.log("Message stored:", msg.id);
 
 					const receiverSocket = connectedUsers.get(receiverId);
+					const senderSocket = connectedUsers.get(user.id);
 
 					if (receiverSocket && receiverSocket.readyState === WebSocket.OPEN) {
 						receiverSocket.send(
@@ -103,10 +104,23 @@ export function setupWebSocket(server) {
 								type: "chat",
 								id: msg.id,
 								senderId: user.id,
+								receiverId: receiverId,
 								content: data.content,
 								createdAt: msg.createdAt,
 							})
 						);
+					}
+					if (senderSocket && senderSocket.readyState === WebSocket.OPEN) {
+						senderSocket.send(
+							JSON.stringify({
+								type: "chat",
+								id: msg.id,
+								senderId: user.id,
+								receiverId: receiverId,
+								content: data.content,
+								createdAt:msg.createdAt,
+							})
+						)
 					}
 				} catch (error) {
 					console.error(error);

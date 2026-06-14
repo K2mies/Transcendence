@@ -24,4 +24,36 @@ const deleteUser = async (req, res) => {
 	});
 }
 
-export {meUser, deleteUser};
+const myFriends = async (req, res) => {
+	const me = req.user.id;
+
+	const relations = await prisma.userUserRelation.findMany({
+		where: {
+			friendStatus: "FRIENDS",
+			OR: [{ senderId: me }, { receiverId: me }],
+		},
+		include: {
+			sender: {
+				select: {
+					id: true,
+					name: true,
+				},
+			},
+			receiver: {
+				select: {
+					id: true,
+					name: true,
+				},
+			},
+		},
+	});
+
+	const friends = relations.map(relation =>
+		relation.senderId === me ? relation.receiver : relation.sender
+	);
+
+	res.json(friends);
+};
+
+
+export {meUser, deleteUser, myFriends};
