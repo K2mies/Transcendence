@@ -7,13 +7,13 @@ function Header() {
       <Link
         to="/"
         className="
-    no-underline
-    px-2
-    rounded-md
-    text-[var(--color-tertiary)]
-    bg-[var(--color-primary)]
-    transition-colors
-  "
+          no-underline
+          px-2
+          rounded-md
+          text-[var(--color-tertiary)]
+          bg-[var(--color-primary)]
+          transition-colors
+        "
       >
         GoodPlays
       </Link>
@@ -21,15 +21,29 @@ function Header() {
       <Link
         to="/user/xKr4t0sx"
         className="
-    no-underline
-    px-2
-    rounded-md
-    text-[var(--color-tertiary)]
-    bg-[var(--color-primary)]
-    transition-colors
-  "
+          no-underline
+          px-2
+          rounded-md
+          text-[var(--color-tertiary)]
+          bg-[var(--color-primary)]
+          transition-colors
+        "
       >
         Profile
+      </Link>
+
+      <Link
+        to="/chat"
+        className="
+          no-underline
+          px-2
+          rounded-md
+          text-[var(--color-tertiary)]
+          bg-[var(--color-primary)]
+          transition-colors
+        "
+      >
+        Chat
       </Link>
       <div className="ml-auto w-[400px] shrink-0">
         <SearchBar />

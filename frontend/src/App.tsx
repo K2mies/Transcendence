@@ -7,7 +7,6 @@ import {
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import WebSocketTest from "./WebSocketTest";
 
 import Header from "./Header";
 
@@ -19,6 +18,8 @@ import Game from "./Game";
 
 import Home from "./Home";
 import Dashboard from "./Dashboard";
+
+import Chat from "./Chat";
 
 function Layout() {
   const location = useLocation();
@@ -39,7 +40,7 @@ function Layout() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="user/:username" element={<Profile />} />
           <Route path="game/:name" element={<Game />} />
-          <Route path="ws-test" element={<WebSocketTest/>} />
+          <Route path="chat" element={<Chat/>} />
         </Route>
       </Routes>
     </>
