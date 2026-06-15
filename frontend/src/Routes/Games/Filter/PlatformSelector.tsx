@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { FILTER_SX } from "./FilterProperties";
+import { FILTER_WIDTH } from "./FilterProperties";
 
 type PlatformSelectorProps = {
   platforms: string[];
@@ -9,6 +11,8 @@ type PlatformSelectorProps = {
 
 function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
   const [platformOptions, setPlatformOptions] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchPlatforms() {
@@ -30,18 +34,30 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
 
   return (
     <Autocomplete
+      value={selectedValue}
+      inputValue={inputValue}
       options={platformOptions.filter(
         (platform) => !platforms.includes(platform),
       )}
+      onInputChange={(_, value) => {
+        setInputValue(value);
+      }}
       onChange={(_, value) => {
         if (value) {
           setPlatforms([...platforms, value]);
+          setSelectedValue(null);
+          setInputValue(""); // clear text field
         }
       }}
       renderInput={(params) => (
-        <TextField {...params} placeholder="Add Platform" size="small" />
+        <TextField
+          {...params}
+          placeholder="Platform"
+          size="small"
+          sx={FILTER_SX}
+        />
       )}
-      sx={{ width: 250 }}
+      sx={{ width: FILTER_WIDTH }}
       slotProps={{
         listbox: {
           sx: {

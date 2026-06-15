@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Stars from "./Stars";
+import Stars from "../../Rating/Stars";
 
 type GameCardProps = {
   game: {

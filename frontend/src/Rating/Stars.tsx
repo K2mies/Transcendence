@@ -1,4 +1,3 @@
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { PiStar, PiStarFill, PiStarHalfFill } from "react-icons/pi";
 
 type StarsProps = {
@@ -6,14 +5,15 @@ type StarsProps = {
 };
 
 function Stars({ rating }: StarsProps) {
+  const roundedRating = Math.round(rating * 2) / 2;
   return (
     <div className="flex justify-center gap-1 mb-2">
       {Array.from({ length: 5 }).map((_, index) => {
-        if (rating >= index + 1) {
+        if (roundedRating >= index + 1) {
           return <PiStarFill key={index} className="text-secondary text-xl" />;
         }
 
-        if (rating >= index + 0.5) {
+        if (roundedRating >= index + 0.5) {
           return (
             <PiStarHalfFill key={index} className="text-secondary text-xl" />
           );
