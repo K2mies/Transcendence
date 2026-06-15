@@ -124,7 +124,7 @@ function GameInfo(props) {
           alt={props.game.name}
           className="rounded-xl border-5 border-secondary"
         ></img>
-        <p className="w-[45%]">{props.game.description}</p>
+        <p className="w-[55%]">{props.game.description}</p>
         <GameData game={props.game}></GameData>
       </div>
     </div>

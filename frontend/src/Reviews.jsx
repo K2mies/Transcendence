@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 function Reviews(props) {
   const myUser = localStorage.getItem("user");
   const myUsername = myUser ? JSON.parse(myUser).name : null;
-  const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
-  const ismyReview = findMyReview ? true : false;
+  let addMyReview;
+  if (props.page === "game" && myUsername) {
+    const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
+    addMyReview = findMyReview ? true : false;
+  } else {
+    addMyReview = true;
+  }
   return (
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
@@ -14,7 +19,7 @@ function Reviews(props) {
             <p className="align-text-bottom text-lg">{props.average}</p>
           )}
         </div>
-        {!ismyReview && <button>Add review</button>}
+        {addMyReview && <button>Add review</button>}
       </div>
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {props.reviews.map((review) => (
