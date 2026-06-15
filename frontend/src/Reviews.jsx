@@ -8,7 +8,7 @@ function Reviews(props) {
     const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
     addMyReview = findMyReview ? false : true;
   } else {
-    addMyReview = true;
+    addMyReview = false;
   }
   return (
     <div>
