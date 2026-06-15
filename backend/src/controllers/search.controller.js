@@ -47,3 +47,21 @@ export async function getPlatforms(req, res) {
     data: platforms,
   });
 }
+
+//gets all developers for the front end
+export async function getDevelopers(req, res) {
+  const developers = await prisma.game.findMany({
+    select: {
+      developer: true,
+    },
+    distinct: ["developer"],
+    orderBy: {
+      developer: "asc",
+    },
+  });
+
+  res.json({
+    status: "success",
+    data: developers.filter((d) => d.developer),
+  });
+}

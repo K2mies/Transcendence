@@ -19,6 +19,14 @@
   --color-online: #50d210;
 }
 
+/* Theme for MUI elements*/
+/* Unfortunatly this has to be set seperatly, very annoying*/
+:root {
+  --app-primary: #121212;
+  --app-secondary: #c59113;
+  --app-tertiary: #d2d2d2;
+}
+
 /*Blue Theme*/
 /* @theme {
   --color-primary: #121212;

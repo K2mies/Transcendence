@@ -31,8 +31,36 @@ export async function getGames(query) {
   const genres = splitQueryParam(query.genres);
   const modes = splitQueryParam(query.modes);
 
+  const minRating = Number(query.minRating) || 0;
+
+  let orderBy = { name: "asc" };
+
+  switch (query.sortBy) {
+    case "name-desc":
+      orderBy = { name: "desc" };
+      break;
+
+    case "rating-desc":
+      orderBy = { rating: "desc" };
+      break;
+
+    case "rating-asc":
+      orderBy = { rating: "asc" };
+      break;
+
+    default:
+      orderBy = { name: "asc" };
+  }
+
   const where = {
     AND: [
+      minRating > 0
+        ? {
+            rating: {
+              gte: minRating,
+            },
+          }
+        : {},
       search
         ? {
             name: {
@@ -62,9 +90,7 @@ export async function getGames(query) {
       where,
       skip,
       take: limit,
-      orderBy: {
-        name: "asc",
-      },
+      orderBy,
       include: {
         platforms: true,
         genres: true,

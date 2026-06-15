@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
 import PaginationControls from "./PaginationControls";
-import GameFilter from "./GameFilter";
+import GameFilter from "./Filter/GameFilter";
 
 type Game = {
   id: number;
@@ -28,6 +28,11 @@ function Games() {
   const [searchTerm, setSearchTerm] = useState("");
   const [genres, setGenres] = useState<string[]>([]);
   const [platforms, setPlatforms] = useState<string[]>([]);
+  const [developer, setDeveloper] = useState("");
+
+  useEffect(() => {
+    setPage(1);
+  }, [sortBy]);
 
   useEffect(() => {
     async function fetchGames() {
@@ -47,6 +52,16 @@ function Games() {
         params.set("platforms", platforms.join(","));
       }
 
+      if (developer) {
+        params.set("developer", developer);
+      }
+
+      if (minRating > 0) {
+        params.set("minRating", String(minRating));
+      }
+
+      params.set("sortBy", sortBy);
+
       const response = await fetch(
         `http://localhost:4243/search?${params.toString()}`,
         {
@@ -63,9 +78,9 @@ function Games() {
     }
 
     fetchGames();
-  }, [page, searchTerm, genres, platforms]);
+  }, [page, searchTerm, genres, platforms, developer, minRating, sortBy]);
   return (
-    <div>
+    <div className="bg-secondary">
       <GameFilter
         minRating={minRating}
         setMinRating={setMinRating}
@@ -77,6 +92,8 @@ function Games() {
         setGenres={setGenres}
         platforms={platforms}
         setPlatforms={setPlatforms}
+        developer={developer}
+        setDeveloper={setDeveloper}
       />
       <div className="bg-secondary text-primary min-h-screen px-6 py-4">
         <div className="relative grid grid-cols-5 gap-2">

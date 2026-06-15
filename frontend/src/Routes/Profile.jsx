@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Reviews from "./Reviews";
 import UseChat from "./chat/UseChat";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useSwiper } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
