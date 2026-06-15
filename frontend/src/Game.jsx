@@ -55,45 +55,39 @@ async function UpdateGameRelation(gamename, newData) {
   }
 }
 
-function Favorite(props) {
-  const initValue = props.game.favorite || false;
-  const [currentValue, setCurrentValue] = useState(initValue);
-  const gamename = props.game.name;
+function Favorite({ game }) {
+  const [favoriteState, setFavoriteState] = useState(game.favorite || "");
+  const gamename = game.name;
 
   function changeValue() {
-    const newValue = !currentValue;
-    setCurrentValue(newValue);
-    const newData = {
-    favorite: newValue,
-    };
-    UpdateGameRelation(gamename, newData);
+    const newValue = !game.favorite;
+    setFavoriteState(newValue);
+    UpdateGameRelation(gamename, { favorite: newValue });
   }
   return (
     <>
       <button onClick={changeValue}>
-        {currentValue ? <FaHeart /> : <FaRegHeart />}
+        {favoriteState ? <FaHeart /> : <FaRegHeart />}
       </button>
     </>
   );
 }
 
-function Status(props) {
-  const initStatus = props.game.gameStatus || "";
-  const [currentStatus, setCurrentStatus] = useState(initStatus);
-  const gamename = props.game.name;
+function Status({ game }) {
+  const [currentStatus, setCurrentStatus] = useState(game.gameStatus || "");
+  const gamename = game.name;
 
   function changeStatus(e) {
     const newStatus = e.target.value;
     setCurrentStatus(newStatus);
-    const newData = {
-      gameStatus: newStatus,
-    };
-    UpdateGameRelation(gamename, newData);
+    UpdateGameRelation(gamename, { gameStatus: newStatus });
   }
   return (
     <div className="flex flex-row">
       <select value={currentStatus} onChange={changeStatus}>
-        <option value="" disabled>Choose status</option>
+        <option value="" disabled>
+          Choose status
+        </option>
         <option value="WANT_TO_PLAY">Want to play</option>
         <option value="PLAYING">Playing</option>
         <option value="COMPLETED">Completed</option>
@@ -110,9 +104,9 @@ function GameInfo(props) {
         <div className="flex justify-between">
           <div className="flex">
             <h2 className="mr-20">{props.game.name}</h2>
-            <Favorite game={props.game}></Favorite>
+            <Favorite key={props.game.name} game={props.game}></Favorite>
           </div>
-          <Status game={props.game}></Status>
+          <Status key={props.game.name} game={props.game}></Status>
         </div>
         <div>
           <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
@@ -140,6 +134,7 @@ function GameInfo(props) {
 function Game() {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
+  const [reviewAverage, setReviewAverage] = useState({});
   const [isGameFound, setIsGameFound] = useState(undefined);
   const { name } = useParams();
 
@@ -154,7 +149,8 @@ function Game() {
         const res = await response.json();
         setIsGameFound(true);
         setGame(res);
-        if (res.reviews.length > 0) setReviews(res.reviews);
+        setReviews(res.reviews);
+        setReviewAverage(res.reviewAverage);
       } else {
         setIsGameFound(false);
       }
@@ -168,10 +164,13 @@ function Game() {
     <div className="bg-secondary text-primary min-h-screen p-6">
       {isGameFound && (
         <div>
-          <GameInfo game={game}></GameInfo>
-          {reviews.length > 0 && (
-            <Reviews reviews={reviews} page="game"></Reviews>
-          )}
+          <GameInfo game={game} name={name}></GameInfo>
+          <Reviews
+            key={game}
+            reviews={reviews}
+            average={reviewAverage}
+            page="game"
+          ></Reviews>
         </div>
       )}
       {isGameFound === false && (
