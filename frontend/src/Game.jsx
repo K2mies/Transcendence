@@ -9,7 +9,7 @@ function GameData(props) {
   temp = new Date(props.game.updateDate);
   const updated = temp.toLocaleDateString("fi-FI");
   return (
-    <div className="text-primary text-[75%] ml-auto mr-10">
+    <div className="text-primary text-sm ml-auto mr-10">
       <p>
         <span style={{ fontWeight: "bold" }}>Developer:</span>{" "}
         {props.game.developer}
@@ -20,18 +20,6 @@ function GameData(props) {
       <p>
         <span style={{ fontWeight: "bold" }}>Updated:</span> {updated}
       </p>
-      {props.game.genres.length > 0 && (
-        <p style={{ fontWeight: "bold" }}>Genres: </p>
-      )}
-      {props.game.genres.map((genre) => (
-        <p key={genre}>{genre}</p>
-      ))}
-      {props.game.modes.length > 0 && (
-        <p style={{ fontWeight: "bold" }}>Modes: </p>
-      )}
-      {props.game.modes.map((mode) => (
-        <p key={mode}>{mode}</p>
-      ))}
     </div>
   );
 }
@@ -124,7 +112,17 @@ function GameInfo(props) {
           alt={props.game.name}
           className="rounded-xl border-5 border-secondary"
         ></img>
-        <p className="w-[55%]">{props.game.description}</p>
+        <div className="w-[55%]">
+          <p>{props.game.description}</p>
+          <div className="lg:flex my-3 gap-x-3 text-sm lg:text-center lg:items-center">
+            {props.game.genres.map((genre) => (
+              <p key={genre} className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2">{genre}</p>
+            ))}
+            {props.game.modes.map((mode) => (
+              <p key={mode} className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2">{mode}</p>
+            ))}
+          </div>
+        </div>
         <GameData game={props.game}></GameData>
       </div>
     </div>
@@ -134,7 +132,8 @@ function GameInfo(props) {
 function Game() {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [reviewAverage, setReviewAverage] = useState({});
+  const [reviewAverage, setReviewAverage] = useState([]);
+  const [rating, setRating] = useState({});
   const [isGameFound, setIsGameFound] = useState(undefined);
   const { name } = useParams();
 
@@ -150,6 +149,7 @@ function Game() {
         setIsGameFound(true);
         setGame(res);
         setReviews(res.reviews);
+        setRating(res.rating);
         setReviewAverage(res.reviewAverage);
       } else {
         setIsGameFound(false);
@@ -168,7 +168,8 @@ function Game() {
           <Reviews
             key={game}
             reviews={reviews}
-            average={reviewAverage}
+            reviewAverage={reviewAverage}
+            rating={rating}
             page="game"
           ></Reviews>
         </div>

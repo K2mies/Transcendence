@@ -6,17 +6,22 @@ function Reviews(props) {
   let addMyReview;
   if (props.page === "game" && myUsername) {
     const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
-    addMyReview = findMyReview ? true : false;
+    addMyReview = findMyReview ? false : true;
   } else {
     addMyReview = true;
   }
   return (
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
-        <div className="flex">
+        <div className="flex align-text-bottom">
           <h3 className="mr-20">Reviews</h3>
           {props.page === "game" && (
-            <p className="align-text-bottom text-lg">{props.average}</p>
+            <div className="text-md flex flex-column gap-x-8">
+              {props.reviews.length > 0 && (
+               <p className=" text-md">GoodPlays community rating: {props.reviewAverage}/5</p>
+              )}
+              <p className="text-md">IGDB community rating: {props.rating}/5</p>
+          </div>
           )}
         </div>
         {addMyReview && <button>Add review</button>}
