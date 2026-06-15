@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 
 function Reviews(props) {
+  const myUser = localStorage.getItem("user");
+  const myUsername = myUser ? JSON.parse(myUser).name : null;
+  const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
+  const ismyReview = findMyReview ? true : false;
   return (
     <div>
-      <h3 className="bg-primary text-tertiary mt-[1.5rem] p-4 rounded-t-lg">
-        Reviews
-      </h3>
+      <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
+        <div className="flex">
+          <h3 className="mr-20">Reviews</h3>
+          {props.page === "game" && (
+            <p className="align-text-bottom text-lg">{props.average}</p>
+          )}
+        </div>
+        {!ismyReview && <button>Add review</button>}
+      </div>
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {props.reviews.map((review) => (
           <li key={review.id} className="list-none m-8">
