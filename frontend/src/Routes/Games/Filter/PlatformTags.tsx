@@ -10,13 +10,13 @@ function PlatformTags({ platforms, setPlatforms }: PlatformTagsProps) {
 
   return (
     <div className="w-full">
-      <h3 className="mb-2 text-sm font-semibold">Platforms</h3>
+      <h3 className="mb-2 text-sm text-tertiary font-semibold">Platforms</h3>
 
       <div className="flex flex-row flex-wrap gap-2">
         {platforms.map((platform) => (
           <div
             key={platform}
-            className="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1"
+            className="flex items-center gap-1 rounded-full bg-tertiary text-primary px-3 py-1"
           >
             <span>{platform}</span>
 

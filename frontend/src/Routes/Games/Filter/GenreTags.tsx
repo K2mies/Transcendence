@@ -10,13 +10,13 @@ function GenreTags({ genres, setGenres }: GenreTagsProps) {
 
   return (
     <div className="w-full">
-      <h3 className="mb-2 text-sm font-semibold">Genres</h3>
+      <h3 className="mb-2 text-sm text-tertiary font-semibold">Genres</h3>
 
       <div className="flex flex-row flex-wrap gap-2">
         {genres.map((genre) => (
           <div
             key={genre}
-            className="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1"
+            className="flex items-center gap-1 rounded-full bg-tertiary text-primary px-3 py-1"
           >
             <span>{genre}</span>
 

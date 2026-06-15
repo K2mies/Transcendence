@@ -42,7 +42,7 @@ function GameFilter({
   setDeveloper,
 }: GameFilterProps) {
   return (
-    <div className="mb-6 flex flex-wrap items-center gap-4 p-6">
+    <div className=" bg-primary mb-6 flex flex-wrap items-center gap-4 p-6">
       <GenreTags genres={genres} setGenres={setGenres} />
 
       <PlatformTags platforms={platforms} setPlatforms={setPlatforms} />
