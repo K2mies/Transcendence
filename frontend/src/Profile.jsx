@@ -9,12 +9,13 @@ import "swiper/css/navigation";
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
   const [refreshKey, setRefreshKey] = useState(0);
+  const username = encodeURIComponent(user);
 
   useEffect(() => {
     if (!user) return;
     async function getStatus() {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/friend-status`,
+        `http://localhost:4243/profile/${username}/friend-status`,
         {
           credentials: "include",
         },
@@ -35,7 +36,7 @@ function FriendButton({ user }) {
   const handleClick = async () => {
     if (friendStatus === undefined) {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/friend-request`,
+        `http://localhost:4243/profile/${username}/friend-request`,
         {
           method: "POST",
           credentials: "include",
@@ -48,7 +49,7 @@ function FriendButton({ user }) {
       }
     } else if (friendStatus === "RECEIVED") {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/accept-request`,
+        `http://localhost:4243/profile/${username}/accept-request`,
         {
           method: "PUT",
           credentials: "include",
@@ -61,7 +62,7 @@ function FriendButton({ user }) {
       }
     } else if (friendStatus === "FRIENDS" || friendStatus === "PENDING") {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/remove-friend`,
+        `http://localhost:4243/profile/${username}/remove-friend`,
         {
           method: "DELETE",
           credentials: "include",
@@ -98,7 +99,7 @@ function FriendButton({ user }) {
           className="ml-1.5"
           onClick={async () => {
             const response = await fetch(
-              `http://localhost:4243/profile/${user}/decline-request`,
+              `http://localhost:4243/profile/${username}/decline-request`,
               {
                 method: "DELETE",
                 credentials: "include",

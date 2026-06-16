@@ -3,7 +3,14 @@ import SearchBar from "./SearchBar";
 
 function Header() {
   const myUser = localStorage.getItem("user");
-  const myUsername = (myUser ? (JSON.parse(myUser)).name : null);
+  let myUsername: string | null = null;
+  if (myUser) {
+    try {
+      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? null;
+    } catch {
+      myUsername = null;
+    }
+  }
   return (
     <nav className="flex w-full flex-row items-center gap-4 py-2 px-4 bg-[var(--color-primary)] text-[var(--color-tertiary)]">
       <Link
