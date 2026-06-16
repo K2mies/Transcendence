@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Reviews from "./Reviews";
+import EditBio from "./EditProfile";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -121,6 +122,7 @@ function FriendButton({ user }) {
 }
 
 function ProfileInfo(props) {
+  const [editMode, setEditMode] = useState(false);
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
   return (
@@ -129,7 +131,7 @@ function ProfileInfo(props) {
         <h2 className="p-4">{props.profile.name}</h2>
         <div className="bg-primary text-tertiary ml-auto m-6">
           {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
-          {isMyUser && <button>Edit profile info</button>}
+          {isMyUser && <button onClick={() => setEditMode(true)}>Edit profile info</button>}
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
@@ -138,7 +140,12 @@ function ProfileInfo(props) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        <p className=" mt-4 w-[50%] text-left">{props.profile.bio}</p>
+        {editMode && (
+			<EditBio />
+		)}
+		{!editMode && (
+          <p className=" mt-4 w-[50%] text-left">{props.profile.bio}</p>
+		)}
       </div>
     </div>
   );
