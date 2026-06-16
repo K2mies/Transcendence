@@ -24,9 +24,10 @@ function GameData(props) {
   );
 }
 
-async function UpdateGameRelation(gamename, newData) {
+async function updateGameRelation(gamename, newData) {
+  const name = encodeURIComponent(gamename);
   const response = await fetch(
-    `http://localhost:4243/game/${gamename}/update-game-relation`,
+    `http://localhost:4243/game/${name}/update-game-relation`,
     {
       method: "POST",
       headers: {
@@ -44,13 +45,13 @@ async function UpdateGameRelation(gamename, newData) {
 }
 
 function Favorite({ game }) {
-  const [favoriteState, setFavoriteState] = useState(game.favorite || "");
+  const [favoriteState, setFavoriteState] = useState(Boolean(game.favorite));
   const gamename = game.name;
 
   function changeValue() {
-    const newValue = !game.favorite;
+    const newValue = !favoriteState;
     setFavoriteState(newValue);
-    UpdateGameRelation(gamename, { favorite: newValue });
+    updateGameRelation(gamename, { favorite: newValue });
   }
   return (
     <>
@@ -68,7 +69,7 @@ function Status({ game }) {
   function changeStatus(e) {
     const newStatus = e.target.value;
     setCurrentStatus(newStatus);
-    UpdateGameRelation(gamename, { gameStatus: newStatus });
+    updateGameRelation(gamename, { gameStatus: newStatus });
   }
   return (
     <div className="flex flex-row">
@@ -166,7 +167,7 @@ function Game() {
         <div>
           <GameInfo game={game} name={name}></GameInfo>
           <Reviews
-            key={game}
+            key={game.name}
             reviews={reviews}
             reviewAverage={reviewAverage}
             rating={rating}
