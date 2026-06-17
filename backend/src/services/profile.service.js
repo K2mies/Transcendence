@@ -89,7 +89,7 @@ export async function updateProfile(profileName, newData) {
 		error.status = 404;
 		throw error;
 	}
-	if (profileName !== newData.name) { //we check if there is ANOTHER user with the wanted name
+	if (newData.name && profileName !== newData.name) { //we check if there is ANOTHER user with the wanted name
 		const existingUser = await prisma.user.findUnique({ where: { name: newData.name } });
 		if (existingUser) {
 			const error = new Error("Username already taken");
@@ -98,11 +98,11 @@ export async function updateProfile(profileName, newData) {
 		}
 	}
 	const updateUser = await prisma.user.update({
-	where: { name: profileName },
-	data: {
-		name: newData.name,
-		bio: newData.bio,
-	},
+		where: { name: profileName },
+		data: {
+			name: newData.name,
+			bio: newData.bio,
+		},
 	});
 	return updateUser;
 }

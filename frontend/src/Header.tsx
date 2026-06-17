@@ -12,15 +12,15 @@ function Header() {
     }
   }
   return (
-    <nav className="flex w-full flex-row items-center gap-4 py-2 px-4 bg-[var(--color-primary)] text-[var(--color-tertiary)]">
+    <nav className="flex w-full flex-row items-center gap-4 py-2 px-4 bg-primary text-tertiary">
       <Link
         to="/"
         className="
     no-underline
     px-2
     rounded-md
-    text-[var(--color-tertiary)]
-    bg-[var(--color-primary)]
+    text-tertiary
+    bg-primary
     transition-colors
   "
       >
@@ -33,15 +33,15 @@ function Header() {
       no-underline
       px-2
       rounded-md
-      text-[var(--color-tertiary)]
-      bg-[var(--color-primary)]
+      text-tertiary
+      bg-color-primary
       transition-colors
     "
         >
           Profile
         </Link>
     }
-      <div className="ml-auto w-[400px] shrink-0">
+      <div className="ml-auto w-100px] shrink-0">
         <SearchBar />
       </div>
     </nav>

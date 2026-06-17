@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Reviews from "./Reviews";
-import EditBio from "./EditProfile";
+import { EditName, EditBio } from "./EditProfile";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -122,16 +122,22 @@ function FriendButton({ user }) {
 }
 
 function ProfileInfo(props) {
-  const [editMode, setEditMode] = useState(false);
+  const [editNameMode, setEditNameMode] = useState(false);
+  const [editBioMode, setEditBioMode] = useState(false);
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
-        <h2 className="p-4">{props.profile.name}</h2>
+		{editNameMode && (
+			<EditName />
+		)}
+		{!editNameMode && (
+	        <h2 className="p-4">{props.profile.name}</h2>
+		)}
+        {isMyUser && !editNameMode && <button onClick={() => setEditNameMode(true)}>Change username</button>}
         <div className="bg-primary text-tertiary ml-auto m-6">
           {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
-          {isMyUser && <button onClick={() => setEditMode(true)}>Edit profile info</button>}
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
@@ -140,12 +146,13 @@ function ProfileInfo(props) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {editMode && (
+        {editBioMode && (
 			<EditBio />
 		)}
-		{!editMode && (
+		{!editBioMode && (
           <p className=" mt-4 w-[50%] text-left">{props.profile.bio}</p>
 		)}
+		{isMyUser && !editBioMode && <button onClick={() => setEditBioMode(true)}>Edit biography</button>}
       </div>
     </div>
   );
