@@ -32,7 +32,7 @@ function Header({ currUser }) {
           Profile
         </Link>
       )}
-      <div className="ml-auto w-100px] shrink-0">
+      <div className="ml-auto w-100 shrink-0">
         <SearchBar />
       </div>
     </nav>
