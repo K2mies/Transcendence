@@ -39,9 +39,8 @@ const register = async (req, res) => {
 			user: {
 				id: user.id,
 				name: user.name,
-				email: user.email,
 			},
-			token,
+			// token,
 		},
 	});
 };
@@ -77,9 +76,8 @@ const login = async (req, res) => {
 			user: {
 				id: user.id,
 				name: user.name,
-				email: email,
 			},
-			token,
+			// token,
 		},
 	});
 };
@@ -103,9 +101,8 @@ const googleCallback = (res, user) => {
 			user: {
 				id: user.id,
 				name: user.name,
-				email: user.email,
 			},
-			token,
+			// token,
 		},
 	});
 };

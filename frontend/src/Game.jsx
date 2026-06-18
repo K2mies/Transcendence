@@ -117,10 +117,20 @@ function GameInfo(props) {
           <p>{props.game.description}</p>
           <div className="lg:flex my-3 gap-x-3 text-sm lg:text-center lg:items-center">
             {props.game.genres.map((genre) => (
-              <p key={genre} className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2">{genre}</p>
+              <p
+                key={genre}
+                className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2"
+              >
+                {genre}
+              </p>
             ))}
             {props.game.modes.map((mode) => (
-              <p key={mode} className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2">{mode}</p>
+              <p
+                key={mode}
+                className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2"
+              >
+                {mode}
+              </p>
             ))}
           </div>
         </div>
@@ -130,7 +140,7 @@ function GameInfo(props) {
   );
 }
 
-function Game() {
+function Game({ currUser }) {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
   const [reviewAverage, setReviewAverage] = useState([]);
@@ -169,6 +179,7 @@ function Game() {
             reviewAverage={reviewAverage}
             rating={rating}
             page="game"
+            currUser={currUser}
           ></Reviews>
         </div>
       )}

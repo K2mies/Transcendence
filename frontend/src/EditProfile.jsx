@@ -1,7 +1,9 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function EditName() {
+function EditName({ setEditNameMode, setCurrUser }) {
+  const navigate = useNavigate();
   const [editError, setEditError] = useState(false);
   async function update(formData) {
     const newName = formData.get("name");
@@ -20,37 +22,41 @@ function EditName() {
       await response.json();
       const myUser = JSON.parse(localStorage.getItem("user"));
       const myId = myUser.id;
-      const myEmail = myUser.email;
       const newUserData = {
         id: myId,
         name: newName,
-        email: myEmail,
       };
       localStorage.setItem("user", JSON.stringify(newUserData));
+      setCurrUser(newName);
+      navigate(`/user/${encodeURIComponent(newName)}`);
+      setEditNameMode(false);
     } else {
-		console.error("Error saving profile changes");
-		setEditError(true);
-	}
+      console.error("Error saving profile changes");
+      setEditError(true);
+    }
   }
   return (
     <>
       <form action={update}>
         <TextField
           sx={{
-          "& .MuiOutlinedInput-root": {
-            backgroundColor: "var(--color-tertiary)",
-          },
-        }} type="text" autoComplete="off" name="name" label="Name" />
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "var(--color-tertiary)",
+            },
+          }}
+          type="text"
+          autoComplete="off"
+          name="name"
+          label="Name"
+        />
         <input type="submit"></input>
       </form>
-	  {editError && (
-		<p>Username already exists!</p>
-	  )}
+      {editError && <p className="ml-3">Username already exists!</p>}
     </>
   );
 }
 
-function EditBio() {
+function EditBio({ setEditBioMode }) {
   async function update(formData) {
     const newBio = formData.get("bio");
     const newData = {
@@ -66,6 +72,7 @@ function EditBio() {
     });
     if (response.status === 200) await response.json();
     else console.error("Error saving profile changes");
+    setEditBioMode(false);
   }
   return (
     <>

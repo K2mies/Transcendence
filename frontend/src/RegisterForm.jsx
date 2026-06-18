@@ -41,7 +41,7 @@ const schema = z
     path: ["confirmPassword"],
   });
 
-const RegisterForm = () => {
+const RegisterForm = ({ setCurrUser }) => {
   const navigate = useNavigate();
   const [registerStatus, setRegisterStatus] = useState("init");
   const { handleSubmit, control } = useForm({
@@ -72,6 +72,7 @@ const RegisterForm = () => {
           setRegisterStatus("Registration was successful!");
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", JSON.stringify(result.data.user));
+          setCurrUser(result.data.user.name);
           navigate("/dashboard");
         } else setRegisterStatus(result.error);
       })

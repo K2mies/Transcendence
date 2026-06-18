@@ -1,18 +1,11 @@
 import { Link } from "react-router-dom";
 
 function Reviews(props) {
-  const myUser = localStorage.getItem("user");
-  let myUsername = null;
-  if (myUser) {
-    try {
-      myUsername = JSON.parse(myUser).name ?? null;
-    } catch {
-      myUsername = null;
-    }
-  }
   let addMyReview;
-  if (props.page === "game" && myUsername) {
-    const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
+  if (props.page === "game" && props.currUser) {
+    const findMyReview = props.reviews.find(
+      (r) => r.user.name === props.currUser,
+    );
     addMyReview = findMyReview ? false : true;
   } else {
     addMyReview = false;
@@ -25,10 +18,12 @@ function Reviews(props) {
           {props.page === "game" && (
             <div className="text-md flex gap-x-8">
               {props.reviews.length > 0 && (
-               <p className=" text-md">GoodPlays community rating: {props.reviewAverage}/5</p>
+                <p className=" text-md">
+                  GoodPlays community rating: {props.reviewAverage}/5
+                </p>
               )}
               <p className="text-md">IGDB community rating: {props.rating}/5</p>
-          </div>
+            </div>
           )}
         </div>
         {addMyReview && <button>Add review</button>}

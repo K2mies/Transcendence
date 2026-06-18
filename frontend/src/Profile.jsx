@@ -7,13 +7,13 @@ import { EditName, EditBio } from "./EditProfile";
 import "swiper/css";
 import "swiper/css/navigation";
 
-function FriendButton({ user }) {
+function FriendButton({ user, currUser }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
   const [refreshKey, setRefreshKey] = useState(0);
   const username = encodeURIComponent(user);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || (user === currUser)) return;
     async function getStatus() {
       const response = await fetch(
         `http://localhost:4243/profile/${username}/friend-status`,
@@ -121,23 +121,25 @@ function FriendButton({ user }) {
   );
 }
 
-function ProfileInfo(props) {
+function ProfileInfo({ profile, currUser, setCurrUser }) {
   const [editNameMode, setEditNameMode] = useState(false);
   const [editBioMode, setEditBioMode] = useState(false);
-  const myUser = JSON.parse(localStorage.getItem("user"));
-  const isMyUser = myUser.name === props.profile.name;
+  const isMyUser = currUser === profile.name;
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
-		{editNameMode && (
-			<EditName />
-		)}
-		{!editNameMode && (
-	        <h2 className="p-4">{props.profile.name}</h2>
-		)}
-        {isMyUser && !editNameMode && <button onClick={() => setEditNameMode(true)}>Change username</button>}
+        {editNameMode && (
+          <EditName
+            setEditNameMode={setEditNameMode}
+            setCurrUser={setCurrUser}
+          />
+        )}
+        {!editNameMode && <h2 className="p-4">{profile.name}</h2>}
+        {isMyUser && !editNameMode && (
+          <button onClick={() => setEditNameMode(true)}>Change username</button>
+        )}
         <div className="bg-primary text-tertiary ml-auto m-6">
-          {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
+          {!isMyUser && <FriendButton user={profile.name} currUser={currUser}></FriendButton>}
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
@@ -146,13 +148,13 @@ function ProfileInfo(props) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {editBioMode && (
-			<EditBio />
-		)}
-		{!editBioMode && (
-          <p className=" mt-4 w-[50%] text-left">{props.profile.bio}</p>
-		)}
-		{isMyUser && !editBioMode && <button onClick={() => setEditBioMode(true)}>Edit biography</button>}
+        {editBioMode && <EditBio setEditBioMode={setEditBioMode} />}
+        {!editBioMode && (
+          <p className=" mt-4 w-[50%] text-left">{profile.bio}</p>
+        )}
+        {isMyUser && !editBioMode && (
+          <button onClick={() => setEditBioMode(true)}>Edit biography</button>
+        )}
       </div>
     </div>
   );
@@ -218,7 +220,7 @@ function DisplayGames(props) {
   );
 }
 
-function Profile() {
+function Profile({ currUser, setCurrUser }) {
   const [profile, setProfile] = useState({});
   const [favGames, setFavGames] = useState([]);
   const [currGames, setCurrGames] = useState([]);
@@ -258,7 +260,11 @@ function Profile() {
     <div className="bg-secondary p-6">
       {isUserFound && (
         <div>
-          <ProfileInfo profile={profile}></ProfileInfo>
+          <ProfileInfo
+            profile={profile}
+            currUser={currUser}
+            setCurrUser={setCurrUser}
+          ></ProfileInfo>
           {favGames.length > 0 && (
             <DisplayGames
               header="Favorite games"
@@ -284,7 +290,11 @@ function Profile() {
             ></DisplayGames>
           )}
           {reviews.length > 0 && (
-            <Reviews reviews={reviews} page="profile"></Reviews>
+            <Reviews
+              reviews={reviews}
+              currUser={currUser}
+              page="profile"
+            ></Reviews>
           )}
         </div>
       )}
