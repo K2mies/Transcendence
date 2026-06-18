@@ -12,6 +12,7 @@ import gameRoutes from "./routes/game.routes.js";
 import searchRoutes from "./routes/search.routes.js";
 import { protect } from "./utils/protectJWT.js";
 import { corsValidator } from "./middlewares/validateCors.js";
+import { upload } from "./middlewares/uploadFiles.js";
 
 // Initialize express
 const app = express();
