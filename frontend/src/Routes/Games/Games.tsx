@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
 import PaginationControls from "./PaginationControls";
 import GameFilter from "./Filter/GameFilter";
+import { FaGear } from "react-icons/fa6";
 
 type Game = {
   id: number;
@@ -29,6 +30,7 @@ function Games() {
   const [genres, setGenres] = useState<string[]>([]);
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [developer, setDeveloper] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     setPage(1);
@@ -81,21 +83,33 @@ function Games() {
   }, [page, searchTerm, genres, platforms, developer, minRating, sortBy]);
   return (
     <div className="bg-secondary">
-      <GameFilter
-        minRating={minRating}
-        setMinRating={setMinRating}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        genres={genres}
-        setGenres={setGenres}
-        platforms={platforms}
-        setPlatforms={setPlatforms}
-        developer={developer}
-        setDeveloper={setDeveloper}
-      />
-      <div className="bg-secondary text-primary min-h-screen px-6 py-4">
+      {!showFilters && (
+        <div className="p-2">
+          <FaGear
+            size={30}
+            className="cursor-pointer text-primary ml-auto mr-6"
+            onClick={() => setShowFilters(true)}
+          />
+        </div>
+      )}
+      {showFilters && (
+        <GameFilter
+          setShowFilters={setShowFilters}
+          minRating={minRating}
+          setMinRating={setMinRating}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          genres={genres}
+          setGenres={setGenres}
+          platforms={platforms}
+          setPlatforms={setPlatforms}
+          developer={developer}
+          setDeveloper={setDeveloper}
+        />
+      )}
+      <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
         <div className="relative grid grid-cols-5 gap-2">
           {games.map((game) => (
             <GameCard key={game.id} game={game} />
