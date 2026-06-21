@@ -43,6 +43,7 @@ const getMessages = async (req, res) => {
 	});
 	res.json(messages);
 };
+
 const getConversations = async (req, res) => {
 	const userId = req.user.id;
 
@@ -119,4 +120,31 @@ const getConversations = async (req, res) => {
 	return res.json(Array.from(map.values()));
 };
 
-export {getMessages, getConversations};
+const postRead = async (req, res) => {
+	try {
+		const me = req.user.id;
+		const otherUserId = Number(req.params.userId);
+
+		if (!Number.isInteger(otherUserId) || otherUserId <= 0) {
+			return res.status(400).json({ error: `Invalid userId` });
+		}
+
+		await prisma.message.updateMany({
+			where: {
+				senderId: otherUserId,
+				receiverId: me,
+				read: false,
+			},
+			data: {
+				read: true,
+			},
+		});
+
+		return res.status(200).json({ success: true });
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ error: `Internal server error [${err}]` });
+	}
+};
+
+export {getMessages, getConversations, postRead};

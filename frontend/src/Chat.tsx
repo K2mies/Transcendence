@@ -11,6 +11,7 @@ export default function Chat() {
 	const [selectedUser, setSelectedUser] = useState<number | null>(null);
 	const [text, setText] = useState("");
 	const [me, setMe] = useState<{ id: number } | null>(null);
+	const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
 	// ---------------- OPEN CHAT ----------------
 	async function openChat(userId: number) {
@@ -23,7 +24,47 @@ export default function Chat() {
 		});
 
 		const data = await res.json();
+		if (data.length === 0) {
+			const friends = await fetch(`http://localhost:4243/user/friends`, {
+				method: "GET",
+				credentials: "include",
+			});
+
+			const friendsdata = await friends.json();
+			const friend = friendsdata.find(
+				(friend: any) => friend.id === userId
+			);
+			setConversations(prev => {
+				const exists = prev.some(c => c.userId === friend.id);
+
+				if (exists)
+					return prev;
+
+				return [
+					{
+						userId: friend.id,
+						name: friend.name,
+					},
+					...prev,
+				];
+			});
+		}
 		setMessages(Array.isArray(data) ? data : []);
+
+		// ---------------- UPDATE IN DATABASE ----------------
+		await fetch(`http://localhost:4243/message/read/${userId}`, {
+			method: "POST",
+			credentials: "include",
+			
+		});
+
+		setConversations(prev =>
+			prev.map(c =>
+				c.userId === userId
+					? { ...c, unreadCount: 0 }
+					: c
+			)
+		);
 	}
 
 	function sendMessage() {
@@ -69,7 +110,6 @@ export default function Chat() {
 
 				const res = await response.json();
 
-				// IMPORTANT: prevent "map is not a function"
 				setConversations(Array.isArray(res) ? res : []);
 			} catch (err) {
 				console.error("Failed to load conversations", err);
@@ -80,39 +120,91 @@ export default function Chat() {
 		getConversations();
 	}, []);
 
+	// ---------------- MESSAGES AUTO-SCROLL ----------------
+	useEffect(() => {
+		const container = messagesContainerRef.current;
+		if (!container) return;
+
+		const isNearBottom =
+			container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+
+		if (isNearBottom) {
+			container.scrollTo({
+				top: container.scrollHeight,
+				behavior: "auto",
+			});
+		}
+	}, [messages]);
+
 	// ---------------- WEBSOCKET ----------------
 	useEffect(() => {
+		if (!me)
+			return;
 		const ws = new WebSocket("ws://localhost:4243");
 		wsRef.current = ws;
 
 		ws.onopen = () => {
 			console.log("Connected");
-
-			// ws.send( JSON.stringify({ type: "chat", receiverId: 9, content: "Hey! A new message from Kati!", }) );
 		};
 
 		ws.onmessage = (event) => {
+			let data;
+
 			try {
-				const data = JSON.parse(event.data);
-
-				if (data.type !== "chat") return;
-
-				const activeUser = selectedUserRef.current;
-				const myId = me?.id;
-
-				if (!activeUser || !myId)
-					return;
-				setMessages(prev => [...prev, data]);
-			} catch (error) {
+				data = JSON.parse(event.data);
+			} catch {
 				console.error("Invalid message:", event.data);
+				return;
 			}
+
+			if (data.type !== "chat") return;
+
+			const myId = me.id;
+			const activeUser = selectedUserRef.current;
+
+			const otherUserId =
+				data.senderId === myId ? data.receiverId : data.senderId;
+
+			const isCurrentChat =
+				activeUser !== null &&
+				((data.senderId === activeUser && data.receiverId === myId) ||
+					(data.senderId === myId && data.receiverId === activeUser));
+
+			if (isCurrentChat) {
+				setMessages(prev => [...prev, data]);
+			}
+
+			setConversations(prev => {
+				const existing = prev.find(c => c.userId === otherUserId);
+				const isFromOpenChat =
+					selectedUserRef.current === otherUserId;
+
+				const isIncoming = data.receiverId === myId;
+				let unreadCount = existing?.unreadCount ?? 0;
+				if (isIncoming) {
+					if (isFromOpenChat) {
+						unreadCount = 0;
+					} else {
+						unreadCount++;
+					}
+				}
+
+				const updatedConversation = {
+					userId: otherUserId,
+					name: existing?.name ?? "Unknown",
+					lastMessage: data.content,
+					lastMessageAt: data.createdAt,
+					unreadCount: unreadCount,
+				};
+
+				const without = prev.filter(
+					c => c.userId !== otherUserId
+				);
+
+				return [updatedConversation, ...without];
+			});
 		};
-
-		ws.onclose = () => console.log("Disconnected");
-		ws.onerror = (err) => console.error("WebSocket error:", err);
-
-		return () => ws.close();
-	}, []);
+	}, [me]);
 
 	return <div className="relative min-h-screen overflow-hidden bg-primary">
 		{/* Golden sunrise */}
@@ -216,16 +308,17 @@ export default function Chat() {
 								: "Select a chat"}
 						</h2>
 					</div>
-
-					
-					<div className="flex-1 overflow-y-auto p-4 space-y-3">
+					<div
+						ref={messagesContainerRef}
+						className="flex-1 overflow-y-auto p-4 space-y-3"
+					>
 						{messages.map((msg) => (
 							<div
 								key={msg.id}
 								className={`max-w-xs p-3 rounded-xl ${
 									msg.senderId === me?.id
-										? "bg-tertiary/40"
-										: "bg-secondary text-primary ml-auto"
+										? "bg-secondary text-primary ml-auto"
+										: "bg-tertiary/40"
 								}`}
 							>
 								<div className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl">{msg.content}</div>
