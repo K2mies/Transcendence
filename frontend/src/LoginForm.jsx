@@ -9,7 +9,7 @@ const schema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-const LoginForm = ({ setCurrUser }) => {
+const LoginForm = ({ setMyCurrUser }) => {
   const navigate = useNavigate();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
@@ -36,7 +36,7 @@ const LoginForm = ({ setCurrUser }) => {
 
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("user", JSON.stringify(result.data.user));
-      setCurrUser(result.data.user.name);
+      setMyCurrUser(result.data.user.name);
 
       navigate("/dashboard");
     } catch (error) {

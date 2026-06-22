@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function EditName({ setEditNameMode, currUser, setCurrUser }) {
+function EditName({ setEditNameMode, myCurrUser, setMyCurrUser }) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState(false);
   async function update(formData) {
@@ -27,7 +27,7 @@ function EditName({ setEditNameMode, currUser, setCurrUser }) {
         name: newName,
       };
       localStorage.setItem("user", JSON.stringify(newUserData));
-      setCurrUser(newName);
+      setMyCurrUser(newName);
       navigate(`/user/${encodeURIComponent(newName)}`);
       setEditNameMode(false);
     } else {
@@ -48,14 +48,24 @@ function EditName({ setEditNameMode, currUser, setCurrUser }) {
           autoComplete="off"
           name="name"
           label="Name"
-          defaultValue={currUser}
+          defaultValue={myCurrUser}
         />
         <div className="flex flex-col">
           <input className="cursor-pointer" type="submit" value="Save"></input>
-          <button type="button" className="ml-3" onClick={() => { setEditNameMode(false) }}>Cancel</button>
+          <button
+            type="button"
+            className="ml-3"
+            onClick={() => {
+              setEditNameMode(false);
+            }}
+          >
+            Cancel
+          </button>
         </div>
       </form>
-      {editError && <p className="font-bold p-2 ml-3">Username already exists!</p>}
+      {editError && (
+        <p className="font-bold p-2 ml-3">Username already exists!</p>
+      )}
     </>
   );
 }
@@ -94,7 +104,15 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }) {
         />
         <div className="flex flex-col">
           <input className="cursor-pointer" type="submit" value="Save"></input>
-          <button type="button" className="ml-3" onClick={() => { setEditBioMode(false) }}>Cancel</button>
+          <button
+            type="button"
+            className="ml-3"
+            onClick={() => {
+              setEditBioMode(false);
+            }}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </>

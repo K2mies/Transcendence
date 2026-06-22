@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Logout from "./Logout";
 
-function Header({ currUser }) {
+function Header({ myCurrUser, setMyCurrUser }) {
   return (
     <nav className="flex w-full flex-row items-center gap-4 py-2 px-4 bg-primary text-tertiary">
       <Link
@@ -17,9 +18,9 @@ function Header({ currUser }) {
       >
         GoodPlays
       </Link>
-      {currUser && (
+      {myCurrUser && (
         <Link
-          to={"/user/" + currUser}
+          to={"/user/" + myCurrUser}
           className="
       no-underline
       px-2
@@ -35,6 +36,11 @@ function Header({ currUser }) {
       <div className="ml-auto w-100 shrink-0">
         <SearchBar />
       </div>
+      {myCurrUser && (
+        <button type="button" onClick={Logout}>
+          Log out
+        </button>
+      )}
     </nav>
   );
 }

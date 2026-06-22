@@ -140,7 +140,7 @@ function GameInfo(props) {
   );
 }
 
-function Game({ currUser }) {
+function Game({ myCurrUser }) {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
   const [reviewAverage, setReviewAverage] = useState([]);
@@ -179,7 +179,7 @@ function Game({ currUser }) {
             reviewAverage={reviewAverage}
             rating={rating}
             page="game"
-            currUser={currUser}
+            myCurrUser={myCurrUser}
           ></Reviews>
         </div>
       )}

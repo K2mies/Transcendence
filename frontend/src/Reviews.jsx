@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 function Reviews(props) {
   let addMyReview;
-  if (props.page === "game" && props.currUser) {
+  if (props.page === "game" && props.myCurrUser) {
     const findMyReview = props.reviews.find(
-      (r) => r.user.name === props.currUser,
+      (r) => r.user.name === props.myCurrUser,
     );
     addMyReview = findMyReview ? false : true;
   } else {

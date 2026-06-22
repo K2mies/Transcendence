@@ -7,13 +7,13 @@ import { EditName, EditBio } from "./EditProfile";
 import "swiper/css";
 import "swiper/css/navigation";
 
-function FriendButton({ user, currUser }) {
+function FriendButton({ user, myCurrUser }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
   const [refreshKey, setRefreshKey] = useState(0);
   const username = encodeURIComponent(user);
 
   useEffect(() => {
-    if (!user || (user === currUser)) return;
+    if (!user || user === myCurrUser) return;
     async function getStatus() {
       const response = await fetch(
         `http://localhost:4243/profile/${username}/friend-status`,
@@ -121,19 +121,19 @@ function FriendButton({ user, currUser }) {
   );
 }
 
-function ProfileInfo({ profile, currUser, setCurrUser }) {
+function ProfileInfo({ profile, myCurrUser, setMyCurrUser }) {
   const [editNameMode, setEditNameMode] = useState(false);
   const [editBioMode, setEditBioMode] = useState(false);
   const [currBio, setCurrBio] = useState(profile.bio);
-  const isMyUser = currUser === profile.name;
+  const isMyUser = myCurrUser === profile.name;
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex h-[4.3em]">
         {editNameMode && (
           <EditName
             setEditNameMode={setEditNameMode}
-            currUser={currUser}
-            setCurrUser={setCurrUser}
+            myCurrUser={myCurrUser}
+            setMyCurrUser={setMyCurrUser}
           />
         )}
         {!editNameMode && <h2 className="p-4">{profile.name}</h2>}
@@ -141,7 +141,12 @@ function ProfileInfo({ profile, currUser, setCurrUser }) {
           <button onClick={() => setEditNameMode(true)}>Change username</button>
         )}
         <div className="bg-primary text-tertiary ml-auto m-6">
-          {!isMyUser && <FriendButton user={profile.name} currUser={currUser}></FriendButton>}
+          {!isMyUser && (
+            <FriendButton
+              user={profile.name}
+              myCurrUser={myCurrUser}
+            ></FriendButton>
+          )}
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
@@ -150,12 +155,20 @@ function ProfileInfo({ profile, currUser, setCurrUser }) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {editBioMode && <EditBio setEditBioMode={setEditBioMode} currBio={currBio} setCurrBio={setCurrBio}/>}
+        {editBioMode && (
+          <EditBio
+            setEditBioMode={setEditBioMode}
+            currBio={currBio}
+            setCurrBio={setCurrBio}
+          />
+        )}
         {!editBioMode && (
-          <p className=" mt-4 mr-4 max-w-[50%] text-left">{currBio}</p>
+          <p className=" my-4 mr-4 max-w-[50%] text-left">{currBio}</p>
         )}
         {isMyUser && !editBioMode && (
-          <button className="mt-4" onClick={() => setEditBioMode(true)}>Edit biography</button>
+          <button className="mt-4" onClick={() => setEditBioMode(true)}>
+            Edit biography
+          </button>
         )}
       </div>
     </div>
@@ -222,7 +235,7 @@ function DisplayGames(props) {
   );
 }
 
-function Profile({ currUser, setCurrUser }) {
+function Profile({ myCurrUser, setMyCurrUser }) {
   const [profile, setProfile] = useState({});
   const [favGames, setFavGames] = useState([]);
   const [currGames, setCurrGames] = useState([]);
@@ -264,8 +277,8 @@ function Profile({ currUser, setCurrUser }) {
         <div>
           <ProfileInfo
             profile={profile}
-            currUser={currUser}
-            setCurrUser={setCurrUser}
+            myCurrUser={myCurrUser}
+            setMyCurrUser={setMyCurrUser}
           ></ProfileInfo>
           {favGames.length > 0 && (
             <DisplayGames
@@ -294,7 +307,7 @@ function Profile({ currUser, setCurrUser }) {
           {reviews.length > 0 && (
             <Reviews
               reviews={reviews}
-              currUser={currUser}
+              myCurrUser={myCurrUser}
               page="profile"
             ></Reviews>
           )}

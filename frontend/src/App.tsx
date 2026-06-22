@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -26,32 +27,48 @@ function Layout() {
       myUsername = null;
     }
   }
-  const [currUser, setCurrUser] = useState<string>(myUsername);
+  const [myCurrUser, setMyCurrUser] = useState<string | null>(myUsername);
   const location = useLocation();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("isLoggedIn")) {
+      setMyCurrUser(null);
+      navigate("/dashboard");
+    }
+  }, [localStorage.getItem("isLoggedIn")]);
 
   return (
     <>
       {location.pathname !== "/" &&
         location.pathname !== "/register" &&
-        location.pathname !== "/login" && <Header currUser={currUser} />}
+        location.pathname !== "/login" && (
+          <Header myCurrUser={myCurrUser} setMyCurrUser={setMyCurrUser} />
+        )}
 
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path="/" element={<Home />} />
           <Route
             path="register"
-            element={<SignUp setCurrUser={setCurrUser} />}
+            element={<SignUp setMyCurrUser={setMyCurrUser} />}
           />
-          <Route path="login" element={<Login setCurrUser={setCurrUser} />} />
+          <Route
+            path="login"
+            element={<Login setMyCurrUser={setMyCurrUser} />}
+          />
         </Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route
             path="user/:username"
-            element={<Profile currUser={currUser} setCurrUser={setCurrUser} />}
+            element={
+              <Profile myCurrUser={myCurrUser} setMyCurrUser={setMyCurrUser} />
+            }
           />
-          <Route path="game/:name" element={<Game currUser={currUser} />} />
+          <Route path="game/:name" element={<Game myCurrUser={myCurrUser} />} />
           <Route path="ws-test" element={<WebSocketTest />} />
         </Route>
       </Routes>
