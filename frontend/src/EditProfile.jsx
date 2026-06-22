@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function EditName({ setEditNameMode, setCurrUser }) {
+function EditName({ setEditNameMode, currUser, setCurrUser }) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState(false);
   async function update(formData) {
@@ -37,7 +37,7 @@ function EditName({ setEditNameMode, setCurrUser }) {
   }
   return (
     <>
-      <form action={update}>
+      <form className="flex flex-row p-2" action={update}>
         <TextField
           sx={{
             "& .MuiOutlinedInput-root": {
@@ -48,15 +48,19 @@ function EditName({ setEditNameMode, setCurrUser }) {
           autoComplete="off"
           name="name"
           label="Name"
+          defaultValue={currUser}
         />
-        <input type="submit"></input>
+        <div className="flex flex-col">
+          <input className="cursor-pointer" type="submit" value="Save"></input>
+          <button type="button" className="ml-3" onClick={() => { setEditNameMode(false) }}>Cancel</button>
+        </div>
       </form>
-      {editError && <p className="ml-3">Username already exists!</p>}
+      {editError && <p className="font-bold p-2 ml-3">Username already exists!</p>}
     </>
   );
 }
 
-function EditBio({ setEditBioMode }) {
+function EditBio({ setEditBioMode, currBio, setCurrBio }) {
   async function update(formData) {
     const newBio = formData.get("bio");
     const newData = {
@@ -70,15 +74,28 @@ function EditBio({ setEditBioMode }) {
       credentials: "include",
       body: JSON.stringify(newData),
     });
-    if (response.status === 200) await response.json();
-    else console.error("Error saving profile changes");
+    if (response.status === 200) {
+      await response.json();
+      setCurrBio(newBio);
+    } else console.error("Error saving profile changes");
     setEditBioMode(false);
   }
   return (
     <>
-      <form action={update}>
-        <TextField type="text" autoComplete="off" name="bio" label="Bio" />
-        <input type="submit"></input>
+      <form className="my-4 w-[50%] flex flex-row" action={update}>
+        <TextField
+          className="w-full"
+          type="text"
+          autoComplete="off"
+          name="bio"
+          label="Bio"
+          defaultValue={currBio}
+          multiline
+        />
+        <div className="flex flex-col">
+          <input className="cursor-pointer" type="submit" value="Save"></input>
+          <button type="button" className="ml-3" onClick={() => { setEditBioMode(false) }}>Cancel</button>
+        </div>
       </form>
     </>
   );

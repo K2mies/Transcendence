@@ -121,7 +121,7 @@ const RegisterForm = ({ setCurrUser }) => {
         type="number"
       />
 
-      <input type="submit" />
+      <input className="cursor-pointer" type="submit" />
 
       {registerStatus !== "init" && (
         <div>

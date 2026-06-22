@@ -61,7 +61,7 @@ const LoginForm = ({ setCurrUser }) => {
         type="password"
       />
 
-      <input type="submit" />
+      <input className="cursor-pointer" type="submit" />
     </form>
   );
 };

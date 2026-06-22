@@ -124,13 +124,15 @@ function FriendButton({ user, currUser }) {
 function ProfileInfo({ profile, currUser, setCurrUser }) {
   const [editNameMode, setEditNameMode] = useState(false);
   const [editBioMode, setEditBioMode] = useState(false);
+  const [currBio, setCurrBio] = useState(profile.bio);
   const isMyUser = currUser === profile.name;
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
-      <div className="flex">
+      <div className="flex h-[4.3em]">
         {editNameMode && (
           <EditName
             setEditNameMode={setEditNameMode}
+            currUser={currUser}
             setCurrUser={setCurrUser}
           />
         )}
@@ -148,12 +150,12 @@ function ProfileInfo({ profile, currUser, setCurrUser }) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {editBioMode && <EditBio setEditBioMode={setEditBioMode} />}
+        {editBioMode && <EditBio setEditBioMode={setEditBioMode} currBio={currBio} setCurrBio={setCurrBio}/>}
         {!editBioMode && (
-          <p className=" mt-4 w-[50%] text-left">{profile.bio}</p>
+          <p className=" mt-4 mr-4 max-w-[50%] text-left">{currBio}</p>
         )}
         {isMyUser && !editBioMode && (
-          <button onClick={() => setEditBioMode(true)}>Edit biography</button>
+          <button className="mt-4" onClick={() => setEditBioMode(true)}>Edit biography</button>
         )}
       </div>
     </div>
