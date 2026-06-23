@@ -45,7 +45,7 @@ app.use("/profile", profileRoutes);
 app.use("/games", searchRoutes);
 app.use("/game", gameRoutes);
 app.use("/message", protect, messageRoutes);
-app.use("/search", gamesRoutes);
+app.use("/search", protect, gamesRoutes);
 
 // 404 handler
 app.use((req, res) => {

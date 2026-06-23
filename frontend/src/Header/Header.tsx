@@ -47,7 +47,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
 
       <div className="flex items-center ml-auto">
         <button onClick={() => setShowSearch(!showSearch)}>
-          <FaSearch size={18} className="-mr-2" />
+          <FaSearch size={16} className="-ml-5" />
         </button>
 
         {showSearch && (

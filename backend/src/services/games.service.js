@@ -19,7 +19,7 @@ function buildRelationAndFilters(values, relationName, nestedRelationName) {
   }));
 }
 
-export async function getGames(query) {
+export async function getGames(query, currentUserId) {
   const page = Number(query.page) || 1;
   const limit = Number(query.limit) || 20;
   const skip = (page - 1) * limit;
@@ -95,14 +95,26 @@ export async function getGames(query) {
         platforms: true,
         genres: true,
         modes: true,
+        userGames: true,
       },
     }),
 
     prisma.game.count({ where }),
   ]);
 
+  const gamesWithFavorites = games.map((game) => {
+    const userRelation = game.userGames.find(
+      (ug) => ug.userId === Number(currentUserId),
+    );
+
+    return {
+      ...game,
+      favorite: userRelation?.favorite ?? false,
+    };
+  });
+
   return {
-    games,
+    games: gamesWithFavorites,
     pagination: {
       page,
       limit,

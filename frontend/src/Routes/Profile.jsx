@@ -244,7 +244,7 @@ function Profile() {
   }, [username]);
 
   return (
-    <div className="bg-secondary p-6">
+    <div className="bg-secondary p-6 min-h-screen">
       {isUserFound && (
         <div>
           <ProfileInfo profile={profile}></ProfileInfo>
