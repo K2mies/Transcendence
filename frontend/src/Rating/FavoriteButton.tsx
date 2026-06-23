@@ -38,7 +38,11 @@ function FavoriteButton({ game }) {
   }
 
   return (
-    <button onClick={changeValue}>
+    <button
+      type="button"
+      aria-label={favoriteState ? "Remove from favorites" : "Add to favorites"}
+      onClick={changeValue}
+    >
       {favoriteState ? <FaHeart /> : <FaRegHeart />}
     </button>
   );
