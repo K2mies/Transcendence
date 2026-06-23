@@ -12,6 +12,15 @@ type HeaderProps = {
 };
 
 function Header({ showSearch, setShowSearch }: HeaderProps) {
+  const myUser = localStorage.getItem("user");
+  let myUsername: string | null = null;
+  if (myUser) {
+    try {
+      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? null;
+    } catch {
+      myUsername = null;
+    }
+  }
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
@@ -57,16 +66,21 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
         >
           <FaHome className="text-tertiary" size={16} />
         </Link>
-
-        <Link
-          to="/user/xKr4t0sx"
-          className="
-           no-underline
-           text-tertiary
-           "
-        >
-          <FaUser className="text-tertiary" size={15} />
-        </Link>
+        {myUsername && (
+          <Link
+            to={"/user/" + myUsername}
+            className="
+              no-underline
+              px-2
+              rounded-md
+              text-[var(--color-tertiary)]
+              bg-[var(--color-primary)]
+              transition-colors
+            "
+          >
+            <FaUser className="text-tertiary" size={15} />
+          </Link>
+        )}
 
         <Link
           to="/games"
