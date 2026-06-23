@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useSwiper } from "swiper/react";
 import Reviews from "./Reviews";
 
 import "swiper/css";
@@ -12,12 +9,13 @@ import "swiper/css/navigation";
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
   const [refreshKey, setRefreshKey] = useState(0);
+  const username = encodeURIComponent(user);
 
   useEffect(() => {
     if (!user) return;
     async function getStatus() {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/friend-status`,
+        `http://localhost:4243/profile/${username}/friend-status`,
         {
           credentials: "include",
         },
@@ -38,7 +36,7 @@ function FriendButton({ user }) {
   const handleClick = async () => {
     if (friendStatus === undefined) {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/friend-request`,
+        `http://localhost:4243/profile/${username}/friend-request`,
         {
           method: "POST",
           credentials: "include",
@@ -51,7 +49,7 @@ function FriendButton({ user }) {
       }
     } else if (friendStatus === "RECEIVED") {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/accept-request`,
+        `http://localhost:4243/profile/${username}/accept-request`,
         {
           method: "PUT",
           credentials: "include",
@@ -64,7 +62,7 @@ function FriendButton({ user }) {
       }
     } else if (friendStatus === "FRIENDS" || friendStatus === "PENDING") {
       const response = await fetch(
-        `http://localhost:4243/profile/${user}/remove-friend`,
+        `http://localhost:4243/profile/${username}/remove-friend`,
         {
           method: "DELETE",
           credentials: "include",
@@ -94,14 +92,14 @@ function FriendButton({ user }) {
       buttonText = "Remove friend";
   }
   return (
-    <div className="bg-primary text-tertiary ml-auto m-6">
+    <>
       <button onClick={handleClick}>{buttonText}</button>
       {friendStatus === "RECEIVED" && (
         <button
           className="ml-1.5"
           onClick={async () => {
             const response = await fetch(
-              `http://localhost:4243/profile/${user}/decline-request`,
+              `http://localhost:4243/profile/${username}/decline-request`,
               {
                 method: "DELETE",
                 credentials: "include",
@@ -118,7 +116,7 @@ function FriendButton({ user }) {
           Decline request
         </button>
       )}
-    </div>
+    </>
   );
 }
 
@@ -129,75 +127,55 @@ function ProfileInfo(props) {
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
         <h2 className="p-4">{props.profile.name}</h2>
-        {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
-        {isMyUser && <button>Edit profile info</button>}
+        <div className="bg-primary text-tertiary ml-auto m-6">
+          {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
+          {isMyUser && <button>Edit profile info</button>}
+        </div>
       </div>
-      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2rem] rounded-b-lg">
+      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
         <img
-          className="border-secondary border-4 w-40 h-auto rounded-lg m-[1rem]"
+          className="border-secondary border-4 w-40 h-auto rounded-lg m-4"
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        <p className=" mt-[1rem] w-[50%] text-left">{props.profile.bio}</p>
+        <p className=" mt-4 w-[50%] text-left">{props.profile.bio}</p>
       </div>
     </div>
   );
 }
 
-const SwiperButtonPrev = ({ children }) => {
-  const swiper = useSwiper();
-  return (
-    <div className="swiper-button-prev" onClick={() => swiper.slidePrev()}>
-      {children}
-    </div>
-  );
-};
-
-const SwiperButtonNext = ({ children }) => {
-  const swiper = useSwiper();
-  return (
-    <div className="swiper-button-next" onClick={() => swiper.slideNext()}>
-      {children}
-    </div>
-  );
-};
-
 function DisplayGames(props) {
   return (
-    <div className="mt-[1.5rem]">
+    <div className="mt-6">
       <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
         {props.header}
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
         {props.games.length > 5 ? (
-          <div>
-            <Swiper
-              modules={Navigation}
-              spaceBetween={10}
-              slidesPerView={15}
-              navigation={{
-                prevEl: ".swiper-button-prev",
-                nextEl: ".swiper-button-next",
-              }}
-              allowTouchMove={false}
-            >
-              {props.games.map((game) => (
-                <SwiperSlide key={game.id}>
-                  <img
-                    className="border-3 border-secondary w-full h-auto rounded-t-lg"
-                    src={game.image}
-                    alt={game.name}
-                  ></img>
-                  <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
-                    <Link to={"/game/" + game.name} className="no-underline">
-                      {game.name}
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              ))}
-              <SwiperButtonPrev>&lt;</SwiperButtonPrev>
-              <SwiperButtonNext>&gt;</SwiperButtonNext>
-            </Swiper>
+          <div className="mt-6">
+            <div className="bg-tertiary text-primary rounded-b-lg p-3">
+              <div className="relative">
+                <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2">
+                  {props.games.map((game) => (
+                    <div key={game.id} className="shrink-0 w-25 snap-start">
+                      <img
+                        className="border-3 border-secondary w-full h-30 rounded-t-lg object-cover"
+                        src={game.image}
+                        alt={game.name}
+                      />
+                      <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
+                        <Link
+                          to={"/game/" + game.name}
+                          className="no-underline"
+                        >
+                          {game.name}
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col ml-[3em]">
@@ -206,7 +184,7 @@ function DisplayGames(props) {
                 <li key={game.id} className="list-none w-25">
                   <div>
                     <img
-                      className="border-3 border-secondary w-full h-auto rounded-t-lg"
+                      className="border-3 border-secondary w-full h-30 rounded-t-lg"
                       src={game.image}
                       alt={game.name}
                     ></img>
@@ -249,11 +227,11 @@ function Profile() {
         const res = await response.json();
         setIsUserFound(true);
         setProfile(res);
-        if (res.favorites.length > 0) setFavGames(res.favorites);
-        if (res.playing.length > 0) setCurrGames(res.playing);
-        if (res.to_play.length > 0) setToPlayGames(res.to_play);
-        if (res.completed.length > 0) setCompletedGames(res.completed);
-        if (res.reviews.length > 0) setReviews(res.reviews);
+        setFavGames(res.favorites);
+        setCurrGames(res.playing);
+        setToPlayGames(res.to_play);
+        setCompletedGames(res.completed);
+        setReviews(res.reviews);
       } else {
         setIsUserFound(false);
       }

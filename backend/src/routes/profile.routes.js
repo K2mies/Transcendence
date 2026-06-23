@@ -4,7 +4,7 @@ import { protect } from "../utils/protectJWT.js";
 
 const router = express.Router();
 
-router.get("/:name", profileController.getProfile)
+router.get("/:name", protect, profileController.getProfile)
 router.post("/", protect, profileController.updateProfile)
 
 router.get("/:name/friend-status", protect, profileController.getFriendStatus)
