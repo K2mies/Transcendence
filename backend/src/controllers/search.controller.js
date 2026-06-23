@@ -50,18 +50,26 @@ export async function getPlatforms(req, res) {
 
 //gets all developers for the front end
 export async function getDevelopers(req, res) {
-  const developers = await prisma.game.findMany({
-    select: {
-      developer: true,
-    },
-    distinct: ["developer"],
-    orderBy: {
-      developer: "asc",
-    },
-  });
+  try {
+    const developers = await prisma.game.findMany({
+      select: {
+        developer: true,
+      },
+      distinct: ["developer"],
+      orderBy: {
+        developer: "asc",
+      },
+    });
 
-  res.json({
-    status: "success",
-    data: developers.filter((d) => d.developer),
-  });
+    return res.status(200).json({
+      status: "success",
+      data: developers.filter((d) => d.developer),
+    });
+  } catch (error) {
+    console.error("Error fetching developers:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Failed to get developers",
+    });
+  }
 }
