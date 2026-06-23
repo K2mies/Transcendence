@@ -24,7 +24,7 @@ function GameCard({ game }: GameCardProps) {
         />
       </Link>
 
-      <div className="absolute top-2 right-2 z-20 text-1xl text-secondary">
+      <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
         <FavoriteButton game={game} />
       </div>
       <h2
@@ -54,7 +54,10 @@ function GameCard({ game }: GameCardProps) {
           rounded-t-lg
         "
       >
-        <Link to={"/game/" + encodeURIComponent(game.name)} className="no-underline">
+        <Link
+          to={"/game/" + encodeURIComponent(game.name)}
+          className="no-underline"
+        >
           {game.name}
         </Link>
       </h2>
