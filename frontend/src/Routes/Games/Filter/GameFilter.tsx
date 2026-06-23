@@ -41,14 +41,19 @@ function GameFilter({
 
   minRating,
   setMinRating,
+
   sortBy,
   setSortBy,
+
   searchTerm,
   setSearchTerm,
+
   genres,
   setGenres,
+
   platforms,
   setPlatforms,
+
   developer,
   setDeveloper,
 }: GameFilterProps) {
