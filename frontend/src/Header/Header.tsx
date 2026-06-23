@@ -31,7 +31,6 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
     "/mygames": "My Games",
   };
 
-  console.log("render", showSearch);
   let pageTitle: string;
 
   if (location.pathname.startsWith("/user/")) {
