@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import UseChat from "./chat/UseChat";
+import UseChat from "../chat/UseChat";
 import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
@@ -16,6 +16,15 @@ type HeaderProps = {
 function Header({ showSearch, setShowSearch }: HeaderProps) {
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
+  const myUser = localStorage.getItem("user");
+  let myUsername: string | null = null;
+  if (myUser) {
+    try {
+      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? null;
+    } catch {
+      myUsername = null;
+    }
+  }
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
@@ -61,16 +70,21 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
         >
           <FaHome className="text-tertiary" size={16} />
         </Link>
-
-        <Link
-          to="/user/xKr4t0sx"
-          className="
-           no-underline
-           text-tertiary
-           "
-        >
-          <FaUser className="text-tertiary" size={15} />
-        </Link>
+        {myUsername && (
+          <Link
+            to={"/user/" + myUsername}
+            className="
+              no-underline
+              px-2
+              rounded-md
+              text-[var(--color-tertiary)]
+              bg-[var(--color-primary)]
+              transition-colors
+            "
+          >
+            <FaUser className="text-tertiary" size={15} />
+          </Link>
+        )}
 
         <Link
           to="/chat"
@@ -96,7 +110,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
                             animate-pulse"
           />
         )}
-
+        </Link>
         <Link
           to="/games"
           className="
