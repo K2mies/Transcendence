@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
-async function updateGameRelation(gamename, newData) {
+async function updateGameRelation(
+  gamename: string,
+  newData: { favorite: boolean },
+) {
   const name = encodeURIComponent(gamename);
 
   const response = await fetch(
