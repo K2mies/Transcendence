@@ -18,7 +18,7 @@
 }
 
 /* Theme for MUI elements*/
-/* Unfortunatly this has to be set seperatly, very annoying*/
+/* Unfortunately this has to be set separately, very annoying*/
 :root {
   --app-primary: #121212;
   --app-secondary: #c59113;
