@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Stars from "../../Rating/Stars";
+import FavoriteButton from "../../Rating/FavoriteButton";
 
 type GameCardProps = {
   game: {
@@ -8,6 +9,7 @@ type GameCardProps = {
     imageBig: string;
     developer: string | null;
     rating: number;
+    favorite: boolean;
   };
 };
 
@@ -22,6 +24,9 @@ function GameCard({ game }: GameCardProps) {
         />
       </Link>
 
+      <div className="absolute top-2 right-2 z-20 text-1xl text-secondary">
+        <FavoriteButton game={game} />
+      </div>
       <h2
         className="
           bg-primary

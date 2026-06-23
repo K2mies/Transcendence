@@ -2,7 +2,7 @@ import { getGames } from "../services/games.service.js";
 
 export async function getGamesController(req, res) {
   try {
-    const result = await getGames(req.query);
+    const result = await getGames(req.query, req.user.id);
 
     return res.status(200).json({
       status: "success",
