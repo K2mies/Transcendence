@@ -26,7 +26,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
   const pageTitles: Record<string, string> = {
     "/": "Home",
     "/games": "Games",
-    "/dashboard": "Home",
+    "/dashboard": "Dashboard",
     "/profile": "Profile",
     "/mygames": "My Games",
   };
