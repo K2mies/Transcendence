@@ -54,7 +54,7 @@ function GameCard({ game }: GameCardProps) {
           rounded-t-lg
         "
       >
-        <Link to={"/game/" + game.name} className="no-underline">
+        <Link to={"/game/" + encodeURIComponent(game.name)} className="no-underline">
           {game.name}
         </Link>
       </h2>
