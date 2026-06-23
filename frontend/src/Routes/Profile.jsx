@@ -191,7 +191,7 @@ function DisplayGames(props) {
                       src={game.image}
                       alt={game.name}
                     ></img>
-                    <div className="bg-secondary text-primary p-2 rounded-b-lg text-center">
+                    <div className="bg-secondary text-primary p-2 rounded-b-lg text-center text-xs">
                       <Link to={"/game/" + game.name} className="no-underline">
                         {game.name}
                       </Link>
