@@ -24,7 +24,7 @@ async function updateGameRelation(
   }
 }
 
-function FavoriteButton({ game }) {
+function FavoriteButton({ game }: { game: { name: string; favorite?: boolean } }) {
   const [favoriteState, setFavoriteState] = useState(Boolean(game.favorite));
 
   function changeValue(e) {
