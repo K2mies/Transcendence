@@ -168,7 +168,7 @@ function DisplayGames(props) {
                   {props.games.map((game) => (
                     <div key={game.id} className="shrink-0 w-25 snap-start">
                       <img
-                        className="border-3 border-secondary w-full h-30 rounded-t-lg object-cover"
+                        className="border-3 border-secondary w-full h-auto rounded-t-lg object-cover"
                         src={game.image}
                         alt={game.name}
                       />
