@@ -49,7 +49,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
       <h1 className="text-tertiary">{pageTitle}</h1>
 
       <div className="flex items-center ml-auto">
-        <button onClick={() => setShowSearch(!showSearch)}>
+        <button type="button" aria-label="Toggle search" onClick={() => setShowSearch(!showSearch)}>
           <FaSearch size={16} className="-ml-5" />
         </button>
 
