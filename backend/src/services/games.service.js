@@ -95,7 +95,10 @@ export async function getGames(query, currentUserId) {
         platforms: true,
         genres: true,
         modes: true,
-        userGames: true,
+        userGames: {
+          where: { userId: Number(currentUserId) },
+          select: { userId: true, favorite: true },
+        },
       },
     }),
 
