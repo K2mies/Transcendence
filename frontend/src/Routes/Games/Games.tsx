@@ -11,6 +11,7 @@ type Game = {
   imageBig: string;
   developer: string | null;
   rating: number;
+  favorite: boolean;
 };
 
 type Pagination = {
