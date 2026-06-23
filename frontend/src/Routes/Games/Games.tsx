@@ -33,9 +33,9 @@ function Games() {
   const [developer, setDeveloper] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     setPage(1);
-  }, [sortBy]);
+  }, [sortBy, searchTerm, genres, platforms, developer, minRating]);
 
   useEffect(() => {
     async function fetchGames() {
