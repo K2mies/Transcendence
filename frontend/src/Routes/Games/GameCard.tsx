@@ -16,7 +16,7 @@ type GameCardProps = {
 function GameCard({ game }: GameCardProps) {
   return (
     <div className="basis-1/5 relative group">
-      <Link to={"/game/" + game.name}>
+      <Link to={"/game/" + encodeURIComponent(game.name)}>
         <img
           src={game.imageBig}
           alt={game.name}
