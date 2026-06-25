@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 type HeaderProps = {
   showSearch: boolean;
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  myCurrUser: string;
+  myCurrUser: string | null;
 };
 
 function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {

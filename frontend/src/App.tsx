@@ -11,7 +11,7 @@ import Header from "./Header/Header";
 import Login from "./Registration/Login";
 import SignUp from "./Registration/Register";
 
-import Profile from "./Routes/Profile";
+import Profile from "./Routes/Profile/Profile";
 import Game from "./Routes/Game";
 import Games from "./Routes/Games/Games";
 
@@ -32,7 +32,6 @@ function Layout() {
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
 
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +46,11 @@ function Layout() {
       {location.pathname !== "/" &&
         location.pathname !== "/register" &&
         location.pathname !== "/login" && (
-          <Header showSearch={showSearch} setShowSearch={setShowSearch} myCurrUser={myCurrUser} setMyCurrUser={setMyCurrUser} />
+          <Header
+            showSearch={showSearch}
+            setShowSearch={setShowSearch}
+            myCurrUser={myCurrUser}
+          />
         )}
 
       <Routes>
@@ -66,7 +69,12 @@ function Layout() {
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="games" element={<Games />} />
-          <Route path="user/:username" element={<Profile myCurrUser={myCurrUser} setMyCurrUser={setMyCurrUser} />} />
+          <Route
+            path="user/:username"
+            element={
+              <Profile myCurrUser={myCurrUser} setMyCurrUser={setMyCurrUser} />
+            }
+          />
           <Route path="game/:name" element={<Game myCurrUser={myCurrUser} />} />
           <Route path="ws-test" element={<WebSocketTest />} />
         </Route>

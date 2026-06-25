@@ -133,6 +133,7 @@ model Message {
 }
 
 enum GameStatus {
+  NONE
   WANT_TO_PLAY
   PLAYING
   COMPLETED
