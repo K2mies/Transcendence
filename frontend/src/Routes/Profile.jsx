@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useSwiper } from "swiper/react";
 import Reviews from "../Reviews";
-
-import "swiper/css";
-import "swiper/css/navigation";
 
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
