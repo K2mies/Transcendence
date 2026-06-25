@@ -7,9 +7,6 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSwiper } from "swiper/react";
 
-import "swiper/css";
-import "swiper/css/navigation";
-
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
   const [refreshKey, setRefreshKey] = useState(0);
