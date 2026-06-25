@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Reviews from "./Reviews";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import Reviews from "../Reviews";
+import FavoriteButton from "../Rating/FavoriteButton";
 
 function GameData(props) {
   let temp = new Date(props.game.releaseDate);
@@ -44,24 +44,6 @@ async function updateGameRelation(gamename, newData) {
   }
 }
 
-function Favorite({ game }) {
-  const [favoriteState, setFavoriteState] = useState(Boolean(game.favorite));
-  const gamename = game.name;
-
-  function changeValue() {
-    const newValue = !favoriteState;
-    setFavoriteState(newValue);
-    updateGameRelation(gamename, { favorite: newValue });
-  }
-  return (
-    <>
-      <button onClick={changeValue}>
-        {favoriteState ? <FaHeart /> : <FaRegHeart />}
-      </button>
-    </>
-  );
-}
-
 function Status({ game }) {
   const [currentStatus, setCurrentStatus] = useState(game.gameStatus || "");
   const gamename = game.name;
@@ -93,7 +75,7 @@ function GameInfo(props) {
         <div className="flex justify-between">
           <div className="flex">
             <h2 className="mr-20">{props.game.name}</h2>
-            <Favorite key={props.game.name} game={props.game}></Favorite>
+            <FavoriteButton game={props.game} />
           </div>
           <Status key={props.game.name} game={props.game}></Status>
         </div>
@@ -117,10 +99,20 @@ function GameInfo(props) {
           <p>{props.game.description}</p>
           <div className="lg:flex my-3 gap-x-3 text-sm lg:text-center lg:items-center">
             {props.game.genres.map((genre) => (
-              <p key={genre} className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2">{genre}</p>
+              <p
+                key={genre}
+                className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2"
+              >
+                {genre}
+              </p>
             ))}
             {props.game.modes.map((mode) => (
-              <p key={mode} className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2">{mode}</p>
+              <p
+                key={mode}
+                className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2"
+              >
+                {mode}
+              </p>
             ))}
           </div>
         </div>

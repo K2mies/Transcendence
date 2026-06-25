@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Stars from "./Rating/Stars";
 
 function Reviews(props) {
   const myUser = localStorage.getItem("user");
@@ -25,10 +26,12 @@ function Reviews(props) {
           {props.page === "game" && (
             <div className="text-md flex gap-x-8">
               {props.reviews.length > 0 && (
-               <p className=" text-md">GoodPlays community rating: {props.reviewAverage}/5</p>
+                <p className=" text-md">
+                  GoodPlays community rating: {props.reviewAverage}/5
+                </p>
               )}
               <p className="text-md">IGDB community rating: {props.rating}/5</p>
-          </div>
+            </div>
           )}
         </div>
         {addMyReview && <button>Add review</button>}
@@ -45,18 +48,7 @@ function Reviews(props) {
               )}
 
               <div className="flex px-5">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <img
-                    key={index}
-                    src={
-                      index < review.rating
-                        ? "/star_full.png"
-                        : "/star_empty.png"
-                    }
-                    alt="star rating"
-                    className="w-8 h-auto"
-                  />
-                ))}
+                <Stars rating={review.rating}></Stars>
               </div>
             </div>
             <p className="text-left mt-3">{review.review}</p>
