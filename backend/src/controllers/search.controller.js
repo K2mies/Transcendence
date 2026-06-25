@@ -19,33 +19,47 @@ export async function getGames(req, res) {
 
 //gets all the genre's for the front end
 export async function getGenres(req, res) {
-  const genres = await prisma.genre.findMany({
-    select: { id: true, name: true },
-    orderBy: { name: "asc" },
-  });
+  try {
+    const genres = await prisma.genre.findMany({
+      select: { id: true, name: true },
+      orderBy: { name: "asc" },
+    });
 
-  res.json({
-    status: "success",
-    data: genres,
-  });
+    res.json({
+      status: "success",
+      data: genres,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      error: "Failed to get genres",
+    });
+  }
 }
 
 //gets all the platforms for the front end
 export async function getPlatforms(req, res) {
-  const platforms = await prisma.platform.findMany({
-    select: {
-      id: true,
-      name: true,
-    },
-    orderBy: {
-      name: "asc",
-    },
-  });
+  try {
+    const platforms = await prisma.platform.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
 
-  res.json({
-    status: "success",
-    data: platforms,
-  });
+    res.json({
+      status: "success",
+      data: platforms,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      error: "Failed to get platforms",
+    });
+  }
 }
 
 //gets all developers for the front end
