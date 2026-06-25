@@ -45,7 +45,7 @@ async function updateGameRelation(gamename, newData) {
 }
 
 function Status({ game }) {
-  const [currentStatus, setCurrentStatus] = useState(game.gameStatus || "");
+  const [currentStatus, setCurrentStatus] = useState(game.gameStatus);
   const gamename = game.name;
 
   function changeStatus(e) {
@@ -56,9 +56,7 @@ function Status({ game }) {
   return (
     <div className="flex flex-row">
       <select value={currentStatus} onChange={changeStatus}>
-        <option value="" disabled>
-          Choose status
-        </option>
+        <option value="NONE">Choose status</option>
         <option value="WANT_TO_PLAY">Want to play</option>
         <option value="PLAYING">Playing</option>
         <option value="COMPLETED">Completed</option>
