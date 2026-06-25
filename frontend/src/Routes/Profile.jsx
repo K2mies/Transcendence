@@ -154,54 +154,28 @@ function DisplayGames(props) {
         {props.header}
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
-        {props.games.length > 5 ? (
-          <div className="mt-6">
-            <div className="bg-tertiary text-primary rounded-b-lg p-3">
-              <div className="relative">
-                <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2">
-                  {props.games.map((game) => (
-                    <div key={game.id} className="shrink-0 w-25 snap-start">
-                      <img
-                        className="border-3 border-secondary w-full h-auto rounded-t-lg object-cover"
-                        src={game.image}
-                        alt={game.name}
-                      />
-                      <div className="bg-secondary text-primary p-2 rounded-b-lg text-center text-xs">
-                        <Link
-                          to={"/game/" + game.name}
-                          className="no-underline"
-                        >
-                          {game.name}
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col ml-[3em]">
-            <ul className="flex flex-row gap-[2em]">
-              {props.games.map((game) => (
-                <li key={game.id} className="list-none w-25">
-                  <div>
+        <div className="mt-6">
+          <div className="bg-tertiary text-primary rounded-b-lg p-3">
+            <div className="relative">
+              <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2">
+                {props.games.map((game) => (
+                  <div key={game.id} className="shrink-0 w-25 snap-start">
                     <img
-                      className="border-3 border-secondary w-full h-30 rounded-t-lg"
+                      className="border-3 border-secondary w-full h-auto rounded-t-lg object-cover"
                       src={game.image}
                       alt={game.name}
-                    ></img>
+                    />
                     <div className="bg-secondary text-primary p-2 rounded-b-lg text-center text-xs">
                       <Link to={"/game/" + game.name} className="no-underline">
                         {game.name}
                       </Link>
                     </div>
                   </div>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
