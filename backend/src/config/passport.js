@@ -9,21 +9,22 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !proce
 	);
 }
 
-// Generates a unique username from Google display name or email
+// Generates a temporary unique username — will be replaced by the username picker
 const generateUsername = async (displayName, email) => {
-	// Use displayName if available, otherwise use the part before @ in email
-	const base = displayName
-		? displayName.toLowerCase().replace(/[^a-z0-9]/g, ".")
-		: email.split("@")[0].toLowerCase();
+	const raw = displayName
+		? displayName.toLowerCase().replace(/[^a-z0-9]/g, "_")
+		: email.split("@")[0].toLowerCase().replace(/[^a-z0-9]/g, "_");
 
-	// Check if the base username is already taken
+	// Strip leading/trailing underscores, cap at 17 chars (leaves room for _99 suffix → max 20)
+	const cleaned = raw.replace(/^[_-]+|[_-]+$/g, "").slice(0, 17);
+	const base = cleaned.length >= 3 ? cleaned : "user";
+
 	const existing = await prisma.user.findUnique({ where: { name: base } });
 	if (!existing) return base;
 
-	// If taken, append numbers until we find a free one: base.1, base.2 ...
 	let counter = 1;
 	while (true) {
-		const candidate = `${base}.${counter}`;
+		const candidate = `${base}_${counter}`;
 		const taken = await prisma.user.findUnique({ where: { name: candidate } });
 		if (!taken) return candidate;
 		counter++;
@@ -94,6 +95,7 @@ passport.use(
 					return user;
 				});
 
+				newUser._isNew = true;
 				return done(null, newUser);
 			} catch (error) {
 				return done(error);
