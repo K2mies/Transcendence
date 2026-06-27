@@ -37,6 +37,7 @@ const LoginForm = () => {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("user", JSON.stringify(result.data.user));
 
+      window.dispatchEvent(new Event("auth-changed"));
       navigate("/dashboard");
     } catch (error) {
       console.error(error);

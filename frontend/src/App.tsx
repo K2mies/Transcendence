@@ -19,6 +19,7 @@ import Game from "./Game";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 
+import { ChatProvider } from "./chat/ChatContext";
 import Chat from "./Chat";
 
 function Layout() {
@@ -40,7 +41,7 @@ function Layout() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="user/:username" element={<Profile />} />
           <Route path="game/:name" element={<Game />} />
-          <Route path="chat" element={<Chat/>} />
+          <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>
     </>
@@ -50,7 +51,9 @@ function Layout() {
 function App() {
   return (
     <BrowserRouter>
-      <Layout />
+      <ChatProvider>
+        <Layout />
+      </ChatProvider>
     </BrowserRouter>
   );
 }

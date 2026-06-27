@@ -1,16 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import UserSearchBar from "./ChatSearchBar";
+import UseChat from "./chat/UseChat";
 
 export default function Chat() {
-	const wsRef = useRef<WebSocket | null>(null);
+	const {
+		me,
+		conversations,
+		setConversations,
+		sendMessage,
+		markAsRead,
+		lastMessage,
+	} = UseChat();
 
 	const selectedUserRef = useRef<number | null>(null);
 
-	const [conversations, setConversations] = useState<any[]>([]);
 	const [messages, setMessages] = useState<any[]>([]);
 	const [selectedUser, setSelectedUser] = useState<number | null>(null);
 	const [text, setText] = useState("");
-	const [me, setMe] = useState<{ id: number } | null>(null);
 	const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
 	// ---------------- OPEN CHAT ----------------
@@ -51,74 +57,24 @@ export default function Chat() {
 		}
 		setMessages(Array.isArray(data) ? data : []);
 
-		// ---------------- UPDATE IN DATABASE ----------------
-		await fetch(`http://localhost:4243/message/read/${userId}`, {
-			method: "POST",
-			credentials: "include",
-			
-		});
+		await markAsRead(userId);
 
-		setConversations(prev =>
-			prev.map(c =>
-				c.userId === userId
-					? { ...c, unreadCount: 0 }
-					: c
-			)
-		);
+		requestAnimationFrame(() => {
+			const container = messagesContainerRef.current;
+			if (!container)
+				return;
+
+			container.scrollTop = container.scrollHeight;
+		});
 	}
 
-	function sendMessage() {
-		if (!wsRef.current || !selectedUser || !text.trim()) return;
+	function send() {
+		if (!selectedUser || !text.trim()) return;
 
-		wsRef.current.send(
-			JSON.stringify({
-				type: "chat",
-				receiverId: selectedUser,
-				content: text.slice(0, 120),
-			})
-		);
+		sendMessage(selectedUser, text);
 
 		setText("");
 	}
-
-	// ---------------- LOAD ME ----------------
-	useEffect(() => {
-		async function loadMe() {
-			const res = await fetch("http://localhost:4243/user/me", {
-				method: "GET",
-				credentials: "include",
-			});
-
-			const data = await res.json();
-			setMe(data.user);
-		}
-
-		loadMe();
-	}, []);
-
-	// ---------------- LOAD CONVERSATIONS ----------------
-	useEffect(() => {
-		async function getConversations() {
-			try {
-				const response = await fetch(
-					`http://localhost:4243/message/conversations`,
-					{
-						method: "GET",
-						credentials: "include",
-					}
-				);
-
-				const res = await response.json();
-
-				setConversations(Array.isArray(res) ? res : []);
-			} catch (err) {
-				console.error("Failed to load conversations", err);
-				setConversations([]);
-			}
-		}
-
-		getConversations();
-	}, []);
 
 	// ---------------- MESSAGES AUTO-SCROLL ----------------
 	useEffect(() => {
@@ -136,75 +92,30 @@ export default function Chat() {
 		}
 	}, [messages]);
 
-	// ---------------- WEBSOCKET ----------------
 	useEffect(() => {
-		if (!me)
+		if (!lastMessage || !selectedUser)
 			return;
-		const ws = new WebSocket("ws://localhost:4243");
-		wsRef.current = ws;
 
-		ws.onopen = () => {
-			console.log("Connected");
-		};
+		const belongsToCurrentChat =
+			(lastMessage.senderId === selectedUser &&
+				lastMessage.receiverId === me.id) ||
+			(lastMessage.senderId === me.id &&
+				lastMessage.receiverId === selectedUser);
 
-		ws.onmessage = (event) => {
-			let data;
+		if (!belongsToCurrentChat)
+			return;
 
-			try {
-				data = JSON.parse(event.data);
-			} catch {
-				console.error("Invalid message:", event.data);
-				return;
-			}
+		setMessages(prev => [...prev, lastMessage]);
 
-			if (data.type !== "chat") return;
+		if (lastMessage.senderId === selectedUser)
+			markAsRead(selectedUser);
+	}, [lastMessage, selectedUser, me]);
 
-			const myId = me.id;
-			const activeUser = selectedUserRef.current;
 
-			const otherUserId =
-				data.senderId === myId ? data.receiverId : data.senderId;
-
-			const isCurrentChat =
-				activeUser !== null &&
-				((data.senderId === activeUser && data.receiverId === myId) ||
-					(data.senderId === myId && data.receiverId === activeUser));
-
-			if (isCurrentChat) {
-				setMessages(prev => [...prev, data]);
-			}
-
-			setConversations(prev => {
-				const existing = prev.find(c => c.userId === otherUserId);
-				const isFromOpenChat =
-					selectedUserRef.current === otherUserId;
-
-				const isIncoming = data.receiverId === myId;
-				let unreadCount = existing?.unreadCount ?? 0;
-				if (isIncoming) {
-					if (isFromOpenChat) {
-						unreadCount = 0;
-					} else {
-						unreadCount++;
-					}
-				}
-
-				const updatedConversation = {
-					userId: otherUserId,
-					name: existing?.name ?? "Unknown",
-					lastMessage: data.content,
-					lastMessageAt: data.createdAt,
-					unreadCount: unreadCount,
-				};
-
-				const without = prev.filter(
-					c => c.userId !== otherUserId
-				);
-
-				return [updatedConversation, ...without];
-			});
-		};
-	}, [me]);
+	
+	if (!me) {
+		return <div className="text-black p-6">Loading chat...</div>;
+	}
 
 	return <div className="relative min-h-screen overflow-hidden bg-primary">
 		{/* Golden sunrise */}
@@ -259,7 +170,6 @@ export default function Chat() {
 				bg-[radial-gradient(circle_at_center,rgba(197,145,19,0.15),transparent_70%,var(--intensity))]
 			"
 		/>
-
 		<div className="relative z-10 p-6 text-tertiary">
 			<UserSearchBar onSelectUser={openChat} />
 
@@ -292,7 +202,14 @@ export default function Chat() {
 
 							<div className="text-xs opacity-50">
 								{c.lastMessageAt
-									? new Date(c.lastMessageAt).toLocaleTimeString()
+									? new Date(c.lastMessageAt).toLocaleString("en-GB", {
+										year: "numeric",
+										month: "2-digit",
+										day: "2-digit",
+										hour: "2-digit",
+										minute: "2-digit",
+										second: "2-digit",
+										})
 									: ""}
 							</div>
 						</div>
@@ -324,9 +241,14 @@ export default function Chat() {
 								<div className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl">{msg.content}</div>
 								<div className="text-xs opacity-60">
 									{msg.createdAt
-										? new Date(
-												msg.createdAt
-											).toLocaleTimeString()
+										? new Date(msg.createdAt).toLocaleString("en-GB", {
+												year: "numeric",
+												month: "2-digit",
+												day: "2-digit",
+												hour: "2-digit",
+												minute: "2-digit",
+												second: "2-digit",
+												})
 										: ""}
 								</div>
 							</div>
@@ -343,7 +265,7 @@ export default function Chat() {
 							/>
 
 							<button
-								onClick={sendMessage}
+								onClick={send}
 								className="px-4 py-2 bg-secondary text-primary rounded"
 							>
 								Send
