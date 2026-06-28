@@ -5,7 +5,7 @@ import { upload } from "../middlewares/uploadFiles.js"
 
 const router = express.Router();
 
-router.get("/:name", profileController.getProfile)
+router.get("/:name", protect, profileController.getProfile)
 router.post("/", protect, profileController.updateProfile)
 router.post('/upload', upload.single('file'), (req, res) => { //obv we cant do it this way
 	res.send('File uploaded successfully.');

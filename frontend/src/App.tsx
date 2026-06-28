@@ -1,32 +1,33 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
 
-import ProtectedRoute from "./ProtectedRoute";
-import PublicRoute from "./PublicRoute";
+import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
+import PublicRoute from "./Routes/Protection/PublicRoute";
 import WebSocketTest from "./WebSocketTest";
 
-import Header from "./Header";
+import Header from "./Header/Header";
 
-import Login from "./Login";
-import SignUp from "./Register";
+import Login from "./Registration/Login";
+import SignUp from "./Registration/Register";
 
-import Profile from "./Profile";
-import Game from "./Game";
+import Profile from "./Routes/Profile";
+import Game from "./Routes/Game";
+import Games from "./Routes/Games/Games";
 
-import Home from "./Home";
-import Dashboard from "./Dashboard";
+import Home from "./Routes/Home";
+import Dashboard from "./Routes/Dashboard";
 
 function Layout() {
   const location = useLocation();
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <>
       {location.pathname !== "/" &&
         location.pathname !== "/register" &&
-        location.pathname !== "/login" && <Header />}
+        location.pathname !== "/login" && (
+          <Header showSearch={showSearch} setShowSearch={setShowSearch} />
+        )}
 
       <Routes>
         <Route element={<PublicRoute />}>
@@ -37,9 +38,10 @@ function Layout() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="games" element={<Games />} />
           <Route path="user/:username" element={<Profile />} />
           <Route path="game/:name" element={<Game />} />
-          <Route path="ws-test" element={<WebSocketTest/>} />
+          <Route path="ws-test" element={<WebSocketTest />} />
         </Route>
       </Routes>
     </>

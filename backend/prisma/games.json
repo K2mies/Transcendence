@@ -9,10 +9,7 @@
     "developer": "CD Projekt RED",
     "publisher": "Bandai Namco Entertainment",
     "rating": 4.67,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -21,9 +18,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Red Dead Redemption 2",
@@ -35,22 +30,14 @@
     "developer": "Rockstar Games",
     "publisher": "Rockstar Games",
     "rating": 4.76,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Google Stadia",
       "PlayStation 4",
       "PC (Microsoft Windows)",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "God of War",
@@ -62,18 +49,9 @@
     "developer": "SIE Santa Monica Studio",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.85,
-    "genres": [
-      "Role-playing (RPG)",
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)"],
+    "modes": ["Single player"]
   },
   {
     "name": "Portal 2",
@@ -85,11 +63,7 @@
     "developer": "Valve",
     "publisher": "Electronic Arts",
     "rating": 4.7,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Puzzle", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -98,12 +72,7 @@
       "Xbox 360",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Grand Theft Auto V",
@@ -115,11 +84,7 @@
     "developer": "Rockstar North",
     "publisher": "Rockstar Games",
     "rating": 4.53,
-    "genres": [
-      "Shooter",
-      "Racing",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Racing", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -127,11 +92,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "The Legend of Zelda: Breath of the Wild",
@@ -143,17 +104,9 @@
     "developer": "Nintendo EPD Production Group No. 3",
     "publisher": "Nintendo",
     "rating": 4.9,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Wii U",
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Wii U", "Nintendo Switch"],
+    "modes": ["Single player"]
   },
   {
     "name": "Grand Theft Auto: San Andreas",
@@ -165,11 +118,7 @@
     "developer": "Rockstar North",
     "publisher": "Rockstar Games",
     "rating": 4.73,
-    "genres": [
-      "Shooter",
-      "Racing",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Racing", "Adventure"],
     "platforms": [
       "Xbox",
       "PlayStation 3",
@@ -181,10 +130,7 @@
       "Xbox 360",
       "PlayStation 2"
     ],
-    "modes": [
-      "Single player",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Co-operative"]
   },
   {
     "name": "The Last of Us",
@@ -196,17 +142,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.66,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 3"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Mass Effect 2",
@@ -218,19 +156,9 @@
     "developer": "BioWare Edmonton",
     "publisher": "Electronic Arts",
     "rating": 4.82,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Elden Ring",
@@ -242,10 +170,7 @@
     "developer": "FromSoftware",
     "publisher": "FromSoftware",
     "rating": 4.88,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -254,11 +179,7 @@
       "PlayStation 5",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Grand Theft Auto: Vice City",
@@ -270,12 +191,7 @@
     "developer": "Rockstar North",
     "publisher": "Take-Two Interactive",
     "rating": 4.76,
-    "genres": [
-      "Shooter",
-      "Racing",
-      "Adventure",
-      "Arcade"
-    ],
+    "genres": ["Shooter", "Racing", "Adventure", "Arcade"],
     "platforms": [
       "Xbox",
       "PlayStation 3",
@@ -283,9 +199,7 @@
       "Mac",
       "PlayStation 2"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Super Mario World",
@@ -297,10 +211,7 @@
     "developer": "Nintendo Entertainment Analysis & Development",
     "publisher": "Hyundai",
     "rating": 5.0,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Adventure"],
     "platforms": [
       "Arcade",
       "Super Nintendo Entertainment System",
@@ -309,10 +220,7 @@
       "New Nintendo 3DS",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Uncharted 4: A Thief's End",
@@ -324,17 +232,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.73,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 4"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "BioShock",
@@ -346,20 +246,9 @@
     "developer": "2K Australia",
     "publisher": "2K Games",
     "rating": 4.71,
-    "genres": [
-      "Shooter",
-      "Puzzle",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Puzzle", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Assassin's Creed II",
@@ -371,19 +260,9 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.61,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Platform", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "The Legend of Zelda: A Link to the Past",
@@ -395,10 +274,7 @@
     "developer": "Nintendo Entertainment Analysis & Development",
     "publisher": "Hyundai",
     "rating": 5.0,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Puzzle", "Adventure"],
     "platforms": [
       "Satellaview",
       "Super Nintendo Entertainment System",
@@ -407,9 +283,7 @@
       "New Nintendo 3DS",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "The Last of Us Remastered",
@@ -421,17 +295,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.9,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 4"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Uncharted 2: Among Thieves",
@@ -443,19 +309,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.81,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter", "Platform", "Adventure"],
+    "platforms": ["PlayStation 3"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Red Dead Redemption",
@@ -467,20 +323,9 @@
     "developer": "Rockstar San Diego",
     "publisher": "Take-Two Interactive",
     "rating": 4.67,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "BioShock Infinite",
@@ -492,10 +337,7 @@
     "developer": "Irrational Games",
     "publisher": "2K Games",
     "rating": 4.73,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -503,9 +345,7 @@
       "Mac",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Batman: Arkham City",
@@ -517,10 +357,7 @@
     "developer": "Rocksteady Studios",
     "publisher": "DC Entertainment",
     "rating": 4.65,
-    "genres": [
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
+    "genres": ["Hack and slash/Beat 'em up", "Adventure"],
     "platforms": [
       "OnLive Game System",
       "PlayStation 3",
@@ -528,9 +365,7 @@
       "Xbox 360",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Hollow Knight",
@@ -542,11 +377,7 @@
     "developer": "Team Cherry",
     "publisher": "Team Cherry",
     "rating": 4.65,
-    "genres": [
-      "Platform",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Adventure", "Indie"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -559,9 +390,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Super Mario Odyssey",
@@ -573,18 +402,9 @@
     "developer": "Nintendo EPD Production Group No. 8",
     "publisher": "Nintendo",
     "rating": 4.87,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo Switch 2",
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player",
-      "Co-operative"
-    ]
+    "genres": ["Platform", "Adventure"],
+    "platforms": ["Nintendo Switch 2", "Nintendo Switch"],
+    "modes": ["Single player", "Co-operative"]
   },
   {
     "name": "The Elder Scrolls V: Skyrim",
@@ -596,18 +416,9 @@
     "developer": "Bethesda Game Studios",
     "publisher": "Bethesda Softworks",
     "rating": 4.2,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Baldur's Gate III",
@@ -619,11 +430,7 @@
     "developer": "Larian Studios",
     "publisher": "Larian Studios",
     "rating": 4.78,
-    "genres": [
-      "Role-playing (RPG)",
-      "Strategy",
-      "Turn-based strategy (TBS)"
-    ],
+    "genres": ["Role-playing (RPG)", "Strategy", "Turn-based strategy (TBS)"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -632,12 +439,7 @@
       "PlayStation 5",
       "Mac"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "The Last of Us Part II",
@@ -649,17 +451,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.81,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PlayStation 5"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 4", "PlayStation 5"],
+    "modes": ["Single player"]
   },
   {
     "name": "Horizon Zero Dawn",
@@ -671,18 +465,9 @@
     "developer": "Guerrilla Games",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.55,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)"],
+    "modes": ["Single player"]
   },
   {
     "name": "Portal",
@@ -694,11 +479,7 @@
     "developer": "Valve",
     "publisher": "Electronic Arts",
     "rating": 4.2,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Puzzle", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -708,9 +489,7 @@
       "Xbox 360",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Half-Life 2",
@@ -722,9 +501,7 @@
     "developer": "Valve",
     "publisher": "Sierra Entertainment",
     "rating": 4.17,
-    "genres": [
-      "Shooter"
-    ],
+    "genres": ["Shooter"],
     "platforms": [
       "Xbox",
       "PlayStation 3",
@@ -734,9 +511,7 @@
       "Mac",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Bloodborne",
@@ -748,18 +523,9 @@
     "developer": "FromSoftware",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.64,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 4"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Batman: Arkham Asylum",
@@ -771,10 +537,7 @@
     "developer": "Rocksteady Studios",
     "publisher": "Warner Bros. Interactive Entertainment",
     "rating": 4.58,
-    "genres": [
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
+    "genres": ["Hack and slash/Beat 'em up", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "Ouya",
@@ -783,9 +546,7 @@
       "Xbox 360",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Undertale",
@@ -813,9 +574,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Mass Effect",
@@ -827,18 +586,9 @@
     "developer": "BioWare Edmonton",
     "publisher": "Microsoft Game Studios",
     "rating": 4.54,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Hades",
@@ -866,9 +616,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Marvel's Spider-Man",
@@ -880,16 +628,9 @@
     "developer": "Insomniac Games",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.59,
-    "genres": [
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 4"],
+    "modes": ["Single player"]
   },
   {
     "name": "Super Mario 64",
@@ -901,18 +642,9 @@
     "developer": "Nintendo Entertainment Analysis & Development",
     "publisher": "Gradiente",
     "rating": 4.56,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "Wii",
-      "Nintendo 64",
-      "Wii U"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Platform", "Adventure"],
+    "platforms": ["Wii", "Nintendo 64", "Wii U"],
+    "modes": ["Single player"]
   },
   {
     "name": "Star Wars: Knights of the Old Republic",
@@ -924,10 +656,7 @@
     "developer": "BioWare",
     "publisher": "Aspyr Media",
     "rating": 4.75,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Xbox",
       "Android",
@@ -936,9 +665,7 @@
       "Mac",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Half-Life",
@@ -950,21 +677,9 @@
     "developer": "Valve",
     "publisher": "Valve",
     "rating": 4.2,
-    "genres": [
-      "Shooter",
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Puzzle", "Adventure"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac", "PlayStation 2"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Warcraft III: Reign of Chaos",
@@ -976,18 +691,9 @@
     "developer": "Blizzard Entertainment",
     "publisher": "Blizzard Entertainment",
     "rating": 4.72,
-    "genres": [
-      "Real Time Strategy (RTS)",
-      "Strategy"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Real Time Strategy (RTS)", "Strategy"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Super Metroid",
@@ -999,11 +705,7 @@
     "developer": "Nintendo R&D1",
     "publisher": "Playtronic",
     "rating": 5.0,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Platform", "Adventure"],
     "platforms": [
       "Super Nintendo Entertainment System",
       "Wii",
@@ -1011,9 +713,7 @@
       "New Nintendo 3DS",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Super Mario Galaxy",
@@ -1025,18 +725,9 @@
     "developer": "Nintendo Entertainment Analysis & Development",
     "publisher": "Nintendo",
     "rating": 4.95,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "Wii",
-      "Wii U"
-    ],
-    "modes": [
-      "Single player",
-      "Co-operative"
-    ]
+    "genres": ["Platform", "Adventure"],
+    "platforms": ["Wii", "Wii U"],
+    "modes": ["Single player", "Co-operative"]
   },
   {
     "name": "Chrono Trigger",
@@ -1048,18 +739,14 @@
     "developer": "Square",
     "publisher": "Square",
     "rating": 4.65,
-    "genres": [
-      "Role-playing (RPG)"
-    ],
+    "genres": ["Role-playing (RPG)"],
     "platforms": [
       "Satellaview",
       "Super Nintendo Entertainment System",
       "Wii",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Far Cry 3",
@@ -1071,20 +758,9 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.58,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Mass Effect 3",
@@ -1096,22 +772,9 @@
     "developer": "BioWare Edmonton",
     "publisher": "Electronic Arts",
     "rating": 4.63,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Strategy",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Strategy", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Grand Theft Auto III",
@@ -1123,12 +786,7 @@
     "developer": "TransGaming Inc.",
     "publisher": "1C-SoftClub",
     "rating": 4.8,
-    "genres": [
-      "Shooter",
-      "Racing",
-      "Simulator",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Racing", "Simulator", "Adventure"],
     "platforms": [
       "Xbox",
       "PlayStation 4",
@@ -1138,9 +796,7 @@
       "Mac",
       "PlayStation 2"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Inside",
@@ -1152,12 +808,7 @@
     "developer": "Playdead",
     "publisher": "Playdead",
     "rating": 4.7,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Puzzle", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 4",
       "PC (Microsoft Windows)",
@@ -1166,9 +817,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Stardew Valley",
@@ -1200,11 +849,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Dishonored",
@@ -1216,19 +861,9 @@
     "developer": "Arkane Studios",
     "publisher": "Bethesda Softworks",
     "rating": 4.61,
-    "genres": [
-      "Puzzle",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Super Smash Bros. Melee",
@@ -1240,18 +875,9 @@
     "developer": "HAL Laboratory",
     "publisher": "Gradiente",
     "rating": 5.0,
-    "genres": [
-      "Fighting",
-      "Platform"
-    ],
-    "platforms": [
-      "Nintendo GameCube"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Fighting", "Platform"],
+    "platforms": ["Nintendo GameCube"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Dark Souls",
@@ -1263,20 +889,9 @@
     "developer": "FromSoftware",
     "publisher": "Bandai Namco Entertainment",
     "rating": 4.62,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Fallout: New Vegas",
@@ -1288,18 +903,9 @@
     "developer": "Obsidian Entertainment",
     "publisher": "Bethesda Softworks",
     "rating": 4.28,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Dark Souls III",
@@ -1311,20 +917,9 @@
     "developer": "FromSoftware",
     "publisher": "FromSoftware",
     "rating": 4.44,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "Xbox One"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Resident Evil 2",
@@ -1336,10 +931,7 @@
     "developer": "Capcom Development Division 1",
     "publisher": "Capcom",
     "rating": 4.71,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -1349,9 +941,7 @@
       "Mac",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Dragon Age: Origins",
@@ -1363,18 +953,9 @@
     "developer": "BioWare Edmonton",
     "publisher": "Electronic Arts",
     "rating": 4.61,
-    "genres": [
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Diablo II",
@@ -1386,19 +967,9 @@
     "developer": "Blizzard North",
     "publisher": "Blizzard Entertainment",
     "rating": 4.6,
-    "genres": [
-      "Role-playing (RPG)",
-      "Hack and slash/Beat 'em up"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Persona 5",
@@ -1410,17 +981,9 @@
     "developer": "P Studio",
     "publisher": "Sega",
     "rating": 4.74,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PlayStation 4"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PlayStation 4"],
+    "modes": ["Single player"]
   },
   {
     "name": "Doom",
@@ -1432,19 +995,9 @@
     "developer": "id Software",
     "publisher": "Bethesda Softworks",
     "rating": 4.48,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "Xbox One"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Sekiro: Shadows Die Twice",
@@ -1456,18 +1009,14 @@
     "developer": "FromSoftware",
     "publisher": "Activision",
     "rating": 4.6,
-    "genres": [
-      "Adventure"
-    ],
+    "genres": ["Adventure"],
     "platforms": [
       "Google Stadia",
       "PlayStation 4",
       "PC (Microsoft Windows)",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Batman: Arkham Knight",
@@ -1479,19 +1028,14 @@
     "developer": "Rocksteady Studios",
     "publisher": "Warner Bros. Interactive Entertainment",
     "rating": 4.67,
-    "genres": [
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
+    "genres": ["Hack and slash/Beat 'em up", "Adventure"],
     "platforms": [
       "PlayStation 4",
       "PC (Microsoft Windows)",
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "God of War Ragnarök",
@@ -1503,19 +1047,9 @@
     "developer": "SIE Santa Monica Studio",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.78,
-    "genres": [
-      "Role-playing (RPG)",
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "PlayStation 5"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "PlayStation 5"],
+    "modes": ["Single player"]
   },
   {
     "name": "Final Fantasy VII",
@@ -1527,18 +1061,9 @@
     "developer": "Square Product Development Division 1",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.4,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PlayStation",
-      "PlayStation Portable"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PlayStation", "PlayStation Portable"],
+    "modes": ["Single player"]
   },
   {
     "name": "Celeste",
@@ -1550,11 +1075,7 @@
     "developer": "Extremely OK Games",
     "publisher": "Maddy Makes Games",
     "rating": 4.65,
-    "genres": [
-      "Platform",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Adventure", "Indie"],
     "platforms": [
       "Google Stadia",
       "PlayStation 4",
@@ -1564,9 +1085,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "NieR: Automata",
@@ -1578,17 +1097,9 @@
     "developer": "Square Enix Business Division 6",
     "publisher": "Square Enix",
     "rating": 4.43,
-    "genres": [
-      "Role-playing (RPG)",
-      "Hack and slash/Beat 'em up"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)"],
+    "modes": ["Single player"]
   },
   {
     "name": "Uncharted 3: Drake's Deception",
@@ -1600,19 +1111,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.73,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter", "Platform", "Adventure"],
+    "platforms": ["PlayStation 3"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Minecraft: Java Edition",
@@ -1624,15 +1125,8 @@
     "developer": "Mojang Studios",
     "publisher": "Mojang Studios",
     "rating": 4.37,
-    "genres": [
-      "Simulator",
-      "Adventure"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
+    "genres": ["Simulator", "Adventure"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
     "modes": [
       "Single player",
       "Multiplayer",
@@ -1651,22 +1145,9 @@
     "developer": "Infinity Ward",
     "publisher": "Activision",
     "rating": 4.51,
-    "genres": [
-      "Shooter",
-      "Simulator"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "genres": ["Shooter", "Simulator"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Tomb Raider",
@@ -1678,12 +1159,7 @@
     "developer": "Crystal Dynamics",
     "publisher": "Feral Interactive",
     "rating": 4.39,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Platform", "Puzzle", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -1693,10 +1169,7 @@
       "Mac",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Grand Theft Auto IV",
@@ -1708,20 +1181,9 @@
     "developer": "Rockstar North",
     "publisher": "Rockstar Games",
     "rating": 4.53,
-    "genres": [
-      "Shooter",
-      "Racing",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Racing", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Fallout 3",
@@ -1733,18 +1195,9 @@
     "developer": "Bethesda Game Studios",
     "publisher": "Bethesda Softworks",
     "rating": 4.56,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Disco Elysium",
@@ -1756,18 +1209,9 @@
     "developer": "ZA/UM",
     "publisher": "ZA/UM",
     "rating": 4.56,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure",
-      "Indie"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure", "Indie"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player"]
   },
   {
     "name": "Metal Gear Solid V: The Phantom Pain",
@@ -1779,11 +1223,7 @@
     "developer": "Kojima Productions",
     "publisher": "Konami",
     "rating": 4.83,
-    "genres": [
-      "Shooter",
-      "Tactical",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Tactical", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -1791,10 +1231,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Ori and the Blind Forest",
@@ -1806,19 +1243,9 @@
     "developer": "Moon Studios",
     "publisher": "Microsoft Studios",
     "rating": 4.53,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Xbox One",
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Platform", "Puzzle", "Adventure"],
+    "platforms": ["PC (Microsoft Windows)", "Xbox One", "Nintendo Switch"],
+    "modes": ["Single player"]
   },
   {
     "name": "Silent Hill 2",
@@ -1830,16 +1257,9 @@
     "developer": "Team Silent",
     "publisher": "Konami",
     "rating": 4.6,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "The Legend of Zelda: Tears of the Kingdom",
@@ -1851,16 +1271,9 @@
     "developer": "Nintendo EPD Production Group No. 3",
     "publisher": "Nintendo",
     "rating": 4.81,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Nintendo Switch"],
+    "modes": ["Single player"]
   },
   {
     "name": "Final Fantasy X",
@@ -1872,16 +1285,9 @@
     "developer": "Square Product Development Division 1",
     "publisher": "Square",
     "rating": 4.8,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "Shadow of the Colossus",
@@ -1893,17 +1299,9 @@
     "developer": "Team Ico",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.54,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Platform", "Puzzle", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "Metal Gear Solid 3: Snake Eater",
@@ -1915,17 +1313,9 @@
     "developer": "Konami Computer Entertainment Japan",
     "publisher": "Konami",
     "rating": 4.42,
-    "genres": [
-      "Shooter",
-      "Tactical",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Tactical", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "The Walking Dead",
@@ -1937,10 +1327,7 @@
     "developer": "Telltale Games",
     "publisher": "Telltale Games",
     "rating": 4.37,
-    "genres": [
-      "Point-and-click",
-      "Adventure"
-    ],
+    "genres": ["Point-and-click", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -1954,9 +1341,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Journey",
@@ -1968,21 +1353,14 @@
     "developer": "ThatGameCompany",
     "publisher": "Annapurna Interactive",
     "rating": 4.75,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
       "PC (Microsoft Windows)",
       "iOS"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Super Mario Galaxy 2",
@@ -1994,18 +1372,9 @@
     "developer": "Nintendo",
     "publisher": "Nintendo",
     "rating": 4.85,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "Wii",
-      "Wii U"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Platform", "Adventure"],
+    "platforms": ["Wii", "Wii U"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Metal Gear Solid",
@@ -2017,19 +1386,9 @@
     "developer": "Konami Computer Entertainment Japan",
     "publisher": "Konami",
     "rating": 4.2,
-    "genres": [
-      "Shooter",
-      "Tactical",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PlayStation",
-      "PlayStation Portable"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Tactical", "Adventure"],
+    "platforms": ["PlayStation 3", "PlayStation", "PlayStation Portable"],
+    "modes": ["Single player"]
   },
   {
     "name": "Metroid Prime",
@@ -2041,17 +1400,9 @@
     "developer": "Retro Studios",
     "publisher": "Nintendo",
     "rating": 4.8,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo GameCube"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Platform", "Adventure"],
+    "platforms": ["Nintendo GameCube"],
+    "modes": ["Single player"]
   },
   {
     "name": "Ghost of Tsushima",
@@ -2063,18 +1414,9 @@
     "developer": "Sucker Punch Productions",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.68,
-    "genres": [
-      "Role-playing (RPG)",
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PlayStation 5"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 4", "PlayStation 5"],
+    "modes": ["Single player"]
   },
   {
     "name": "Assassin's Creed IV Black Flag",
@@ -2086,9 +1428,7 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.38,
-    "genres": [
-      "Adventure"
-    ],
+    "genres": ["Adventure"],
     "platforms": [
       "Google Stadia",
       "PlayStation 3",
@@ -2099,11 +1439,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Final Fantasy III",
@@ -2115,10 +1451,7 @@
     "developer": "Square",
     "publisher": "Square Enix",
     "rating": 5.0,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Super Nintendo Entertainment System",
       "Wii",
@@ -2126,9 +1459,7 @@
       "New Nintendo 3DS",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Resident Evil 4",
@@ -2140,16 +1471,9 @@
     "developer": "Capcom Production Studio 4",
     "publisher": "Capcom",
     "rating": 4.26,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo GameCube"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["Nintendo GameCube"],
+    "modes": ["Single player"]
   },
   {
     "name": "It Takes Two",
@@ -2161,11 +1485,7 @@
     "developer": "Hazelight Studios",
     "publisher": "Electronic Arts",
     "rating": 4.61,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Puzzle", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -2174,11 +1494,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "modes": ["Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "God of War II",
@@ -2190,17 +1506,9 @@
     "developer": "SCE Santa Monica Studio",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.71,
-    "genres": [
-      "Platform",
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Platform", "Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "Assassin's Creed Brotherhood",
@@ -2212,20 +1520,9 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.33,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Borderlands 2",
@@ -2237,10 +1534,7 @@
     "developer": "Gearbox Software",
     "publisher": "Aspyr Media",
     "rating": 4.23,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)"
-    ],
+    "genres": ["Shooter", "Role-playing (RPG)"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -2253,12 +1547,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Castlevania: Symphony of the Night",
@@ -2270,20 +1559,14 @@
     "developer": "Konami",
     "publisher": "Konami",
     "rating": 4.69,
-    "genres": [
-      "Platform",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Role-playing (RPG)", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation",
       "PlayStation Portable",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Metal Gear Solid 2: Sons of Liberty",
@@ -2295,17 +1578,9 @@
     "developer": "Konami Computer Entertainment Japan",
     "publisher": "Konami",
     "rating": 4.6,
-    "genres": [
-      "Shooter",
-      "Tactical",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Tactical", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "StarCraft II: Wings of Liberty",
@@ -2317,19 +1592,9 @@
     "developer": "Blizzard Entertainment",
     "publisher": "Blizzard Entertainment",
     "rating": 4.58,
-    "genres": [
-      "Real Time Strategy (RTS)",
-      "Strategy"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Real Time Strategy (RTS)", "Strategy"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Dead Space",
@@ -2341,18 +1606,9 @@
     "developer": "EA Redwood Shores",
     "publisher": "Electronic Arts",
     "rating": 4.53,
-    "genres": [
-      "Shooter",
-      "Puzzle"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Puzzle"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Fallout 4",
@@ -2364,10 +1620,7 @@
     "developer": "Bethesda Game Studios",
     "publisher": "Bethesda Softworks",
     "rating": 4.39,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)"
-    ],
+    "genres": ["Shooter", "Role-playing (RPG)"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -2375,9 +1628,7 @@
       "PlayStation 5",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "God of War",
@@ -2389,17 +1640,9 @@
     "developer": "SCE Santa Monica Studio",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.73,
-    "genres": [
-      "Puzzle",
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "Super Mario World 2: Yoshi's Island",
@@ -2411,18 +1654,13 @@
     "developer": "Nintendo Entertainment Analysis & Development",
     "publisher": "Playtronic",
     "rating": 5.0,
-    "genres": [
-      "Platform"
-    ],
+    "genres": ["Platform"],
     "platforms": [
       "Satellaview",
       "Super Nintendo Entertainment System",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "The Witcher 2: Assassins of Kings",
@@ -2434,19 +1672,9 @@
     "developer": "CD Projekt RED",
     "publisher": "Atari, Inc.",
     "rating": 4.43,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "The Legend of Zelda: The Wind Waker",
@@ -2458,16 +1686,9 @@
     "developer": "Nintendo EAD Software Development Group No.3",
     "publisher": "Nintendo",
     "rating": 4.6,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo GameCube"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Nintendo GameCube"],
+    "modes": ["Single player"]
   },
   {
     "name": "Dead Space 2",
@@ -2479,20 +1700,9 @@
     "developer": "Visceral Games",
     "publisher": "Electronic Arts",
     "rating": 4.6,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Deus Ex: Human Revolution",
@@ -2504,20 +1714,9 @@
     "developer": "Eidos Montréal",
     "publisher": "Square Enix",
     "rating": 4.68,
-    "genres": [
-      "Shooter",
-      "Puzzle",
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Puzzle", "Role-playing (RPG)"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Call of Duty: Modern Warfare 2",
@@ -2529,21 +1728,9 @@
     "developer": "Infinity Ward",
     "publisher": "Activision",
     "rating": 4.41,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Persona 5 Royal",
@@ -2555,10 +1742,7 @@
     "developer": "P Studio",
     "publisher": "Sega",
     "rating": 4.76,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -2567,9 +1751,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Life is Strange",
@@ -2581,11 +1763,7 @@
     "developer": "DON'T NOD",
     "publisher": "Square Enix",
     "rating": 4.15,
-    "genres": [
-      "Puzzle",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Puzzle", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -2597,9 +1775,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Rise of the Tomb Raider",
@@ -2611,10 +1787,7 @@
     "developer": "Crystal Dynamics",
     "publisher": "Square Enix Europe",
     "rating": 4.48,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Adventure"],
     "platforms": [
       "Google Stadia",
       "PlayStation 4",
@@ -2625,10 +1798,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Co-operative"]
   },
   {
     "name": "God of War III",
@@ -2640,16 +1810,9 @@
     "developer": "SCE Santa Monica Studio",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.84,
-    "genres": [
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Hack and slash/Beat 'em up", "Adventure"],
+    "platforms": ["PlayStation 3"],
+    "modes": ["Single player"]
   },
   {
     "name": "Limbo",
@@ -2661,12 +1824,7 @@
     "developer": "Playdead",
     "publisher": "Playdead",
     "rating": 4.36,
-    "genres": [
-      "Platform",
-      "Puzzle",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Puzzle", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -2680,9 +1838,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "The Elder Scrolls IV: Oblivion",
@@ -2694,18 +1850,9 @@
     "developer": "Bethesda Game Studios",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.22,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Overwatch",
@@ -2717,19 +1864,14 @@
     "developer": "Blizzard Entertainment",
     "publisher": "Square Enix",
     "rating": 4.56,
-    "genres": [
-      "Shooter",
-      "Strategy"
-    ],
+    "genres": ["Shooter", "Strategy"],
     "platforms": [
       "PlayStation 4",
       "PC (Microsoft Windows)",
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Multiplayer"
-    ]
+    "modes": ["Multiplayer"]
   },
   {
     "name": "Sid Meier's Civilization V",
@@ -2741,20 +1883,9 @@
     "developer": "Firaxis Games",
     "publisher": "2K Games",
     "rating": 4.46,
-    "genres": [
-      "Simulator",
-      "Strategy",
-      "Turn-based strategy (TBS)"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Simulator", "Strategy", "Turn-based strategy (TBS)"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Rocket League",
@@ -2766,11 +1897,7 @@
     "developer": "Psyonix",
     "publisher": "Psyonix",
     "rating": 4.55,
-    "genres": [
-      "Racing",
-      "Sport",
-      "Indie"
-    ],
+    "genres": ["Racing", "Sport", "Indie"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -2781,12 +1908,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Max Payne 3",
@@ -2798,19 +1920,9 @@
     "developer": "Rockstar Toronto",
     "publisher": "Take-Two Interactive",
     "rating": 4.57,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Left 4 Dead 2",
@@ -2822,20 +1934,9 @@
     "developer": "Valve",
     "publisher": "Valve",
     "rating": 4.54,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Hotline Miami",
@@ -2847,11 +1948,7 @@
     "developer": "Dennaton Games",
     "publisher": "Devolver Digital",
     "rating": 4.45,
-    "genres": [
-      "Shooter",
-      "Indie",
-      "Arcade"
-    ],
+    "genres": ["Shooter", "Indie", "Arcade"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -2866,9 +1963,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Clair Obscur: Expedition 33",
@@ -2880,19 +1975,9 @@
     "developer": "Sandfall Interactive",
     "publisher": "Kepler Interactive",
     "rating": 4.48,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure",
-      "Indie"
-    ],
-    "platforms": [
-      "Xbox Series X|S",
-      "PC (Microsoft Windows)",
-      "PlayStation 5"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure", "Indie"],
+    "platforms": ["Xbox Series X|S", "PC (Microsoft Windows)", "PlayStation 5"],
+    "modes": ["Single player"]
   },
   {
     "name": "Resident Evil 4",
@@ -2904,11 +1989,7 @@
     "developer": "Capcom Development Division 1",
     "publisher": "Capcom",
     "rating": 4.78,
-    "genres": [
-      "Shooter",
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Puzzle", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -2917,9 +1998,7 @@
       "PlayStation 5",
       "Mac"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Kingdom Hearts II",
@@ -2931,18 +2010,9 @@
     "developer": "Square Enix Business Division 3",
     "publisher": "Square Enix",
     "rating": 4.6,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PlayStation 4",
-      "PlayStation 2"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PlayStation 4", "PlayStation 2"],
+    "modes": ["Single player"]
   },
   {
     "name": "Metal Gear Solid 4: Guns of the Patriots",
@@ -2954,17 +2024,9 @@
     "developer": "Kojima Productions",
     "publisher": "Konami",
     "rating": 4.75,
-    "genres": [
-      "Shooter",
-      "Tactical",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Tactical", "Adventure"],
+    "platforms": ["PlayStation 3"],
+    "modes": ["Single player"]
   },
   {
     "name": "Dragon Age: Inquisition",
@@ -2976,12 +2038,7 @@
     "developer": "BioWare Edmonton",
     "publisher": "Electronic Arts",
     "rating": 4.52,
-    "genres": [
-      "Role-playing (RPG)",
-      "Strategy",
-      "Tactical",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Strategy", "Tactical", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -2989,11 +2046,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "The Legend of Zelda: Majora's Mask",
@@ -3005,19 +2058,9 @@
     "developer": "Nintendo EAD Software Development Group No.3",
     "publisher": "Gradiente",
     "rating": 4.6,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Wii",
-      "Nintendo 64",
-      "64DD",
-      "Wii U"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Wii", "Nintendo 64", "64DD", "Wii U"],
+    "modes": ["Single player"]
   },
   {
     "name": "Super Smash Bros. Ultimate",
@@ -3029,18 +2072,9 @@
     "developer": "Bandai Namco Studios",
     "publisher": "Nintendo",
     "rating": 4.46,
-    "genres": [
-      "Fighting",
-      "Platform"
-    ],
-    "platforms": [
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Fighting", "Platform"],
+    "platforms": ["Nintendo Switch"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Max Payne",
@@ -3052,9 +2086,7 @@
     "developer": "Remedy Entertainment",
     "publisher": "Take-Two Interactive",
     "rating": 3.95,
-    "genres": [
-      "Shooter"
-    ],
+    "genres": ["Shooter"],
     "platforms": [
       "Xbox",
       "PlayStation 3",
@@ -3067,9 +2099,7 @@
       "Xbox One",
       "PlayStation 2"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "L.A. Noire",
@@ -3081,19 +2111,14 @@
     "developer": "Rockstar North",
     "publisher": "Rockstar Games",
     "rating": 4.58,
-    "genres": [
-      "Strategy",
-      "Adventure"
-    ],
+    "genres": ["Strategy", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PC (Microsoft Windows)",
       "SteamVR",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "The Legend of Zelda: Twilight Princess",
@@ -3105,16 +2130,9 @@
     "developer": "Nintendo EAD Software Development Group No.3",
     "publisher": "Nintendo",
     "rating": 4.85,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo GameCube"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Nintendo GameCube"],
+    "modes": ["Single player"]
   },
   {
     "name": "The Stanley Parable",
@@ -3126,18 +2144,9 @@
     "developer": "Galactic Cafe",
     "publisher": "Galactic Cafe",
     "rating": 4.54,
-    "genres": [
-      "Adventure",
-      "Indie"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Adventure", "Indie"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player"]
   },
   {
     "name": "Middle-earth: Shadow of Mordor",
@@ -3149,11 +2158,7 @@
     "developer": "Monolith Productions",
     "publisher": "WB Games",
     "rating": 4.36,
-    "genres": [
-      "Role-playing (RPG)",
-      "Hack and slash/Beat 'em up",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -3163,9 +2168,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Deus Ex",
@@ -3177,20 +2180,9 @@
     "developer": "Ion Storm",
     "publisher": "Sold Out Software",
     "rating": 4.62,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Heroes of Might and Magic III: The Restoration of Erathia",
@@ -3202,20 +2194,9 @@
     "developer": "Loki Software",
     "publisher": "The 3DO Company",
     "rating": 4.64,
-    "genres": [
-      "Role-playing (RPG)",
-      "Strategy",
-      "Turn-based strategy (TBS)"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Role-playing (RPG)", "Strategy", "Turn-based strategy (TBS)"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Resident Evil 7: Biohazard",
@@ -3227,11 +2208,7 @@
     "developer": "Capcom Development Division 1",
     "publisher": "Capcom",
     "rating": 4.41,
-    "genres": [
-      "Shooter",
-      "Puzzle",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Puzzle", "Adventure"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -3244,9 +2221,7 @@
       "Mac",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "The Legend of Zelda: A Link Between Worlds",
@@ -3258,16 +2233,9 @@
     "developer": "Nintendo EAD Software Development Group No.3",
     "publisher": "Nintendo",
     "rating": 4.69,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo 3DS"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Nintendo 3DS"],
+    "modes": ["Single player"]
   },
   {
     "name": "Halo 3",
@@ -3279,20 +2247,9 @@
     "developer": "Bungie",
     "publisher": "Microsoft Game Studios",
     "rating": 4.63,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Xbox 360",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PC (Microsoft Windows)", "Xbox 360", "Xbox One"],
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Hellblade: Senua's Sacrifice",
@@ -3304,12 +2261,7 @@
     "developer": "Ninja Theory",
     "publisher": "Ninja Theory",
     "rating": 4.37,
-    "genres": [
-      "Simulator",
-      "Hack and slash/Beat 'em up",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Simulator", "Hack and slash/Beat 'em up", "Adventure", "Indie"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -3318,9 +2270,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Max Payne 2: The Fall of Max Payne",
@@ -3332,9 +2282,7 @@
     "developer": "Remedy Entertainment",
     "publisher": "Rockstar Games",
     "rating": 4.37,
-    "genres": [
-      "Shooter"
-    ],
+    "genres": ["Shooter"],
     "platforms": [
       "Xbox",
       "PlayStation 3",
@@ -3342,9 +2290,7 @@
       "Xbox 360",
       "PlayStation 2"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "What Remains of Edith Finch",
@@ -3356,11 +2302,7 @@
     "developer": "Giant Sparrow",
     "publisher": "Annapurna Interactive",
     "rating": 4.48,
-    "genres": [
-      "Puzzle",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Puzzle", "Adventure", "Indie"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -3371,9 +2313,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Final Fantasy IX",
@@ -3385,18 +2325,9 @@
     "developer": "Square Product Development Division 1",
     "publisher": "Square Enix",
     "rating": 4.37,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PlayStation",
-      "PlayStation Portable"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PlayStation", "PlayStation Portable"],
+    "modes": ["Single player"]
   },
   {
     "name": "Assassin's Creed Origins",
@@ -3408,10 +2339,7 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.44,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -3420,9 +2348,7 @@
       "PlayStation 5",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Cuphead",
@@ -3434,13 +2360,7 @@
     "developer": "Studio MDHR",
     "publisher": "Studio MDHR",
     "rating": 4.48,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Adventure",
-      "Indie",
-      "Arcade"
-    ],
+    "genres": ["Shooter", "Platform", "Adventure", "Indie", "Arcade"],
     "platforms": [
       "PlayStation 4",
       "PC (Microsoft Windows)",
@@ -3448,11 +2368,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Uncharted: Drake's Fortune",
@@ -3464,17 +2380,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.59,
-    "genres": [
-      "Shooter",
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Platform", "Adventure"],
+    "platforms": ["PlayStation 3"],
+    "modes": ["Single player"]
   },
   {
     "name": "Outer Wilds",
@@ -3486,12 +2394,7 @@
     "developer": "Mobius Digital",
     "publisher": "Limited Run Games",
     "rating": 4.39,
-    "genres": [
-      "Puzzle",
-      "Simulator",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Puzzle", "Simulator", "Adventure", "Indie"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -3500,9 +2403,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Cyberpunk 2077",
@@ -3514,11 +2415,7 @@
     "developer": "CD Projekt RED",
     "publisher": "CD Projekt",
     "rating": 4.01,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -3529,9 +2426,7 @@
       "Mac",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "BioShock 2",
@@ -3543,22 +2438,9 @@
     "developer": "2K Marin",
     "publisher": "Feral Interactive",
     "rating": 4.48,
-    "genres": [
-      "Shooter",
-      "Puzzle",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter", "Puzzle", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Assassin's Creed Odyssey",
@@ -3570,10 +2452,7 @@
     "developer": "Ubisoft Québec",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.53,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -3582,9 +2461,7 @@
       "PlayStation 5",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Counter-Strike: Global Offensive",
@@ -3596,10 +2473,7 @@
     "developer": "Hidden Path Entertainment",
     "publisher": "Valve",
     "rating": 4.24,
-    "genres": [
-      "Shooter",
-      "Tactical"
-    ],
+    "genres": ["Shooter", "Tactical"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -3607,9 +2481,7 @@
       "Mac",
       "Xbox 360"
     ],
-    "modes": [
-      "Multiplayer"
-    ]
+    "modes": ["Multiplayer"]
   },
   {
     "name": "South Park: The Stick of Truth",
@@ -3621,11 +2493,7 @@
     "developer": "Obsidian Entertainment",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.21,
-    "genres": [
-      "Role-playing (RPG)",
-      "Strategy",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Strategy", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -3634,9 +2502,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "The Witcher 3: Wild Hunt - Blood and Wine",
@@ -3648,10 +2514,7 @@
     "developer": "CD Projekt RED",
     "publisher": "CD Projekt",
     "rating": 4.68,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -3660,9 +2523,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Titanfall 2",
@@ -3674,20 +2535,9 @@
     "developer": "Respawn Entertainment",
     "publisher": "Electronic Arts",
     "rating": 4.56,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "Xbox One"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Need for Speed: Most Wanted",
@@ -3699,18 +2549,9 @@
     "developer": "EA Redwood Shores",
     "publisher": "Electronic Arts",
     "rating": 4.39,
-    "genres": [
-      "Racing"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Split screen"
-    ]
+    "genres": ["Racing"],
+    "platforms": ["PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Split screen"]
   },
   {
     "name": "Death Stranding",
@@ -3722,18 +2563,9 @@
     "developer": "Kojima Productions",
     "publisher": "505 Games",
     "rating": 4.38,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)"],
+    "modes": ["Single player"]
   },
   {
     "name": "Call of Duty 2",
@@ -3745,18 +2577,9 @@
     "developer": "Infinity Ward",
     "publisher": "Activision",
     "rating": 4.38,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Mario Kart 8",
@@ -3768,18 +2591,9 @@
     "developer": "Nintendo EAD Software Development Group No.1",
     "publisher": "Nintendo",
     "rating": 4.63,
-    "genres": [
-      "Racing",
-      "Arcade"
-    ],
-    "platforms": [
-      "Wii U"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Split screen"
-    ]
+    "genres": ["Racing", "Arcade"],
+    "platforms": ["Wii U"],
+    "modes": ["Single player", "Multiplayer", "Split screen"]
   },
   {
     "name": "The Witcher 3: Wild Hunt - Hearts of Stone",
@@ -3791,10 +2605,7 @@
     "developer": "CD Projekt RED",
     "publisher": "CD Projekt RED",
     "rating": 4.67,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -3803,9 +2614,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Halo: Combat Evolved",
@@ -3817,21 +2626,9 @@
     "developer": "Bungie",
     "publisher": "MacSoft Games",
     "rating": 4.47,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "Xbox",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["Xbox", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Half-Life 2: Episode One",
@@ -3843,9 +2640,7 @@
     "developer": "Valve",
     "publisher": "Valve",
     "rating": 4.46,
-    "genres": [
-      "Shooter"
-    ],
+    "genres": ["Shooter"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -3853,9 +2648,7 @@
       "Mac",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Star Wars: Knights of the Old Republic II - The Sith Lords",
@@ -3882,9 +2675,7 @@
       "Mac",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "The Wolf Among Us",
@@ -3896,10 +2687,7 @@
     "developer": "Telltale Games",
     "publisher": "Telltale Games",
     "rating": 4.18,
-    "genres": [
-      "Point-and-click",
-      "Adventure"
-    ],
+    "genres": ["Point-and-click", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -3911,9 +2699,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "EarthBound",
@@ -3925,11 +2711,7 @@
     "developer": "Ape",
     "publisher": "Nintendo",
     "rating": 4.73,
-    "genres": [
-      "Role-playing (RPG)",
-      "Turn-based strategy (TBS)",
-      "Adventure"
-    ],
+    "genres": ["Role-playing (RPG)", "Turn-based strategy (TBS)", "Adventure"],
     "platforms": [
       "Super Nintendo Entertainment System",
       "Wii U",
@@ -3937,9 +2719,7 @@
       "Game Boy Advance",
       "Super Famicom"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Pokémon FireRed Version",
@@ -3951,19 +2731,9 @@
     "developer": "Game Freak",
     "publisher": "Nintendo",
     "rating": 5.0,
-    "genres": [
-      "Role-playing (RPG)",
-      "Turn-based strategy (TBS)",
-      "Adventure"
-    ],
-    "platforms": [
-      "Game Boy Advance",
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Role-playing (RPG)", "Turn-based strategy (TBS)", "Adventure"],
+    "platforms": ["Game Boy Advance", "Nintendo Switch"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Call of Duty: Black Ops",
@@ -3975,21 +2745,9 @@
     "developer": "Treyarch",
     "publisher": "Aspyr Media",
     "rating": 4.26,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Mac",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Mac", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "World of Warcraft",
@@ -4001,18 +2759,9 @@
     "developer": "Blizzard Entertainment",
     "publisher": "Blizzard Entertainment",
     "rating": 4.45,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Multiplayer",
-      "Massively Multiplayer Online (MMO)"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Multiplayer", "Massively Multiplayer Online (MMO)"]
   },
   {
     "name": "Assassin's Creed",
@@ -4024,17 +2773,9 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.23,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Platform", "Adventure"],
+    "platforms": ["PlayStation 3", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "The Binding of Isaac: Rebirth",
@@ -4066,11 +2807,7 @@
       "New Nintendo 3DS",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Age of Empires II: The Age of Kings",
@@ -4082,20 +2819,14 @@
     "developer": "Ensemble Studios",
     "publisher": "Microsoft",
     "rating": 4.2,
-    "genres": [
-      "Real Time Strategy (RTS)",
-      "Strategy"
-    ],
+    "genres": ["Real Time Strategy (RTS)", "Strategy"],
     "platforms": [
       "PC (Microsoft Windows)",
       "Mac",
       "Dreamcast",
       "PlayStation 2"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Battlefield 3",
@@ -4107,19 +2838,9 @@
     "developer": "EA Digital Illusions CE",
     "publisher": "Electronic Arts",
     "rating": 4.4,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Far Cry 4",
@@ -4131,11 +2852,7 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.46,
-    "genres": [
-      "Shooter",
-      "Tactical",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Tactical", "Adventure"],
     "platforms": [
       "Google Stadia",
       "PlayStation 3",
@@ -4144,11 +2861,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Detroit: Become Human",
@@ -4160,16 +2873,9 @@
     "developer": "Quantic Dream",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.1,
-    "genres": [
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)"],
+    "modes": ["Single player"]
   },
   {
     "name": "Half-Life 2: Episode Two",
@@ -4181,10 +2887,7 @@
     "developer": "Valve",
     "publisher": "Valve",
     "rating": 3.8,
-    "genres": [
-      "Shooter",
-      "Puzzle"
-    ],
+    "genres": ["Shooter", "Puzzle"],
     "platforms": [
       "PlayStation 3",
       "Linux",
@@ -4192,9 +2895,7 @@
       "Mac",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Dishonored 2",
@@ -4206,19 +2907,9 @@
     "developer": "Arkane Studios",
     "publisher": "Bethesda Softworks",
     "rating": 4.43,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "Xbox One"],
+    "modes": ["Single player"]
   },
   {
     "name": "Dark Souls II",
@@ -4230,20 +2921,9 @@
     "developer": "FromSoftware",
     "publisher": "Bandai Namco Entertainment",
     "rating": 4.61,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Metro 2033",
@@ -4255,17 +2935,9 @@
     "developer": "4A Games",
     "publisher": "THQ",
     "rating": 4.49,
-    "genres": [
-      "Shooter",
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Role-playing (RPG)"],
+    "platforms": ["PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Wolfenstein: The New Order",
@@ -4277,10 +2949,7 @@
     "developer": "MachineGames",
     "publisher": "Bethesda Softworks",
     "rating": 4.09,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -4288,9 +2957,7 @@
       "Xbox 360",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Mario Kart 8 Deluxe",
@@ -4302,18 +2969,9 @@
     "developer": "Nintendo Entertainment Planning & Development",
     "publisher": "Nintendo",
     "rating": 4.71,
-    "genres": [
-      "Racing",
-      "Arcade"
-    ],
-    "platforms": [
-      "Nintendo Switch"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Split screen"
-    ]
+    "genres": ["Racing", "Arcade"],
+    "platforms": ["Nintendo Switch"],
+    "modes": ["Single player", "Multiplayer", "Split screen"]
   },
   {
     "name": "Control",
@@ -4325,10 +2983,7 @@
     "developer": "Remedy Entertainment",
     "publisher": "505 Games",
     "rating": 4.34,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
+    "genres": ["Shooter", "Adventure"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -4337,9 +2992,7 @@
       "PlayStation 5",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Paper Mario: The Thousand-Year Door",
@@ -4351,16 +3004,9 @@
     "developer": "Intelligent Systems",
     "publisher": "Nintendo",
     "rating": 4.58,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo GameCube"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["Nintendo GameCube"],
+    "modes": ["Single player"]
   },
   {
     "name": "Bastion",
@@ -4372,11 +3018,7 @@
     "developer": "Supergiant Games",
     "publisher": "Supergiant Games",
     "rating": 4.61,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Role-playing (RPG)", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 4",
       "Linux",
@@ -4388,9 +3030,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Battlefield 1",
@@ -4402,18 +3042,9 @@
     "developer": "EA Digital Illusions CE",
     "publisher": "Electronic Arts",
     "rating": 4.56,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "Xbox One"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "The Witcher",
@@ -4425,17 +3056,9 @@
     "developer": "CD Projekt RED",
     "publisher": "Atari, Inc.",
     "rating": 4.52,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player"]
   },
   {
     "name": "Doom",
@@ -4447,20 +3070,9 @@
     "developer": "id Software",
     "publisher": "Imagineer",
     "rating": 4.2,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "Windows Mobile",
-      "PC-9800 Series",
-      "Linux",
-      "DOS"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["Windows Mobile", "PC-9800 Series", "Linux", "DOS"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "The Legend of Zelda: Ocarina of Time 3D",
@@ -4472,16 +3084,9 @@
     "developer": "Grezzo",
     "publisher": "Nintendo",
     "rating": 4.68,
-    "genres": [
-      "Puzzle",
-      "Adventure"
-    ],
-    "platforms": [
-      "Nintendo 3DS"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Puzzle", "Adventure"],
+    "platforms": ["Nintendo 3DS"],
+    "modes": ["Single player"]
   },
   {
     "name": "Return of the Obra Dinn",
@@ -4493,11 +3098,7 @@
     "developer": "Lucas Pope",
     "publisher": "3909",
     "rating": 4.78,
-    "genres": [
-      "Puzzle",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Puzzle", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 4",
       "PC (Microsoft Windows)",
@@ -4505,9 +3106,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Star Wars Jedi: Fallen Order",
@@ -4519,9 +3118,7 @@
     "developer": "Respawn Entertainment",
     "publisher": "Electronic Arts",
     "rating": 4.31,
-    "genres": [
-      "Adventure"
-    ],
+    "genres": ["Adventure"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -4530,9 +3127,7 @@
       "PlayStation 5",
       "Xbox One"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Persona 4 Golden",
@@ -4544,16 +3139,9 @@
     "developer": "Atlus",
     "publisher": "Atlus",
     "rating": 4.44,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation Vita"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation Vita"],
+    "modes": ["Single player"]
   },
   {
     "name": "Ori and the Will of the Wisps",
@@ -4565,19 +3153,14 @@
     "developer": "Moon Studios",
     "publisher": "iam8bit",
     "rating": 4.63,
-    "genres": [
-      "Platform",
-      "Adventure"
-    ],
+    "genres": ["Platform", "Adventure"],
     "platforms": [
       "Xbox Series X|S",
       "PC (Microsoft Windows)",
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Doom Eternal",
@@ -4589,9 +3172,7 @@
     "developer": "id Software",
     "publisher": "Bethesda Softworks",
     "rating": 4.44,
-    "genres": [
-      "Shooter"
-    ],
+    "genres": ["Shooter"],
     "platforms": [
       "Google Stadia",
       "Xbox Series X|S",
@@ -4601,10 +3182,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Monster Hunter: World",
@@ -4616,20 +3194,9 @@
     "developer": "Capcom",
     "publisher": "Capcom",
     "rating": 4.73,
-    "genres": [
-      "Role-playing (RPG)",
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 4",
-      "PC (Microsoft Windows)",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)", "Adventure"],
+    "platforms": ["PlayStation 4", "PC (Microsoft Windows)", "Xbox One"],
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "The Last of Us Part I",
@@ -4641,17 +3208,9 @@
     "developer": "Naughty Dog",
     "publisher": "Sony Interactive Entertainment",
     "rating": 4.09,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "PlayStation 5"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PC (Microsoft Windows)", "PlayStation 5"],
+    "modes": ["Single player"]
   },
   {
     "name": "Alan Wake",
@@ -4663,17 +3222,9 @@
     "developer": "Remedy Entertainment",
     "publisher": "Nordic Games Publishing",
     "rating": 4.32,
-    "genres": [
-      "Shooter",
-      "Adventure"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Shooter", "Adventure"],
+    "platforms": ["PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player"]
   },
   {
     "name": "Heavy Rain",
@@ -4685,17 +3236,9 @@
     "developer": "Quantic Dream",
     "publisher": "Sony Computer Entertainment",
     "rating": 4.21,
-    "genres": [
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PlayStation 4",
-      "PC (Microsoft Windows)"
-    ],
-    "modes": [
-      "Single player"
-    ]
+    "genres": ["Adventure"],
+    "platforms": ["PlayStation 3", "PlayStation 4", "PC (Microsoft Windows)"],
+    "modes": ["Single player"]
   },
   {
     "name": "Terraria",
@@ -4732,11 +3275,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative"]
   },
   {
     "name": "Sonic the Hedgehog 2",
@@ -4748,9 +3287,7 @@
     "developer": "Sonic Team",
     "publisher": "Tec Toy",
     "rating": 4.6,
-    "genres": [
-      "Platform"
-    ],
+    "genres": ["Platform"],
     "platforms": [
       "PlayStation 3",
       "Nintendo 3DS",
@@ -4760,12 +3297,7 @@
       "Wii U",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Assassin's Creed III",
@@ -4777,19 +3309,14 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.25,
-    "genres": [
-      "Adventure"
-    ],
+    "genres": ["Adventure"],
     "platforms": [
       "PlayStation 3",
       "PC (Microsoft Windows)",
       "Wii U",
       "Xbox 360"
     ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Call of Duty",
@@ -4801,17 +3328,9 @@
     "developer": "Infinity Ward",
     "publisher": "Activision",
     "rating": 4.47,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Super Meat Boy",
@@ -4823,11 +3342,7 @@
     "developer": "Team Meat",
     "publisher": "Team Meat",
     "rating": 4.41,
-    "genres": [
-      "Platform",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 4",
       "Linux",
@@ -4839,9 +3354,7 @@
       "Xbox 360",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Assassin's Creed Revelations",
@@ -4853,18 +3366,9 @@
     "developer": "Ubisoft Montreal",
     "publisher": "Ubisoft Entertainment",
     "rating": 4.27,
-    "genres": [
-      "Adventure"
-    ],
-    "platforms": [
-      "PlayStation 3",
-      "PC (Microsoft Windows)",
-      "Xbox 360"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer"
-    ]
+    "genres": ["Adventure"],
+    "platforms": ["PlayStation 3", "PC (Microsoft Windows)", "Xbox 360"],
+    "modes": ["Single player", "Multiplayer"]
   },
   {
     "name": "Alien: Isolation",
@@ -4876,9 +3380,7 @@
     "developer": "The Creative Assembly",
     "publisher": "Sega",
     "rating": 4.43,
-    "genres": [
-      "Adventure"
-    ],
+    "genres": ["Adventure"],
     "platforms": [
       "PlayStation 3",
       "PlayStation 4",
@@ -4889,9 +3391,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Baldur's Gate II: Shadows of Amn",
@@ -4903,18 +3403,9 @@
     "developer": "MumboJumbo",
     "publisher": "Interplay Entertainment",
     "rating": 4.6,
-    "genres": [
-      "Role-playing (RPG)"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Single player",
-      "Co-operative"
-    ]
+    "genres": ["Role-playing (RPG)"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "modes": ["Single player", "Co-operative"]
   },
   {
     "name": "Firewatch",
@@ -4926,10 +3417,7 @@
     "developer": "Campo Santo",
     "publisher": "Panic",
     "rating": 4.17,
-    "genres": [
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Adventure", "Indie"],
     "platforms": [
       "PlayStation 4",
       "Linux",
@@ -4938,9 +3426,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Halo: Reach",
@@ -4952,20 +3438,9 @@
     "developer": "Bungie",
     "publisher": "Microsoft Game Studios",
     "rating": 4.56,
-    "genres": [
-      "Shooter"
-    ],
-    "platforms": [
-      "PC (Microsoft Windows)",
-      "Xbox 360",
-      "Xbox One"
-    ],
-    "modes": [
-      "Single player",
-      "Multiplayer",
-      "Co-operative",
-      "Split screen"
-    ]
+    "genres": ["Shooter"],
+    "platforms": ["PC (Microsoft Windows)", "Xbox 360", "Xbox One"],
+    "modes": ["Single player", "Multiplayer", "Co-operative", "Split screen"]
   },
   {
     "name": "Dota 2",
@@ -4977,19 +3452,9 @@
     "developer": "Valve",
     "publisher": "Valve",
     "rating": 4.62,
-    "genres": [
-      "Strategy",
-      "MOBA"
-    ],
-    "platforms": [
-      "Linux",
-      "PC (Microsoft Windows)",
-      "Mac"
-    ],
-    "modes": [
-      "Multiplayer",
-      "Co-operative"
-    ]
+    "genres": ["Strategy", "MOBA"],
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "modes": ["Multiplayer", "Co-operative"]
   },
   {
     "name": "Dead Cells",
@@ -5001,11 +3466,7 @@
     "developer": "Evil Empire",
     "publisher": "Motion Twin",
     "rating": 4.6,
-    "genres": [
-      "Platform",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Adventure", "Indie"],
     "platforms": [
       "PlayStation 4",
       "Linux",
@@ -5017,9 +3478,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   },
   {
     "name": "Hollow Knight: Silksong",
@@ -5031,11 +3490,7 @@
     "developer": "Team Cherry",
     "publisher": "Team Cherry",
     "rating": 4.58,
-    "genres": [
-      "Platform",
-      "Adventure",
-      "Indie"
-    ],
+    "genres": ["Platform", "Adventure", "Indie"],
     "platforms": [
       "Xbox Series X|S",
       "PlayStation 4",
@@ -5047,8 +3502,7 @@
       "Xbox One",
       "Nintendo Switch"
     ],
-    "modes": [
-      "Single player"
-    ]
+    "modes": ["Single player"]
   }
 ]
+
