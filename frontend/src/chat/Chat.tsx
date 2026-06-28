@@ -39,17 +39,20 @@ export default function Chat() {
 		});
 
 		const data = await res.json();
-		if (data.length === 0) {
+		if (Array.isArray(data) && data.length === 0) {
 			const friends = await fetch(`http://localhost:4243/user/friends`, {
 				method: "GET",
 				credentials: "include",
 			});
 
 			const friendsdata = await friends.json();
-			const friend = friendsdata.find(
-				(friend: any) => friend.id === userId
-			);
+			const friend = Array.isArray(friendsdata) ?
+				friendsdata.find((friend: any) => friend.id === userId) :
+				undefined;
+
 			setConversations(prev => {
+				if (!friend)
+					return prev;
 				const exists = prev.some(c => c.userId === friend.id);
 
 				if (exists)
@@ -180,10 +183,10 @@ export default function Chat() {
 			"
 		/>
 		<div className="relative z-10 p-6 text-tertiary">
-			<li className="flex items-center justify-between">
+			<div className="flex items-center justify-between">
 				<UserSearchBar onSelectUser={openChat} />
 				<ProfileSearchBar onSelectUser={openProfile} />
-			</li>
+			</div>
 
 			<div className="flex h-screen">
 				{/* LEFT */}

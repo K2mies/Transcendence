@@ -82,7 +82,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 	// ---------------- INIT ----------------
 	useEffect(() => {
 		init();
-	}, [onlineUsers]);
+	}, []);
 
 	useEffect(() => {
 		function reload() {
@@ -102,7 +102,12 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 		wsRef.current = ws;
 
 		ws.onmessage = (e) => {
-			const data = JSON.parse(e.data);
+			let data: any;
+			try {
+				data = JSON.parse(e.data);
+			} catch {
+				return;
+			}
 
 			switch (data.type) {
 				case "online-users":
@@ -123,6 +128,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 						next.delete(data.userId);
 						return next;
 					});
+					init();
 					break;
 
 				case "chat":
@@ -165,14 +171,18 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
 	// ---------------- SEND ----------------
 	function sendMessage(receiverId: number, content: string) {
-		wsRef.current?.send(
+		const ws = wsRef.current;
+		if (!ws || ws.readyState !== WebSocket.OPEN)
+			return;
+
+		ws.send(
 			JSON.stringify({
 				type: "chat",
 				receiverId,
 				content,
 			})
 		);
-		}
+	}
 
 	// ---------------- MARK AS READ ----------------
 	async function markAsRead(userId: number) {

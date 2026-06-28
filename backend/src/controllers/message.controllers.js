@@ -45,11 +45,10 @@ const getMessages = async (req, res) => {
 };
 
 const getConversations = async (req, res) => {
-	const userId = req.user.id;
-
 	if (!req.user) {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
+	const userId = req.user.id;
 
 	// 1. Get FRIENDS ONLY
 	const relations = await prisma.userUserRelation.findMany({

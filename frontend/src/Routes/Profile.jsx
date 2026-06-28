@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Reviews from "../Reviews";
 import UseChat from "../chat/UseChat";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useSwiper } from "swiper/react";
 
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
@@ -130,7 +127,7 @@ function ProfileInfo(props) {
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
-      <div className="flex items-center text-secondary">
+      <div className="flex gap-2 items-center text-secondary">
         <h2 className="p-4 font-bold">{props.profile.name}</h2>
         {onlineUsers.has(props.profile.id) && (
           <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-online)]" />

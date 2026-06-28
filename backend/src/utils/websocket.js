@@ -24,6 +24,9 @@ export async function sendOnlineFriends(userId) {
 		)
 		.filter(friendId => connectedUsers.has(friendId));
 
+	if (socket.readyState !== WebSocket.OPEN)
+		return;
+
 	socket.send(JSON.stringify({
 		type: "online-users",
 		users: onlineFriends,

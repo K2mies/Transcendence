@@ -88,6 +88,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
         <Link
           to="/chat"
           className="
+            relative
             no-underline
             px-2
             rounded-md
@@ -100,9 +101,9 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
 
         {hasUnreadMessages && (
           <span className="
-                            flex
+                            absolute
                             -top-1
-                            -right-s
+                            -right-1
                             h-3 w-3
                             rounded-full
                             bg-[var(--color-online)]

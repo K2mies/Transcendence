@@ -56,7 +56,7 @@ const myFriends = async (req, res) => {
 };
 
 const allUsers = async (req, res) => {
-	const search = req.params.search || "";
+	const search = typeof req.query.search === "string" ? req.query.search : "";
 
 	const users = await prisma.user.findMany({
 		where: {
