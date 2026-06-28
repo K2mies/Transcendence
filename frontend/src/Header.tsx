@@ -57,7 +57,7 @@ function Header()
                               -right-s
                               h-3 w-3
                               rounded-full
-                              bg-[var(--color-secondary)]
+                              bg-[var(--color-online)]
                               animate-pulse"
             />
           )}

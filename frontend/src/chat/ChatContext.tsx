@@ -88,9 +88,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
 		window.addEventListener("auth-changed", reload);
 		return () => window.removeEventListener("auth-changed", reload);
-	})
+	}, [])
 
-	// ---------------- WS ----------------
+	// ---------------- WEBSOCKET ----------------
 	useEffect(() => {
 		if (!me?.id)
 			return;
