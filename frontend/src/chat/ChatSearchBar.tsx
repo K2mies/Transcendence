@@ -35,7 +35,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
 
 	return (
 		<Autocomplete<User>
-			sx={{ width: "100%" }}
+			sx={{ width: "25%" }}
 			options={users}
 			filterOptions={filterOptions}
 			getOptionLabel={(option) => option.name}

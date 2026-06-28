@@ -55,5 +55,24 @@ const myFriends = async (req, res) => {
 	res.json(friends);
 };
 
+const allUsers = async (req, res) => {
+	const search = req.params.search || "";
 
-export {meUser, deleteUser, myFriends};
+	const users = await prisma.user.findMany({
+		where: {
+			name: {
+				contains: search,
+				mode: "insensitive",
+			},
+		},
+		select: {
+			id: true,
+			name: true,
+		},
+		take: 20,
+	});
+
+	res.json(users);
+};
+
+export {meUser, deleteUser, myFriends, allUsers};

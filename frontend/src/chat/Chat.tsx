@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import UserSearchBar from "./ChatSearchBar";
-import UseChat from "./chat/UseChat";
+import ProfileSearchBar from "./ProfileSearchBar";
+import UseChat from "./UseChat";
+import { useNavigate } from "react-router-dom";
 
 export default function Chat() {
 	const {
@@ -19,6 +21,12 @@ export default function Chat() {
 	const [selectedUser, setSelectedUser] = useState<number | null>(null);
 	const [text, setText] = useState("");
 	const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+	const navigate = useNavigate();
+
+	// ---------------- OPEN PROFILE ----------------
+	function openProfile(name: string) {
+		navigate(`/user/${name}`);
+	}
 
 	// ---------------- OPEN CHAT ----------------
 	async function openChat(userId: number) {
@@ -172,7 +180,10 @@ export default function Chat() {
 			"
 		/>
 		<div className="relative z-10 p-6 text-tertiary">
-			<UserSearchBar onSelectUser={openChat} />
+			<li className="flex items-center justify-between">
+				<UserSearchBar onSelectUser={openChat} />
+				<ProfileSearchBar onSelectUser={openProfile} />
+			</li>
 
 			<div className="flex h-screen">
 				{/* LEFT */}

@@ -20,7 +20,7 @@ import Home from "./Home";
 import Dashboard from "./Dashboard";
 
 import { ChatProvider } from "./chat/ChatContext";
-import Chat from "./Chat";
+import Chat from "./chat/Chat";
 
 function Layout() {
   const location = useLocation();
