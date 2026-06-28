@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
-import WebSocketTest from "./WebSocketTest";
 
 import Header from "./Header/Header";
 
@@ -19,6 +18,9 @@ import Games from "./Routes/Games/Games";
 
 import Home from "./Routes/Home";
 import Dashboard from "./Routes/Dashboard";
+
+import { ChatProvider } from "./chat/ChatContext";
+import Chat from "./chat/Chat";
 
 function Layout() {
   const location = useLocation();
@@ -48,7 +50,7 @@ function Layout() {
           <Route path="games" element={<Games />} />
           <Route path="user/:username" element={<Profile />} />
           <Route path="game/:name" element={<Game />} />
-          <Route path="ws-test" element={<WebSocketTest />} />
+          <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>
     </>
@@ -58,7 +60,9 @@ function Layout() {
 function App() {
   return (
     <BrowserRouter>
-      <Layout />
+      <ChatProvider>
+        <Layout />
+      </ChatProvider>
     </BrowserRouter>
   );
 }

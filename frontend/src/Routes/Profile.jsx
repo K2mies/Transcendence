@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Reviews from "../Reviews";
+import UseChat from "../chat/UseChat";
 
 function FriendButton({ user }) {
   const [friendStatus, setFriendStatus] = useState(undefined);
@@ -71,6 +72,7 @@ function FriendButton({ user }) {
         console.error("Error removing friend");
       }
     }
+    window.dispatchEvent(new Event("auth-changed"));
     updateRefreshKey();
   };
 
@@ -120,14 +122,18 @@ function FriendButton({ user }) {
 function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
+
+  const {onlineUsers} = UseChat();
+
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
-      <div className="flex">
-        <h2 className="p-4">{props.profile.name}</h2>
-        <div className="bg-primary text-tertiary ml-auto m-6">
-          {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
-          {isMyUser && <button>Edit profile info</button>}
-        </div>
+      <div className="flex gap-2 items-center text-secondary">
+        <h2 className="p-4 font-bold">{props.profile.name}</h2>
+        {onlineUsers.has(props.profile.id) && (
+          <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-online)]" />
+        )}
+        {!isMyUser && <FriendButton user={props.profile.name}></FriendButton>}
+        {isMyUser && <button>Edit profile info</button>}
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
         <img
