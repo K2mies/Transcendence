@@ -23,6 +23,18 @@ export async function updateProfile(req, res)
 	}
 }
 
+export async function uploadImage(req, res)
+{
+	const imageFile = req.file.buffer;
+	const userName = req.user.name
+	try {
+		const profile = await profileService.uploadImage(userName, imageFile)
+		res.status(200).json(profile);
+	} catch (error) {
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+	}
+}
+
 export async function getFriendStatus(req, res)
 {
 	const friendName = req.params.name

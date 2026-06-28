@@ -120,6 +120,19 @@ function FriendButton({ user }) {
 function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file)
+      return;
+    const formData = new FormData();
+    formData.append('file', file);
+    await fetch (`http://localhost:4243/profile/upload`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: formData
+      });
+  }
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
@@ -130,10 +143,16 @@ function ProfileInfo(props) {
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
+        {isMyUser && (
+          <label>
+            Change photo 
+            <input type="file" accept=".jpg" onChange={uploadImage} />
+          </label>
+        )}
         <img
           className="border-secondary border-4 w-40 h-auto rounded-lg m-4"
-          src="/logo_03.jpg"
-          alt="Placeholder for profile picture"
+          src={isMyUser && props.profile.image ? `data:image/jpeg;base64,${props.profile.image}` : "/logo_03.jpg"}
+          alt="Profile picture"
         ></img>
         <p className=" mt-4 w-[50%] text-left">{props.profile.bio}</p>
       </div>

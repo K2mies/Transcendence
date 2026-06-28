@@ -7,9 +7,7 @@ const router = express.Router();
 
 router.get("/:name", protect, profileController.getProfile)
 router.post("/", protect, profileController.updateProfile)
-router.post('/upload', upload.single('file'), (req, res) => { //obv we cant do it this way
-	res.send('File uploaded successfully.');
-});
+router.post('/upload', protect, upload.single('file'), profileController.uploadImage)
 
 router.get("/:name/friend-status", protect, profileController.getFriendStatus)
 router.post("/:name/friend-request", protect, profileController.addFriend)

@@ -47,6 +47,7 @@ export async function getProfile(profileName) {
 		id: user.id,
 		name: user.name,
 		bio: user.bio,
+		image: user.image? Buffer.from(user.image).toString('base64') : null,
 		friends : [ //... combines these into one array
 			...user.receivedRequests
 			.filter(f => f.friendStatus === "FRIENDS")
@@ -105,6 +106,21 @@ export async function updateProfile(profileName, newData) {
 	},
 	});
 	return updateUser;
+}
+
+export async function uploadImage(profileName, imageFile) {
+	const currentUser = await prisma.user.findUnique({ where: { name: profileName } });
+	if (!currentUser) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
+	await prisma.user.update({
+	where: { name: profileName },
+	data: {
+		image: imageFile,
+	},
+	});
 }
 
 export async function getFriendStatus(friendName, userId, userName) {
