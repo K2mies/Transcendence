@@ -14,7 +14,7 @@ model User {
   password         String?
   bio              String?
   createdAt        DateTime           @default(now())
-  
+
   oauthAccounts    OAuthAccount[]
   likeReviews      LikeReview[]
   reviews          Review[]

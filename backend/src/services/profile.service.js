@@ -96,7 +96,7 @@ export async function updateProfile(profileName, newData) {
 			const error = new Error("Username already taken");
 			error.status = 409;
 			throw error;
-		}		
+		}
 	}
 	const updateUser = await prisma.user.update({
 	where: { name: profileName },
@@ -184,7 +184,7 @@ export async function acceptFriendRequest(friendName, user)
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
-	}	
+	}
 	await prisma.userUserRelation.update({
 	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
 	data: {
@@ -213,7 +213,7 @@ export async function declineFriendRequest(friendName, user)
 		const error = new Error("No pending user relation")
 		error.status = 400
 		throw error
-	}	
+	}
 	await prisma.userUserRelation.delete({
 	where: { senderId_receiverId: { senderId: friend.id, receiverId: user}},
 	});
