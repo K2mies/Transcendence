@@ -61,7 +61,7 @@ function OAuthUsernamePicker() {
             autoComplete="off"
           />
           <input type="submit" value="Continue" />
-          {serverError && <p>{serverError}</p>}
+          {serverError && <p role="alert" aria-live="assertive">{serverError}</p>}
         </form>
       </div>
     </div>

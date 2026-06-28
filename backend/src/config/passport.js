@@ -15,8 +15,8 @@ const generateUsername = async (displayName, email) => {
 		? displayName.toLowerCase().replace(/[^a-z0-9]/g, "_")
 		: email.split("@")[0].toLowerCase().replace(/[^a-z0-9]/g, "_");
 
-	// Strip leading/trailing underscores, cap at 17 chars (leaves room for _99 suffix → max 20)
-	const cleaned = raw.replace(/^[_-]+|[_-]+$/g, "").slice(0, 17);
+	// Strip leading/trailing underscores
+	const cleaned = raw.replace(/^[_-]+|[_-]+$/g, "");
 	const base = cleaned.length >= 3 ? cleaned : "user";
 
 	const existing = await prisma.user.findUnique({ where: { name: base } });
@@ -24,7 +24,10 @@ const generateUsername = async (displayName, email) => {
 
 	let counter = 1;
 	while (true) {
-		const candidate = `${base}_${counter}`;
+		const suffix = `_${counter}`;
+		const maxBaseLength = 20 - suffix.length;
+		// Name cannot be more than 20 characters
+		const candidate = `${base.slice(0, maxBaseLength)}${suffix}`;
 		const taken = await prisma.user.findUnique({ where: { name: candidate } });
 		if (!taken) return candidate;
 		counter++;
