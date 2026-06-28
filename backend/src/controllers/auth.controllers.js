@@ -98,7 +98,7 @@ const logout = async (req, res) => {
 const googleCallback = (res, user) => {
 	generateToken(user.id, res);
 	const destination = user._isNew ? "/oauth/username-picker" : "/oauth/callback";
-	res.redirect(`${process.env.FRONTEND_URL}${destination}`);
+	res.redirect(`${process.env.FRONTEND_URL ?? "http://localhost:5173"}${destination}`);
 };
 
 const getMe = (req, res) => {

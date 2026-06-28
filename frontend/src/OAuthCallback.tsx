@@ -30,7 +30,7 @@ function OAuthCallback() {
   if (error)
     return (
       <div>
-        <p>{error}</p>
+        <p role="alert">{error}</p>
         <a href="/login">Back to login</a>
       </div>
     );

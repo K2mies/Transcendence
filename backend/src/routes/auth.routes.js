@@ -18,7 +18,7 @@ router.get("/google", passport.authenticate("google", { scope: ["email", "profil
 router.get("/google/callback", (req, res, next) => {
 	passport.authenticate("google", { session: true }, (err, user, info) => {
 		if (err) return next(err);
-		if (!user) return res.redirect(`${process.env.FRONTEND_URL}/oauth/callback?error=${encodeURIComponent(info?.message || "Authentication failed")}`);
+		if (!user) return res.redirect(`${process.env.FRONTEND_URL ?? "http://localhost:5173"}/oauth/callback?error=${encodeURIComponent(info?.message || "Authentication failed")}`);
 		googleCallback(res, user);
 	})(req, res, next);
 });
