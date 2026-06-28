@@ -10,6 +10,7 @@ export default function Chat() {
 		sendMessage,
 		markAsRead,
 		lastMessage,
+		onlineUsers,
 	} = UseChat();
 
 	const selectedUserRef = useRef<number | null>(null);
@@ -187,7 +188,13 @@ export default function Chat() {
 							className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
 						>
 							<div className="flex justify-between">
-								<div className="font-bold text-secondary">{c.name}</div>
+								<div className="flex items-center gap-2 font-bold text-secondary">
+									<span>{c.name}</span>
+
+									{onlineUsers.has(c.userId) && (
+										<span className="h-2.5 w-2.5 rounded-full bg-[var(--color-online)]" />
+									)}
+								</div>
 
 								{c.unreadCount > 0 && (
 									<span className="text-xs bg-secondary text-primary px-2 rounded-full">

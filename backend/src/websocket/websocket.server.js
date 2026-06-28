@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import {prisma} from "../config/db.js";
 import cookie from "cookie";
 
-const connectedUsers = new Map();
+export const connectedUsers = new Map();
 
 export function setupWebSocket(server) {
 	const wss = new WebSocketServer({server});
@@ -48,12 +48,41 @@ export function setupWebSocket(server) {
 			}
 			connectedUsers.set(user.id, ws);
 
-			console.log(`User ${user.name} (${user.id}) connected`);
+			const friends = await prisma.userUserRelation.findMany({
+				where: {
+					friendStatus: "FRIENDS",
+					OR: [
+						{ senderId: user.id },
+						{ receiverId: user.id },
+					],
+				},
+			});
+
+			const friendIds = friends.map(f =>
+				f.senderId === user.id
+					? f.receiverId
+					: f.senderId
+			);
+
+			const onlineFriends = friendIds.filter(id =>
+				connectedUsers.has(id)
+			);
 
 			ws.send(JSON.stringify({
-				type: "connected",
-				userId: user.id,
+				type: "online-users",
+				users: onlineFriends
 			}));
+
+			for (const friendId of friendIds) {
+				const friendWs = connectedUsers.get(friendId);
+
+				if (friendWs?.readyState === WebSocket.OPEN) {
+					friendWs.send(JSON.stringify({
+						type: "user-online",
+						userId: user.id,
+					}));
+				}
+			}
 
 			ws.on("message", async (message) => {
 				try {
@@ -128,9 +157,19 @@ export function setupWebSocket(server) {
 			});
 
 			ws.on("close", () => {
-				console.log(`User ${user.id} disconnected`);
 				if (connectedUsers.get(user.id) === ws) {
 					connectedUsers.delete(user.id);
+				}
+
+				for (const friendId of friendIds) {
+					const friendWs = connectedUsers.get(friendId);
+
+					if (friendWs?.readyState === WebSocket.OPEN) {
+						friendWs.send(JSON.stringify({
+							type: "user-offline",
+							userId: user.id,
+						}));
+					}
 				}
 			});
 

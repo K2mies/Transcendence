@@ -20,16 +20,19 @@ type ChatContextType = {
 	sendMessage: (receiverId: number, content: string) => void;
 	markAsRead: (userId: number) => Promise<void>;
 	lastMessage: any;
+	onlineUsers: Set<number>;
 };
 
-export const ChatContext = createContext<ChatContextType | undefined>(undefined);
+const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
 	const wsRef = useRef<WebSocket | null>(null);
+	const friendsMapRef = useRef<Map<number, string>>(new Map());
 
 	const [me, setMe] = useState<any>(null);
 	const [conversations, setConversations] = useState<Conversation[]>([]);
 	const [lastMessage, setLastMessage] = useState<any>(null);
+	const [onlineUsers, setOnlineUsers] = useState(new Set<number>());
 
 	async function init() {
 		try {
@@ -61,6 +64,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 			const friendsMap = new Map(
 				safeFriends.map((f: any) => [f.id, f.name])
 			);
+			friendsMapRef.current = friendsMap;
+
 			const safeConv = Array.isArray(convData) ? convData : []; 
 
 			setConversations(
@@ -75,11 +80,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 		}
 	}
 
-
 	// ---------------- INIT ----------------
 	useEffect(() => {
 		init();
-	}, []);
+	}, [onlineUsers]);
 
 	useEffect(() => {
 		function reload() {
@@ -100,37 +104,63 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
 		ws.onmessage = (e) => {
 			const data = JSON.parse(e.data);
-			if (data.type !== "chat") return;
 
-			setLastMessage(data);
+			switch (data.type) {
+				case "online-users":
+					setOnlineUsers(new Set(Array.isArray(data.users) ? data.users : []));
+					break;
 
-			const otherUser =
-				data.senderId === me.id ? data.receiverId : data.senderId;
+				case "user-online":
+					setOnlineUsers(prev => {
+						const next = new Set(prev);
+						next.add(data.userId);
+						return next;
+					});
+					break;
 
-			setConversations((prev) => {
-				const existing = prev.find((c) => c.userId === otherUser);
+				case "user-offline":
+					setOnlineUsers(prev => {
+						const next = new Set(prev);
+						next.delete(data.userId);
+						return next;
+					});
+					break;
 
-				const updated: Conversation = {
-					userId: otherUser,
-					name: existing?.name ?? `User ${otherUser}`,
-					lastMessage: data.content,
-					lastMessageAt: data.createdAt,
-					unreadCount:
-						data.receiverId === me.id
-						? (existing?.unreadCount ?? 0) + 1
-						: existing?.unreadCount ?? 0,
-				};
+				case "chat":
+					setLastMessage(data);
 
-			return [
-				updated,
-				...prev.filter((c) => c.userId !== otherUser),
-			];
-			});
+					const otherUser =
+						data.senderId === me.id ? data.receiverId : data.senderId;
+
+					setConversations((prev) => {
+						const existing = prev.find((c) => c.userId === otherUser);
+
+						const updated: Conversation = {
+							userId: otherUser,
+							name:
+								existing?.name ??
+								friendsMapRef.current.get(otherUser) ??
+								"Unknown",
+							lastMessage: data.content,
+							lastMessageAt: data.createdAt,
+							unreadCount:
+								data.receiverId === me.id
+								? (existing?.unreadCount ?? 0) + 1
+								: existing?.unreadCount ?? 0,
+						};
+
+						return [
+							updated,
+							...prev.filter((c) => c.userId !== otherUser),
+						];
+					});
+					break;
+			};
 		};
 
 		return () => {
 			ws.onmessage = null;
-			ws.close()
+			ws.close();
 		};
 	}, [me?.id]);
 
@@ -168,6 +198,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 				sendMessage,
 				markAsRead,
 				lastMessage,
+				onlineUsers
 			}}
 		>
 			{children}
@@ -175,4 +206,5 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export default ChatContext;
+export default ChatProvider;
+export { ChatContext };
