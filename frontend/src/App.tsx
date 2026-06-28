@@ -10,6 +10,9 @@ import Header from "./Header/Header";
 import Login from "./Registration/Login";
 import SignUp from "./Registration/Register";
 
+import OAuthCallback from "./OAuthCallback";
+import OAuthUsernamePicker from "./OAuthUsernamePicker";
+
 import Profile from "./Routes/Profile";
 import Game from "./Routes/Game";
 import Games from "./Routes/Games/Games";
@@ -23,9 +26,11 @@ function Layout() {
 
   return (
     <>
-      {location.pathname !== "/" &&
+        {location.pathname !== "/" &&
         location.pathname !== "/register" &&
-        location.pathname !== "/login" && (
+        location.pathname !== "/login" &&
+        location.pathname !== "/oauth/callback" &&
+        location.pathname !== "/oauth/username-picker" && (
           <Header showSearch={showSearch} setShowSearch={setShowSearch} />
         )}
 
@@ -34,6 +39,8 @@ function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="register" element={<SignUp />} />
           <Route path="login" element={<Login />} />
+          <Route path="oauth/callback" element={<OAuthCallback />} />
+          <Route path="oauth/username-picker" element={<OAuthUsernamePicker />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
