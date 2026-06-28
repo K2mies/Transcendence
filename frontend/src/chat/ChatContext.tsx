@@ -75,7 +75,6 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 				}))
 			);
 		} catch (err) {
-			console.error("Chat init failed:", err);
 			setMe(null);
 		}
 	}
