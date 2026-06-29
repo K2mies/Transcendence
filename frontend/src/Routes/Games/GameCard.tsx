@@ -29,28 +29,27 @@ function GameCard({ game }: GameCardProps) {
       </div>
       <h2
         className="
-          bg-primary
-          text-tertiary
-
-          relative
-          -mt-14
+          absolute
+          bottom-[3.4rem]
+          left-0
           z-10
           w-full
-          p-2
-          h-[3.5rem]
-
-          flex
-          items-center
-          justify-center
+      
+          bg-primary
+          text-tertiary
+      
+          px-4
+          py-2
+      
           text-center
           text-[90%]
-          line-clamp-2
-
+          leading-relaxed
+      
           opacity-0
           group-hover:opacity-100
           transition-opacity
           duration-300
-          
+      
           rounded-t-lg
         "
       >
