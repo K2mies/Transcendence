@@ -29,6 +29,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
     "/dashboard": "Dashboard",
     "/profile": "Profile",
     "/mygames": "My Games",
+    "/terms": "Terms of Service",
   };
 
   let pageTitle: string;
@@ -43,28 +44,35 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
   return (
     <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-4 sticky top-0 z-50">
       <h1 className="text-tertiary">{pageTitle}</h1>
+      {myUser && (
+        <div className="flex items-center ml-auto">
+          <button
+            type="button"
+            aria-label="Toggle search"
+            onClick={() => setShowSearch(!showSearch)}
+          >
+            <FaSearch size={16} className="-ml-5" />
+          </button>
 
-      <div className="flex items-center ml-auto">
-        <button type="button" aria-label="Toggle search" onClick={() => setShowSearch(!showSearch)}>
-          <FaSearch size={16} className="-ml-5" />
-        </button>
-
-        {showSearch && (
-          <div className=" w-96 ml-5">
-            <SearchBar />
-          </div>
-        )}
-      </div>
+          {showSearch && (
+            <div className="w-96 ml-5">
+              <SearchBar />
+            </div>
+          )}
+        </div>
+      )}
       <div className="flex items-center gap-6 mr-5">
-        <Link
-          to="/"
-          className="
-           no-underline 
-           text-tertiary
-           "
-        >
-          <FaHome className="text-tertiary" size={16} />
-        </Link>
+        {myUsername && (
+          <Link
+            to="/"
+            className="
+            no-underline 
+            text-tertiary
+            "
+          >
+            <FaHome className="text-tertiary" size={16} />
+          </Link>
+        )}
         {myUsername && (
           <Link
             to={"/user/" + myUsername}
@@ -80,16 +88,17 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
             <FaUser className="text-tertiary" size={15} />
           </Link>
         )}
-
-        <Link
-          to="/games"
-          className="
-           no-underline
-           text-tertiary
-           "
-        >
-          <FaGamepad className="text-tertiary" size={18} />
-        </Link>
+        {myUsername && (
+          <Link
+            to="/games"
+            className="
+             no-underline
+             text-tertiary
+             "
+          >
+            <FaGamepad className="text-tertiary" size={18} />
+          </Link>
+        )}
       </div>
     </nav>
   );
