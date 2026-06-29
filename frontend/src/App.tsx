@@ -5,6 +5,7 @@ import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
 
 import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
 
 import Login from "./Registration/Login";
 import SignUp from "./Registration/Register";
@@ -21,6 +22,7 @@ import Dashboard from "./Routes/Dashboard";
 
 import { ChatProvider } from "./chat/ChatContext";
 import Chat from "./chat/Chat";
+import TermsOfService from "./Routes/TermsOfService";
 
 function Layout() {
   const location = useLocation();
@@ -35,6 +37,9 @@ function Layout() {
         location.pathname !== "/oauth/username-picker" && (
           <Header showSearch={showSearch} setShowSearch={setShowSearch} />
         )}
+      <main className="flex-1">
+        <Routes>
+          <Route path="terms" element={<TermsOfService />} />
 
       <Routes>
         <Route element={<PublicRoute />}>

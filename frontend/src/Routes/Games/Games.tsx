@@ -33,7 +33,7 @@ function Games() {
   const [developer, setDeveloper] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     setPage(1);
   }, [sortBy, searchTerm, genres, platforms, developer, minRating]);
 
@@ -122,6 +122,7 @@ useEffect(() => {
         totalPages={pagination?.totalPages ?? 1}
         onPrevious={() => setPage((prev) => prev - 1)}
         onNext={() => setPage((prev) => prev + 1)}
+        onPageChange={(newPage) => setPage(newPage)}
       />
     </div>
   );
