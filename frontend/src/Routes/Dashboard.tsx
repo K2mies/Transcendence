@@ -53,9 +53,9 @@ function Dashboard() {
       if (response.status === 200) {
         const res = await response.json();
         setTrendingGames(res.trending);
-        setTopRatedGames(res.toprated);
-        setMostPlayedGames(res.mostplayed);
-        setNewestGames(res.newest);
+        setTopRatedGames(res.topRated);
+        setMostPlayedGames(res.mostPlayed);
+        setNewestGames(res.newestReleases);
       }
     }
 
@@ -66,11 +66,11 @@ function Dashboard() {
     <div className="bg-secondary p-6 min-h-screen">
         <div>
             <DisplayGames
-              header="Favorite games"
+              header="Currently Trending"
               games={trendingGames}
             ></DisplayGames>
             <DisplayGames
-              header="Top Rated"
+              header="Community Top Rated"
               games={topRatedGames}
             ></DisplayGames>
             <DisplayGames
