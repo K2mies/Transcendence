@@ -34,7 +34,7 @@ function FriendList({ friends }) {
                     </DialogTitle>
                     <div>
                       {friends.map((friend) => (
-                        <div className="flex flex-column justify-between">
+                        <div key={friend.id} className="flex flex-column justify-between">
                           <button type="button" onClick={() => {
                               navigate(`/user/${encodeURIComponent(friend.name)}`);
                             }}>{friend.name}</button>
