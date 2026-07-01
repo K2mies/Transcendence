@@ -12,14 +12,20 @@ type GameCardProps = {
     rating: number;
     favorite: boolean;
   };
+  index: number;
 };
 
-function GameCard({ game }: GameCardProps) {
+function GameCard({ game, index }: GameCardProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
-  }, []);
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, index * 50);
+
+    return () => clearTimeout(timer);
+  }, [index]);
+
   return (
     <div
       className={`

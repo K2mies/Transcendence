@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ImCross } from "react-icons/im";
+import { useEffect, useState } from "react";
 
 type Game = {
   id: number;
@@ -10,11 +11,32 @@ type Game = {
 type SmallGameCardProps = {
   game: Game;
   onRemove?: (game: Game) => void;
+  index: number;
 };
 
-function SmallGameCard({ game, onRemove }: SmallGameCardProps) {
+function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, index * 50);
+
+    return () => clearTimeout(timer);
+  }, [index]);
   return (
-    <div className="shrink-0 w-25 snap-start relative group">
+    <div
+      className={`
+        shrink-0
+        w-25
+        snap-start
+        relative
+        group
+        transition-all
+        duration-1000
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+      `}
+    >
       <Link to={`/game/${game.name}`}>
         <img
           className="border-3 border-primary w-full h-auto rounded-t-lg object-cover"
@@ -59,7 +81,15 @@ function SmallGameCard({ game, onRemove }: SmallGameCardProps) {
       {onRemove && (
         <div className="bg-primary rounded-b-lg flex justify-end p-1.5">
           <button type="button" onClick={() => onRemove(game)} className="">
-            <ImCross size={10} className="text-tertiary" />
+            <ImCross
+              size={10}
+              className="
+                text-tertiary
+                hover:text-secondary
+                transition-colors
+                duration-300
+              "
+            />
           </button>
         </div>
       )}
