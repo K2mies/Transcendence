@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { EditName, EditBio } from "./EditProfile";
 import FriendButton from "./FriendButton";
-// import FriendList from "./FriendList";
+import FriendList from "./FriendList";
 
 function ProfileInfo({ profile, friends, myCurrUser, setMyCurrUser }) {
   const [editNameMode, setEditNameMode] = useState(false);
@@ -34,9 +34,9 @@ function ProfileInfo({ profile, friends, myCurrUser, setMyCurrUser }) {
               myCurrUser={myCurrUser}
             ></FriendButton>
           )}
-          {/* {isMyUser && (
+          {isMyUser && (
             <FriendList friends={friends}></FriendList>
-          )} */}
+          )}
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
