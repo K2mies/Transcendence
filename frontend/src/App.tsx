@@ -23,6 +23,10 @@ import Dashboard from "./Routes/Dashboard";
 import { ChatProvider } from "./chat/ChatContext";
 import Chat from "./chat/Chat";
 import TermsOfService from "./Routes/TermsOfService";
+import TermsOfService from "./Footer/Routes/TermsOfService";
+import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
+import RatingSystem from "./Footer/Routes/RatingSystem";
+import Accessibility from "./Footer/Routes/Accessibility";
 
 function Layout() {
   const location = useLocation();
@@ -40,6 +44,9 @@ function Layout() {
       <main className="flex-1">
         <Routes>
           <Route path="terms" element={<TermsOfService />} />
+          <Route path="privacy" element={<PrivacyPolicy />} />
+          <Route path="rating" element={<RatingSystem />} />
+          <Route path="accessibility" element={<Accessibility />} />
 
       <Routes>
         <Route element={<PublicRoute />}>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Stars from "../../Rating/Stars";
 import FavoriteButton from "../../Rating/FavoriteButton";
+import { useEffect, useState } from "react";
 
 type GameCardProps = {
   game: {
@@ -14,8 +15,22 @@ type GameCardProps = {
 };
 
 function GameCard({ game }: GameCardProps) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
   return (
-    <div className="basis-1/5 relative group">
+    <div
+      className={`
+         basis-1/5
+         relative
+         group
+         transition-opacity
+         duration-1000
+         ${visible ? "opacity-100" : "opacity-0"}
+       `}
+    >
       <Link to={"/game/" + encodeURIComponent(game.name)}>
         <img
           src={game.imageBig}
