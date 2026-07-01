@@ -75,3 +75,23 @@
     align-items: start !important;
   }
 }
+
+/* Custon ScrollBarr settings*/
+.custom-scrollbar::-webkit-scrollbar {
+  height: 14px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-tertiary);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 9999px;
+  border: 2px solid var(--color-tertiary);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}

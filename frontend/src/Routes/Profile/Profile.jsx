@@ -150,7 +150,7 @@ function DisplayGames(props) {
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         <div className="">
           <div className="bg-tertiary text-primary relative rounded-b-lg p-5">
-            <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-5">
+            <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-5 custom-scrollbar">
               {props.games.map((game) => (
                 <SmallGameCard
                   key={game.id}
