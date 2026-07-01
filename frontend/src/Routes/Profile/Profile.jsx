@@ -151,10 +151,11 @@ function DisplayGames(props) {
         <div className="">
           <div className="bg-tertiary text-primary relative rounded-b-lg p-5">
             <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-5 custom-scrollbar">
-              {props.games.map((game) => (
+              {props.games.map((game, index) => (
                 <SmallGameCard
                   key={game.id}
                   game={game}
+                  index={index}
                   onRemove={props.onRemove}
                 />
               ))}

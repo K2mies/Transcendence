@@ -112,8 +112,8 @@ function Games() {
       )}
       <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
         <div className="relative grid grid-cols-5 gap-2">
-          {games.map((game) => (
-            <GameCard key={game.id} game={game} />
+          {games.map((game, index) => (
+            <GameCard key={game.id} game={game} index={index} />
           ))}
         </div>
       </div>
