@@ -11,19 +11,19 @@ all: images up
 
 images:
 	@echo "$(BLUE)Building docker images...$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) build
+	@docker compose -f $(COMPOSE_FILE) build
 
 up:
 	@echo "$(BLUE)Starting containers...$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) up -d
+	@docker compose -f $(COMPOSE_FILE) up -d
 
 down:
 	@echo "$(RED)Stopping containers...$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) down
+	@docker compose -f $(COMPOSE_FILE) down
 
 clean:
 	@echo "$(RED)Removing containers, images and volumes...$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) down --rmi all -v
+	@docker compose -f $(COMPOSE_FILE) down --rmi all -v
 
 fclean: clean
 	@echo "$(RED)Removing data directories...$(RESET)"

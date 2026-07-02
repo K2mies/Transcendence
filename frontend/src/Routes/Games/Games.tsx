@@ -33,7 +33,7 @@ function Games() {
   const [developer, setDeveloper] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     setPage(1);
   }, [sortBy, searchTerm, genres, platforms, developer, minRating]);
 
@@ -84,16 +84,15 @@ useEffect(() => {
   }, [page, searchTerm, genres, platforms, developer, minRating, sortBy]);
   return (
     <div className="bg-secondary">
-      {!showFilters && (
-        <div className="p-2">
-          <FaGear
-            size={30}
-            className="cursor-pointer text-primary ml-auto mr-6"
-            onClick={() => setShowFilters(true)}
-          />
-        </div>
-      )}
-      {showFilters && (
+      <div
+        className={`
+          overflow-hidden
+          transition-all
+          duration-500
+          ease-in-out
+          ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
+        `}
+      >
         <GameFilter
           setShowFilters={setShowFilters}
           minRating={minRating}
@@ -109,11 +108,18 @@ useEffect(() => {
           developer={developer}
           setDeveloper={setDeveloper}
         />
-      )}
+      </div>{" "}
+      <div className="">
+        <FaGear
+          size={30}
+          className="cursor-pointer text-primary ml-auto mr-6 mt-2 mb-2"
+          onClick={() => setShowFilters(!showFilters)}
+        />
+      </div>
       <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
         <div className="relative grid grid-cols-5 gap-2">
-          {games.map((game) => (
-            <GameCard key={game.id} game={game} />
+          {games.map((game, index) => (
+            <GameCard key={game.id} game={game} index={index} />
           ))}
         </div>
       </div>
@@ -122,6 +128,7 @@ useEffect(() => {
         totalPages={pagination?.totalPages ?? 1}
         onPrevious={() => setPage((prev) => prev - 1)}
         onNext={() => setPage((prev) => prev + 1)}
+        onPageChange={(newPage) => setPage(newPage)}
       />
     </div>
   );
