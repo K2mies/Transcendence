@@ -12,6 +12,7 @@ function CustomTabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
@@ -81,37 +82,39 @@ function FriendList({ friends, sentReqs, recvReqs }) {
                 <CustomTabPanel value={value} index={1}>
                   {recvReqs.map((friend) => (
                     <div key={friend.id} className="flex flex-column justify-between">
-                      <button type="button" onClick={() => {
+                      <button type="button" className="justify-start" onClick={() => {
                           navigate(`/user/${encodeURIComponent(friend.name)}`);
                         }}>{friend.name}</button>
-                      <button type="button" onClick={async() => {
-                        const user = encodeURIComponent(friend.name);
-                        const response = await fetch(
-                        `http://localhost:4243/profile/${user}/accept-request`,
-                        {
-                          method: "PUT",
-                          credentials: "include",
-                        },
-                      );
-                      if (response.ok) {
-                        await response.json();
-                      } else {
-                        console.error("Error accepting request");
-                      }}}><ImCheckmark /></button>
-                      <button type="button" onClick={async() => {
-                        const user = encodeURIComponent(friend.name);
-                        const response = await fetch(
-                        `http://localhost:4243/profile/${user}/decline-request`,
-                        {
-                          method: "DELETE",
-                          credentials: "include",
-                        },
-                      );
-                      if (response.ok) {
-                        await response.json();
-                      } else {
-                        console.error("Error declining request");
-                      }}}><ImCross /></button>
+                      <div>
+                        <button type="button" className="mr-6" onClick={async() => {
+                          const user = encodeURIComponent(friend.name);
+                          const response = await fetch(
+                          `http://localhost:4243/profile/${user}/accept-request`,
+                          {
+                            method: "PUT",
+                            credentials: "include",
+                          },
+                        );
+                        if (response.ok) {
+                          await response.json();
+                        } else {
+                          console.error("Error accepting request");
+                        }}}><ImCheckmark /></button>
+                        <button type="button" onClick={async() => {
+                          const user = encodeURIComponent(friend.name);
+                          const response = await fetch(
+                          `http://localhost:4243/profile/${user}/decline-request`,
+                          {
+                            method: "DELETE",
+                            credentials: "include",
+                          },
+                        );
+                        if (response.ok) {
+                          await response.json();
+                        } else {
+                          console.error("Error declining request");
+                        }}}><ImCross /></button>
+                      </div>
                     </div>
                   ))}
                 </CustomTabPanel>
