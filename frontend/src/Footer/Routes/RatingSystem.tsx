@@ -25,7 +25,7 @@ function RatingSystem() {
           by defauly the IGDB rating counts as 1 review.
         </p>
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
-          1. Local/User Rating
+          2. Local/User Rating
           <FaHome size={ICON_SIZE} className="ml-3 text-tertiary" />
         </h2>
         <p>
