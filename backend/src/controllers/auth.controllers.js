@@ -94,17 +94,27 @@ const logout = async (req, res) => {
 };
 
 const googleCallback = (res, user) => {
-	const token = generateToken(user.id, res);
-	res.status(200).json({
-		status: "success",
-		data: {
-			user: {
-				id: user.id,
-				name: user.name,
-			},
-			// token,
-		},
-	});
+	generateToken(user.id, res);
+	const destination = user._isNew ? "/oauth/username-picker" : "/oauth/callback";
+	res.redirect(`${process.env.FRONTEND_URL ?? "http://localhost:5173"}${destination}`);
 };
 
-export {register, login, logout, googleCallback};
+const getMe = (req, res) => {
+	res.status(200).json({ status: "success", data: { user: req.user } });
+};
+
+const updateUsername = async (req, res) => {
+	const { name } = req.validBody;
+	const taken = await prisma.user.findFirst({
+		where: { name, NOT: { id: req.user.id } },
+	});
+	if (taken) return res.status(400).json({ error: "Username already taken" });
+	const user = await prisma.user.update({
+		where: { id: req.user.id },
+		data: { name },
+		select: { id: true, name: true, email: true },
+	});
+	res.status(200).json({ status: "success", data: { user } });
+};
+
+export {register, login, logout, googleCallback, getMe, updateUsername};
