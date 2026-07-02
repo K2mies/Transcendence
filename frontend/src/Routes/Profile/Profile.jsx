@@ -40,12 +40,6 @@ function DisplayGames(props) {
 
 function Profile({ myCurrUser, setMyCurrUser }) {
   const [profile, setProfile] = useState({});
-  const [friends, setFriends] = useState([]);
-  const [favGames, setFavGames] = useState([]);
-  const [currGames, setCurrGames] = useState([]);
-  const [toPlayGames, setToPlayGames] = useState([]);
-  const [completedGames, setCompletedGames] = useState([]);
-  const [reviews, setReviews] = useState([]);
   const [isUserFound, setIsUserFound] = useState(undefined);
   const { username } = useParams();
 
@@ -62,12 +56,6 @@ function Profile({ myCurrUser, setMyCurrUser }) {
         const res = await response.json();
         setIsUserFound(true);
         setProfile(res);
-        setFriends(res.friends);
-        setFavGames(res.favorites);
-        setCurrGames(res.playing);
-        setToPlayGames(res.to_play);
-        setCompletedGames(res.completed);
-        setReviews(res.reviews);
       } else {
         setIsUserFound(false);
       }
@@ -82,37 +70,39 @@ function Profile({ myCurrUser, setMyCurrUser }) {
         <div>
           <ProfileInfo
             profile={profile}
-            friends={friends}
+            friends={profile.friends}
+            sentReqs={profile.sent_reqs}
+            recvReqs={profile.received_reqs}
             myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           ></ProfileInfo>
-          {favGames.length > 0 && (
+          {profile.favorites.length > 0 && (
             <DisplayGames
               header="Favorite games"
-              games={favGames}
+              games={profile.favorites}
             ></DisplayGames>
           )}
-          {currGames.length > 0 && (
+          {profile.playing.length > 0 && (
             <DisplayGames
               header="Currently playing"
-              games={currGames}
+              games={profile.playing}
             ></DisplayGames>
           )}
-          {toPlayGames.length > 0 && (
+          {profile.to_play.length > 0 && (
             <DisplayGames
               header="Games to play"
-              games={toPlayGames}
+              games={profile.to_play}
             ></DisplayGames>
           )}
-          {completedGames.length > 0 && (
+          {profile.completed.length > 0 && (
             <DisplayGames
               header="Completed games"
-              games={completedGames}
+              games={profile.completed}
             ></DisplayGames>
           )}
-          {reviews.length > 0 && (
+          {profile.reviews.length > 0 && (
             <Reviews
-              reviews={reviews}
+              reviews={profile.reviews}
               myCurrUser={myCurrUser}
               page="profile"
             ></Reviews>

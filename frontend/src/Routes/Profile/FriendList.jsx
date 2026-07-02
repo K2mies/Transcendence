@@ -1,18 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogTitle, DialogPanel, DialogBackdrop } from "@headlessui/react"
+import { Tabs, Tab, Box } from "@mui/material";
+import { ImCheckmark, ImCross } from "react-icons/im";
 
-function FriendList({ friends }) {
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+function FriendList({ friends, sentReqs, recvReqs }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const friendAmount = (friends.length === 1 ? (friends.length + " friend") : (friends.length + " friends"));
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  }
 
   return (
     <div>
       <button
         onClick={() => setOpen(true)}
       >
-        {friendAmount}
+        Manage friends
       </button>
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop
@@ -26,48 +47,107 @@ function FriendList({ friends }) {
               transition
               className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
             >
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
-                      Friends
-                    </DialogTitle>
-                    <div>
-                      {friends.map((friend) => (
-                        <div key={friend.id} className="flex flex-column justify-between">
-                          <button type="button" onClick={() => {
-                              navigate(`/user/${encodeURIComponent(friend.name)}`);
-                            }}>{friend.name}</button>
-                          <button type="button" onClick={async() => {
-                            const user = encodeURIComponent(friend.name);
-                            const response = await fetch(
-                            `http://localhost:4243/profile/${user}/remove-friend`,
-                            {
-                              method: "DELETE",
-                              credentials: "include",
-                            },
-                          );
-                          if (response.ok) {
-                            await response.json();
-                          } else {
-                            console.error("Error removing friend");
-                          }}}>X</button>
-                        </div>
-                      ))}
+              <DialogTitle as="h2" className="p-3 text-base font-semibold text-gray-900">
+                Manage friends
+              </DialogTitle>
+                <Tabs value={value} onChange={handleChange}>
+                  <Tab label={`Friends (${friends.length})`} value={0} />
+                  <Tab label={`Received requests (${recvReqs.length})`} value={1} />
+                  <Tab label={`Sent requests (${sentReqs.length})`} value={2} />
+                </Tabs>
+                <CustomTabPanel value={value} index={0}>
+                  {friends.map((friend) => (
+                    <div key={friend.id} className="flex flex-column justify-between">
+                      <button type="button" onClick={() => {
+                          navigate(`/user/${encodeURIComponent(friend.name)}`);
+                        }}>{friend.name}</button>
+                      <button type="button" onClick={async() => {
+                        const user = encodeURIComponent(friend.name);
+                        const response = await fetch(
+                        `http://localhost:4243/profile/${user}/remove-friend`,
+                        {
+                          method: "DELETE",
+                          credentials: "include",
+                        },
+                      );
+                      if (response.ok) {
+                        await response.json();
+                      } else {
+                        console.error("Error removing friend");
+                      }}}><ImCross /></button>
                     </div>
-                  </div>
+                  ))}
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={1}>
+                  {recvReqs.map((friend) => (
+                    <div key={friend.id} className="flex flex-column justify-between">
+                      <button type="button" onClick={() => {
+                          navigate(`/user/${encodeURIComponent(friend.name)}`);
+                        }}>{friend.name}</button>
+                      <button type="button" onClick={async() => {
+                        const user = encodeURIComponent(friend.name);
+                        const response = await fetch(
+                        `http://localhost:4243/profile/${user}/accept-request`,
+                        {
+                          method: "PUT",
+                          credentials: "include",
+                        },
+                      );
+                      if (response.ok) {
+                        await response.json();
+                      } else {
+                        console.error("Error accepting request");
+                      }}}><ImCheckmark /></button>
+                      <button type="button" onClick={async() => {
+                        const user = encodeURIComponent(friend.name);
+                        const response = await fetch(
+                        `http://localhost:4243/profile/${user}/decline-request`,
+                        {
+                          method: "DELETE",
+                          credentials: "include",
+                        },
+                      );
+                      if (response.ok) {
+                        await response.json();
+                      } else {
+                        console.error("Error declining request");
+                      }}}><ImCross /></button>
+                    </div>
+                  ))}
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={2}>
+                  {sentReqs.map((friend) => (
+                    <div key={friend.id} className="flex flex-column justify-between">
+                      <button type="button" onClick={() => {
+                          navigate(`/user/${encodeURIComponent(friend.name)}`);
+                        }}>{friend.name}</button>
+                      <button type="button" onClick={async() => {
+                        const user = encodeURIComponent(friend.name);
+                        const response = await fetch(
+                        `http://localhost:4243/profile/${user}/remove-friend`,
+                        {
+                          method: "DELETE",
+                          credentials: "include",
+                        },
+                      );
+                      if (response.ok) {
+                        await response.json();
+                      } else {
+                        console.error("Error removing friend");
+                      }}}><ImCross /></button>
+                    </div>
+                  ))}
+                </CustomTabPanel>
+                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <button
+                    type="button"
+                    data-autofocus
+                    onClick={() => setOpen(false)}
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  >
+                    Cancel
+                  </button>
                 </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
-                  type="button"
-                  data-autofocus
-                  onClick={() => setOpen(false)}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                >
-                  Cancel
-                </button>
-              </div>
             </DialogPanel>
           </div>
         </div>
@@ -75,51 +155,5 @@ function FriendList({ friends }) {
     </div>
   )
 }
-
-// function FriendList({ friends }) {
-//   const navigate = useNavigate();
-//   const [menu, setMenu] = useState(null);
-//   const open = Boolean(menu);
-
-//   const handleClick = (e) => {
-//     setMenu(e.currentTarget);
-//   };
-//   const friendAmount =
-//     friends.length === 1
-//       ? friends.length + " friend"
-//       : friends.length + " friends";
-//   return (
-//     <div>
-//       <button onClick={handleClick}>{friendAmount}</button>
-//       <Menu anchorEl={menu} open={open}>
-//         {friends.map((friend) => (
-//           <MenuItem key={friend.id} className="flex justify-between">
-//             <button
-//               onClick={() => {
-//                 navigate(`/user/${encodeURIComponent(friend.name)}`);
-//               }}
-//             >
-//               {friend.name}
-//             </button>
-//             <button onClick={async () => {
-//               const user = encodeURIComponent(friend.name);
-//               const response = await fetch(
-//               `http://localhost:4243/profile/${user}/remove-friend`,
-//               {
-//                 method: "DELETE",
-//                 credentials: "include",
-//               },
-//             );
-//             if (response.ok) {
-//               await response.json();
-//             } else {
-//               console.error("Error removing friend");
-//       }}}>X</button>
-//           </MenuItem>
-//         ))}
-//       </Menu>
-//     </div>
-//   );
-// }
 
 export default FriendList;

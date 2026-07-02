@@ -3,7 +3,7 @@ import { EditName, EditBio } from "./EditProfile";
 import FriendButton from "./FriendButton";
 import FriendList from "./FriendList";
 
-function ProfileInfo({ profile, friends, myCurrUser, setMyCurrUser }) {
+function ProfileInfo({ profile, friends, sentReqs, recvReqs, myCurrUser, setMyCurrUser }) {
   const [editNameMode, setEditNameMode] = useState(false);
   const [editBioMode, setEditBioMode] = useState(false);
   const [currBio, setCurrBio] = useState(profile.bio);
@@ -35,7 +35,7 @@ function ProfileInfo({ profile, friends, myCurrUser, setMyCurrUser }) {
             ></FriendButton>
           )}
           {isMyUser && (
-            <FriendList friends={friends}></FriendList>
+            <FriendList friends={friends} sentReqs={sentReqs} recvReqs={recvReqs}></FriendList>
           )}
         </div>
       </div>
