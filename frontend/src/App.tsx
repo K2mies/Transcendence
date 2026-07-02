@@ -13,7 +13,7 @@ import SignUp from "./Registration/Register";
 import OAuthCallback from "./OAuthCallback";
 import OAuthUsernamePicker from "./OAuthUsernamePicker";
 
-import Profile from "./Routes/Profile";
+import Profile from "./Routes/Profile/Profile";
 import Game from "./Routes/Game";
 import Games from "./Routes/Games/Games";
 
@@ -34,7 +34,7 @@ function Layout() {
 
   return (
     <>
-        {location.pathname !== "/" &&
+      {location.pathname !== "/" &&
         location.pathname !== "/register" &&
         location.pathname !== "/login" &&
         location.pathname !== "/oauth/callback" &&
@@ -47,15 +47,19 @@ function Layout() {
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="rating" element={<RatingSystem />} />
           <Route path="accessibility" element={<Accessibility />} />
+        </Routes>
 
-      <Routes>
-        <Route element={<PublicRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="register" element={<SignUp />} />
-          <Route path="login" element={<Login />} />
-          <Route path="oauth/callback" element={<OAuthCallback />} />
-          <Route path="oauth/username-picker" element={<OAuthUsernamePicker />} />
-        </Route>
+        <Routes>
+          <Route element={<PublicRoute />}>
+            <Route path="/" element={<Home />} />
+            <Route path="register" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
+            <Route path="oauth/callback" element={<OAuthCallback />} />
+            <Route
+              path="oauth/username-picker"
+              element={<OAuthUsernamePicker />}
+            />
+          </Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
