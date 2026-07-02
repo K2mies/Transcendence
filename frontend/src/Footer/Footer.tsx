@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaGamepad } from "react-icons/fa";
 
 function Footer() {
   return (
@@ -19,6 +20,9 @@ function Footer() {
         <Link to="/accessibility" className="no-underline text-tertiary">
           Accessibility
         </Link>
+      </div>
+      <div className="flex items-center justify-center">
+        <FaGamepad size={46} className="text-tertiary" />
       </div>
       <p>© 2026 GoodPlays</p>
     </footer>
