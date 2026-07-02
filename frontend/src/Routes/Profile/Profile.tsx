@@ -3,19 +3,30 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Reviews";
+import type { Profile, Game } from "../../types";
 
-function DisplayGames(props) {
+type ProfileProps = {
+  myCurrUser: string | null;
+  setMyCurrUser: (myCurrUser: string | null) => void;
+};
+
+type GameProps = {
+  header: string;
+  games: Game[];
+};
+
+function DisplayGames({ header, games }: GameProps) {
   return (
     <div className="mt-6">
       <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
-        {props.header}
+        {header}
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
         <div className="mt-6">
           <div className="bg-tertiary text-primary rounded-b-lg p-3">
             <div className="relative">
               <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2">
-                {props.games.map((game) => (
+                {games.map((game) => (
                   <div key={game.id} className="shrink-0 w-25 snap-start">
                     <img
                       className="border-3 border-secondary w-full h-auto rounded-t-lg object-cover"
@@ -38,22 +49,22 @@ function DisplayGames(props) {
   );
 }
 
-function Profile({ myCurrUser, setMyCurrUser }) {
-  const [profile, setProfile] = useState({});
-  const [isUserFound, setIsUserFound] = useState(undefined);
+function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
+  const [profile, setProfile] = useState<Profile | undefined>(undefined);
+  const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
 
   useEffect(() => {
     if (!username) return;
     async function loadProfile() {
-      const response = await fetch(
+      const response: Response = await fetch(
         `http://localhost:4243/profile/${username}`,
         {
           credentials: "include",
         },
       );
       if (response.status === 200) {
-        const res = await response.json();
+        const res: Profile = await response.json();
         setIsUserFound(true);
         setProfile(res);
       } else {
@@ -66,13 +77,10 @@ function Profile({ myCurrUser, setMyCurrUser }) {
 
   return (
     <div className="bg-secondary p-6 min-h-screen">
-      {isUserFound && (
+      {isUserFound && profile && myCurrUser && (
         <div>
           <ProfileInfo
             profile={profile}
-            friends={profile.friends}
-            sentReqs={profile.sent_reqs}
-            recvReqs={profile.received_reqs}
             myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           ></ProfileInfo>

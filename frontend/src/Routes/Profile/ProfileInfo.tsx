@@ -1,31 +1,41 @@
 import { useState, useEffect } from "react";
-import { EditName, EditBio } from "./EditProfile";
-import FriendButton from "./FriendButton";
-import FriendList from "./FriendList";
+import EditUsername from "./EditUserName";
+import EditBio from "./EditProfile";
+import FriendButton from "../Friendship/FriendButton";
+import FriendList from "../Friendship/FriendList";
+import type { Profile } from "../../types";
 
-function ProfileInfo({ profile, friends, sentReqs, recvReqs, myCurrUser, setMyCurrUser }) {
-  const [editNameMode, setEditNameMode] = useState(false);
+type ProfileInfoProps = {
+  profile: Profile;
+  myCurrUser: string;
+  setMyCurrUser: (myCurrUser: string | null) => void;
+};
+
+function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
+  const [editUsernameMode, setEditUsernameMode] = useState(false);
   const [editBioMode, setEditBioMode] = useState(false);
   const [currBio, setCurrBio] = useState(profile.bio);
   const isMyUser = myCurrUser === profile.name;
 
   useEffect(() => {
-    setCurrBio(profile.bio)
+    setCurrBio(profile.bio);
   }, [profile]);
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex h-[4.3em]">
-        {editNameMode && (
-          <EditName
-            setEditNameMode={setEditNameMode}
+        {editUsernameMode && (
+          <EditUsername
+            setEditUsernameMode={setEditUsernameMode}
             myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           />
         )}
-        {!editNameMode && <h2 className="p-4">{profile.name}</h2>}
-        {isMyUser && !editNameMode && (
-          <button onClick={() => setEditNameMode(true)}>Change username</button>
+        {!editUsernameMode && <h2 className="p-4">{profile.name}</h2>}
+        {isMyUser && !editUsernameMode && (
+          <button onClick={() => setEditUsernameMode(true)}>
+            Change username
+          </button>
         )}
         <div className="bg-primary text-tertiary ml-auto m-6">
           {!isMyUser && (
@@ -35,7 +45,12 @@ function ProfileInfo({ profile, friends, sentReqs, recvReqs, myCurrUser, setMyCu
             ></FriendButton>
           )}
           {isMyUser && (
-            <FriendList friends={friends} sentReqs={sentReqs} recvReqs={recvReqs}></FriendList>
+            <FriendList
+              friends={profile.friends}
+              sentReqs={profile.sent_reqs}
+              recvReqs={profile.received_reqs}
+              myCurrUser={myCurrUser}
+            ></FriendList>
           )}
         </div>
       </div>
