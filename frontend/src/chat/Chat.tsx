@@ -151,7 +151,7 @@ export default function Chat() {
                   </div>
 
                   {c.unreadCount > 0 && (
-                    <span className="text-xs bg-secondary text-primary px-2 rounded-full">
+                    <span className="text-xs bg-secondary text-primary py-1 px-2 rounded-full">
                       {c.unreadCount}
                     </span>
                   )}
