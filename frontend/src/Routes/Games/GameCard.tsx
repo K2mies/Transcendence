@@ -33,7 +33,7 @@ function GameCard({ game, index }: GameCardProps) {
          relative
          group
          transition-opacity
-         duration-1000
+         duration-700
          ${visible ? "opacity-100" : "opacity-0"}
        `}
     >
