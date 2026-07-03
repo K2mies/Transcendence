@@ -85,6 +85,7 @@ function Games() {
   return (
     <div className="bg-secondary">
       <div
+        hidden={!showFilters}
         className={`
           overflow-hidden
           transition-all

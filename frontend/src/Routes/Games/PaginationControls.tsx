@@ -42,6 +42,7 @@ function PaginationControls({
 
         <input
           type="text"
+          aria-label="Page number"
           inputMode="numeric"
           pattern="[0-9]*"
           value={inputPage}
