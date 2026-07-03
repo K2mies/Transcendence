@@ -78,21 +78,21 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
           {game.name}
         </Link>
       </h2>
-      {onRemove && (
-        <div className="bg-primary rounded-b-lg flex justify-end p-1.5">
-          <button type="button" onClick={() => onRemove(game)} className="">
+      <div className="bg-primary rounded-b-lg flex justify-end p-1.5 h-7">
+        {onRemove && (
+          <button type="button" onClick={() => onRemove(game)}>
             <ImCross
               size={10}
               className="
-                text-tertiary
-                hover:text-secondary
-                transition-colors
-                duration-300
-              "
+                 text-tertiary
+                 hover:text-secondary
+                 transition-colors
+                 duration-300
+               "
             />
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

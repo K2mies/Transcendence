@@ -183,6 +183,9 @@ function Profile() {
   const [isUserFound, setIsUserFound] = useState(undefined);
   const { username } = useParams();
 
+  const myUser = JSON.parse(localStorage.getItem("user"));
+  const isMyProfile = myUser?.name === username;
+
   async function removeFavorite(game) {
     const response = await fetch(
       `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
@@ -258,28 +261,40 @@ function Profile() {
             <DisplayGames
               header="Favorite games"
               games={favGames}
-              onRemove={removeFavorite}
+              onRemove={isMyProfile ? removeFavorite : undefined}
             ></DisplayGames>
           )}
           {currGames.length > 0 && (
             <DisplayGames
               header="Currently playing"
               games={currGames}
-              onRemove={(game) => removeGameState(game, setCurrGames)}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCurrGames)
+                  : undefined
+              }
             ></DisplayGames>
           )}
           {toPlayGames.length > 0 && (
             <DisplayGames
               header="Games to play"
               games={toPlayGames}
-              onRemove={(game) => removeGameState(game, setToPlayGames)}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCurrGames)
+                  : undefined
+              }
             ></DisplayGames>
           )}
           {completedGames.length > 0 && (
             <DisplayGames
               header="Completed games"
               games={completedGames}
-              onRemove={(game) => removeGameState(game, setCompletedGames)}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCurrGames)
+                  : undefined
+              }
             ></DisplayGames>
           )}
           {reviews.length > 0 && (
