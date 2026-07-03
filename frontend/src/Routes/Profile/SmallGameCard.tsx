@@ -37,7 +37,7 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
       `}
     >
-      <Link to={`/game/${game.name}`}>
+      <Link to={`/game/${encodeURIComponent(game.name)}`}>
         <img
           className="border-3 border-primary w-full h-auto rounded-t-lg object-cover"
           src={game.image}
@@ -74,13 +74,20 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
             text-xs
         "
       >
-        <Link to={`/game/${game.name}`} className="no-underline">
+        <Link
+          to={`/game/${encodeURIComponent(game.name)}`}
+          className="no-underline"
+        >
           {game.name}
         </Link>
       </h2>
       <div className="bg-primary rounded-b-lg flex justify-end p-1.5 h-7">
         {onRemove && (
-          <button type="button" onClick={() => onRemove(game)}>
+          <button
+            type="button"
+            aria-label={`Remove ${game.name}`}
+            onClick={() => onRemove(game)}
+          >
             <ImCross
               size={10}
               className="
