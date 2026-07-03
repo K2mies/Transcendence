@@ -21,11 +21,6 @@ const schema = z
 
     email: z.email("Please enter a valid email"),
 
-    age: z
-      .number()
-      .min(18, "Must be at least 18")
-      .max(99, "Must be at most 99"),
-
     password: z
       .string()
       .min(8, "Password must be at least 8 characters")
@@ -57,7 +52,7 @@ const RegisterForm = ({ setMyCurrUser }) => {
 
   //this is excluding confirm password and age from the final object created(add any exceptions here)
   const onSubmit = async (data) => {
-    const { confirmPassword, age, ...submitData } = data;
+    const { confirmPassword, ...submitData } = data;
     await fetch("http://localhost:4243/auth/register", {
       method: "POST",
       headers: {
@@ -108,6 +103,7 @@ const RegisterForm = ({ setMyCurrUser }) => {
         name="name"
         label="Username"
         autoComplete="off"
+        type="text"
       />
 
       <ControlledInput
@@ -132,14 +128,6 @@ const RegisterForm = ({ setMyCurrUser }) => {
         label="Retype password"
         autoComplete="off"
         type="password"
-      />
-
-      <ControlledInput
-        control={control}
-        name="age"
-        label="Age"
-        autoComplete="off"
-        type="number"
       />
 
       <input className="cursor-pointer" type="submit" />

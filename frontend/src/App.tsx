@@ -25,15 +25,15 @@ import Chat from "./chat/Chat";
 
 function Layout() {
   const myUser = localStorage.getItem("user");
-  let myUsername: string | null = null;
+  let myUsername: string | undefined = undefined;
   if (myUser) {
     try {
-      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? null;
+      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? undefined;
     } catch {
-      myUsername = null;
+      myUsername = undefined;
     }
   }
-  const [myCurrUser, setMyCurrUser] = useState<string | null>(myUsername);
+  const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
 
@@ -41,7 +41,7 @@ function Layout() {
 
   useEffect(() => {
     if (!localStorage.getItem("isLoggedIn")) {
-      setMyCurrUser(null);
+      setMyCurrUser(undefined);
       navigate("/dashboard");
     }
   }, [localStorage.getItem("isLoggedIn")]);

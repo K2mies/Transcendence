@@ -18,6 +18,7 @@ function AddFriend({
     } else {
       console.error("Error sending friend request");
     }
+    window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);
   }
 

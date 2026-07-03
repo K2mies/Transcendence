@@ -22,7 +22,7 @@ type FriendInfoProps = {
 };
 
 type FriendListProps = FriendInfoProps & {
-  myCurrUser: string;
+  myCurrUser: string | undefined;
 };
 
 function CustomTabPanel({ children, value, index }: CustomTabPanelProps) {

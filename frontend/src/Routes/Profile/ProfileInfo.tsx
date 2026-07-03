@@ -3,12 +3,13 @@ import EditUsername from "./EditUsername";
 import EditBio from "./EditBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
+import UseChat from "../../chat/UseChat";
 import type { Profile } from "../../types";
 
 type ProfileInfoProps = {
   profile: Profile;
-  myCurrUser: string;
-  setMyCurrUser: (myCurrUser: string | null) => void;
+  myCurrUser: string | undefined;
+  setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
 
 function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
@@ -17,20 +18,26 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [currBio, setCurrBio] = useState(profile.bio);
   const isMyUser = myCurrUser === profile.name;
 
+    const {onlineUsers} = UseChat();
+
   useEffect(() => {
     setCurrBio(profile.bio);
   }, [profile]);
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
-      <div className="flex h-[4.3em]">
+      <div className="flex gap-2 items-center text-tertiary">
         {editUsernameMode && (
           <EditUsername
             setEditUsernameMode={setEditUsernameMode}
+            myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           />
         )}
-        {!editUsernameMode && <h2 className="p-4">{profile.name}</h2>}
+        {!editUsernameMode && <h2 className="p-4 font-bold">{profile.name}</h2>}
+        {onlineUsers.has(profile.id) && (
+          <span className="h-2.5 w-2.5 rounded-full bg-online" />
+        )}
         {isMyUser && !editUsernameMode && (
           <button onClick={() => setEditUsernameMode(true)}>
             Change username

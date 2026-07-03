@@ -6,8 +6,8 @@ import Reviews from "../../Reviews";
 import type { Profile, Game } from "../../types";
 
 type ProfileProps = {
-  myCurrUser: string | null;
-  setMyCurrUser: (myCurrUser: string | null) => void;
+  myCurrUser: string | undefined;
+  setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
 
 type GameProps = {

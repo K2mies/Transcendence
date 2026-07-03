@@ -18,6 +18,7 @@ function DeclineFriendRequest({
     } else {
       console.error("Error declining friend request");
     }
+    window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);
   }
 

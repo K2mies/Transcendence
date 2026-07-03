@@ -6,7 +6,7 @@ import RemoveFriend from "./Remove";
 
 type FriendButtonProps = {
   user: string;
-  myCurrUser: string;
+  myCurrUser: string | undefined;
 };
 
 function FriendButton({ user, myCurrUser }: FriendButtonProps) {

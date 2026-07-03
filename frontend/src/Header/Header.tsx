@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 type HeaderProps = {
   showSearch: boolean;
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  myCurrUser: string | null;
+  myCurrUser: string | undefined;
 };
 
 function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
@@ -84,8 +84,8 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
             no-underline
             px-2
             rounded-md
-            text-[var(--color-tertiary)]
-            bg-[var(--color-primary)]
+            text-tertiary
+            bg-primary
             transition-colors
           "
         >
@@ -98,7 +98,7 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
                             -right-1
                             h-3 w-3
                             rounded-full
-                            bg-[var(--color-online)]
+                            bg-online
                             animate-pulse"
           />
         )}
@@ -112,11 +112,6 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
         >
           <FaGamepad className="text-tertiary" size={18} />
         </Link>
-        {myCurrUser && (
-          <button type="button" onClick={Logout}>
-            Log out
-          </button>
-        )}
       </div>
     </nav>
   );

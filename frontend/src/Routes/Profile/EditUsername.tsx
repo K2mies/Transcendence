@@ -7,7 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 type EditUsernameProps = {
   setEditUsernameMode: (editUsernameMode: boolean) => void;
-  setMyCurrUser: (myCurrUser: string | null) => void;
+  myCurrUser: string | undefined;
+  setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
 
 type FormValues = {
@@ -31,6 +32,7 @@ const schema = z
 
 function EditUsername({
   setEditUsernameMode,
+  myCurrUser,
   setMyCurrUser,
 }: EditUsernameProps) {
   const navigate = useNavigate();
@@ -82,6 +84,8 @@ function EditUsername({
           name="name"
           label="Username"
           autoComplete="off"
+          defaultValue={myCurrUser}
+          type="text"
         />
         <div className="flex flex-col">
           <input className="cursor-pointer" type="submit" value="Save"></input>

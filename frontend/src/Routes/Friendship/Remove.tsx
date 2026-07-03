@@ -24,6 +24,7 @@ function RemoveFriend({
     } else {
       console.error("Error removing friend");
     }
+    window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);
   }
 

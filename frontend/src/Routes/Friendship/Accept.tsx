@@ -18,6 +18,7 @@ function AcceptFriendRequest({
     } else {
       console.error("Error accepting friend request");
     }
+    window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);
   }
 
