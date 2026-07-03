@@ -23,6 +23,8 @@ export default function Chat() {
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   // ---------------- OPEN PROFILE ----------------
   function openProfile(name: string) {
     navigate(`/user/${name}`);
@@ -83,6 +85,8 @@ export default function Chat() {
     sendMessage(selectedUser, text);
 
     setText("");
+
+    inputRef.current?.focus();
   }
 
   // ---------------- MESSAGES AUTO-SCROLL ----------------
@@ -220,11 +224,17 @@ export default function Chat() {
             {selectedUser && (
               <div className="p-4 border-t border-secondary/20 flex gap-2">
                 <input
+                  ref={inputRef}
                   value={text}
                   maxLength={120}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Type a message..."
                   className="flex-1 p-2 rounded bg-primary/40 outline-none"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      send();
+                    }
+                  }}
                 />
 
                 <button
