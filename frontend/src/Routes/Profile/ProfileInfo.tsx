@@ -3,7 +3,7 @@ import EditUsername from "./EditUsername";
 import EditBio from "./EditBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
-import UseChat from "../../chat/UseChat";
+import UseChat from "../../Chat/UseChat";
 import type { UserProfile } from "../../types";
 
 type ProfileInfoProps = {
@@ -18,7 +18,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [currBio, setCurrBio] = useState(profile.bio);
   const isMyUser = myCurrUser === profile.name;
 
-    const {onlineUsers} = UseChat();
+  const { onlineUsers } = UseChat();
 
   useEffect(() => {
     setCurrBio(profile.bio);

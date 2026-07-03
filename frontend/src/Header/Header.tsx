@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import UseChat from "../chat/UseChat";
+import UseChat from "../Chat/UseChat";
 import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";

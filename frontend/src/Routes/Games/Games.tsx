@@ -91,7 +91,7 @@ function Games() {
           transition-all
           duration-500
           ease-in-out
-          ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
+          ${showFilters ? "max-h-250 opacity-100" : "max-h-0 opacity-0"}
         `}
       >
         <GameFilter
@@ -109,8 +109,8 @@ function Games() {
           developer={developer}
           setDeveloper={setDeveloper}
         />
-      </div>{" "}
-      <div className="">
+      </div>
+      <div>
         <FaGear
           size={30}
           className="cursor-pointer text-primary ml-auto mr-7 mt-2 mb-2"

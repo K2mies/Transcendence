@@ -12,8 +12,6 @@ import DeveloperTags from "./DeveloperTags";
 import RatingSelector from "./RatingSelector";
 import SortSelector from "./SortSelector";
 
-import { FaGear } from "react-icons/fa6";
-
 type GameFilterProps = {
   setShowFilters: (show: boolean) => void;
 
@@ -37,8 +35,6 @@ type GameFilterProps = {
 };
 
 function GameFilter({
-  setShowFilters,
-
   minRating,
   setMinRating,
 

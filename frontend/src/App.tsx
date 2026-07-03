@@ -21,8 +21,8 @@ import Games from "./Routes/Games/Games";
 import Home from "./Routes/Home";
 import Dashboard from "./Routes/Dashboard";
 
-import { ChatProvider } from "./chat/ChatContext";
-import Chat from "./chat/Chat";
+import { ChatProvider } from "./Chat/ChatContext";
+import Chat from "./Chat/Chat";
 
 import TermsOfService from "./Footer/Routes/TermsOfService";
 import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
@@ -63,10 +63,10 @@ function Layout() {
     <>
       {!hideHeader && (
         <Header
-            showSearch={showSearch}
-            setShowSearch={setShowSearch}
-            myCurrUser={myCurrUser}
-          />
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          myCurrUser={myCurrUser}
+        />
       )}
 
       <main className="flex-1">
@@ -79,13 +79,13 @@ function Layout() {
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Home />} />
             <Route
-            path="register"
-            element={<SignUp setMyCurrUser={setMyCurrUser} />}
-          />
+              path="register"
+              element={<SignUp setMyCurrUser={setMyCurrUser} />}
+            />
             <Route
-            path="login"
-            element={<Login setMyCurrUser={setMyCurrUser} />}
-          />
+              path="login"
+              element={<Login setMyCurrUser={setMyCurrUser} />}
+            />
             <Route path="oauth/callback" element={<OAuthCallback />} />
             <Route
               path="oauth/username-picker"
@@ -97,12 +97,18 @@ function Layout() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="games" element={<Games />} />
             <Route
-            path="user/:username"
-            element={
-              <Profile myCurrUser={myCurrUser} setMyCurrUser={setMyCurrUser} />
+              path="user/:username"
+              element={
+                <Profile
+                  myCurrUser={myCurrUser}
+                  setMyCurrUser={setMyCurrUser}
+                />
               }
-          />
-          <Route path="game/:name" element={<Game myCurrUser={myCurrUser} />} />
+            />
+            <Route
+              path="game/:name"
+              element={<Game myCurrUser={myCurrUser} />}
+            />
             <Route path="chat" element={<Chat />} />
           </Route>
         </Routes>
