@@ -111,8 +111,8 @@ function Games() {
       </div>{" "}
       <div className="">
         <FaGear
-          size={30}
-          className="cursor-pointer text-primary ml-auto mr-6 mt-2 mb-2"
+          size={25}
+          className="cursor-pointer text-primary ml-auto mr-7 mt-2 mb-2"
           onClick={() => setShowFilters(!showFilters)}
         />
       </div>
