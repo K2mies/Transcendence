@@ -14,6 +14,7 @@ type HeaderProps = {
 };
 
 function Header({ showSearch, setShowSearch }: HeaderProps) {
+  const iconSize = 18;
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
   const myUser = localStorage.getItem("user");
@@ -37,6 +38,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
     "/privacy": "Privacy Policy",
     "/rating": "Rating System",
     "/accessibility": "Accessibility",
+    "/chat": "Chat",
   };
 
   let pageTitle: string;
@@ -51,7 +53,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
   return (
     <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-4 sticky top-0 z-50">
       <h1 className="text-tertiary">{pageTitle}</h1>
-      <div className="flex items-center gap-4 ml-auto mr-5">
+      <div className="flex items-center gap-5 ml-auto mr-5">
         {myUser && (
           <div className="flex items-center ">
             <button
@@ -59,7 +61,10 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
               aria-label="Toggle search"
               onClick={() => setShowSearch(!showSearch)}
             >
-              <FaSearch size={16} className="-ml-5" />
+              <FaSearch
+                size={iconSize}
+                className="text-tertiary hover:text-secondary"
+              />
             </button>
 
             {showSearch && (
@@ -76,23 +81,60 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
             text-tertiary
             "
         >
-          <FaHome className="text-tertiary" size={16} />
+          <FaHome
+            className="text-tertiary hover:text-secondary"
+            size={iconSize}
+          />
         </Link>
         {myUsername && (
           <Link
             to={"/user/" + myUsername}
             className="
               no-underline
-              px-2
               rounded-md
               text-[var(--color-tertiary)]
               bg-[var(--color-primary)]
               transition-colors
               "
           >
-            <FaUser className="text-tertiary" size={15} />
+            <FaUser
+              className="text-tertiary hover:text-secondary"
+              size={iconSize}
+            />
           </Link>
         )}
+        {myUsername && (
+          <Link
+            to="/chat"
+            className="
+            relative
+            no-underline
+            rounded-md
+            text-[var(--color-tertiary)]
+            bg-[var(--color-primary)]
+            transition-colors
+          "
+          >
+            <SiWechat
+              className="text-tertiary hover:text-secondary"
+              size={iconSize}
+            />
+
+            {hasUnreadMessages && (
+              <span
+                className="
+                            absolute
+                            -top-1
+                            -right-1
+                            h-3 w-3
+                            rounded-full
+                            bg-[var(--color-online)]
+                            animate-pulse"
+              />
+            )}
+          </Link>
+        )}
+
         {myUsername && (
           <Link
             to="/games"
@@ -101,7 +143,10 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
               text-tertiary
               "
           >
-            <FaGamepad className="text-tertiary" size={18} />
+            <FaGamepad
+              className="text-tertiary hover:text-secondary"
+              size={iconSize}
+            />
           </Link>
         )}
       </div>

@@ -22,7 +22,7 @@ import Dashboard from "./Routes/Dashboard";
 
 import { ChatProvider } from "./chat/ChatContext";
 import Chat from "./chat/Chat";
-import TermsOfService from "./Routes/TermsOfService";
+
 import TermsOfService from "./Footer/Routes/TermsOfService";
 import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
 import RatingSystem from "./Footer/Routes/RatingSystem";
@@ -32,24 +32,26 @@ function Layout() {
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
 
+  const hideHeader =
+    location.pathname === "/" ||
+    location.pathname === "/register" ||
+    location.pathname === "/login" ||
+    location.pathname === "/oauth/callback" ||
+    location.pathname === "/oauth/username-picker";
+
   return (
     <>
-      {location.pathname !== "/" &&
-        location.pathname !== "/register" &&
-        location.pathname !== "/login" &&
-        location.pathname !== "/oauth/callback" &&
-        location.pathname !== "/oauth/username-picker" && (
-          <Header showSearch={showSearch} setShowSearch={setShowSearch} />
-        )}
+      {!hideHeader && (
+        <Header showSearch={showSearch} setShowSearch={setShowSearch} />
+      )}
+
       <main className="flex-1">
         <Routes>
           <Route path="terms" element={<TermsOfService />} />
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="rating" element={<RatingSystem />} />
           <Route path="accessibility" element={<Accessibility />} />
-        </Routes>
 
-        <Routes>
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="register" element={<SignUp />} />
@@ -61,14 +63,17 @@ function Layout() {
             />
           </Route>
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="games" element={<Games />} />
-          <Route path="user/:username" element={<Profile />} />
-          <Route path="game/:name" element={<Game />} />
-          <Route path="chat" element={<Chat />} />
-        </Route>
-      </Routes>
+          <Route element={<ProtectedRoute />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="games" element={<Games />} />
+            <Route path="user/:username" element={<Profile />} />
+            <Route path="game/:name" element={<Game />} />
+            <Route path="chat" element={<Chat />} />
+          </Route>
+        </Routes>
+      </main>
+
+      <Footer />
     </>
   );
 }

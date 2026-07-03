@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Reviews from "../Reviews";
-import UseChat from "../chat/UseChat";
+import UseChat from "../../chat/UseChat";
 import Reviews from "../../Reviews";
 import SmallGameCard from "./SmallGameCard";
 
@@ -124,7 +123,7 @@ function ProfileInfo(props) {
   const myUser = JSON.parse(localStorage.getItem("user"));
   const isMyUser = myUser.name === props.profile.name;
 
-  const {onlineUsers} = UseChat();
+  const { onlineUsers } = UseChat();
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
