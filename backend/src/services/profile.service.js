@@ -1,4 +1,5 @@
 import { prisma } from "../config/db.js";
+import { sendOnlineFriends } from "../utils/websocket.js";
 
 function filterGameInfo(games, status) {
   return games
@@ -213,6 +214,9 @@ export async function acceptFriendRequest(friendName, user) {
       friendStatus: "FRIENDS",
     },
   });
+
+	await sendOnlineFriends(friend.id);
+	await sendOnlineFriends(user);
 }
 
 /*
@@ -276,4 +280,7 @@ export async function removeFriend(friendName, user) {
       where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
     });
   }
+
+	await sendOnlineFriends(friend.id);
+	await sendOnlineFriends(user);
 }

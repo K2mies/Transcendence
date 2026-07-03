@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import Logout from "../Logout";
+import UseChat from "../chat/UseChat";
 import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { SiWechat } from "react-icons/si";
 import { useLocation } from "react-router-dom";
 
 type HeaderProps = {
@@ -14,6 +15,8 @@ type HeaderProps = {
 };
 
 function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
+  const { conversations } = UseChat();
+  const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
@@ -74,6 +77,32 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
           </Link>
         )}
 
+        <Link
+          to="/chat"
+          className="
+            relative
+            no-underline
+            px-2
+            rounded-md
+            text-[var(--color-tertiary)]
+            bg-[var(--color-primary)]
+            transition-colors
+          "
+        >
+        <SiWechat className="text-tertiary" size={18} />
+
+        {hasUnreadMessages && (
+          <span className="
+                            absolute
+                            -top-1
+                            -right-1
+                            h-3 w-3
+                            rounded-full
+                            bg-[var(--color-online)]
+                            animate-pulse"
+          />
+        )}
+        </Link>
         <Link
           to="/games"
           className="

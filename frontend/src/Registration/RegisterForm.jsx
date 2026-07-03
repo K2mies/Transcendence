@@ -72,6 +72,7 @@ const RegisterForm = ({ setMyCurrUser }) => {
           setRegisterStatus("Registration was successful!");
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", JSON.stringify(result.data.user));
+          window.dispatchEvent(new Event("auth-changed"));
           setMyCurrUser(result.data.user.name);
           navigate("/dashboard");
         } else setRegisterStatus(result.error);

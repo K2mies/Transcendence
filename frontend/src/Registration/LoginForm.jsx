@@ -40,6 +40,7 @@ const LoginForm = ({ setMyCurrUser }) => {
       localStorage.setItem("user", JSON.stringify(result.data.user));
       setMyCurrUser(result.data.user.name);
 
+      window.dispatchEvent(new Event("auth-changed"));
       navigate("/dashboard");
     } catch (error) {
       setLoginError(error.message);
