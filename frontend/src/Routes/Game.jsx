@@ -131,11 +131,12 @@ function Game() {
   const { name } = useParams();
 
   useEffect(() => {
-    if (!name) return;
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${name}`, {
-        credentials: "include",
-      });
+      const response = await fetch(`http://localhost:4243/game/${name}`,
+        {
+          credentials: "include",
+        },
+	  );
       if (response.status === 200) {
         const res = await response.json();
         setIsGameFound(true);
@@ -148,7 +149,9 @@ function Game() {
       }
     }
 
-    loadGame();
+    if (name) {
+      loadGame();
+    }
   }, [name]);
   return (
     <div className="bg-secondary text-primary min-h-screen p-6">

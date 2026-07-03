@@ -4,17 +4,27 @@
 /*------------ COLOR THEME SETTINGS ------------- */
 
 /*Grey theme*/
-/*@theme {
+/* @theme {
   --color-primary: #121212;
   --color-secondary: #8f8f8f;
   --color-tertiary: #d2d2d2;
-}*/
+  --color-online: #50d210;
+} */
 
 /* Yellow Theme */
 @theme {
   --color-primary: #121212;
   --color-secondary: #c59113;
   --color-tertiary: #d2d2d2;
+  --color-online: #50d210;
+}
+
+/* Theme for MUI elements*/
+/* Unfortunately this has to be set separately, very annoying*/
+:root {
+  --app-primary: #121212;
+  --app-secondary: #c59113;
+  --app-tertiary: #d2d2d2;
 }
 
 /* Theme for MUI elements*/
@@ -26,18 +36,21 @@
 }
 
 /*Blue Theme*/
-/*@theme {
+/* @theme {
   --color-primary: #121212;
   --color-secondary: #2f00d8;
   --color-tertiary: #d2d2d2;
-}*/
+  --color-online: #50d210;
+} */
 
 /* Brighter Primary Theme */
-/*@theme {
+/* @theme {
   --color-primary: #484848;
   --color-secondary: #c59113;
   --color-tertiary: #d2d2d2;
-}*/
+  --color-online: #50d210;
+} */
+
 @layer base {
   button {
     cursor: pointer;
@@ -74,4 +87,70 @@
     border: none !important;
     align-items: start !important;
   }
+}
+
+@keyframes driftReverse {
+	0% {
+		transform: translate(0, 0) scale(1) rotate(0deg);
+	}
+	25% {
+		transform: translate(120px, -80px) scale(1.3) rotate(45deg);
+	}
+	50% {
+		transform: translate(40px, -280px) scale(1.6) rotate(90deg);
+	}
+	75% {
+		transform: translate(-100px, -100px) scale(1.3) rotate(135deg);
+	}
+	100% {
+		transform: translate(0, 0) scale(1) rotate(180deg);
+	}
+}
+
+@keyframes drift {
+	0% {
+		transform: translate(0, 0) scale(1) rotate(0deg);
+	}
+	25% {
+		transform: translate(-120px, 80px) scale(1.15) rotate(-45deg);
+	}
+	50% {
+		transform: translate(-240px, 280px) scale(1.3) rotate(-90deg);
+	}
+	75% {
+		transform: translate(100px, 100px) scale(1.15) rotate(-135deg);
+	}
+	100% {
+		transform: translate(0, 0) scale(1) rotate(-180deg);
+	}
+}
+
+@keyframes breathe {
+	0%,
+	100% {
+		opacity: 0.45;
+		filter: blur(80px);
+	}
+	50% {
+		opacity: 0.9;
+		filter: blur(120px);
+	}
+}
+
+.animate-drift {
+	animation:
+		drift 13s ease-in-out infinite,
+		breathe 5s ease-in-out infinite;
+}
+
+.animate-drift-reverse {
+	animation:
+		driftReverse 15s ease-in-out infinite,
+		breathe 12s ease-in-out infinite;
+}
+
+.animate-drift-slow {
+	animation:
+		drift 33s ease-in-out infinite,
+		breathe 12s ease-in-out infinite;
 }
