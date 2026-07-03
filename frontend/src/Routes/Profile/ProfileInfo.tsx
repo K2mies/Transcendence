@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import EditUsername from "./EditUserName";
-import EditBio from "./EditProfile";
+import EditUsername from "./EditUsername";
+import EditBio from "./EditBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import type { Profile } from "../../types";
@@ -27,7 +27,6 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         {editUsernameMode && (
           <EditUsername
             setEditUsernameMode={setEditUsernameMode}
-            myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           />
         )}

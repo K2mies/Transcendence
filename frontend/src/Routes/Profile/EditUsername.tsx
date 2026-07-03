@@ -1,23 +1,46 @@
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { TextField } from "@mui/material";
+import ControlledInput from "../../ControlledInput";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type EditUsernameProps = {
   setEditUsernameMode: (editUsernameMode: boolean) => void;
-  myCurrUser: string | null;
   setMyCurrUser: (myCurrUser: string | null) => void;
 };
 
+type FormValues = {
+  name: string;
+}
+
+const schema = z
+  .object({
+    name: z
+      .string()
+      .min(3, "Username must be at least 3 characters")
+      .max(20, "Username must be max 20 characters")
+      .regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
+      .refine((value) => !/^[_-]/.test(value), {
+        message: "Username cannot start with _ or -",
+      })
+      .refine((value) => !/[_-]$/.test(value), {
+        message: "Username cannot end with _ or -",
+      }),
+  });
+
 function EditUsername({
   setEditUsernameMode,
-  myCurrUser,
   setMyCurrUser,
 }: EditUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<boolean>(false);
 
-  async function update(formData: FormData) {
-    const newName: string | undefined = formData.get("name")?.toString();
+  const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+
+  async function update(values: FormValues) {
+    const newName = values.name;
+
     if (newName) {
       const newData: { name: string } = {
         name: newName,
@@ -47,25 +70,18 @@ function EditUsername({
         setMyCurrUser(newName);
         navigate(`/user/${encodeURIComponent(newName)}`);
         setEditUsernameMode(false);
-      } else {
-        setEditError(true);
       }
-    } else setEditError(true);
+    }
+    setEditError(true);
   }
   return (
     <>
-      <form className="flex flex-row p-2" action={update}>
-        <TextField
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "var(--color-tertiary)",
-            },
-          }}
-          type="text"
-          autoComplete="off"
+      <form className="flex flex-row p-2" onSubmit={handleSubmit(update)}>
+        <ControlledInput
+          control={control}
           name="name"
-          label="Name"
-          defaultValue={myCurrUser}
+          label="Username"
+          autoComplete="off"
         />
         <div className="flex flex-col">
           <input className="cursor-pointer" type="submit" value="Save"></input>

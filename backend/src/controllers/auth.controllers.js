@@ -40,7 +40,6 @@ const register = async (req, res) => {
 				id: user.id,
 				name: user.name,
 			},
-			// token,
 		},
 	});
 };
@@ -77,7 +76,6 @@ const login = async (req, res) => {
 				id: user.id,
 				name: user.name,
 			},
-			// token,
 		},
 	});
 };

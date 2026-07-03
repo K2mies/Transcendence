@@ -1,48 +1,57 @@
 import { TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 
-const ControlledInput = ({
+type ControlledBioInputProps = {
+  control: any;
+  name: string;
+  label: string;
+  autoComplete: string | undefined;
+  defaultValue?: string;
+}
+
+const ControlledBioInput = ({
   control,
   name,
   label,
   autoComplete,
-  type = "text",
-}) => {
+  defaultValue,
+}: ControlledBioInputProps) => {
   const {
     field,
     fieldState: { error },
   } = useController({
     name,
     control,
-    defaultValue: "",
+    defaultValue,
   });
 
   return (
-    <div className="mb-3">
+    <>
       <TextField
-        className="w-87.5"
+        className="w-full"
         label={label}
         sx={{
           "& .MuiOutlinedInput-root": {
             backgroundColor: "var(--color-tertiary)",
           },
         }}
-        type={type}
         autoComplete={autoComplete}
         onChange={(e) =>
           field.onChange(
-            type === "number" ? Number(e.target.value) : e.target.value,
+            e.target.value,
           )
         }
         onBlur={field.onBlur}
-        value={field.value}
         name={field.name}
         inputRef={field.ref}
         error={!!error}
         helperText={error?.message}
+        defaultValue={defaultValue || ""}
+        multiline
+        maxRows={10}
       />
-    </div>
+    </>
   );
 };
 
-export default ControlledInput;
+export default ControlledBioInput;

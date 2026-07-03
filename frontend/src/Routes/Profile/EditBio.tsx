@@ -1,4 +1,8 @@
-import { TextField } from "@mui/material";
+
+import ControlledBioInput from "./ControlledBioInput";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type EditBioProps = {
   setEditBioMode: (editBioMode: boolean) => void;
@@ -6,9 +10,23 @@ type EditBioProps = {
   setCurrBio: (currBio: string) => void;
 };
 
+type FormValues = {
+  bio: string;
+}
+
+const schema = z
+  .object({
+    bio: z
+      .string()
+      .max(1500, "Biography must be max 1500 characters")
+  });
+
 function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
-  async function update(formData: FormData) {
-    const newBio: string | undefined = formData.get("bio")?.toString();
+  const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+
+  async function update(values: FormValues) {
+    const newBio = values.bio;
+
     if (newBio) {
       const newData: { bio: string } = {
         bio: newBio,
@@ -24,24 +42,19 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
       if (response.status === 200) {
         await response.json();
         setCurrBio(newBio);
-      } else {
-        setEditBioMode(false);
       }
-    } else {
-      setEditBioMode(false);
     }
+    setEditBioMode(false);
   }
   return (
     <>
-      <form className="my-4 w-[50%] flex flex-row" action={update}>
-        <TextField
-          className="w-full"
-          type="text"
-          autoComplete="off"
+      <form className="my-4 w-[50%] flex flex-row" onSubmit={handleSubmit(update)}>
+        <ControlledBioInput
+          control={control}
           name="bio"
-          label="Bio"
+          label="Biography"
+          autoComplete="off"
           defaultValue={currBio}
-          multiline
         />
         <div className="flex flex-col">
           <input className="cursor-pointer" type="submit" value="Save"></input>
