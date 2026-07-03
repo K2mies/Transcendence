@@ -15,16 +15,21 @@ type HeaderProps = {
 };
 
 function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
+  const iconSize = 18;
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
     "/": "Home",
-    "/games": "Games",
-    "/dashboard": "Dashboard",
+    "/games": "GoodPlays",
+    "/dashboard": "GoodPlays",
     "/profile": "Profile",
-    "/mygames": "My Games",
+    "/terms": "Terms of Service",
+    "/privacy": "Privacy Policy",
+    "/rating": "Rating System",
+    "/accessibility": "Accessibility",
+    "/chat": "GoodPlays",
   };
 
   let pageTitle: string;
@@ -37,21 +42,29 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
     pageTitle = pageTitles[location.pathname] || "GoodPlays";
   }
   return (
-    <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-4 sticky top-0 z-50">
+    <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-6 sticky top-0 z-50">
       <h1 className="text-tertiary">{pageTitle}</h1>
+      <div className="flex items-center gap-5 ml-auto mr-5">
+        {myUser && (
+          <div className="flex items-center ">
+            <button
+              type="button"
+              aria-label="Toggle search"
+              onClick={() => setShowSearch(!showSearch)}
+            >
+              <FaSearch
+                size={iconSize}
+                className="text-tertiary hover:text-secondary"
+              />
+            </button>
 
-      <div className="flex items-center ml-auto">
-        <button type="button" aria-label="Toggle search" onClick={() => setShowSearch(!showSearch)}>
-          <FaSearch size={16} className="-ml-5" />
-        </button>
-
-        {showSearch && (
-          <div className=" w-96 ml-5">
-            <SearchBar />
+            {showSearch && (
+              <div className="w-96 ml-5">
+                <SearchBar />
+              </div>
+            )}
           </div>
         )}
-      </div>
-      <div className="flex items-center gap-6 mr-5">
         <Link
           to="/"
           className="
@@ -59,40 +72,48 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
            text-tertiary
            "
         >
-          <FaHome className="text-tertiary" size={16} />
+          <FaHome
+            className="text-tertiary hover:text-secondary"
+            size={iconSize}
+          />
         </Link>
         {myCurrUser && (
           <Link
             to={"/user/" + myCurrUser}
             className="
               no-underline
-              px-2
               rounded-md
               text-tertiary
               bg-primary
               transition-colors
-            "
+              "
           >
-            <FaUser className="text-tertiary" size={15} />
+            <FaUser
+              className="text-tertiary hover:text-secondary"
+              size={iconSize}
+            />
           </Link>
         )}
-
-        <Link
-          to="/chat"
-          className="
+        {myUsername && (
+          <Link
+            to="/chat"
+            className="
             relative
             no-underline
-            px-2
             rounded-md
             text-tertiary
             bg-primary
             transition-colors
           "
-        >
-        <SiWechat className="text-tertiary" size={18} />
+          >
+            <SiWechat
+              className="text-tertiary hover:text-secondary"
+              size={iconSize}
+            />
 
-        {hasUnreadMessages && (
-          <span className="
+            {hasUnreadMessages && (
+              <span
+                className="
                             absolute
                             -top-1
                             -right-1
@@ -100,18 +121,25 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
                             rounded-full
                             bg-online
                             animate-pulse"
-          />
+              />
+            )}
+          </Link>
         )}
-        </Link>
-        <Link
-          to="/games"
-          className="
-           no-underline
-           text-tertiary
-           "
-        >
-          <FaGamepad className="text-tertiary" size={18} />
-        </Link>
+
+        {myUsername && (
+          <Link
+            to="/games"
+            className="
+              no-underline
+              text-tertiary
+              "
+          >
+            <FaGamepad
+              className="text-tertiary hover:text-secondary"
+              size={iconSize}
+            />
+          </Link>
+        )}
       </div>
     </nav>
   );
