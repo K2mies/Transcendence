@@ -49,7 +49,7 @@ const RegisterForm = ({ setMyCurrUser }) => {
     },
   });
 
-  //this is excluding confirm password from the final object created(add any exceptions here)
+  //this is excluding confirm password from the final object created (add any exceptions here)
   const onSubmit = async (data) => {
     const { confirmPassword, ...submitData } = data;
     await fetch("http://localhost:4243/auth/register", {

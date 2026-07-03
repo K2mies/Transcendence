@@ -45,7 +45,7 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
     <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-6 sticky top-0 z-50">
       <h1 className="text-tertiary">{pageTitle}</h1>
       <div className="flex items-center gap-5 ml-auto mr-5">
-        {myUser && (
+        {myCurrUser && (
           <div className="flex items-center ">
             <button
               type="button"
@@ -94,7 +94,7 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
             />
           </Link>
         )}
-        {myUsername && (
+        {myCurrUser && (
           <Link
             to="/chat"
             className="
@@ -126,7 +126,7 @@ function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
           </Link>
         )}
 
-        {myUsername && (
+        {myCurrUser && (
           <Link
             to="/games"
             className="

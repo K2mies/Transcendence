@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
+import type { RegistrationProps } from "../types";
 
-function SignUp({ setMyCurrUser }) {
+function SignUp({ setMyCurrUser }: RegistrationProps) {
   return (
     <div className="bg-secondary flex min-h-screen flex-col items-center justify-center text-center">
       <div className="bg-tertiary p-4 rounded-lg">

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Reviews";
+import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, Game } from "../../types";
 
 type ProfileProps = {
@@ -13,34 +13,27 @@ type ProfileProps = {
 type GameProps = {
   header: string;
   games: Game[];
+  onRemove?: (game: Game) => void;
 };
 
-function DisplayGames({ header, games }: GameProps) {
+function DisplayGames({ header, games, onRemove }: GameProps) {
   return (
     <div className="mt-6">
-      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
+      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg p-5">
         {header}
       </h4>
-      <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg p-3">
-        <div className="mt-6">
-          <div className="bg-tertiary text-primary rounded-b-lg p-3">
-            <div className="relative">
-              <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2">
-                {games.map((game) => (
-                  <div key={game.id} className="shrink-0 w-25 snap-start">
-                    <img
-                      className="border-3 border-secondary w-full h-auto rounded-t-lg object-cover"
-                      src={game.image}
-                      alt={game.name}
-                    />
-                    <div className="bg-secondary text-primary p-2 rounded-b-lg text-center text-xs">
-                      <Link to={"/game/" + game.name} className="no-underline">
-                        {game.name}
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
+        <div className="">
+          <div className="bg-tertiary text-primary relative rounded-b-lg p-5">
+            <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-5 custom-scrollbar">
+              {games.map((game, index) => (
+                <SmallGameCard
+                  key={game.id}
+                  game={game}
+                  index={index}
+                  onRemove={onRemove}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -51,8 +44,54 @@ function DisplayGames({ header, games }: GameProps) {
 
 function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
+  const [favGames, setFavGames] = useState<Game[]>([]);
+  const [currGames, setCurrGames] = useState<Game[]>([]);
+  const [toPlayGames, setToPlayGames] = useState<Game[]>([]);
+  const [completedGames, setCompletedGames] = useState<Game[]>([]);
   const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
+
+  const isMyProfile = myCurrUser === username;
+
+  async function removeFavorite(game: Game) {
+    const response = await fetch(
+      `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          favorite: false,
+        }),
+      },
+    );
+
+    if (response.ok) {
+      setFavGames((games) => games.filter((g) => g.id !== game.id));
+    }
+  }
+
+  async function removeGameState(game: Game, setGames: any) {
+    const response = await fetch(
+      `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gameStatus: "NONE",
+        }),
+      },
+    );
+
+    if (response.ok) {
+      setGames((games: Game[]) => games.filter((g) => g.id !== game.id));
+    }
+  }
 
   useEffect(() => {
     if (!username) return;
@@ -67,6 +106,10 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         const res: UserProfile = await response.json();
         setIsUserFound(true);
         setProfile(res);
+        setFavGames(res.favorites);
+        setCurrGames(res.playing);
+        setToPlayGames(res.to_play);
+        setCompletedGames(res.completed);
       } else {
         setIsUserFound(false);
       }
@@ -84,31 +127,47 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
             myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           ></ProfileInfo>
-          {profile.favorites.length > 0 && (
+          {favGames.length > 0 && (
             <DisplayGames
               header="Favorite games"
-              games={profile.favorites}
+              games={favGames}
+              onRemove={isMyProfile ? removeFavorite : undefined}
             ></DisplayGames>
           )}
-          {profile.playing.length > 0 && (
+          {currGames.length > 0 && (
             <DisplayGames
               header="Currently playing"
-              games={profile.playing}
+              games={currGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCurrGames)
+                  : undefined
+              }
             ></DisplayGames>
           )}
-          {profile.to_play.length > 0 && (
+          {toPlayGames.length > 0 && (
             <DisplayGames
               header="Games to play"
-              games={profile.to_play}
+              games={toPlayGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setToPlayGames)
+                  : undefined
+              }
             ></DisplayGames>
           )}
-          {profile.completed.length > 0 && (
+          {completedGames.length > 0 && (
             <DisplayGames
               header="Completed games"
-              games={profile.completed}
+              games={completedGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCompletedGames)
+                  : undefined
+              }
             ></DisplayGames>
           )}
-          {profile.reviews.length > 0 && (
+          {profile && profile.reviews.length > 0 && (
             <Reviews
               reviews={profile.reviews}
               myCurrUser={myCurrUser}

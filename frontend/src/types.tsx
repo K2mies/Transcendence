@@ -37,3 +37,7 @@ export type FriendStatusRefresh = {
   refreshKey: number;
   setRefreshKey: (refreshKey: number) => void;
 };
+
+export type RegistrationProps = {
+  setMyCurrUser: (myCurrUser: string | undefined) => void;
+}
