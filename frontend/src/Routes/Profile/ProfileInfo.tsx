@@ -4,10 +4,10 @@ import EditBio from "./EditBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import UseChat from "../../chat/UseChat";
-import type { Profile } from "../../types";
+import type { UserProfile } from "../../types";
 
 type ProfileInfoProps = {
-  profile: Profile;
+  profile: UserProfile;
   myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
 };

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Reviews";
-import type { Profile, Game } from "../../types";
+import type { UserProfile, Game } from "../../types";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -50,7 +50,7 @@ function DisplayGames({ header, games }: GameProps) {
 }
 
 function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
-  const [profile, setProfile] = useState<Profile | undefined>(undefined);
+  const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
   const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
 
@@ -64,7 +64,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         },
       );
       if (response.status === 200) {
-        const res: Profile = await response.json();
+        const res: UserProfile = await response.json();
         setIsUserFound(true);
         setProfile(res);
       } else {

@@ -8,7 +8,7 @@ import {
 } from "@headlessui/react";
 import { Tabs, Tab, Box } from "@mui/material";
 import { ImCheckmark, ImCross } from "react-icons/im";
-import type { User, Profile } from "../../types";
+import type { User, UserProfile } from "../../types";
 
 interface CustomTabPanelProps extends React.PropsWithChildren {
   value: number;
@@ -62,7 +62,7 @@ function FriendList({
           credentials: "include",
         },
       );
-      const res: Profile = await response.json();
+      const res: UserProfile = await response.json();
       setFriendInfo({
         friends: res.friends,
         sentReqs: res.sent_reqs,
