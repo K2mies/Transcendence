@@ -147,7 +147,7 @@ const RegisterForm = ({ setMyCurrUser }) => {
         type="password"
       />
 
-      <input className="cursor-pointer" type="submit" />
+      <input className="cursor-pointer underline" type="submit" />
 
       {registerStatus !== "init" && (
         <div>
