@@ -281,7 +281,7 @@ function Profile() {
               games={toPlayGames}
               onRemove={
                 isMyProfile
-                  ? (game) => removeGameState(game, setCurrGames)
+                  ? (game) => removeGameState(game, setToPlayGames)
                   : undefined
               }
             ></DisplayGames>
@@ -292,7 +292,7 @@ function Profile() {
               games={completedGames}
               onRemove={
                 isMyProfile
-                  ? (game) => removeGameState(game, setCurrGames)
+                  ? (game) => removeGameState(game, setCompletedGames)
                   : undefined
               }
             ></DisplayGames>
