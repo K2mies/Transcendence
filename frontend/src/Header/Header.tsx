@@ -30,15 +30,14 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
 
   const pageTitles: Record<string, string> = {
     "/": "Home",
-    "/games": "Games",
-    "/dashboard": "Dashboard",
+    "/games": "GoodPlays",
+    "/dashboard": "GoodPlays",
     "/profile": "Profile",
-    "/mygames": "My Games",
     "/terms": "Terms of Service",
     "/privacy": "Privacy Policy",
     "/rating": "Rating System",
     "/accessibility": "Accessibility",
-    "/chat": "Chat",
+    "/chat": "GoodPlays",
   };
 
   let pageTitle: string;
@@ -53,7 +52,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
   return (
     <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-4 sticky top-0 z-50">
       <h1 className="text-tertiary">{pageTitle}</h1>
-      <div className="flex items-center gap-5 ml-auto mr-5">
+      <div className="flex items-center gap-6 ml-auto mr-5">
         {myUser && (
           <div className="flex items-center ">
             <button
