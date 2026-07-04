@@ -17,11 +17,10 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [editBioMode, setEditBioMode] = useState(false);
   const [currBio, setCurrBio] = useState(profile.bio);
   const isMyUser = myCurrUser === profile.name;
-
-  const { onlineUsers } = UseChat();
+  const { onlineUsers, friends } = UseChat();
 
   useEffect(() => {
-    setCurrBio(profile.bio);
+      setCurrBio(profile.bio);
   }, [profile]);
 
   return (
@@ -34,7 +33,9 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
             setMyCurrUser={setMyCurrUser}
           />
         )}
-        {!editUsernameMode && <h2 className="p-4 font-bold">{profile.name}</h2>}
+        {!editUsernameMode && (
+          <h2 className="p-4 font-bold">{profile.name}</h2>
+        )}
         {onlineUsers.has(profile.id) && (
           <span className="h-2.5 w-2.5 rounded-full bg-online" />
         )}
@@ -46,12 +47,14 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         <div className="bg-primary text-tertiary ml-auto m-6">
           {!isMyUser && (
             <FriendButton
+              key={friends.has(profile.id)}
               user={profile.name}
               myCurrUser={myCurrUser}
             ></FriendButton>
           )}
           {isMyUser && (
             <FriendList
+              key={friends}
               friends={profile.friends}
               sentReqs={profile.sent_reqs}
               recvReqs={profile.received_reqs}
@@ -74,10 +77,15 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           />
         )}
         {!editBioMode && (
-          <p className=" my-4 mr-4 max-w-[50%] text-left">{currBio}</p>
+          <p className=" my-4 mr-4 max-w-[50%] text-left">
+            {currBio}
+          </p>
         )}
         {isMyUser && !editBioMode && (
-          <button className="mt-4" onClick={() => setEditBioMode(true)}>
+          <button
+            className="mt-4"
+            onClick={() => setEditBioMode(true)}
+          >
             Edit biography
           </button>
         )}

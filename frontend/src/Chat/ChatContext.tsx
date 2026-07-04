@@ -15,6 +15,7 @@ type Conversation = {
 
 type ChatContextType = {
 	me: any | null;
+	friends: any | null;
 	conversations: Conversation[];
 	setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>;
 	sendMessage: (receiverId: number, content: string) => void;
@@ -30,6 +31,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 	const friendsMapRef = useRef<Map<number, string>>(new Map());
 
 	const [me, setMe] = useState<any>(null);
+	const [friends, setFriends] = useState<Map<number, string>>(new Map());
 	const [conversations, setConversations] = useState<Conversation[]>([]);
 	const [lastMessage, setLastMessage] = useState<any>(null);
 	const [onlineUsers, setOnlineUsers] = useState(new Set<number>());
@@ -64,6 +66,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 			const friendsMap = new Map(
 				safeFriends.map((f: any) => [f.id, f.name])
 			);
+			setFriends(friendsMap);
 			friendsMapRef.current = friendsMap;
 
 			const safeConv = Array.isArray(convData) ? convData : []; 
@@ -77,6 +80,18 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 		} catch (err) {
 			setMe(null);
 		}
+	}
+
+	async function getFriends() {
+		const friendsRes = await fetch("http://localhost:4243/user/friends", {
+			credentials: "include",
+		});
+		const friendsData = await friendsRes.json();
+		const safeFriends = Array.isArray(friendsData) ? friendsData : [];
+		const friendsMap = new Map(
+			safeFriends.map((f: any) => [f.id, f.name])
+		);
+		setFriends(friendsMap);
 	}
 
 	// ---------------- INIT ----------------
@@ -112,6 +127,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 			switch (data.type) {
 				case "online-users":
 					setOnlineUsers(new Set(Array.isArray(data.users) ? data.users : []));
+					getFriends();
 					break;
 
 				case "user-online":
@@ -202,6 +218,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 		<ChatContext.Provider
 			value={{
 				me,
+				friends,
 				conversations,
 				setConversations,
 				sendMessage,

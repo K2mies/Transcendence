@@ -84,7 +84,7 @@ const LoginForm = ({ setMyCurrUser }) => {
         type="password"
       />
 
-      <input className="cursor-pointer" type="submit" />
+      <input className="cursor-pointer underline" type="submit" />
       {loginError && <p role="alert" aria-live="assertive">{loginError}</p>}
     </form>
   );
