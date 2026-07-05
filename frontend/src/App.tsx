@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
@@ -42,15 +41,6 @@ function Layout() {
   const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!localStorage.getItem("isLoggedIn")) {
-      setMyCurrUser(undefined);
-      navigate("/dashboard");
-    }
-  }, [localStorage.getItem("isLoggedIn")]);
 
   const hideHeader =
     location.pathname === "/" ||
