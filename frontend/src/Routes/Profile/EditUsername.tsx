@@ -72,6 +72,7 @@ function EditUsername({
         setMyCurrUser(newName);
         navigate(`/user/${encodeURIComponent(newName)}`);
         setEditUsernameMode(false);
+        return;
       }
     }
     setEditError(true);

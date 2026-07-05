@@ -127,7 +127,7 @@ function FriendList({
                 {friendInfo.friends.map((friend) => (
                   <div
                     key={friend.id}
-                    className="flex flex-column justify-between"
+                    className="flex justify-between"
                   >
                     <button
                       type="button"
@@ -139,6 +139,7 @@ function FriendList({
                     </button>
                     <button
                       type="button"
+                      aria-label={`Remove ${friend.name} from friends`}
                       onClick={async () => {
                         const user: string = encodeURIComponent(friend.name);
                         const response: Response = await fetch(
@@ -165,7 +166,7 @@ function FriendList({
                 {friendInfo.recvReqs.map((friend) => (
                   <div
                     key={friend.id}
-                    className="flex flex-column justify-between"
+                    className="flex justify-between"
                   >
                     <button
                       type="button"
@@ -179,6 +180,7 @@ function FriendList({
                     <div>
                       <button
                         type="button"
+                        aria-label={`Accept friend request from ${friend.name}`}
                         className="mr-6"
                         onClick={async () => {
                           const user: string = encodeURIComponent(friend.name);
@@ -201,6 +203,7 @@ function FriendList({
                       </button>
                       <button
                         type="button"
+                        aria-label={`Decline friend request from ${friend.name}`}
                         onClick={async () => {
                           const user: string = encodeURIComponent(friend.name);
                           const response: Response = await fetch(
@@ -228,7 +231,7 @@ function FriendList({
                 {friendInfo.sentReqs.map((friend) => (
                   <div
                     key={friend.id}
-                    className="flex flex-column justify-between"
+                    className="flex justify-between"
                   >
                     <button
                       type="button"
@@ -240,6 +243,7 @@ function FriendList({
                     </button>
                     <button
                       type="button"
+                      aria-label={`Delete friend request sent to ${friend.name}`}
                       onClick={async () => {
                         const user: string = encodeURIComponent(friend.name);
                         const response: Response = await fetch(
