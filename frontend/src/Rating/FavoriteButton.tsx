@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
+type FavoriteButtonProps = {
+  game: {
+    name: string;
+    favorite?: boolean;
+  };
+  size?: number;
+};
+
 async function updateGameRelation(
   gamename: string,
   newData: { favorite: boolean },
@@ -24,7 +32,7 @@ async function updateGameRelation(
   }
 }
 
-function FavoriteButton({ game }: { game: { name: string; favorite?: boolean } }) {
+function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
   const [favoriteState, setFavoriteState] = useState(Boolean(game.favorite));
 
   function changeValue(e) {
@@ -46,7 +54,7 @@ function FavoriteButton({ game }: { game: { name: string; favorite?: boolean } }
       aria-label={favoriteState ? "Remove from favorites" : "Add to favorites"}
       onClick={changeValue}
     >
-      {favoriteState ? <FaHeart /> : <FaRegHeart />}
+      {favoriteState ? <FaHeart size={size} /> : <FaRegHeart size={size} />}
     </button>
   );
 }

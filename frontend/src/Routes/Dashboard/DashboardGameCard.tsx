@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Stars from "../../Rating/Stars";
 import FavoriteButton from "../../Rating/FavoriteButton";
 
 type Game = {
   id: number;
   name: string;
   image: string;
-  rating?: number;
+  average?: number;
+  favorite?: boolean;
 };
 
 type DashboardGameCardProps = {
@@ -46,9 +46,6 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
           alt={game.name}
         />
       </Link>
-      <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
-        <FavoriteButton game={game} />
-      </div>
       <h2
         className="
             bg-primary 
@@ -85,8 +82,8 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
           {game.name}
         </Link>
       </h2>
-      <div className="bg-primary rounded-b-lg flex justify-center p-1.5 h-7">
-        {game.rating !== undefined && <Stars rating={game.rating} size={15} />}
+      <div className="bg-primary text-secondary rounded-b-lg flex justify-end p-2">
+        <FavoriteButton game={game} size={14} />
       </div>
     </div>
   );

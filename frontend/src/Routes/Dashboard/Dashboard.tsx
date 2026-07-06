@@ -6,7 +6,8 @@ type Game = {
   name: string;
   image: string;
   count?: number;
-  rating?: number;
+  average?: number;
+  favorite?: boolean;
 };
 
 type DisplayGamesProps = {
@@ -22,11 +23,7 @@ function DisplayGames({ header, games }: DisplayGamesProps) {
       </h4>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         <div className="bg-tertiary text-primary relative rounded-b-lg p-5">
-          <div
-            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 custom-scrollbar"
-            width={10}
-            height={10}
-          >
+          <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 custom-scrollbar">
             {games.map((game, index) => (
               <DashboardGameCard key={game.id} game={game} index={index} />
             ))}
