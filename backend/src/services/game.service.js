@@ -74,8 +74,12 @@ export async function updateGameRelation(userId, newData, gameName) {
       },
     },
     update: {
-      gameStatus: newData.gameStatus,
-      favorite: newData.favorite,
+      ...(newData.gameStatus !== undefined && {
+        gameStatus: newData.gameStatus,
+      }),
+      ...(newData.favorite !== undefined && {
+        favorite: newData.favorite,
+      }),
     },
     create: {
       userId: userId,
