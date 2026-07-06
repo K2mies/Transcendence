@@ -20,7 +20,7 @@ function DisplayGames(props) {
 						alt={game.name}
 					/>
 					<div className="bg-secondary text-primary p-2 rounded-b-lg text-center text-xs">
-						<Link to={"/game/" + game.name} className="no-underline">
+						<Link to={"/game/" + encodeURIComponent(game.name)} className="no-underline">
 						{game.name}
 						</Link>
 					</div>
