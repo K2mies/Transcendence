@@ -91,7 +91,7 @@ function Games() {
           transition-all
           duration-500
           ease-in-out
-          ${showFilters ? "max-h-250 opacity-100" : "max-h-0 opacity-0"}
+          ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
         `}
       >
         <GameFilter
