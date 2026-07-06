@@ -57,12 +57,10 @@ function FriendList({
   useEffect(() => {
     async function getFriendInfo() {
       const response: Response = await fetch(
-        `http://localhost:4243/profile/${encodeURIComponent(
-          myCurrUser
-        )}`,
+        `http://localhost:4243/profile/${encodeURIComponent(myCurrUser)}`,
         {
           credentials: "include",
-        }
+        },
       );
       const res: UserProfile = await response.json();
       setFriendInfo({
@@ -77,7 +75,7 @@ function FriendList({
 
   const handleChange = (
     event: React.SyntheticEvent<Element, Event>,
-    newValue: number
+    newValue: number,
   ) => {
     setValue(newValue);
   };
@@ -101,15 +99,24 @@ function FriendList({
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <DialogPanel
               transition
-              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
+              className="relative transform overflow-hidden rounded-lg bg-tertiary text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
             >
               <DialogTitle
                 as="h2"
-                className="p-3 text-base font-semibold text-gray-900"
+                className="p-3 text-base  bg-primary text-tertiary font-semibold"
               >
                 Manage friends
               </DialogTitle>
-              <Tabs value={value} onChange={handleChange}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                textColor="inherit"
+                sx={{
+                  "& .MuiTabs-indicator": {
+                    backgroundColor: "#c59113",
+                  },
+                }}
+              >
                 <Tab
                   label={`Friends (${friendInfo.friends.length})`}
                   value={0}
@@ -125,10 +132,7 @@ function FriendList({
               </Tabs>
               <CustomTabPanel value={value} index={0}>
                 {friendInfo.friends.map((friend) => (
-                  <div
-                    key={friend.id}
-                    className="flex justify-between"
-                  >
+                  <div key={friend.id} className="flex justify-between">
                     <button
                       type="button"
                       onClick={() => {
@@ -143,12 +147,12 @@ function FriendList({
                       onClick={async () => {
                         const user: string = encodeURIComponent(friend.name);
                         const response: Response = await fetch(
-                            `http://localhost:4243/profile/${user}/remove-friend`,
-                            {
-                              method: "DELETE",
-                              credentials: "include",
-                            }
-                          );
+                          `http://localhost:4243/profile/${user}/remove-friend`,
+                          {
+                            method: "DELETE",
+                            credentials: "include",
+                          },
+                        );
                         if (response.ok) {
                           await response.json();
                           setRefreshKey(refreshKey + 1);
@@ -164,10 +168,7 @@ function FriendList({
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
                 {friendInfo.recvReqs.map((friend) => (
-                  <div
-                    key={friend.id}
-                    className="flex justify-between"
-                  >
+                  <div key={friend.id} className="flex justify-between">
                     <button
                       type="button"
                       className="justify-start"
@@ -185,12 +186,12 @@ function FriendList({
                         onClick={async () => {
                           const user: string = encodeURIComponent(friend.name);
                           const response: Response = await fetch(
-                              `http://localhost:4243/profile/${user}/accept-request`,
-                              {
-                                method: "PUT",
-                                credentials: "include",
-                              }
-                            );
+                            `http://localhost:4243/profile/${user}/accept-request`,
+                            {
+                              method: "PUT",
+                              credentials: "include",
+                            },
+                          );
                           if (response.ok) {
                             await response.json();
                             setRefreshKey(refreshKey + 1);
@@ -207,12 +208,12 @@ function FriendList({
                         onClick={async () => {
                           const user: string = encodeURIComponent(friend.name);
                           const response: Response = await fetch(
-                              `http://localhost:4243/profile/${user}/decline-request`,
-                              {
-                                method: "DELETE",
-                                credentials: "include",
-                              }
-                            );
+                            `http://localhost:4243/profile/${user}/decline-request`,
+                            {
+                              method: "DELETE",
+                              credentials: "include",
+                            },
+                          );
                           if (response.ok) {
                             await response.json();
                             setRefreshKey(refreshKey + 1);
@@ -229,10 +230,7 @@ function FriendList({
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
                 {friendInfo.sentReqs.map((friend) => (
-                  <div
-                    key={friend.id}
-                    className="flex justify-between"
-                  >
+                  <div key={friend.id} className="flex justify-between">
                     <button
                       type="button"
                       onClick={() => {
@@ -247,12 +245,12 @@ function FriendList({
                       onClick={async () => {
                         const user: string = encodeURIComponent(friend.name);
                         const response: Response = await fetch(
-                            `http://localhost:4243/profile/${user}/remove-friend`,
-                            {
-                              method: "DELETE",
-                              credentials: "include",
-                            }
-                          );
+                          `http://localhost:4243/profile/${user}/remove-friend`,
+                          {
+                            method: "DELETE",
+                            credentials: "include",
+                          },
+                        );
                         if (response.ok) {
                           await response.json();
                           setRefreshKey(refreshKey + 1);
@@ -266,7 +264,7 @@ function FriendList({
                   </div>
                 ))}
               </CustomTabPanel>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <div className="bg-secondary px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="button"
                   data-autofocus
