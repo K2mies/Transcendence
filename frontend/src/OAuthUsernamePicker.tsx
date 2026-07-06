@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ControlledInput from "./ControlledInput";
+import type { RegistrationProps } from "./types";
 
 const schema = z.object({
   name: z
@@ -21,7 +22,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-function OAuthUsernamePicker({ setMyCurrUser }) {
+function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
   const { handleSubmit, control } = useForm<FormData>({
@@ -62,6 +63,7 @@ function OAuthUsernamePicker({ setMyCurrUser }) {
             name="name"
             label="Username"
             autoComplete="off"
+            type="text"
           />
           <input type="submit" value="Continue" />
           {serverError && <p role="alert" aria-live="assertive">{serverError}</p>}
