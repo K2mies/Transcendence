@@ -6,15 +6,13 @@ type ControlledBioInputProps = {
   name: string;
   label: string;
   autoComplete: string | undefined;
-  defaultValue?: string;
-}
+};
 
 const ControlledBioInput = ({
   control,
   name,
   label,
   autoComplete,
-  defaultValue,
 }: ControlledBioInputProps) => {
   const {
     field,
@@ -22,12 +20,12 @@ const ControlledBioInput = ({
   } = useController({
     name,
     control,
-    defaultValue,
   });
 
   return (
     <>
       <TextField
+        {...field}
         className="w-full"
         label={label}
         sx={{
@@ -36,17 +34,8 @@ const ControlledBioInput = ({
           },
         }}
         autoComplete={autoComplete}
-        onChange={(e) =>
-          field.onChange(
-            e.target.value,
-          )
-        }
-        onBlur={field.onBlur}
-        name={field.name}
-        inputRef={field.ref}
         error={!!error}
         helperText={error?.message}
-        defaultValue={defaultValue || ""}
         multiline
         maxRows={10}
       />

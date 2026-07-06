@@ -1,6 +1,5 @@
-
 import ControlledBioInput from "./ControlledBioInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,18 +12,22 @@ type EditBioProps = {
 
 type FormValues = {
   bio: string;
-}
+};
 
-const schema = z
-  .object({
-    bio: z
-      .string()
-      .max(1000, "Biography must be max 1000 characters")
-  });
+const schema = z.object({
+  bio: z.string().max(1000, "Biography must be max 1000 characters"),
+});
 
 function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
-  const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const { handleSubmit, control, reset } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { bio: "" },
+  });
   const [editError, setEditError] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    reset({ bio: currBio ?? "" });
+  }, [currBio, reset]);
 
   async function update(values: FormValues) {
     const newBio = values.bio;
@@ -45,18 +48,20 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
       setCurrBio(newBio);
       setEditBioMode(false);
     } else {
-      setEditError("Error saving biography. Please try again.")
+      setEditError("Error saving biography. Please try again.");
     }
   }
   return (
     <>
-      <form className="my-4 w-[50%] flex flex-row" onSubmit={handleSubmit(update)}>
+      <form
+        className="my-4 w-[50%] flex flex-row"
+        onSubmit={handleSubmit(update)}
+      >
         <ControlledBioInput
           control={control}
           name="bio"
           label="Biography"
           autoComplete="off"
-          defaultValue={currBio}
         />
         <div className="flex flex-col">
           <input className="cursor-pointer" type="submit" value="Save"></input>
@@ -71,9 +76,7 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
           </button>
         </div>
       </form>
-      {editError && (
-        <p className="font-bold p-2 ml-3">{editError}</p>
-      )}
+      {editError && <p className="font-bold p-2 ml-3">{editError}</p>}
     </>
   );
 }
