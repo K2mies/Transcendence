@@ -1,5 +1,6 @@
 
 import ControlledBioInput from "./ControlledBioInput";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,28 +24,29 @@ const schema = z
 
 function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
   const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const [editError, setEditError] = useState<string | undefined>(undefined);
 
   async function update(values: FormValues) {
     const newBio = values.bio;
 
-    if (newBio) {
-      const newData: { bio: string } = {
-        bio: newBio,
-      };
-      const response: Response = await fetch("http://localhost:4243/profile/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(newData),
-      });
-      if (response.status === 200) {
-        await response.json();
-        setCurrBio(newBio);
-      }
+    const newData: { bio: string } = {
+      bio: newBio,
+    };
+    const response: Response = await fetch("http://localhost:4243/profile/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newData),
+    });
+    if (response.status === 200) {
+      await response.json();
+      setCurrBio(newBio);
+      setEditBioMode(false);
+    } else {
+      setEditError("Error saving biography. Please try again.")
     }
-    setEditBioMode(false);
   }
   return (
     <>
@@ -69,6 +71,9 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
           </button>
         </div>
       </form>
+      {editError && (
+        <p className="font-bold p-2 ml-3">{editError}</p>
+      )}
     </>
   );
 }

@@ -36,46 +36,46 @@ function EditUsername({
   setMyCurrUser,
 }: EditUsernameProps) {
   const navigate = useNavigate();
-  const [editError, setEditError] = useState<boolean>(false);
+  const [editError, setEditError] = useState<string | undefined>(undefined);
 
   const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   async function update(values: FormValues) {
     const newName = values.name;
 
-    if (newName) {
-      const newData: { name: string } = {
+    const newData: { name: string } = {
+      name: newName,
+    };
+    const response: Response = await fetch("http://localhost:4243/profile/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newData),
+    });
+
+    if (response.status === 200) {
+      await response.json();
+      const myUser = JSON.parse(localStorage.getItem("user") ?? "{}") as {
+        id: number;
+      };
+
+      const newUserData: { id: number; name: string } = {
+        id: myUser.id,
         name: newName,
       };
-      const response: Response = await fetch("http://localhost:4243/profile/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(newData),
-      });
 
-      if (response.status === 200) {
-        await response.json();
-        const myUser = JSON.parse(localStorage.getItem("user") ?? "{}") as {
-          id: number;
-        };
+      localStorage.setItem("user", JSON.stringify(newUserData));
 
-        const newUserData: { id: number; name: string } = {
-          id: myUser.id,
-          name: newName,
-        };
-
-        localStorage.setItem("user", JSON.stringify(newUserData));
-
-        setMyCurrUser(newName);
-        navigate(`/user/${encodeURIComponent(newName)}`);
-        setEditUsernameMode(false);
-        return;
-      }
+      setMyCurrUser(newName);
+      navigate(`/user/${encodeURIComponent(newName)}`);
+      setEditUsernameMode(false);
+    } else if (response.status === 409) {
+      setEditError("Username already exists!");
+    } else {
+      setEditError("Error saving username. Please try again.");
     }
-    setEditError(true);
   }
   return (
     <>
@@ -102,7 +102,7 @@ function EditUsername({
         </div>
       </form>
       {editError && (
-        <p className="font-bold p-2 ml-3">Username already exists!</p>
+        <p className="font-bold p-2 ml-3">{editError}</p>
       )}
     </>
   );
