@@ -46,7 +46,7 @@ function GameCard({ game, index }: GameCardProps) {
       </Link>
 
       <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
-        <FavoriteButton game={game} />
+        <FavoriteButton game={game} size={25} />
       </div>
       <h2
         className="
@@ -94,7 +94,7 @@ function GameCard({ game, index }: GameCardProps) {
         "
       >
         <p>Rating: {game.rating}</p>
-        <Stars rating={game.rating} />
+        <Stars rating={game.rating} size={30} />
       </div>
     </div>
   );
