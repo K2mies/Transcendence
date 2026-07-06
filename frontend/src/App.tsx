@@ -76,10 +76,13 @@ function Layout() {
               path="login"
               element={<Login setMyCurrUser={setMyCurrUser} />}
             />
-            <Route path="oauth/callback" element={<OAuthCallback />} />
+            <Route
+              path="oauth/callback"
+              element={<OAuthCallback setMyCurrUser={setMyCurrUser} />}
+            />
             <Route
               path="oauth/username-picker"
-              element={<OAuthUsernamePicker />}
+              element={<OAuthUsernamePicker setMyCurrUser={setMyCurrUser} />}
             />
           </Route>
 
