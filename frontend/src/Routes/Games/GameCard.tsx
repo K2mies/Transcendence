@@ -94,7 +94,7 @@ function GameCard({ game, index }: GameCardProps) {
         "
       >
         <p>Rating: {game.rating}</p>
-        <Stars rating={game.rating} />
+        <Stars rating={game.rating} size={30} />
       </div>
     </div>
   );

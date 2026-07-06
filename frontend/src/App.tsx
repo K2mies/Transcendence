@@ -18,7 +18,7 @@ import Game from "./Routes/Game";
 import Games from "./Routes/Games/Games";
 
 import Home from "./Routes/Home";
-import Dashboard from "./Routes/Dashboard";
+import Dashboard from "./Routes/Dashboard/Dashboard";
 
 import { ChatProvider } from "./chat/ChatContext";
 import Chat from "./chat/Chat";
