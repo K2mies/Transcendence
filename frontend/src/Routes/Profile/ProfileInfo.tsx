@@ -54,7 +54,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           )}
           {isMyUser && (
             <FriendList
-              key={friends}
+              key={friends.size}
               friends={profile.friends}
               sentReqs={profile.sent_reqs}
               recvReqs={profile.received_reqs}
