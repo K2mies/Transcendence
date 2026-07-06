@@ -77,9 +77,11 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           />
         )}
         {!editBioMode && (
-          <p className=" my-4 mr-4 max-w-[50%] text-left">
-            {currBio}
-          </p>
+          <div className="whitespace-pre-wrap">
+            <p className="my-4 mr-4 max-w-[50%] text-left">
+              {currBio}
+            </p>
+          </div>
         )}
         {isMyUser && !editBioMode && (
           <button
