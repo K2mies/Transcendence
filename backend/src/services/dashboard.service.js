@@ -34,7 +34,7 @@ async function getTopRatedGames()
 		let sum = 0;
 		for (let i = 0; i < g.reviews.length; i++)
 			sum += g.reviews[i].rating;
-			let average = null
+		let average = null
 		if (g.reviews.length !== 0)
 			average = sum / g.reviews.length
 		return {
@@ -107,7 +107,7 @@ async function getTrendingGames()
 		return trending;
 }
 
-export async function getDashboard(profileName) {
+export async function getDashboard() {
 	const [trending, topRated, mostPlayed, newestReleases] = await Promise.all([
 		getTrendingGames(),
 		getTopRatedGames(),

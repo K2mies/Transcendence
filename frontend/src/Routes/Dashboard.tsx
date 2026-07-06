@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 function DisplayGames(props) {
 	return (
@@ -43,7 +42,7 @@ function Dashboard() {
 	const [newestGames, setNewestGames] = useState([]);
 
 	useEffect(() => {
-	async function loadHome() {
+	async function loadDashboard() {
 		const response = await fetch(
 		`http://localhost:4243/dashboard`,
 		{
@@ -58,9 +57,8 @@ function Dashboard() {
 		setNewestGames(res.newestReleases);
 		}
 	}
-
-	loadHome();
-	},)
+	loadDashboard();
+	}, []);
 
 	return (
 	<div className="bg-secondary p-6 min-h-screen">
