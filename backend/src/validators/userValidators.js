@@ -37,7 +37,7 @@ const loginUserSchema = z.object({
 		.regex(/^\S+$/, "Password cannot contain spaces")
 })
 
-const updateUsernameSchema = z.object({
+const updateProfileSchema = z.object({
 	name: z
 		.string()
 		.min(3, "Username must be at least 3 characters")
@@ -49,6 +49,9 @@ const updateUsernameSchema = z.object({
 		.refine((value) => !/[_-]$/.test(value), {
 			message: "Username cannot end with _ or -",
 		}),
-});
+  bio: z
+    .string()
+    .max(1000, "Biography must be max 1000 characters")
+  });
 
-export {registerToUserSchema, loginUserSchema, updateUsernameSchema};
+export {registerToUserSchema, loginUserSchema, updateProfileSchema};

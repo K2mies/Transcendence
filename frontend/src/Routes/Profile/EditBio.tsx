@@ -19,7 +19,7 @@ const schema = z
   .object({
     bio: z
       .string()
-      .max(1500, "Biography must be max 1500 characters")
+      .max(1000, "Biography must be max 1000 characters")
   });
 
 function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
