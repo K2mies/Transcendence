@@ -133,6 +133,13 @@ function ProfileInfo(props) {
         body: formData
       });
   }
+  const deleteImage = async (e) => {
+    await fetch (`http://localhost:4243/profile/delete`,
+      {
+        method: "POST",
+        credentials: "include",
+      })
+  }
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex">
@@ -147,6 +154,12 @@ function ProfileInfo(props) {
           <label>
             Change photo 
             <input type="file" accept=".jpg" onChange={uploadImage} />
+          </label>
+        )}
+        {isMyUser && (
+          <label>
+            Delete photo 
+            <button onClick={deleteImage}> </button>
           </label>
         )}
         <img

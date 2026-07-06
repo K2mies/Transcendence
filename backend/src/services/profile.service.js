@@ -123,6 +123,21 @@ export async function uploadImage(profileName, imageFile) {
 	});
 }
 
+export async function deleteImage(profileName) {
+	const currentUser = await prisma.user.findUnique({ where: { name: profileName } });
+	if (!currentUser) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
+	await prisma.user.update({
+	where: { name: profileName },
+	data: {
+		image: null,
+	},
+	});
+}
+
 export async function getFriendStatus(friendName, userId, userName) {
 	const friend = await prisma.user.findUnique({ where: { name: friendName } });
 	if (!friend) {

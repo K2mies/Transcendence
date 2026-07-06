@@ -35,6 +35,17 @@ export async function uploadImage(req, res)
 	}
 }
 
+export async function deleteImage(req, res)
+{
+	const userName = req.user.name
+	try {
+		const profile = await profileService.deleteImage(userName)
+		res.status(200).json(profile);
+	} catch (error) {
+		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
+	}
+}
+
 export async function getFriendStatus(req, res)
 {
 	const friendName = req.params.name

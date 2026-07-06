@@ -8,6 +8,7 @@ const router = express.Router();
 router.get("/:name", protect, profileController.getProfile)
 router.post("/", protect, profileController.updateProfile)
 router.post('/upload', protect, upload.single('file'), profileController.uploadImage)
+router.post('/delete', protect, profileController.deleteImage)
 
 router.get("/:name/friend-status", protect, profileController.getFriendStatus)
 router.post("/:name/friend-request", protect, profileController.addFriend)
