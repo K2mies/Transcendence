@@ -13,7 +13,7 @@ import { validateRequest } from "../middlewares/validateRequest.js";
 import {
   registerToUserSchema,
   loginUserSchema,
-  updateProfileSchema,
+  updateUsernameSchema,
 } from "../validators/userValidators.js";
 
 const router = express.Router();
@@ -25,7 +25,7 @@ router.get("/me", protect, getMe);
 router.patch(
   "/username",
   protect,
-  validateRequest(updateProfileSchema),
+  validateRequest(updateUsernameSchema),
   updateUsername,
 );
 
