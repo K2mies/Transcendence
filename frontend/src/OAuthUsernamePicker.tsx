@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ControlledInput from "./ControlledInput";
+import type { RegistrationProps } from "./types";
 
 const schema = z.object({
   name: z
@@ -21,7 +22,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-function OAuthUsernamePicker() {
+function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
   const { handleSubmit, control } = useForm<FormData>({
@@ -41,6 +42,9 @@ function OAuthUsernamePicker() {
     if (result.status === "success") {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("user", JSON.stringify(result.data.user));
+      setMyCurrUser(result.data.user.name);
+
+      window.dispatchEvent(new Event("auth-changed"));
       navigate("/dashboard");
     } else {
       setServerError(result.error || "Failed to set username");
@@ -59,6 +63,7 @@ function OAuthUsernamePicker() {
             name="name"
             label="Username"
             autoComplete="off"
+            type="text"
           />
           <input type="submit" value="Continue" />
           {serverError && <p role="alert" aria-live="assertive">{serverError}</p>}

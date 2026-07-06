@@ -36,7 +36,7 @@ const schema = z
     path: ["confirmPassword"],
   });
 
-const RegisterForm = () => {
+const RegisterForm = ({ setMyCurrUser }) => {
   const navigate = useNavigate();
   const [registerStatus, setRegisterStatus] = useState("init");
   const { handleSubmit, control } = useForm({
@@ -49,7 +49,7 @@ const RegisterForm = () => {
     },
   });
 
-  //this is excluding confirm password from the final object created(add any exceptions here)
+  //this is excluding confirm password from the final object created (add any exceptions here)
   const onSubmit = async (data) => {
     const { confirmPassword, ...submitData } = data;
     await fetch("http://localhost:4243/auth/register", {
@@ -66,6 +66,8 @@ const RegisterForm = () => {
           setRegisterStatus("Registration was successful!");
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", JSON.stringify(result.data.user));
+          setMyCurrUser(result.data.user.name);
+
           window.dispatchEvent(new Event("auth-changed"));
           navigate("/dashboard");
         } else setRegisterStatus(result.error);
@@ -119,6 +121,7 @@ const RegisterForm = () => {
         name="name"
         label="Username"
         autoComplete="off"
+        type="text"
       />
 
       <ControlledInput
@@ -145,7 +148,7 @@ const RegisterForm = () => {
         type="password"
       />
 
-      <input type="submit" />
+      <input className="cursor-pointer underline" type="submit" />
 
       {registerStatus !== "init" && (
         <div>

@@ -47,9 +47,9 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
 
       <h2
         className="
-            bg-primary 
+            bg-primary
             text-tertiary
-            
+
             border-2
             border-primary
 
@@ -58,7 +58,7 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
             z-10
             w-full
             p-2
-            h-[3.5rem]
+            h-14
 
             flex
             items-center
@@ -68,9 +68,9 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
             opacity-0
             group-hover:opacity-100
             transition-opacity
-            
-            rounded-t-lg 
-            text-center 
+
+            rounded-t-lg
+            text-center
             text-xs
         "
       >

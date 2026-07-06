@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import type { RegistrationProps } from "./types";
 
-function OAuthCallback() {
+function OAuthCallback({ setMyCurrUser }: RegistrationProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,9 @@ function OAuthCallback() {
         if (result.status === "success") {
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("user", JSON.stringify(result.data.user));
+          setMyCurrUser(result.data.user.name);
+
+          window.dispatchEvent(new Event("auth-changed"));
           navigate("/dashboard");
         } else {
           setError(result.error || "Authentication failed");

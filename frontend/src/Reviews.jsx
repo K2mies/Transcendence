@@ -2,18 +2,11 @@ import { Link } from "react-router-dom";
 import Stars from "./Rating/Stars";
 
 function Reviews(props) {
-  const myUser = localStorage.getItem("user");
-  let myUsername = null;
-  if (myUser) {
-    try {
-      myUsername = JSON.parse(myUser).name ?? null;
-    } catch {
-      myUsername = null;
-    }
-  }
   let addMyReview;
-  if (props.page === "game" && myUsername) {
-    const findMyReview = props.reviews.find((r) => r.user.name === myUsername);
+  if (props.page === "game" && props.myCurrUser) {
+    const findMyReview = props.reviews.find(
+      (r) => r.user.name === props.myCurrUser,
+    );
     addMyReview = findMyReview ? false : true;
   } else {
     addMyReview = false;

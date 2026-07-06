@@ -32,17 +32,15 @@ const register = async (req, res) => {
   // Generate JWT token
   const token = generateToken(user.id, res);
 
-  res.status(201).json({
-    status: "success",
-    data: {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-      token,
-    },
-  });
+	res.status(201).json({
+		status: "success",
+		data: {
+			user: {
+				id: user.id,
+				name: user.name,
+			},
+		},
+	});
 };
 
 const login = async (req, res) => {
@@ -70,17 +68,15 @@ const login = async (req, res) => {
   // Generate JWT token
   const token = generateToken(user.id, res);
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: email,
-      },
-      token,
-    },
-  });
+	res.status(200).json({
+		status: "success",
+		data: {
+			user: {
+				id: user.id,
+				name: user.name,
+			},
+		},
+	});
 };
 
 const logout = async (req, res) => {

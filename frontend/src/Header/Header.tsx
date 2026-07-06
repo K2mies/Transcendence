@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import UseChat from "../chat/UseChat";
+import UseChat from "../Chat/UseChat";
 import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
@@ -11,21 +11,13 @@ import { useLocation } from "react-router-dom";
 type HeaderProps = {
   showSearch: boolean;
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  myCurrUser: string | undefined;
 };
 
-function Header({ showSearch, setShowSearch }: HeaderProps) {
+function Header({ showSearch, setShowSearch, myCurrUser }: HeaderProps) {
   const iconSize = 18;
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
-  const myUser = localStorage.getItem("user");
-  let myUsername: string | null = null;
-  if (myUser) {
-    try {
-      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? null;
-    } catch {
-      myUsername = null;
-    }
-  }
   const location = useLocation();
 
   const pageTitles: Record<string, string> = {
@@ -53,7 +45,7 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
     <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-6 sticky top-0 z-50">
       <h1 className="text-tertiary">{pageTitle}</h1>
       <div className="flex items-center gap-5 ml-auto mr-5">
-        {myUser && (
+        {myCurrUser && (
           <div className="flex items-center ">
             <button
               type="button"
@@ -76,23 +68,23 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
         <Link
           to="/"
           className="
-            no-underline 
-            text-tertiary
-            "
+           no-underline
+           text-tertiary
+           "
         >
           <FaHome
             className="text-tertiary hover:text-secondary"
             size={iconSize}
           />
         </Link>
-        {myUsername && (
+        {myCurrUser && (
           <Link
-            to={"/user/" + myUsername}
+            to={"/user/" + myCurrUser}
             className="
               no-underline
               rounded-md
-              text-[var(--color-tertiary)]
-              bg-[var(--color-primary)]
+              text-tertiary
+              bg-primary
               transition-colors
               "
           >
@@ -102,15 +94,15 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
             />
           </Link>
         )}
-        {myUsername && (
+        {myCurrUser && (
           <Link
             to="/chat"
             className="
             relative
             no-underline
             rounded-md
-            text-[var(--color-tertiary)]
-            bg-[var(--color-primary)]
+            text-tertiary
+            bg-primary
             transition-colors
           "
           >
@@ -127,14 +119,14 @@ function Header({ showSearch, setShowSearch }: HeaderProps) {
                             -right-1
                             h-3 w-3
                             rounded-full
-                            bg-[var(--color-online)]
+                            bg-online
                             animate-pulse"
               />
             )}
           </Link>
         )}
 
-        {myUsername && (
+        {myCurrUser && (
           <Link
             to="/games"
             className="

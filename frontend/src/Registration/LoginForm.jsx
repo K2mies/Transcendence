@@ -10,7 +10,7 @@ const schema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ setMyCurrUser }) => {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(null);
   const { handleSubmit, control } = useForm({
@@ -38,6 +38,7 @@ const LoginForm = () => {
 
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("user", JSON.stringify(result.data.user));
+      setMyCurrUser(result.data.user.name);
 
       window.dispatchEvent(new Event("auth-changed"));
       navigate("/dashboard");
@@ -83,7 +84,7 @@ const LoginForm = () => {
         type="password"
       />
 
-      <input type="submit" />
+      <input className="cursor-pointer underline" type="submit" />
       {loginError && <p role="alert" aria-live="assertive">{loginError}</p>}
     </form>
   );

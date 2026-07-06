@@ -109,11 +109,11 @@ function Games() {
           developer={developer}
           setDeveloper={setDeveloper}
         />
-      </div>{" "}
-      <div className="">
+      </div>
+      <div>
         <FaGear
           size={30}
-          className="cursor-pointer text-primary ml-auto mr-7 mt-2 mb-2"
+          className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
           onClick={() => setShowFilters(!showFilters)}
         />
       </div>

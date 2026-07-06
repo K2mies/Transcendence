@@ -20,8 +20,8 @@ import Games from "./Routes/Games/Games";
 import Home from "./Routes/Home";
 import Dashboard from "./Routes/Dashboard/Dashboard";
 
-import { ChatProvider } from "./chat/ChatContext";
-import Chat from "./chat/Chat";
+import { ChatProvider } from "./Chat/ChatContext";
+import Chat from "./Chat/Chat";
 
 import TermsOfService from "./Footer/Routes/TermsOfService";
 import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
@@ -29,6 +29,16 @@ import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
 function Layout() {
+  const myUser = localStorage.getItem("user");
+  let myUsername: string | undefined = undefined;
+  if (myUser) {
+    try {
+      myUsername = (JSON.parse(myUser) as { name?: string }).name ?? undefined;
+    } catch {
+      myUsername = undefined;
+    }
+  }
+  const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
 
@@ -42,7 +52,11 @@ function Layout() {
   return (
     <>
       {!hideHeader && (
-        <Header showSearch={showSearch} setShowSearch={setShowSearch} />
+        <Header
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          myCurrUser={myCurrUser}
+        />
       )}
 
       <main className="flex-1">
@@ -54,20 +68,40 @@ function Layout() {
 
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Home />} />
-            <Route path="register" element={<SignUp />} />
-            <Route path="login" element={<Login />} />
-            <Route path="oauth/callback" element={<OAuthCallback />} />
+            <Route
+              path="register"
+              element={<SignUp setMyCurrUser={setMyCurrUser} />}
+            />
+            <Route
+              path="login"
+              element={<Login setMyCurrUser={setMyCurrUser} />}
+            />
+            <Route
+              path="oauth/callback"
+              element={<OAuthCallback setMyCurrUser={setMyCurrUser} />}
+            />
             <Route
               path="oauth/username-picker"
-              element={<OAuthUsernamePicker />}
+              element={<OAuthUsernamePicker setMyCurrUser={setMyCurrUser} />}
             />
           </Route>
 
           <Route element={<ProtectedRoute />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="games" element={<Games />} />
-            <Route path="user/:username" element={<Profile />} />
-            <Route path="game/:name" element={<Game />} />
+            <Route
+              path="user/:username"
+              element={
+                <Profile
+                  myCurrUser={myCurrUser}
+                  setMyCurrUser={setMyCurrUser}
+                />
+              }
+            />
+            <Route
+              path="game/:name"
+              element={<Game myCurrUser={myCurrUser} />}
+            />
             <Route path="chat" element={<Chat />} />
           </Route>
         </Routes>
