@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DashboardGameCard from "./DashboardGameCard";
+import { useFavorites } from "../../Rating/FavoritesContext";
 
 type Game = {
   id: number;
@@ -35,6 +36,8 @@ function DisplayGames({ header, games }: DisplayGamesProps) {
 }
 
 function Dashboard() {
+  const { setInitialFavorites } = useFavorites();
+
   const [trendingGames, setTrendingGames] = useState<Game[]>([]);
   const [topRatedGames, setTopRatedGames] = useState<Game[]>([]);
   const [mostPlayedGames, setMostPlayedGames] = useState<Game[]>([]);
@@ -51,6 +54,19 @@ function Dashboard() {
         setTopRatedGames(res.topRated);
         setMostPlayedGames(res.mostPlayed);
         setNewestGames(res.newestReleases);
+
+        const allGames: Game[] = [
+          ...res.trending,
+          ...res.topRated,
+          ...res.mostPlayed,
+          ...res.newestReleases,
+        ];
+
+        const initialFavoriteIds = allGames
+          .filter((game) => game.favorite)
+          .map((game) => game.id);
+
+        setInitialFavorites(initialFavoriteIds);
       }
     }
     loadDashboard();

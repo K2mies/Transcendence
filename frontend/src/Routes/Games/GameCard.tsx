@@ -51,7 +51,7 @@ function GameCard({ game, index }: GameCardProps) {
       <h2
         className="
           absolute
-          bottom-[3.4rem]
+          bottom-[4rem]
           left-0
           z-10
           w-full

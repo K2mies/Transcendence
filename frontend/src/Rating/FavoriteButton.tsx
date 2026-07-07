@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { useFavorites } from "./FavoritesContext";
 
 type FavoriteButtonProps = {
   game: {
+    id: number;
     name: string;
     favorite?: boolean;
   };
@@ -28,24 +29,32 @@ async function updateGameRelation(
   );
 
   if (response.status !== 200) {
-    console.error("Error updating game relation");
+    throw new Error("Error updating game relation");
   }
 }
 
 function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
-  const [favoriteState, setFavoriteState] = useState(Boolean(game.favorite));
+  const { isFavorite, setFavorite } = useFavorites();
 
-  function changeValue(e) {
+  const favoriteState = isFavorite(game.id);
+
+  async function changeValue(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     e.stopPropagation();
 
     const newValue = !favoriteState;
 
-    setFavoriteState(newValue);
+    setFavorite(game.id, newValue);
 
-    updateGameRelation(game.name, {
-      favorite: newValue,
-    });
+    try {
+      await updateGameRelation(game.name, {
+        favorite: newValue,
+      });
+    } catch (error) {
+      console.error(error);
+
+      setFavorite(game.id, favoriteState);
+    }
   }
 
   return (

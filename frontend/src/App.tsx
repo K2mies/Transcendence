@@ -28,6 +28,8 @@ import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
 import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
+import { FavoritesProvider } from "./Rating/FavoritesContext";
+
 function Layout() {
   const myUser = localStorage.getItem("user");
   let myUsername: string | undefined = undefined;
@@ -117,7 +119,9 @@ function App() {
   return (
     <BrowserRouter>
       <ChatProvider>
-        <Layout />
+        <FavoritesProvider>
+          <Layout />
+        </FavoritesProvider>
       </ChatProvider>
     </BrowserRouter>
   );
