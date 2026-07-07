@@ -6,7 +6,7 @@ import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
 import { FaEdit } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-import { FaPerson } from "react-icons/fa6";
+import { IoPerson } from "react-icons/io5";
 import type { UserProfile } from "../../types";
 
 type ProfileInfoProps = {
@@ -106,7 +106,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           src={`data:image/jpeg;base64,${avatar}`}
           alt="Profile picture"
         ></img>
-        : <FaPerson size={150} />
+        : <IoPerson size={150} />
         }
       {isMyUser && (
         <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
