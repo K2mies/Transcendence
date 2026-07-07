@@ -201,7 +201,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }
 
   // ---------------- CLOSE SOCKET AT LOGOUT ----------------
-  async function closeSocket() {
+  function closeSocket() {
     const ws = wsRef.current;
     if (!ws || ws.readyState !== WebSocket.OPEN) return;
 

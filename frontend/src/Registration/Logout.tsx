@@ -30,7 +30,7 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
 
       window.dispatchEvent(new Event("auth-changed"));
       navigate("/");
-    } catch (error: any) {
+    } catch {
       setLogoutError(true);
     }
   }
