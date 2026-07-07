@@ -18,7 +18,7 @@ type DisplayGamesProps = {
 
 function DisplayGames({ header, games }: DisplayGamesProps) {
   return (
-    <div className="mt-6">
+    <div className="mb-6">
       <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
         {header}
       </h4>

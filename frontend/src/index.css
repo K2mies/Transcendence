@@ -112,7 +112,8 @@
     transform: translate(0, 0) scale(1) rotate(-180deg);
   }
 }
-/* Custom ScrollBar settings*/
+
+/* Custom ScrollBar settings for Chrome / Edge / Safari*/
 .custom-scrollbar::-webkit-scrollbar {
   height: 14px;
 }
