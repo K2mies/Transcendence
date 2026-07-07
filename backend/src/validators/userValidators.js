@@ -37,4 +37,18 @@ const loginUserSchema = z.object({
 		.regex(/^\S+$/, "Password cannot contain spaces")
 })
 
-export {registerToUserSchema, loginUserSchema};
+const updateUsernameSchema = z.object({
+	name: z
+		.string()
+		.min(3, "Username must be at least 3 characters")
+		.max(20, "Username must be max 20 characters")
+		.regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
+		.refine((value) => !/^[_-]/.test(value), {
+			message: "Username cannot start with _ or -",
+		})
+		.refine((value) => !/[_-]$/.test(value), {
+			message: "Username cannot end with _ or -",
+		}),
+});
+
+export {registerToUserSchema, loginUserSchema, updateUsernameSchema};

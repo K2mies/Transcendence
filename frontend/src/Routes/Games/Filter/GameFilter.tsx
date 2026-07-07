@@ -12,8 +12,6 @@ import DeveloperTags from "./DeveloperTags";
 import RatingSelector from "./RatingSelector";
 import SortSelector from "./SortSelector";
 
-import { FaGear } from "react-icons/fa6";
-
 type GameFilterProps = {
   setShowFilters: (show: boolean) => void;
 
@@ -37,8 +35,6 @@ type GameFilterProps = {
 };
 
 function GameFilter({
-  setShowFilters,
-
   minRating,
   setMinRating,
 
@@ -58,7 +54,7 @@ function GameFilter({
   setDeveloper,
 }: GameFilterProps) {
   return (
-    <div className=" bg-primary mb-6 flex flex-wrap items-center gap-4 p-6">
+    <div className=" bg-primary flex flex-wrap items-center gap-4 p-6">
       <GenreTags genres={genres} setGenres={setGenres} />
 
       <PlatformTags platforms={platforms} setPlatforms={setPlatforms} />
@@ -76,14 +72,6 @@ function GameFilter({
       <RatingSelector minRating={minRating} setMinRating={setMinRating} />
 
       <SortSelector sortBy={sortBy} setSortBy={setSortBy} />
-
-      <div className="flex justify-end ml-auto mr-3">
-        <FaGear
-          size={30}
-          className="text-tertiary cursor-pointer"
-          onClick={() => setShowFilters(false)}
-        />
-      </div>
     </div>
   );
 }

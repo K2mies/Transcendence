@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import gameRoutes from "./routes/game.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 import gamesRoutes from "./routes/games.routes.js";
 import searchRoutes from "./routes/search.routes.js";
 import { protect } from "./utils/protectJWT.js";
@@ -45,6 +46,7 @@ app.use("/user", protect, userRoutes);
 app.use("/profile", profileRoutes);
 app.use("/games", searchRoutes);
 app.use("/game", gameRoutes);
+app.use("/dashboard", dashboardRoutes);
 app.use("/message", protect, messageRoutes);
 app.use("/search", protect, gamesRoutes);
 

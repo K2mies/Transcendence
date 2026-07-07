@@ -45,7 +45,7 @@ async function updateGameRelation(gamename, newData) {
 }
 
 function Status({ game }) {
-  const [currentStatus, setCurrentStatus] = useState(game.gameStatus || "");
+  const [currentStatus, setCurrentStatus] = useState(game.gameStatus);
   const gamename = game.name;
 
   function changeStatus(e) {
@@ -56,7 +56,7 @@ function Status({ game }) {
   return (
     <div className="flex flex-row">
       <select value={currentStatus} onChange={changeStatus}>
-        <option value="" disabled>
+        <option value="NONE">
           Choose status
         </option>
         <option value="WANT_TO_PLAY">Want to play</option>
@@ -73,8 +73,7 @@ function GameInfo(props) {
     <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg p-2">
         <div className="flex justify-between">
-          <div className="flex">
-            <h2 className="mr-20">{props.game.name}</h2>
+          <div className="flex p-2">
             <FavoriteButton game={props.game} />
           </div>
           <Status key={props.game.name} game={props.game}></Status>
@@ -122,7 +121,7 @@ function GameInfo(props) {
   );
 }
 
-function Game() {
+function Game({ myCurrUser }) {
   const [game, setGame] = useState({});
   const [reviews, setReviews] = useState([]);
   const [reviewAverage, setReviewAverage] = useState([]);
@@ -131,7 +130,6 @@ function Game() {
   const { name } = useParams();
 
   useEffect(() => {
-    if (!name) return;
     async function loadGame() {
       const response = await fetch(`http://localhost:4243/game/${name}`, {
         credentials: "include",
@@ -148,7 +146,9 @@ function Game() {
       }
     }
 
-    loadGame();
+    if (name) {
+      loadGame();
+    }
   }, [name]);
   return (
     <div className="bg-secondary text-primary min-h-screen p-6">
@@ -161,6 +161,7 @@ function Game() {
             reviewAverage={reviewAverage}
             rating={rating}
             page="game"
+            myCurrUser={myCurrUser}
           ></Reviews>
         </div>
       )}

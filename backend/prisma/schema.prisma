@@ -81,6 +81,7 @@ model Review {
   rating      Int
   likeReviews LikeReview[]
   platformId  Int?
+  createdAt   DateTime           @default(now())
   game        Game         @relation(fields: [gameId], references: [id], onDelete: Cascade)
   platform    Platform?     @relation(fields: [platformId], references: [id], onDelete: Cascade)
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -93,6 +94,7 @@ model UserGameRelation {
   gameId     Int
   gameStatus GameStatus?
   favorite   Boolean    @default(false)
+  createdAt  DateTime   @default(now())
   game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -126,6 +128,7 @@ model Message {
   receiverId Int
   content    String
   createdAt  DateTime         @default(now())
+  read       Boolean          @default(false)
   sender     User             @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
   receiver   User             @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
 
@@ -134,6 +137,7 @@ model Message {
 }
 
 enum GameStatus {
+  NONE
   WANT_TO_PLAY
   PLAYING
   COMPLETED
