@@ -1,12 +1,9 @@
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "./FavoritesContext";
+import type { Game } from "../Types/GameType";
 
 type FavoriteButtonProps = {
-  game: {
-    id: number;
-    name: string;
-    favorite?: boolean;
-  };
+  game: Game;
   size?: number;
 };
 

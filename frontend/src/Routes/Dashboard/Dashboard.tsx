@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardGameCard from "./DashboardGameCard";
 import { useFavorites } from "../../Rating/FavoritesContext";
-
-type Game = {
-  id: number;
-  name: string;
-  image: string;
-  count?: number;
-  average?: number;
-  favorite?: boolean;
-};
+import type { Game } from "../../Types/GameType";
 
 type DisplayGamesProps = {
   header: string;

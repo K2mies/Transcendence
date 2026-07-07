@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Reviews";
 import SmallGameCard from "./SmallGameCard";
@@ -73,7 +73,10 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
     }
   }
 
-  async function removeGameState(game: Game, setGames: any) {
+  async function removeGameState(
+    game: Game,
+    setGames: Dispatch<SetStateAction<Game[]>>,
+  ) {
     const response = await fetch(
       `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
       {

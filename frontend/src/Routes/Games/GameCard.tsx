@@ -2,16 +2,10 @@ import { Link } from "react-router-dom";
 import Stars from "../../Rating/Stars";
 import FavoriteButton from "../../Rating/FavoriteButton";
 import { useEffect, useState } from "react";
+import type { Game } from "../../Types/GameType";
 
 type GameCardProps = {
-  game: {
-    id: number;
-    name: string;
-    imageBig: string;
-    developer: string | null;
-    rating: number;
-    favorite: boolean;
-  };
+  game: Game;
   index: number;
 };
 
