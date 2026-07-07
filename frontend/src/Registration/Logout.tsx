@@ -36,7 +36,7 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
   }
   return (
     <div>
-      <button type="button" onClick={logMeOut}>
+      <button type="button" onClick={logMeOut} aria-label="Logout">
         <TbLogout
           className="text-tertiary hover:text-secondary mt-1.5 stroke-3"
           size={18}

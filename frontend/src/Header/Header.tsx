@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import UseChat from "../Chat/UseChat";
-import Logout from "../Registration/Logout"
+import Logout from "../Registration/Logout";
 import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
@@ -16,7 +16,12 @@ type HeaderProps = {
   setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
 
-function Header({ showSearch, setShowSearch, myCurrUser, setMyCurrUser }: HeaderProps) {
+function Header({
+  showSearch,
+  setShowSearch,
+  myCurrUser,
+  setMyCurrUser,
+}: HeaderProps) {
   const iconSize = 18;
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
@@ -143,9 +148,7 @@ function Header({ showSearch, setShowSearch, myCurrUser, setMyCurrUser }: Header
           </Link>
         )}
 
-        {myCurrUser && (
-          <Logout setMyCurrUser={setMyCurrUser}></Logout>
-        )}
+        {myCurrUser && <Logout setMyCurrUser={setMyCurrUser}></Logout>}
       </div>
     </nav>
   );
