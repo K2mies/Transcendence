@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import UseChat from "../Chat/UseChat";
 import type { RegistrationProps } from "../types";
 
 function Logout({ setMyCurrUser }: RegistrationProps) {
   const [logoutError, setLogoutError] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { closeSocket } = UseChat();
 
   async function logMeOut() {
     try {
@@ -20,6 +22,7 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
       localStorage.setItem("isLoggedIn", "false");
       localStorage.removeItem("user");
       setMyCurrUser(undefined);
+      closeSocket();
 
       window.dispatchEvent(new Event("auth-changed"));
       navigate("/");
