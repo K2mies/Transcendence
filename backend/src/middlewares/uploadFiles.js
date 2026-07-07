@@ -1,13 +1,10 @@
 import multer from "multer";
 
 /**
-Define storage using multer.diskStorage
-Set the destination to the desired location.
-Set the filename function to create unique filenames
-I guess we need to store this in db as well????
-previously it was in diskstorage but since we are storing it in postgres, we use memorystorage
-so it keeps the file as a buffer in memory
-CROP IMAGE or give warning about file size.
+We use memory storage as we will save it now into buffer and then update it to the database.
+We check the filetype as we only allow jpeg.
+After this, the file then proceeds to the controller!
+cb (callback) is a function used to whether accept or reject the file.
  */
 const storage = multer.memoryStorage();
 

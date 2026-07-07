@@ -1,4 +1,5 @@
 import * as profileService from "../services/profile.service.js"
+import sharp from "sharp";
 
 export async function getProfile(req, res)
 {
@@ -23,12 +24,21 @@ export async function updateProfile(req, res)
 	}
 }
 
+/*
+With sharp we can adjust the image, we first resize it to 512 x 512 pixels.
+The fit: cover here means it centers the image if cropping happens.
+Quality just lowers the image quality so it wont take so much space.
+*/
 export async function uploadImage(req, res)
 {
 	const imageFile = req.file.buffer;
 	const userName = req.user.name
 	try {
-		const image = await profileService.uploadImage(userName, imageFile)
+		const modifiedImage = await sharp(imageFile)
+			.resize(512, 512, { fit: 'cover'})
+			.jpeg({ quality: 80})
+			.toBuffer();
+		const image = await profileService.uploadImage(userName, modifiedImage)
 		res.status(200).json(image);
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
