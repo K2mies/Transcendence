@@ -2,6 +2,7 @@ export type UserProfile = {
   id: number;
   name: string;
   bio: string;
+  image: string;
   friends: User[];
   received_reqs: User[];
   sent_reqs: User[];

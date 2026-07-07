@@ -28,8 +28,8 @@ export async function uploadImage(req, res)
 	const imageFile = req.file.buffer;
 	const userName = req.user.name
 	try {
-		const profile = await profileService.uploadImage(userName, imageFile)
-		res.status(200).json(profile);
+		const image = await profileService.uploadImage(userName, imageFile)
+		res.status(200).json(image);
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
@@ -39,8 +39,8 @@ export async function deleteImage(req, res)
 {
 	const userName = req.user.name
 	try {
-		const profile = await profileService.deleteImage(userName)
-		res.status(200).json(profile);
+		await profileService.deleteImage(userName)
+		res.status(200).json({ message: "Image deleted"});
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
