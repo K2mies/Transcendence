@@ -3,7 +3,7 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Reviews";
 import SmallGameCard from "./SmallGameCard";
-import type { UserProfile, Game } from "../../types";
+import type { UserProfile, ProfileGame } from "../../types";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -12,8 +12,8 @@ type ProfileProps = {
 
 type GameProps = {
   header: string;
-  games: Game[];
-  onRemove?: (game: Game) => void;
+  games: ProfileGame[];
+  onRemove?: (game: ProfileGame) => void;
 };
 
 function DisplayGames({ header, games, onRemove }: GameProps) {
@@ -44,16 +44,16 @@ function DisplayGames({ header, games, onRemove }: GameProps) {
 
 function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
-  const [favGames, setFavGames] = useState<Game[]>([]);
-  const [currGames, setCurrGames] = useState<Game[]>([]);
-  const [toPlayGames, setToPlayGames] = useState<Game[]>([]);
-  const [completedGames, setCompletedGames] = useState<Game[]>([]);
+  const [favGames, setFavGames] = useState<ProfileGame[]>([]);
+  const [currGames, setCurrGames] = useState<ProfileGame[]>([]);
+  const [toPlayGames, setToPlayGames] = useState<ProfileGame[]>([]);
+  const [completedGames, setCompletedGames] = useState<ProfileGame[]>([]);
   const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
 
   const isMyProfile = myCurrUser === username;
 
-  async function removeFavorite(game: Game) {
+  async function removeFavorite(game: ProfileGame) {
     const response = await fetch(
       `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
       {
@@ -74,8 +74,8 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   }
 
   async function removeGameState(
-    game: Game,
-    setGames: Dispatch<SetStateAction<Game[]>>,
+    game: ProfileGame,
+    setGames: Dispatch<SetStateAction<ProfileGame[]>>,
   ) {
     const response = await fetch(
       `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
@@ -92,7 +92,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
     );
 
     if (response.ok) {
-      setGames((games: Game[]) => games.filter((g) => g.id !== game.id));
+      setGames((games: ProfileGame[]) => games.filter((g) => g.id !== game.id));
     }
   }
 
