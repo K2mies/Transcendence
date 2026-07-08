@@ -47,7 +47,6 @@ function Dashboard() {
       });
       if (response.status === 200) {
         const res = await response.json();
-        console.log(res); //temp delete
         setTrendingGames(res.trending);
         setTopRatedGames(res.topRated);
         setMostPlayedGames(res.mostPlayed);

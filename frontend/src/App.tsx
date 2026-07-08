@@ -56,6 +56,7 @@ function Layout() {
           showSearch={showSearch}
           setShowSearch={setShowSearch}
           myCurrUser={myCurrUser}
+          setMyCurrUser={setMyCurrUser}
         />
       )}
 
