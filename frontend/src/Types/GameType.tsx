@@ -7,11 +7,16 @@ export type GameStatus =
 
 export type Review = {
   id: number;
-  userId: number;
-  username: string;
   review: string;
   rating: number;
   createdAt: string;
+
+  user: {
+    id: number;
+    name: string;
+  };
+
+  game?: string;
 };
 
 export type Game = {

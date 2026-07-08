@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
 import Reviews from "../Reviews";
 import FavoriteButton from "../Rating/FavoriteButton";
@@ -177,9 +177,9 @@ function Game({ myCurrUser }: GameProps) {
 
         setIsGameFound(true);
         setGame(res);
-        setReviews(res.reviews);
+        setReviews(res.reviews ?? []);
         setRating(res.rating);
-        setReviewAverage(res.reviewAverage);
+        setReviewAverage(res.reviewAverage ?? 0);
       } else {
         setIsGameFound(false);
       }
