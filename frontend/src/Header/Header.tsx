@@ -78,6 +78,7 @@ function Header({
            no-underline
            text-tertiary
            "
+          aria-label="Go to dashboard"
         >
           <FaHome
             className="text-tertiary hover:text-secondary"
@@ -94,6 +95,7 @@ function Header({
               bg-primary
               transition-colors
               "
+            aria-label="Go to your profile"
           >
             <FaUser
               className="text-tertiary hover:text-secondary"
@@ -111,7 +113,8 @@ function Header({
             text-tertiary
             bg-primary
             transition-colors
-          "
+            "
+            aria-label="Open chat"
           >
             <SiWechat
               className="text-tertiary hover:text-secondary"
@@ -140,6 +143,7 @@ function Header({
               no-underline
               text-tertiary
               "
+            aria-label="Go to Games page"
           >
             <FaGamepad
               className="text-tertiary hover:text-secondary"
