@@ -55,8 +55,8 @@ function EditUsername({
       body: JSON.stringify(newData),
     });
 
-    const data = await response.json();
     if (response.status === 200) {
+      await response.json();
       const myUser = JSON.parse(localStorage.getItem("user") ?? "{}") as {
         id: number;
       };
@@ -72,7 +72,7 @@ function EditUsername({
       navigate(`/user/${encodeURIComponent(newName)}`);
       setEditUsernameMode(false);
     } else {
-      setEditError(data.error);
+      setEditError("Error saving username. Please try again.");
     }
   }
   return (
