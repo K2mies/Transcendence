@@ -112,7 +112,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
         <label className="cursor-pointer" title="Upload avatar">
           <FaEdit size={15} />
-          <input type="file" accept=".jpg" className="hidden" onChange={uploadImage} />
+          <input type="file" accept=".png, .jpg" className="hidden" onChange={uploadImage} />
         </label>
         <button className="cursor-pointer" title="Delete avatar" onClick={deleteImage}>
           <ImCross size={10} />
