@@ -28,13 +28,16 @@ export async function updateProfile(req, res)
 With sharp we can adjust the image, we first resize it to 512 x 512 pixels.
 The fit: cover here means it centers the image if cropping happens.
 Quality just lowers the image quality so it wont take so much space.
+FailOn none was added as sometimes JPEG might have an extra byte in the end.
 */
 export async function uploadImage(req, res)
 {
 	const imageFile = req.file.buffer;
 	const userName = req.user.name
 	try {
-		const modifiedImage = await sharp(imageFile)
+//		const metadata = await sharp(imageFile).metadata();
+//		console.log(metadata);
+		const modifiedImage = await sharp(imageFile, { failOn: "none"})
 			.resize(512, 512, { fit: 'cover'})
 			.jpeg({ quality: 80})
 			.toBuffer();
