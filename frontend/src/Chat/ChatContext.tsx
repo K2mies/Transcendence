@@ -171,6 +171,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     return () => {
       ws.onmessage = null;
       ws.close();
+      wsRef.current = null;
     };
   }, [me?.id]);
 
@@ -206,6 +207,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     if (!ws || ws.readyState !== WebSocket.OPEN) return;
 
     ws.close();
+    wsRef.current = null;
   }
 
   return (
