@@ -35,8 +35,26 @@ export async function uploadImage(req, res)
 	const imageFile = req.file.buffer;
 	const userName = req.user.name
 	try {
-//		const metadata = await sharp(imageFile).metadata();
-//		console.log(metadata);
+		try 
+		{
+			const metadata = await sharp(imageFile).metadata();
+			console.log(metadata);
+			if (metadata.format != 'jpeg' && metadata.format != 'png')
+			{
+				const error = new Error("Only JPG or PNG images are allowed");
+				error.status = 400;
+				throw error;
+			}
+		}
+		catch (error) 
+		{
+			if (!error.status)
+			{
+				error.message = "Invalid image file"
+				error.status = 400;
+			}
+			throw error;
+		}
 		const modifiedImage = await sharp(imageFile, { failOn: "none"})
 			.resize(512, 512, { fit: 'cover'})
 			.jpeg({ quality: 80})
