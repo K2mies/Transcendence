@@ -1,31 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
 import Reviews from "../Reviews";
 import FavoriteButton from "../Rating/FavoriteButton";
+import type { Game, Review, GameStatus } from "../Types/GameType";
 
-function GameData(props) {
-  let temp = new Date(props.game.releaseDate);
+type GameDataProps = {
+  game: Game;
+};
+
+type StatusProps = {
+  game: Game;
+};
+
+type GameInfoProps = {
+  game: Game;
+};
+
+type GameProps = {
+  myCurrUser: string | undefined;
+};
+
+function GameData({ game }: GameDataProps) {
+  let temp = new Date(game.releaseDate);
   const released = temp.toLocaleDateString("fi-FI");
-  temp = new Date(props.game.updateDate);
+
+  temp = new Date(game.updateDate);
   const updated = temp.toLocaleDateString("fi-FI");
+
   return (
     <div className="text-primary text-sm ml-auto mr-10">
       <p>
-        <span style={{ fontWeight: "bold" }}>Developer:</span>{" "}
-        {props.game.developer}
+        <span className="font-bold">Developer:</span> {game.developer}
       </p>
+
       <p>
-        <span style={{ fontWeight: "bold" }}>Released:</span> {released}
+        <span className="font-bold">Released:</span> {released}
       </p>
+
       <p>
-        <span style={{ fontWeight: "bold" }}>Updated:</span> {updated}
+        <span className="font-bold">Updated:</span> {updated}
       </p>
     </div>
   );
 }
 
-async function updateGameRelation(gamename, newData) {
+async function updateGameRelation(
+  gamename: string,
+  newData: { gameStatus: GameStatus },
+) {
   const name = encodeURIComponent(gamename);
+
   const response = await fetch(
     `http://localhost:4243/game/${name}/update-game-relation`,
     {
@@ -37,6 +61,7 @@ async function updateGameRelation(gamename, newData) {
       body: JSON.stringify(newData),
     },
   );
+
   if (response.status === 200) {
     await response.json();
   } else {
@@ -44,21 +69,23 @@ async function updateGameRelation(gamename, newData) {
   }
 }
 
-function Status({ game }) {
+function Status({ game }: StatusProps) {
   const [currentStatus, setCurrentStatus] = useState(game.gameStatus);
-  const gamename = game.name;
 
-  function changeStatus(e) {
-    const newStatus = e.target.value;
+  function changeStatus(e: ChangeEvent<HTMLSelectElement>) {
+    const newStatus = e.target.value as GameStatus;
+
     setCurrentStatus(newStatus);
-    updateGameRelation(gamename, { gameStatus: newStatus });
+
+    updateGameRelation(game.name, {
+      gameStatus: newStatus,
+    });
   }
+
   return (
     <div className="flex flex-row">
       <select value={currentStatus} onChange={changeStatus}>
-        <option value="NONE">
-          Choose status
-        </option>
+        <option value="NONE">Choose status</option>
         <option value="WANT_TO_PLAY">Want to play</option>
         <option value="PLAYING">Playing</option>
         <option value="COMPLETED">Completed</option>
@@ -68,19 +95,21 @@ function Status({ game }) {
   );
 }
 
-function GameInfo(props) {
+function GameInfo({ game }: GameInfoProps) {
   return (
     <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg p-2">
         <div className="flex justify-between">
           <div className="flex p-2">
-            <FavoriteButton game={props.game} />
+            <FavoriteButton game={game} />
           </div>
-          <Status key={props.game.name} game={props.game}></Status>
+
+          <Status key={game.name} game={game} />
         </div>
+
         <div>
           <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
-            {props.game.platforms.map((platform) => (
+            {game.platforms.map((platform) => (
               <li key={platform} className="list-none">
                 <p>{platform}</p>
               </li>
@@ -88,16 +117,19 @@ function GameInfo(props) {
           </ul>
         </div>
       </div>
+
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2em] p-4 rounded-b-lg">
         <img
-          src={props.game.image}
-          alt={props.game.name}
+          src={game.image}
+          alt={game.name}
           className="rounded-xl border-5 border-secondary"
-        ></img>
+        />
+
         <div className="w-[55%]">
-          <p>{props.game.description}</p>
+          <p>{game.description}</p>
+
           <div className="lg:flex my-3 gap-x-3 text-sm lg:text-center lg:items-center">
-            {props.game.genres.map((genre) => (
+            {game.genres.map((genre) => (
               <p
                 key={genre}
                 className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2"
@@ -105,7 +137,8 @@ function GameInfo(props) {
                 {genre}
               </p>
             ))}
-            {props.game.modes.map((mode) => (
+
+            {game.modes.map((mode) => (
               <p
                 key={mode}
                 className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2"
@@ -115,32 +148,38 @@ function GameInfo(props) {
             ))}
           </div>
         </div>
-        <GameData game={props.game}></GameData>
+
+        <GameData game={game} />
       </div>
     </div>
   );
 }
 
-function Game({ myCurrUser }) {
-  const [game, setGame] = useState({});
-  const [reviews, setReviews] = useState([]);
-  const [reviewAverage, setReviewAverage] = useState([]);
-  const [rating, setRating] = useState({});
-  const [isGameFound, setIsGameFound] = useState(undefined);
-  const { name } = useParams();
+function Game({ myCurrUser }: GameProps) {
+  const [game, setGame] = useState<Game | null>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewAverage, setReviewAverage] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
+    undefined,
+  );
+
+  const { name } = useParams<{ name: string }>();
 
   useEffect(() => {
     async function loadGame() {
       const response = await fetch(`http://localhost:4243/game/${name}`, {
         credentials: "include",
       });
+
       if (response.status === 200) {
-        const res = await response.json();
+        const res: Game = await response.json();
+
         setIsGameFound(true);
         setGame(res);
-        setReviews(res.reviews);
+        setReviews(res.reviews ?? []);
         setRating(res.rating);
-        setReviewAverage(res.reviewAverage);
+        setReviewAverage(res.reviewAverage ?? 0);
       } else {
         setIsGameFound(false);
       }
@@ -150,11 +189,13 @@ function Game({ myCurrUser }) {
       loadGame();
     }
   }, [name]);
+
   return (
     <div className="bg-secondary text-primary min-h-screen p-6">
-      {isGameFound && (
-        <div>
-          <GameInfo game={game} name={name}></GameInfo>
+      {isGameFound && game && (
+        <>
+          <GameInfo game={game} />
+
           <Reviews
             key={game.name}
             reviews={reviews}
@@ -162,9 +203,10 @@ function Game({ myCurrUser }) {
             rating={rating}
             page="game"
             myCurrUser={myCurrUser}
-          ></Reviews>
-        </div>
+          />
+        </>
       )}
+
       {isGameFound === false && (
         <div>
           <p>404 Game not found</p>
