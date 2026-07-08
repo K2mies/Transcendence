@@ -44,12 +44,12 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
       body: JSON.stringify(newData),
     });
 
+    const data = await response.json();
     if (response.status === 200) {
-      await response.json();
       setCurrBio(newBio);
       setEditBioMode(false);
     } else {
-      setEditError("Error saving biography. Please try again.");
+      setEditError(data.error || "Error saving biography. Please try again.");
     }
   }
   return (
