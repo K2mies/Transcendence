@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type EditBioProps = {
-  setEditBioMode: (editBioMode: boolean) => void;
+type UpdateBioProps = {
+  setUpdateBioMode: (updateBioMode: boolean) => void;
   currBio: string;
   setCurrBio: (currBio: string) => void;
 };
@@ -18,12 +18,12 @@ const schema = z.object({
   bio: z.string().max(1000, "Biography must be max 1000 characters"),
 });
 
-function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
+function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
   const { handleSubmit, control, reset } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: { bio: "" },
   });
-  const [editError, setEditError] = useState<string | undefined>(undefined);
+  const [updateError, setUpdateError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     reset({ bio: currBio ?? "" });
@@ -47,9 +47,9 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
     const data = await response.json();
     if (response.status === 200) {
       setCurrBio(newBio);
-      setEditBioMode(false);
+      setUpdateBioMode(false);
     } else {
-      setEditError(data.error || "Error saving biography. Please try again.");
+      setUpdateError(data.error || "Error saving biography. Please try again.");
     }
   }
   return (
@@ -70,16 +70,16 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
             type="button"
             className="ml-3"
             onClick={() => {
-              setEditBioMode(false);
+              setUpdateBioMode(false);
             }}
           >
             Cancel
           </button>
         </div>
       </form>
-      {editError && <p className="font-bold p-2 ml-3">{editError}</p>}
+      {updateError && <p className="font-bold p-2 ml-3">{updateError}</p>}
     </>
   );
 }
 
-export default EditBio;
+export default UpdateBio;

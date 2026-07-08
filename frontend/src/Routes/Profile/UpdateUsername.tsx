@@ -5,8 +5,8 @@ import ControlledInput from "../../ControlledInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type EditUsernameProps = {
-  setEditUsernameMode: (editUsernameMode: boolean) => void;
+type UpdateUsernameProps = {
+  setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
   myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
@@ -30,11 +30,11 @@ const schema = z
       }),
   });
 
-function EditUsername({
-  setEditUsernameMode,
+function UpdateUsername({
+  setUpdateUsernameMode,
   myCurrUser,
   setMyCurrUser,
-}: EditUsernameProps) {
+}: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<string | undefined>(undefined);
 
@@ -70,7 +70,7 @@ function EditUsername({
 
       setMyCurrUser(newName);
       navigate(`/user/${encodeURIComponent(newName)}`);
-      setEditUsernameMode(false);
+      setUpdateUsernameMode(false);
     } else {
       setEditError(data.error || "Error saving username. Please try again.");
     }
@@ -92,7 +92,7 @@ function EditUsername({
             type="button"
             className="ml-3"
             onClick={() => {
-              setEditUsernameMode(false);
+              setUpdateUsernameMode(false);
             }}
           >
             Cancel
@@ -106,4 +106,4 @@ function EditUsername({
   );
 }
 
-export default EditUsername;
+export default UpdateUsername;
