@@ -51,4 +51,8 @@ const updateUsernameSchema = z.object({
 		}),
 });
 
-export {registerToUserSchema, loginUserSchema, updateUsernameSchema};
+const updateBioSchema = z.object({
+  bio: z.string().max(1000, "Biography must be max 1000 characters"),
+});
+
+export {registerToUserSchema, loginUserSchema, updateUsernameSchema, updateBioSchema};

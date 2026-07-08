@@ -95,7 +95,7 @@ export async function getProfile(profileName) {
   };
 }
 
-export async function updateProfile(profileName, newData) {
+export async function updateBio(profileName, newData) {
   const currentUser = await prisma.user.findUnique({
     where: { name: profileName },
   });
@@ -104,25 +104,13 @@ export async function updateProfile(profileName, newData) {
     error.status = 404;
     throw error;
   }
-  if (newData.name && profileName !== newData.name) {
-    //we check if there is ANOTHER user with the wanted name
-    const existingUser = await prisma.user.findUnique({
-      where: { name: newData.name },
-    });
-    if (existingUser) {
-      const error = new Error("Username already taken");
-      error.status = 409;
-      throw error;
-    }
-  }
-  const updateUser = await prisma.user.update({
+  const updateData = await prisma.user.update({
     where: { name: profileName },
     data: {
-      name: newData.name,
       bio: newData.bio,
     },
   });
-  return updateUser;
+  return updateData;
 }
 
 export async function getFriendStatus(friendName, userId, userName) {

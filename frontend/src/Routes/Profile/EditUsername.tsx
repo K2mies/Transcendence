@@ -46,8 +46,8 @@ function EditUsername({
     const newData: { name: string } = {
       name: newName,
     };
-    const response: Response = await fetch("http://localhost:4243/profile/", {
-      method: "POST",
+    const response: Response = await fetch("http://localhost:4243/auth/username", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,8 +55,8 @@ function EditUsername({
       body: JSON.stringify(newData),
     });
 
+    const data = await response.json();
     if (response.status === 200) {
-      await response.json();
       const myUser = JSON.parse(localStorage.getItem("user") ?? "{}") as {
         id: number;
       };
@@ -71,10 +71,8 @@ function EditUsername({
       setMyCurrUser(newName);
       navigate(`/user/${encodeURIComponent(newName)}`);
       setEditUsernameMode(false);
-    } else if (response.status === 409) {
-      setEditError("Username already exists!");
     } else {
-      setEditError("Error saving username. Please try again.");
+      setEditError(data.error);
     }
   }
   return (

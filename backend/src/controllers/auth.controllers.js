@@ -109,7 +109,7 @@ const updateUsername = async (req, res) => {
   const taken = await prisma.user.findFirst({
     where: { name, NOT: { id: req.user.id } },
   });
-  if (taken) return res.status(400).json({ error: "Username already taken" });
+  if (taken) return res.status(409).json({ error: "Username already taken" });
   const user = await prisma.user.update({
     where: { id: req.user.id },
     data: { name },

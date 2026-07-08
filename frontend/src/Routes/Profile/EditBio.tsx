@@ -43,6 +43,7 @@ function EditBio({ setEditBioMode, currBio, setCurrBio }: EditBioProps) {
       credentials: "include",
       body: JSON.stringify(newData),
     });
+
     if (response.status === 200) {
       await response.json();
       setCurrBio(newBio);

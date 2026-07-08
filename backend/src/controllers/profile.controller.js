@@ -11,12 +11,12 @@ export async function getProfile(req, res)
 	}
 }
 
-export async function updateProfile(req, res)
+export async function updateBio(req, res)
 {
 	const userName = req.user.name
 	const newData = req.body
 	try {
-		const profile = await profileService.updateProfile(userName, newData)
+		const profile = await profileService.updateBio(userName, newData)
 		res.status(200).json(profile);
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
