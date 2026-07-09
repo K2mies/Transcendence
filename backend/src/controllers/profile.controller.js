@@ -33,14 +33,12 @@ FailOn none was added as sometimes JPEG might have an extra byte in the end so w
 */
 export async function uploadImage(req, res)
 {
-	console.log("HERE");
 	const imageFile = req.file.buffer;
 	const userName = req.user.name
 	try {
 		try 
 		{
 			const metadata = await sharp(imageFile).metadata();
-			console.log(metadata);
 			if (metadata.format != 'jpeg' && metadata.format != 'png')
 			{
 				const error = new Error("Only JPG or PNG images are allowed");
@@ -62,10 +60,8 @@ export async function uploadImage(req, res)
 			.jpeg({ quality: 80})
 			.toBuffer();
 		const image = await profileService.uploadImage(userName, modifiedImage)
-		console.log("HERE1");
 		res.status(200).json(image);
 	} catch (error) {
-		console.log("HERE2");
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
@@ -75,10 +71,8 @@ export async function deleteImage(req, res)
 	const userName = req.user.name
 	try {
 		await profileService.deleteImage(userName)
-		console.log("HERE DELETE1");
 		res.status(200).json({ message: "Image deleted"});
 	} catch (error) {
-		console.log("HERE DELETE2");
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
