@@ -68,7 +68,11 @@ const ControlledInput = ({
           "& .MuiFormHelperText-root.Mui-error": {
             color: "#d32f2f",
           },
+          "& .MuiInputLabel-root": {
+            color: "black",
+          },
         }}
+
         type={type}
         autoComplete={autoComplete}
         onChange={(e) => field.onChange(e.target.value)}

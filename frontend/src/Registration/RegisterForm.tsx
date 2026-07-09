@@ -106,7 +106,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <a
         href="http://localhost:4243/auth/google"
-        className="flex items-center justify-center gap-3 w-full border border-gray-300 rounded-lg py-2 px-4 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors mt-4"
+        className="flex items-center justify-center gap-3 w-full border border-gray-300 rounded-lg py-2 px-4 bg-white text-black font-medium hover:bg-gray-50 transition-colors mt-4"
       >
         <svg
           width="18"
@@ -138,7 +138,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
 
       <div className="flex items-center gap-3 my-4">
         <hr className="flex-1 border-gray-300" />
-        <span className="text-gray-500 text-sm">OR</span>
+        <span className="text-black text-sm">OR</span>
         <hr className="flex-1 border-gray-300" />
       </div>
 
