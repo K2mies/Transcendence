@@ -29,6 +29,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
       return;
     const formData = new FormData();
     formData.append('file', file);
+	e.target.value = "";
     const response = await fetch (`http://localhost:4243/profile/upload`,
       {
         method: "POST",
@@ -56,7 +57,6 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   useEffect(() => {
       setCurrBio(profile.bio);
   }, [profile]);
-
 
 
   return (

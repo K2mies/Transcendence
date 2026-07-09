@@ -25,13 +25,15 @@ export async function updateProfile(req, res)
 }
 
 /*
-With sharp we can adjust the image, we first resize it to 512 x 512 pixels.
-The fit: cover here means it centers the image if cropping happens.
-Quality just lowers the image quality so it wont take so much space.
-FailOn none was added as sometimes JPEG might have an extra byte in the end.
+We first inspect the files metadata because we only want to allow JPG or PNG formats.
+After this we use sharp to adjust the image:
+The fit: cover means it centers the image if cropping happens.
+Quality just lowers the image quality so it won't take so much space.
+FailOn none was added as sometimes JPEG might have an extra byte in the end so we want sharp to skip that warning
 */
 export async function uploadImage(req, res)
 {
+	console.log("HERE");
 	const imageFile = req.file.buffer;
 	const userName = req.user.name
 	try {
@@ -60,8 +62,10 @@ export async function uploadImage(req, res)
 			.jpeg({ quality: 80})
 			.toBuffer();
 		const image = await profileService.uploadImage(userName, modifiedImage)
+		console.log("HERE1");
 		res.status(200).json(image);
 	} catch (error) {
+		console.log("HERE2");
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }
@@ -71,8 +75,10 @@ export async function deleteImage(req, res)
 	const userName = req.user.name
 	try {
 		await profileService.deleteImage(userName)
+		console.log("HERE DELETE1");
 		res.status(200).json({ message: "Image deleted"});
 	} catch (error) {
+		console.log("HERE DELETE2");
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}
 }

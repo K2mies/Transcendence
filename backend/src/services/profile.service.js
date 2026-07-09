@@ -139,7 +139,7 @@ export async function uploadImage(profileName, imageFile) {
 		image: imageFile,
 	},
 	});
-  return Buffer.from(updatedUser.image).toString('base64');
+	return Buffer.from(updatedUser.image).toString('base64');
 }
 
 export async function deleteImage(profileName) {
