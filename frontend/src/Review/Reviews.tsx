@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { Review as ReviewType } from "../Types/ReviewType";
 import Review from "./Review";
+import AddReview from "./AddReview";
 
 type ReviewsProps = {
   page: "game" | "profile";
@@ -25,6 +27,8 @@ function Reviews({
     addMyReview = false;
   }
 
+  const [showAddReview, setShowAddReview] = useState(false);
+
   return (
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
@@ -45,8 +49,13 @@ function Reviews({
           )}
         </div>
 
-        {addMyReview && <button>Add review</button>}
+        {addMyReview && (
+          <button onClick={() => setShowAddReview((show) => !show)}>
+            {showAddReview ? "Cancel" : "Add review"}
+          </button>
+        )}
       </div>
+      <AddReview isOpen={showAddReview} />
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {reviews.map((review) => (
