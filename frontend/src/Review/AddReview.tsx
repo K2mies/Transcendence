@@ -1,16 +1,19 @@
 import { useState } from "react";
 import RatingSelector from "../Rating/RatingSelector";
 
-import { FaEdit } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
 type AddReviewProps = {
   isOpen: boolean;
+  onSubmit: (rating: number, review: string) => void;
 };
 
-function AddReview({ isOpen }: AddReviewProps) {
+function AddReview({ isOpen, onSubmit }: AddReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+
+  const MAX_REVIEW_LENGTH = 1000;
+
   if (!isOpen) {
     return null;
   }
@@ -27,18 +30,22 @@ function AddReview({ isOpen }: AddReviewProps) {
         <textarea
           id="review"
           value={review}
+          maxLength={MAX_REVIEW_LENGTH}
           onChange={(e) => setReview(e.target.value)}
           rows={6}
           placeholder="Write your review..."
-          className="w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
+          className="text-primary w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
         />
-        <div className="mt-2 flex justify-end">
-          <span className="text-sm text-primary">{review.length}/1000</span>
+        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end">
+          <span className="text-sm text-secondary">
+            {review.length}/{MAX_REVIEW_LENGTH}
+          </span>
         </div>
 
         <button
           type="button"
           className="absolute top-0 right-0 p-2 bg-secondary rounded text-tertiary hover:text-primary"
+          onClick={() => setReview("")}
         >
           <ImCross size={10} />
         </button>
@@ -47,13 +54,14 @@ function AddReview({ isOpen }: AddReviewProps) {
       <button
         type="button"
         disabled={rating === 0 || review.trim() === ""}
+        onClick={() => onSubmit(rating, review)}
         className="
           bg-primary
           text-tertiary
           px-4
           py-2
           rounded
-          disabled:opacity-50
+          disabled:bg-secondary
           disabled:cursor-not-allowed
         "
       >

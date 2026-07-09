@@ -55,7 +55,13 @@ function Reviews({
           </button>
         )}
       </div>
-      <AddReview isOpen={showAddReview} />
+      <AddReview
+        isOpen={showAddReview}
+        onSubmit={(rating, review) => {
+          console.log(rating);
+          console.log(review);
+        }}
+      />
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {reviews.map((review) => (
