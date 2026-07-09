@@ -36,10 +36,28 @@ const schema = z
     path: ["confirmPassword"],
   });
 
-const RegisterForm = ({ setMyCurrUser }) => {
+type RegisterFormData = z.infer<typeof schema>;
+
+type RegisterFormProps = {
+  setMyCurrUser: (myCurrUser: string | undefined) => void;
+};
+
+type RegisterResponse = {
+  status: "success" | "error";
+  data: {
+    user: {
+      name: string;
+    };
+  };
+  error?: string;
+};
+
+function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
   const navigate = useNavigate();
-  const [registerStatus, setRegisterStatus] = useState("init");
-  const { handleSubmit, control } = useForm({
+
+  const [registerStatus, setRegisterStatus] = useState<string>("init");
+
+  const { handleSubmit, control } = useForm<RegisterFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
@@ -49,33 +67,41 @@ const RegisterForm = ({ setMyCurrUser }) => {
     },
   });
 
-  //this is excluding confirm password from the final object created (add any exceptions here)
-  const onSubmit = async (data) => {
-    const { confirmPassword, ...submitData } = data;
-    await fetch("http://localhost:4243/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(submitData),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status === "success") {
-          setRegisterStatus("Registration was successful!");
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("user", JSON.stringify(result.data.user));
-          setMyCurrUser(result.data.user.name);
+  async function onSubmit(data: RegisterFormData) {
+    const submitData = (({ confirmPassword, ...rest }) => rest)(data);
 
-          window.dispatchEvent(new Event("auth-changed"));
-          navigate("/dashboard");
-        } else setRegisterStatus(result.error);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      const response = await fetch("http://localhost:4243/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(submitData),
       });
-  };
+
+      const result: RegisterResponse = await response.json();
+
+      if (result.status === "success") {
+        setRegisterStatus("Registration was successful!");
+
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("user", JSON.stringify(result.data.user));
+
+        setMyCurrUser(result.data.user.name);
+
+        window.dispatchEvent(new Event("auth-changed"));
+
+        navigate("/dashboard");
+      } else {
+        setRegisterStatus(result.error ?? "Registration failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setRegisterStatus("Registration failed");
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <a
@@ -157,6 +183,6 @@ const RegisterForm = ({ setMyCurrUser }) => {
       )}
     </form>
   );
-};
+}
 
 export default RegisterForm;

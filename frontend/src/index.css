@@ -75,18 +75,6 @@
   a {
     text-decoration-line: underline;
   }
-
-  .swiper-wrapper {
-    margin-left: 3em;
-  }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    color: black !important;
-    background: none !important;
-    border: none !important;
-    align-items: start !important;
-  }
 }
 
 @keyframes driftReverse {
@@ -124,7 +112,8 @@
     transform: translate(0, 0) scale(1) rotate(-180deg);
   }
 }
-/* Custom ScrollBar settings*/
+
+/* Custom ScrollBar settings for Chrome / Edge / Safari*/
 .custom-scrollbar::-webkit-scrollbar {
   height: 14px;
 }

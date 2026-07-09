@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FavoriteButton from "../../Rating/FavoriteButton";
-
-type Game = {
-  id: number;
-  name: string;
-  image: string;
-  average?: number;
-  favorite?: boolean;
-};
+import type { Game } from "../../Types/GameType";
 
 type DashboardGameCardProps = {
   game: Game;

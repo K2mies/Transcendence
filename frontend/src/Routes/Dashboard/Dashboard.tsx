@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardGameCard from "./DashboardGameCard";
-
-type Game = {
-  id: number;
-  name: string;
-  image: string;
-  count?: number;
-  average?: number;
-  favorite?: boolean;
-};
+import { useFavorites } from "../../Rating/FavoritesContext";
+import type { Game } from "../../Types/GameType";
 
 type DisplayGamesProps = {
   header: string;
@@ -17,7 +10,7 @@ type DisplayGamesProps = {
 
 function DisplayGames({ header, games }: DisplayGamesProps) {
   return (
-    <div className="mt-6">
+    <div className="mb-6">
       <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
         {header}
       </h4>
@@ -35,6 +28,8 @@ function DisplayGames({ header, games }: DisplayGamesProps) {
 }
 
 function Dashboard() {
+  const { setInitialFavorites } = useFavorites();
+
   const [trendingGames, setTrendingGames] = useState<Game[]>([]);
   const [topRatedGames, setTopRatedGames] = useState<Game[]>([]);
   const [mostPlayedGames, setMostPlayedGames] = useState<Game[]>([]);
@@ -47,11 +42,23 @@ function Dashboard() {
       });
       if (response.status === 200) {
         const res = await response.json();
-        console.log(res); //temp delete
         setTrendingGames(res.trending);
         setTopRatedGames(res.topRated);
         setMostPlayedGames(res.mostPlayed);
         setNewestGames(res.newestReleases);
+
+        const allGames: Game[] = [
+          ...res.trending,
+          ...res.topRated,
+          ...res.mostPlayed,
+          ...res.newestReleases,
+        ];
+
+        const initialFavoriteIds = allGames
+          .filter((game) => game.favorite)
+          .map((game) => game.id);
+
+        setInitialFavorites(initialFavoriteIds);
       }
     }
     loadDashboard();

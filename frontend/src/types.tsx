@@ -6,12 +6,12 @@ export type UserProfile = {
   friends: User[];
   received_reqs: User[];
   sent_reqs: User[];
-  favorites: Game[];
-  to_play: Game[];
-  playing: Game[];
-  completed: Game[];
-  dnf: Game[];
-  reviews: Review[];
+  favorites: ProfileGame[];
+  to_play: ProfileGame[];
+  playing: ProfileGame[];
+  completed: ProfileGame[];
+  dnf: ProfileGame[];
+  reviews: ProfileReview[];
 };
 
 export type User = {
@@ -19,13 +19,13 @@ export type User = {
   name: string;
 };
 
-export type Game = {
+export type ProfileGame = {
   id: number;
   name: string;
   image: string;
 };
 
-export type Review = {
+export type ProfileReview = {
   id: number;
   game: string;
   rating: number;
@@ -41,4 +41,4 @@ export type FriendStatusRefresh = {
 
 export type RegistrationProps = {
   setMyCurrUser: (myCurrUser: string | undefined) => void;
-}
+};
