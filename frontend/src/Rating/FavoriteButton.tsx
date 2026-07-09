@@ -60,7 +60,11 @@ function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
       aria-label={favoriteState ? "Remove from favorites" : "Add to favorites"}
       onClick={changeValue}
     >
-      {favoriteState ? <FaHeart size={size} /> : <FaRegHeart size={size} />}
+      {favoriteState ? (
+        <FaHeart size={size} aria-hidden="true" focusable="false" />
+      ) : (
+        <FaRegHeart size={size} aria-hidden="true" focusable="false" />
+      )}
     </button>
   );
 }

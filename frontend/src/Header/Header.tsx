@@ -62,6 +62,8 @@ function Header({
               <FaSearch
                 size={iconSize}
                 className="text-tertiary hover:text-secondary"
+                aria-hidden="true"
+                focusable="false"
               />
             </button>
 
@@ -83,6 +85,8 @@ function Header({
           <FaHome
             className="text-tertiary hover:text-secondary"
             size={iconSize}
+            aria-hidden="true"
+            focusable="false"
           />
         </Link>
         {myCurrUser && (
@@ -100,6 +104,8 @@ function Header({
             <FaUser
               className="text-tertiary hover:text-secondary"
               size={iconSize}
+              aria-hidden="true"
+              focusable="false"
             />
           </Link>
         )}
@@ -119,6 +125,8 @@ function Header({
             <SiWechat
               className="text-tertiary hover:text-secondary"
               size={iconSize}
+              aria-hidden="true"
+              focusable="false"
             />
 
             {hasUnreadMessages && (
@@ -148,6 +156,8 @@ function Header({
             <FaGamepad
               className="text-tertiary hover:text-secondary"
               size={iconSize}
+              aria-hidden="true"
+              focusable="false"
             />
           </Link>
         )}
