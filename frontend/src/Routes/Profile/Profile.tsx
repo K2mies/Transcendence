@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
-import Reviews from "../../Reviews";
+import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
 

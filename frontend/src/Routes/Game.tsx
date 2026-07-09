@@ -1,6 +1,6 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
-import Reviews from "../Reviews";
+import Reviews from "../Review/Reviews";
 import FavoriteButton from "../Rating/FavoriteButton";
 import type { Game, Review, GameStatus } from "../Types/GameType";
 
@@ -157,7 +157,7 @@ function GameInfo({ game }: GameInfoProps) {
 
 function Game({ myCurrUser }: GameProps) {
   const [game, setGame] = useState<Game | null>(null);
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviews, setReview] = useState<Review[]>([]);
   const [reviewAverage, setReviewAverage] = useState(0);
   const [rating, setRating] = useState(0);
   const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
@@ -177,7 +177,7 @@ function Game({ myCurrUser }: GameProps) {
 
         setIsGameFound(true);
         setGame(res);
-        setReviews(res.reviews ?? []);
+        setReview(res.reviews ?? []);
         setRating(res.rating);
         setReviewAverage(res.reviewAverage ?? 0);
       } else {

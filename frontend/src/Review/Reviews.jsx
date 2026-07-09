@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Stars from "./Rating/Stars";
+import Stars from "../Rating/Stars";
 
 function Reviews(props) {
   let addMyReview;
@@ -41,7 +41,7 @@ function Reviews(props) {
               )}
 
               <div className="flex px-5">
-                <Stars rating={review.rating}></Stars>
+                <Stars rating={review.rating} size={16}></Stars>
               </div>
             </div>
             <p className="text-left mt-3">{review.review}</p>
