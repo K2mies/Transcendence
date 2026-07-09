@@ -86,13 +86,15 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           </div>
         )}
         {isMyUser && !updateBioMode && (
-          <button
-            className="mt-4"
-            onClick={() => setUpdateBioMode(true)}
-            aria-label="Open biography editor"
-          >
-            <FaEdit size={18} aria-hidden="true" focusable="false" />
-          </button>
+          <div className="flex justify-end w-full mr-6">
+            <button
+              className="mt-4"
+              onClick={() => setUpdateBioMode(true)}
+              aria-label="Open biography editor"
+            >
+              <FaEdit size={18} aria-hidden="true" focusable="false" />
+            </button>
+          </div>
         )}
       </div>
     </div>
