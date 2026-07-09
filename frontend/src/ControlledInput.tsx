@@ -36,7 +36,11 @@ const ControlledInput = ({
           "& .MuiOutlinedInput-root": {
             backgroundColor: "var(--color-tertiary)",
           },
+          "& .MuiInputLabel-root": {
+            color: "black",
+          },
         }}
+
         type={type}
         autoComplete={autoComplete}
         onChange={(e) => field.onChange(e.target.value)}
