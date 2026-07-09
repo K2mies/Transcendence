@@ -4,7 +4,9 @@ import UpdateBio from "./UpdateBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
+import { FaEdit } from "react-icons/fa";
 import type { UserProfile } from "../../types";
+import { FaE } from "react-icons/fa6";
 
 type ProfileInfoProps = {
   profile: UserProfile;
@@ -41,7 +43,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         )}
         {isMyUser && !updateUsernameMode && (
           <button onClick={() => setUpdateUsernameMode(true)}>
-            Change username
+            <FaEdit size={16} aria-hidden="true" focusable="false" />
           </button>
         )}
         <div className="bg-primary text-tertiary ml-auto m-6">
@@ -69,16 +71,16 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {updateBioMode && (
+        {isMyUser && updateBioMode && (
           <UpdateBio
             setUpdateBioMode={setUpdateBioMode}
             currBio={currBio}
             setCurrBio={setCurrBio}
           />
         )}
-        {!updateBioMode && (
-          <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
-            <p className="my-4 mr-4 text-left">
+        {!updateBioMode && currBio && (
+          <div className="whitespace-pre-wrap w-[50%]">
+            <p className="my-4 text-left">
               {currBio}
             </p>
           </div>
@@ -87,8 +89,9 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           <button
             className="mt-4"
             onClick={() => setUpdateBioMode(true)}
+            aria-label="Open biography editor"
           >
-            Edit biography
+            <FaEdit size={18} aria-hidden="true" focusable="false" />
           </button>
         )}
       </div>
