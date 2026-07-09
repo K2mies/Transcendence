@@ -22,7 +22,12 @@ function Footer() {
         </Link>
       </div>
       <div className="flex items-center justify-center">
-        <FaGamepad size={46} className="text-tertiary" />
+        <FaGamepad
+          size={46}
+          className="text-tertiary"
+          aria-hidden="true"
+          focusable="false"
+        />
       </div>
       <p>© 2026 GoodPlays</p>
     </footer>

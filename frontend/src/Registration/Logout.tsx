@@ -40,6 +40,8 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
         <TbLogout
           className="text-tertiary hover:text-secondary mt-1.5 stroke-3"
           size={18}
+          aria-hidden="true"
+          focusable="false"
         />
       </button>
       {logoutError && <p>Error logging you out. Please try again.</p>}
