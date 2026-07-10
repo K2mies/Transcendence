@@ -8,7 +8,6 @@ import { validateRequest } from "../middlewares/validateRequest.js";
 const router = express.Router();
 
 router.get("/:name", protect, profileController.getProfile)
-router.post("/", protect, profileController.updateProfile)
 router.post('/upload', protect, upload.single('file'), profileController.uploadImage)
 router.post('/delete', protect, profileController.deleteImage)
 router.post("/", protect, validateRequest(updateBioSchema), profileController.updateBio)

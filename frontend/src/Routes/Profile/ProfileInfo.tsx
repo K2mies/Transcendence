@@ -16,16 +16,10 @@ type ProfileInfoProps = {
 };
 
 function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
-<<<<<<< HEAD
-  const [editUsernameMode, setEditUsernameMode] = useState(false);
-  const [editBioMode, setEditBioMode] = useState(false);
-  const [currBio, setCurrBio] = useState(profile.bio);
-  const [avatar, setAvatar] = useState(profile.image);
-=======
   const [updateUsernameMode, setUpdateUsernameMode] = useState<boolean>(false);
   const [updateBioMode, setUpdateBioMode] = useState<boolean>(false);
   const [currBio, setCurrBio] = useState<string>(profile.bio);
->>>>>>> main
+  const [avatar, setAvatar] = useState(profile.image);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
 
@@ -112,7 +106,6 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           src={`data:image/jpeg;base64,${avatar}`}
           alt="Profile picture"
         ></img>
-<<<<<<< HEAD
         : <IoPerson size={150} />
         }
       {isMyUser && (
@@ -127,14 +120,9 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
     </div>
       )}
     </div>
-        {editBioMode && (
-          <EditBio
-            setEditBioMode={setEditBioMode}
-=======
         {updateBioMode && (
           <UpdateBio
             setUpdateBioMode={setUpdateBioMode}
->>>>>>> main
             currBio={currBio}
             setCurrBio={setCurrBio}
           />
