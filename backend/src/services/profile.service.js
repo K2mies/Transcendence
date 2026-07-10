@@ -104,13 +104,12 @@ export async function updateBio(profileName, newData) {
     error.status = 404;
     throw error;
   }
-  const updateData = await prisma.user.update({
+  await prisma.user.update({
     where: { name: profileName },
     data: {
       bio: newData.bio,
     },
   });
-  return updateData;
 }
 
 export async function getFriendStatus(friendName, userId, userName) {
