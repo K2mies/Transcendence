@@ -54,7 +54,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
 			renderInput={(params) => (
 				<TextField
 					{...params}
-					placeholder="Search USER PROFILE..."
+					label="Search USER PROFILE..."
 					size="small"
 					sx={{
 						"& .MuiOutlinedInput-root": {

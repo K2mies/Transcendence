@@ -161,11 +161,11 @@ export default function Chat() {
                   )}
                 </div>
 
-                <div className="text-sm opacity-70 truncate">
+                <div className="text-sm text-white opacity-70 truncate">
                   {c.lastMessage}
                 </div>
 
-                <div className="text-xs opacity-50">
+                <div className="text-xs text-white opacity-50">
                   {c.lastMessageAt
                     ? new Date(c.lastMessageAt).toLocaleString("en-GB", {
                         year: "numeric",

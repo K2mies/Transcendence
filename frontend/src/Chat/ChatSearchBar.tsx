@@ -55,7 +55,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
 			renderInput={(params) => (
 				<TextField
 					{...params}
-					placeholder="Search friend to chat..."
+					label="Search friend to chat..."
 					size="small"
 					sx={{
 						"& .MuiOutlinedInput-root": {
