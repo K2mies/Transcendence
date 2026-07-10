@@ -6,7 +6,6 @@ import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
 import { FaEdit } from "react-icons/fa";
 import type { UserProfile } from "../../types";
-import { FaE } from "react-icons/fa6";
 
 type ProfileInfoProps = {
   profile: UserProfile;
