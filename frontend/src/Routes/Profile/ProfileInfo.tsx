@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import EditUsername from "./EditUsername";
-import EditBio from "./EditBio";
+import UpdateUsername from "./UpdateUsername";
+import UpdateBio from "./UpdateBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
@@ -13,9 +13,9 @@ type ProfileInfoProps = {
 };
 
 function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
-  const [editUsernameMode, setEditUsernameMode] = useState(false);
-  const [editBioMode, setEditBioMode] = useState(false);
-  const [currBio, setCurrBio] = useState(profile.bio);
+  const [updateUsernameMode, setUpdateUsernameMode] = useState<boolean>(false);
+  const [updateBioMode, setUpdateBioMode] = useState<boolean>(false);
+  const [currBio, setCurrBio] = useState<string>(profile.bio);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
 
@@ -26,21 +26,21 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
       <div className="flex gap-2 items-center text-tertiary">
-        {editUsernameMode && (
-          <EditUsername
-            setEditUsernameMode={setEditUsernameMode}
+        {updateUsernameMode && (
+          <UpdateUsername
+            setUpdateUsernameMode={setUpdateUsernameMode}
             myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           />
         )}
-        {!editUsernameMode && (
+        {!updateUsernameMode && (
           <h2 className="p-4 font-bold">{profile.name}</h2>
         )}
         {onlineUsers.has(profile.id) && (
           <span className="h-2.5 w-2.5 rounded-full bg-online" />
         )}
-        {isMyUser && !editUsernameMode && (
-          <button onClick={() => setEditUsernameMode(true)}>
+        {isMyUser && !updateUsernameMode && (
+          <button onClick={() => setUpdateUsernameMode(true)}>
             Change username
           </button>
         )}
@@ -69,24 +69,24 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {editBioMode && (
-          <EditBio
-            setEditBioMode={setEditBioMode}
+        {updateBioMode && (
+          <UpdateBio
+            setUpdateBioMode={setUpdateBioMode}
             currBio={currBio}
             setCurrBio={setCurrBio}
           />
         )}
-        {!editBioMode && (
-          <div className="whitespace-pre-wrap">
-            <p className="my-4 mr-4 max-w-[50%] text-left">
+        {!updateBioMode && (
+          <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
+            <p className="my-4 mr-4 text-left">
               {currBio}
             </p>
           </div>
         )}
-        {isMyUser && !editBioMode && (
+        {isMyUser && !updateBioMode && (
           <button
             className="mt-4"
-            onClick={() => setEditBioMode(true)}
+            onClick={() => setUpdateBioMode(true)}
           >
             Edit biography
           </button>

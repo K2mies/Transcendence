@@ -11,13 +11,13 @@ export async function getProfile(req, res)
 	}
 }
 
-export async function updateProfile(req, res)
+export async function updateBio(req, res)
 {
 	const userName = req.user.name
-	const newData = req.body
+	const newData = req.validBody
 	try {
-		const profile = await profileService.updateProfile(userName, newData)
-		res.status(200).json(profile);
+		await profileService.updateBio(userName, newData)
+		res.status(200).json({ success: true });
 	} catch (error) {
 		res.status(error.status || 500).json({ message: error.message || "Internal server error" })
 	}

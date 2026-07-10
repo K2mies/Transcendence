@@ -5,8 +5,8 @@ import ControlledInput from "../../ControlledInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type EditUsernameProps = {
-  setEditUsernameMode: (editUsernameMode: boolean) => void;
+type UpdateUsernameProps = {
+  setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
   myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
@@ -30,11 +30,11 @@ const schema = z
       }),
   });
 
-function EditUsername({
-  setEditUsernameMode,
+function UpdateUsername({
+  setUpdateUsernameMode,
   myCurrUser,
   setMyCurrUser,
-}: EditUsernameProps) {
+}: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<string | undefined>(undefined);
 
@@ -46,8 +46,8 @@ function EditUsername({
     const newData: { name: string } = {
       name: newName,
     };
-    const response: Response = await fetch("http://localhost:4243/profile/", {
-      method: "POST",
+    const response: Response = await fetch("http://localhost:4243/auth/username", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,8 +55,8 @@ function EditUsername({
       body: JSON.stringify(newData),
     });
 
+    const data = await response.json();
     if (response.status === 200) {
-      await response.json();
       const myUser = JSON.parse(localStorage.getItem("user") ?? "{}") as {
         id: number;
       };
@@ -70,11 +70,9 @@ function EditUsername({
 
       setMyCurrUser(newName);
       navigate(`/user/${encodeURIComponent(newName)}`);
-      setEditUsernameMode(false);
-    } else if (response.status === 409) {
-      setEditError("Username already exists!");
+      setUpdateUsernameMode(false);
     } else {
-      setEditError("Error saving username. Please try again.");
+      setEditError(data.error || "Error saving username. Please try again.");
     }
   }
   return (
@@ -94,7 +92,7 @@ function EditUsername({
             type="button"
             className="ml-3"
             onClick={() => {
-              setEditUsernameMode(false);
+              setUpdateUsernameMode(false);
             }}
           >
             Cancel
@@ -108,4 +106,4 @@ function EditUsername({
   );
 }
 
-export default EditUsername;
+export default UpdateUsername;
