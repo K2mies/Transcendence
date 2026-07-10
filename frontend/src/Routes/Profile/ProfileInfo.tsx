@@ -42,7 +42,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           <span className="h-2.5 w-2.5 rounded-full bg-online" />
         )}
         {isMyUser && !updateUsernameMode && (
-          <button onClick={() => setUpdateUsernameMode(true)}>
+          <button aria-label="Change username" onClick={() => setUpdateUsernameMode(true)}>
             <FaEdit size={16} aria-hidden="true" focusable="false" />
           </button>
         )}
