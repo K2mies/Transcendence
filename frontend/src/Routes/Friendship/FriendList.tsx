@@ -38,6 +38,13 @@ function CustomTabPanel({ children, value, index }: CustomTabPanelProps) {
   );
 }
 
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 function FriendList({
   friends,
   sentReqs,
@@ -116,18 +123,19 @@ function FriendList({
                     backgroundColor: "#c59113",
                   },
                 }}
+                aria-label="Choose friend category"
               >
                 <Tab
                   label={`Friends (${friendInfo.friends.length})`}
-                  value={0}
+                  {...a11yProps(0)}
                 />
                 <Tab
                   label={`Received requests (${friendInfo.recvReqs.length})`}
-                  value={1}
+                  {...a11yProps(1)}
                 />
                 <Tab
                   label={`Sent requests (${friendInfo.sentReqs.length})`}
-                  value={2}
+                  {...a11yProps(2)}
                 />
               </Tabs>
               <CustomTabPanel value={value} index={0}>
