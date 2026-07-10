@@ -140,7 +140,7 @@ export default function Chat() {
             <h2 className="mb-4 text-lg text-secondary">Conversations</h2>
 
             {conversations.map((c) => (
-              <div
+              <button
                 key={c.userId}
                 onClick={() => openChat(c.userId)}
                 className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
@@ -161,7 +161,7 @@ export default function Chat() {
                   )}
                 </div>
 
-                <div className="text-sm text-white opacity-70 truncate">
+                <div className="text-sm text-left text-white opacity-70 truncate">
                   {c.lastMessage}
                 </div>
 
@@ -177,7 +177,7 @@ export default function Chat() {
                       })
                     : ""}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 

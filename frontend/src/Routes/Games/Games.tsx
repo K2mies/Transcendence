@@ -110,12 +110,14 @@ function Games() {
           setDeveloper={setDeveloper}
         />
       </div>
-      <div>
-        <FaGear
-          size={30}
-          className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
-          onClick={() => setShowFilters(!showFilters)}
-        />
+      <div className="flex justify-end">
+        <button
+          onClick={() => setShowFilters(!showFilters)}>
+          <FaGear
+            size={30}
+            className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
+          />
+        </button>
       </div>
       <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
         <div className="relative grid grid-cols-5 gap-2">
