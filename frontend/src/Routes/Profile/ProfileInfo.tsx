@@ -45,7 +45,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
       }
 	  else
       {
-      	setEditError(data.message || "Error saving username. Please try again.");
+      	setEditError(data.message || "Error uploading avatar. Please try again.");
 		setTimeout(() => { 
 			setEditError("");
 		}, 5000); 
