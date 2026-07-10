@@ -79,14 +79,14 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           />
         )}
         {!updateBioMode && currBio && (
-          <div className="whitespace-pre-wrap w-[50%]">
-            <p className="my-4 text-left">
+          <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
+            <p className="my-4 mr-4 text-left w-full">
               {currBio}
             </p>
           </div>
         )}
         {isMyUser && !updateBioMode && (
-          <div className="flex justify-end w-full mr-6">
+          <div className="flex flex-1 justify-end mr-6">
             <button
               className="mt-4"
               onClick={() => setUpdateBioMode(true)}
