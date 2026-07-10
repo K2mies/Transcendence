@@ -22,8 +22,10 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [avatar, setAvatar] = useState(profile.image);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
+  const [editError, setEditError] = useState<string | undefined>(undefined);
 
   const uploadImage = async (e) => {
+
     const file = e.target.files[0];
     if (!file)
       return;
@@ -36,11 +38,18 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         credentials: "include",
         body: formData
       });
+      const data = await response.json();
       if (response.ok)
       {
-        const data = await response.json();
         setAvatar(data);
       }
+	  else
+      {
+      	setEditError(data.message || "Error saving username. Please try again.");
+		setTimeout(() => { 
+			setEditError("");
+		}, 5000); 
+	  }
   }
   const deleteImage = async (e) => {
     const response = await fetch (`http://localhost:4243/profile/delete`,
@@ -119,6 +128,11 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           </button>
     </div>
       )}
+	{editError && (
+  	<div className="absolute -bottom-12 left-1/2 -translate-x-1/2
+                  bg-red-600 text-white text-sm px-3 py-2
+                  rounded shadow-lg whitespace-nowrap z-10">{editError}</div>
+	)}     
     </div>
         {updateBioMode && (
           <UpdateBio
