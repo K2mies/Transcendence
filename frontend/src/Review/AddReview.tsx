@@ -5,12 +5,20 @@ import { ImCross } from "react-icons/im";
 
 type AddReviewProps = {
   isOpen: boolean;
-  onSubmit: (rating: number, review: string) => void;
+  onSubmit: (rating: number, review: string) => Promise<boolean>;
 };
 
 function AddReview({ isOpen, onSubmit }: AddReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  async function handleSubmit() {
+    const success = await onSubmit(rating, review);
+
+    if (success) {
+      setRating(0);
+      setReview("");
+    }
+  }
 
   const MAX_REVIEW_LENGTH = 1000;
 
@@ -54,7 +62,7 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
       <button
         type="button"
         disabled={rating === 0}
-        onClick={() => onSubmit(rating, review)}
+        onClick={handleSubmit}
         className="
           bg-primary
           text-tertiary

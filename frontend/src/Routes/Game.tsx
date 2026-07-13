@@ -157,7 +157,7 @@ function GameInfo({ game }: GameInfoProps) {
 
 function Game({ myCurrUser }: GameProps) {
   const [game, setGame] = useState<Game | null>(null);
-  const [reviews, setReview] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [reviewAverage, setReviewAverage] = useState(0);
   const [rating, setRating] = useState(0);
   const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
@@ -177,7 +177,7 @@ function Game({ myCurrUser }: GameProps) {
 
         setIsGameFound(true);
         setGame(res);
-        setReview(res.reviews ?? []);
+        setReviews(res.reviews ?? []);
         setRating(res.rating);
         setReviewAverage(res.reviewAverage ?? 0);
       } else {
@@ -200,6 +200,7 @@ function Game({ myCurrUser }: GameProps) {
             key={game.name}
             gameName={game.name}
             reviews={reviews}
+            setReviews={setReviews}
             reviewAverage={reviewAverage}
             rating={rating}
             page="game"

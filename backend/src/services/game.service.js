@@ -104,8 +104,14 @@ export async function addReview(userId, newData, gameName) {
       where: { name: newData.platform },
     });
   }
-  await prisma.review.upsert({
-    where: { userId_gameId: { userId: userId, gameId: game.id } },
+
+  const review = await prisma.review.upsert({
+    where: {
+      userId_gameId: {
+        userId: userId,
+        gameId: game.id,
+      },
+    },
     update: {
       review: newData.review,
       rating: newData.rating,
@@ -118,7 +124,19 @@ export async function addReview(userId, newData, gameName) {
       rating: newData.rating,
       platformId: platform?.id,
     },
+    include: {
+      user: true,
+    },
   });
+  return {
+    id: review.id,
+    game: game.name,
+    rating: review.rating,
+    review: review.review,
+    user: {
+      name: review.user.name,
+    },
+  };
 }
 
 export async function deleteReview(userId, gameName) {

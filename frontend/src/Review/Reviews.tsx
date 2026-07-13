@@ -8,6 +8,7 @@ type ReviewsProps = {
   gameName?: string;
   myCurrUser: string | null | undefined;
   reviews: ReviewType[];
+  setReviews?: React.Dispatch<React.SetStateAction<ReviewType[]>>;
   reviewAverage?: number;
   rating?: number;
 };
@@ -17,6 +18,7 @@ function Reviews({
   gameName,
   myCurrUser,
   reviews,
+  setReviews,
   reviewAverage,
   rating,
 }: ReviewsProps) {
@@ -52,8 +54,15 @@ function Reviews({
         }),
       },
     );
+    const newReview = await response.json();
 
-    console.log(await response.json());
+    if (response.ok && setReviews) {
+      setReviews((reviews) => [...reviews, newReview]);
+      setShowAddReview(false);
+      return true;
+    }
+
+    return false;
   }
   return (
     <div>
