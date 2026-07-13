@@ -97,9 +97,13 @@ export async function addReview(userId, newData, gameName) {
     error.status = 404;
     throw error;
   }
-  const platform = await prisma.platform.findUnique({
-    where: { name: newData.platform },
-  });
+  let platform = null;
+
+  if (newData.platform) {
+    platform = await prisma.platform.findUnique({
+      where: { name: newData.platform },
+    });
+  }
   await prisma.review.upsert({
     where: { userId_gameId: { userId: userId, gameId: game.id } },
     update: {

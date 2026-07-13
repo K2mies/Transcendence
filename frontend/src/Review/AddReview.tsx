@@ -20,7 +20,7 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
 
   return (
     <div className="bg-tertiary text-primary border-x-3 border-primary p-4">
-      <RatingSelector rating={rating} setRating={setRating} />
+      <RatingSelector rating={rating} setRating={setRating} size={28} />
 
       <label htmlFor="review" className="block mb-2 font-semibold">
         Review
@@ -33,7 +33,7 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
           maxLength={MAX_REVIEW_LENGTH}
           onChange={(e) => setReview(e.target.value)}
           rows={6}
-          placeholder="Write your review..."
+          placeholder="Write your review (optional)..."
           className="text-primary w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
         />
         <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end">
@@ -53,7 +53,7 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
 
       <button
         type="button"
-        disabled={rating === 0 || review.trim() === ""}
+        disabled={rating === 0}
         onClick={() => onSubmit(rating, review)}
         className="
           bg-primary

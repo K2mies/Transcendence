@@ -198,6 +198,7 @@ function Game({ myCurrUser }: GameProps) {
 
           <Reviews
             key={game.name}
+            gameName={game.name}
             reviews={reviews}
             reviewAverage={reviewAverage}
             rating={rating}

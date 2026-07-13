@@ -5,6 +5,7 @@ import AddReview from "./AddReview";
 
 type ReviewsProps = {
   page: "game" | "profile";
+  gameName?: string;
   myCurrUser: string | null | undefined;
   reviews: ReviewType[];
   reviewAverage?: number;
@@ -13,6 +14,7 @@ type ReviewsProps = {
 
 function Reviews({
   page,
+  gameName,
   myCurrUser,
   reviews,
   reviewAverage,
@@ -29,6 +31,30 @@ function Reviews({
 
   const [showAddReview, setShowAddReview] = useState(false);
 
+  async function submitReview(rating: number, review: string) {
+    console.log("submitReview called");
+    console.log(rating);
+    console.log(review);
+    console.log(gameName);
+    if (!gameName) return;
+
+    const response = await fetch(
+      `http://localhost:4243/game/${encodeURIComponent(gameName)}/add-review`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rating,
+          review,
+        }),
+      },
+    );
+
+    console.log(await response.json());
+  }
   return (
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
@@ -55,13 +81,7 @@ function Reviews({
           </button>
         )}
       </div>
-      <AddReview
-        isOpen={showAddReview}
-        onSubmit={(rating, review) => {
-          console.log(rating);
-          console.log(review);
-        }}
-      />
+      <AddReview isOpen={showAddReview} onSubmit={submitReview} />
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {reviews.map((review) => (
