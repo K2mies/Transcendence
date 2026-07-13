@@ -8,7 +8,11 @@ type StarsProps = {
 function Stars({ rating, size = 20 }: StarsProps) {
   const roundedRating = Math.round(rating * 2) / 2;
   return (
-    <div className="flex justify-center gap-1 mb-2">
+    <div
+      className="flex justify-center gap-1 mb-2"
+      aria-hidden="true"
+      role="figure"
+    >
       {Array.from({ length: 5 }).map((_, index) => {
         if (roundedRating >= index + 1) {
           return (
@@ -16,6 +20,8 @@ function Stars({ rating, size = 20 }: StarsProps) {
               size={size}
               key={index}
               className="text-secondary text-xl"
+              aria-hidden="true"
+              focusable="false"
             />
           );
         }
@@ -26,12 +32,20 @@ function Stars({ rating, size = 20 }: StarsProps) {
               size={size}
               key={index}
               className="text-secondary text-xl"
+              aria-hidden="true"
+              focusable="false"
             />
           );
         }
 
         return (
-          <PiStar size={size} key={index} className="text-secondary text-xl" />
+          <PiStar
+            size={size}
+            key={index}
+            className="text-secondary text-xl"
+            aria-hidden="true"
+            focusable="false"
+          />
         );
       })}
     </div>

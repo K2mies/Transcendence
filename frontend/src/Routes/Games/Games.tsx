@@ -112,10 +112,13 @@ function Games() {
       </div>
       <div className="flex justify-end">
         <button
-          onClick={() => setShowFilters(!showFilters)}>
+          onClick={() => setShowFilters(!showFilters)}
+          aria-label={showFilters ? "Hide filters" : "Show filters"}>
           <FaGear
             size={30}
             className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
+            aria-hidden="true"
+            focusable="false"
           />
         </button>
       </div>

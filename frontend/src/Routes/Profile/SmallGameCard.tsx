@@ -96,6 +96,8 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
                  transition-colors
                  duration-300
                "
+              aria-hidden="true"
+              focusable="false"
             />
           </button>
         )}
