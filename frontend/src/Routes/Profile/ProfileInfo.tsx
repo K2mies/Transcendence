@@ -19,7 +19,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [updateUsernameMode, setUpdateUsernameMode] = useState<boolean>(false);
   const [updateBioMode, setUpdateBioMode] = useState<boolean>(false);
   const [currBio, setCurrBio] = useState<string>(profile.bio);
-  const [avatar, setAvatar] = useState(profile.image);
+  const [avatar, setAvatar] = useState<string | null>(profile.image ?? null);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
   const [editError, setEditError] = useState<string | undefined>(undefined);

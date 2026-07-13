@@ -2,7 +2,7 @@ export type UserProfile = {
   id: number;
   name: string;
   bio: string;
-  image: string;
+  image: string | null;
   friends: User[];
   received_reqs: User[];
   sent_reqs: User[];
