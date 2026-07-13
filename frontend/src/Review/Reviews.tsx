@@ -93,7 +93,7 @@ function Reviews({
       </div>
       <AddReview isOpen={showAddReview} onSubmit={submitReview} />
 
-      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
+      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[500px] overflow-y-auto">
         {reviews.map((review) => (
           <Review
             key={review.id}

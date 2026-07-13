@@ -161,8 +161,11 @@ function Game({ myCurrUser }: GameProps) {
   const reviewAverage =
     reviews.length === 0
       ? 0
-      : reviews.reduce((sum, review) => sum + review.rating, 0) /
-        reviews.length;
+      : Math.round(
+          (reviews.reduce((sum, review) => sum + review.rating, 0) /
+            reviews.length) *
+            100,
+        ) / 100;
   const [rating, setRating] = useState(0);
   const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
     undefined,
