@@ -45,7 +45,7 @@ function GameCard({ game, index }: GameCardProps) {
       <h2
         className="
           absolute
-          bottom-[4rem]
+          bottom-[3.78rem]
           left-0
           z-10
           w-full
@@ -88,7 +88,7 @@ function GameCard({ game, index }: GameCardProps) {
         "
       >
         <p>Rating: {game.rating}</p>
-        <Stars rating={game.rating} size={30} />
+        <Stars rating={game.rating} size={26} />
       </div>
     </div>
   );

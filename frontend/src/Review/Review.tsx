@@ -22,16 +22,16 @@ function Review({ review, page, isMyReview, onDelete }: ReviewProps) {
           <Link to={`/user/${review.user.name}`}>{review.user.name}</Link>
         )}
 
-        <div className="flex px-5">
+        <div className="flex px-5 mt-1">
           <Stars rating={review.rating} size={16} />
         </div>
         {isMyReview && onDelete && (
           <button
             type="button"
             onClick={onDelete}
-            className="absolute top-0 right-0  p-1 bg-secondary ml-auto text-tertiary rounded-sm hover:text-primary transition-colors"
+            className="absolute top-0 right-0  p-1 bg-secondary ml-auto text-tertiary rounded-tr-sm rounded-bl-sm hover:text-primary transition-colors"
           >
-            <ImCross size={12} />
+            <ImCross size={10} />
           </button>
         )}
       </div>
