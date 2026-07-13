@@ -158,7 +158,11 @@ function GameInfo({ game }: GameInfoProps) {
 function Game({ myCurrUser }: GameProps) {
   const [game, setGame] = useState<Game | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [reviewAverage, setReviewAverage] = useState(0);
+  const reviewAverage =
+    reviews.length === 0
+      ? 0
+      : reviews.reduce((sum, review) => sum + review.rating, 0) /
+        reviews.length;
   const [rating, setRating] = useState(0);
   const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
     undefined,
@@ -179,7 +183,6 @@ function Game({ myCurrUser }: GameProps) {
         setGame(res);
         setReviews(res.reviews ?? []);
         setRating(res.rating);
-        setReviewAverage(res.reviewAverage ?? 0);
       } else {
         setIsGameFound(false);
       }
@@ -190,6 +193,25 @@ function Game({ myCurrUser }: GameProps) {
     }
   }, [name]);
 
+  async function deleteReview(review: Review) {
+    if (!game) return;
+
+    const response = await fetch(
+      `http://localhost:4243/game/${encodeURIComponent(game.name)}/delete-review`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
+
+    if (response.ok) {
+      setReviews((currentReviews) =>
+        currentReviews.filter(
+          (currentReview) => currentReview.id !== review.id,
+        ),
+      );
+    }
+  }
   return (
     <div className="bg-secondary text-primary min-h-screen p-6">
       {isGameFound && game && (
@@ -201,6 +223,7 @@ function Game({ myCurrUser }: GameProps) {
             gameName={game.name}
             reviews={reviews}
             setReviews={setReviews}
+            onDeleteReview={deleteReview}
             reviewAverage={reviewAverage}
             rating={rating}
             page="game"

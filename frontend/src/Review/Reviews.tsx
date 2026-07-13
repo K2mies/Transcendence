@@ -9,6 +9,8 @@ type ReviewsProps = {
   myCurrUser: string | null | undefined;
   reviews: ReviewType[];
   setReviews?: React.Dispatch<React.SetStateAction<ReviewType[]>>;
+  onDeleteReview?: (review: ReviewType) => void;
+
   reviewAverage?: number;
   rating?: number;
 };
@@ -19,6 +21,7 @@ function Reviews({
   myCurrUser,
   reviews,
   setReviews,
+  onDeleteReview,
   reviewAverage,
   rating,
 }: ReviewsProps) {
@@ -34,11 +37,9 @@ function Reviews({
   const [showAddReview, setShowAddReview] = useState(false);
 
   async function submitReview(rating: number, review: string) {
-    console.log("submitReview called");
-    console.log(rating);
-    console.log(review);
-    console.log(gameName);
-    if (!gameName) return;
+    if (!gameName) {
+      return false;
+    }
 
     const response = await fetch(
       `http://localhost:4243/game/${encodeURIComponent(gameName)}/add-review`,
@@ -57,7 +58,7 @@ function Reviews({
     const newReview = await response.json();
 
     if (response.ok && setReviews) {
-      setReviews((reviews) => [...reviews, newReview]);
+      setReviews((reviews) => [newReview, ...reviews]);
       setShowAddReview(false);
       return true;
     }
@@ -94,7 +95,13 @@ function Reviews({
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         {reviews.map((review) => (
-          <Review key={review.id} review={review} page={page} />
+          <Review
+            key={review.id}
+            review={review}
+            page={page}
+            isMyReview={review.user.name === myCurrUser}
+            onDelete={onDeleteReview ? () => onDeleteReview(review) : undefined}
+          />
         ))}
       </ul>
     </div>

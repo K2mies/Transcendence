@@ -35,6 +35,9 @@ export async function getProfile(profileName) {
           game: true,
           platform: true,
         },
+        orderBy: {
+          id: "desc",
+        },
       },
     },
   });
@@ -91,6 +94,9 @@ export async function getProfile(profileName) {
       rating: r.rating,
       review: r.review,
       platform: r.platform?.name,
+      user: {
+        name: user.name,
+      },
     })),
   };
 }
@@ -202,8 +208,8 @@ export async function acceptFriendRequest(friendName, user) {
     },
   });
 
-	await sendOnlineFriends(friend.id);
-	await sendOnlineFriends(user);
+  await sendOnlineFriends(friend.id);
+  await sendOnlineFriends(user);
 }
 
 /*
@@ -268,6 +274,6 @@ export async function removeFriend(friendName, user) {
     });
   }
 
-	await sendOnlineFriends(friend.id);
-	await sendOnlineFriends(user);
+  await sendOnlineFriends(friend.id);
+  await sendOnlineFriends(user);
 }

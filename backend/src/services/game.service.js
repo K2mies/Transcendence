@@ -9,6 +9,9 @@ export async function getGame(gameName, currentUserId) {
           user: true,
           platform: true,
         },
+        orderBy: {
+          id: "desc",
+        },
       },
       userGames: true,
       modes: true,
