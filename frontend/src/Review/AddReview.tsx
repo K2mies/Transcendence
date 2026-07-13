@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RatingSelector from "../Rating/RatingSelector";
-
+import PlatformSelector from "./PlatformSelector";
 import { ImCross } from "react-icons/im";
 
 type AddReviewProps = {
@@ -11,12 +11,14 @@ type AddReviewProps = {
 function AddReview({ isOpen, onSubmit }: AddReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  const [platform, setPlatform] = useState<string | null>(null);
   async function handleSubmit() {
     const success = await onSubmit(rating, review);
 
     if (success) {
       setRating(0);
       setReview("");
+      setPlatform(null);
     }
   }
 
@@ -30,10 +32,15 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
     <div className="bg-tertiary text-primary border-x-3 border-primary p-4">
       <RatingSelector rating={rating} setRating={setRating} size={28} />
 
-      <label htmlFor="review" className="block mb-2 font-semibold">
-        Review
-      </label>
+      <div className="flex justify-between items-center mb-2">
+        <label htmlFor="review" className="font-semibold">
+          Review
+        </label>
 
+        <div className="flex items-center gap-2">
+          <PlatformSelector platform={platform} setPlatform={setPlatform} />
+        </div>
+      </div>
       <div className="relative">
         <textarea
           id="review"

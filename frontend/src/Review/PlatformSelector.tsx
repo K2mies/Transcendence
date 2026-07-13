@@ -1,0 +1,128 @@
+import { useEffect, useState } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+
+type PlatformSelectorProps = {
+  platform: string | null;
+  setPlatform: (platform: string | null) => void;
+};
+
+function PlatformSelector({ platform, setPlatform }: PlatformSelectorProps) {
+  const [platformOptions, setPlatformOptions] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function fetchPlatforms() {
+      const response = await fetch("http://localhost:4243/games/platforms", {
+        credentials: "include",
+      });
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setPlatformOptions(
+          result.data.map((platform: { name: string }) => platform.name),
+        );
+      }
+    }
+
+    fetchPlatforms();
+  }, []);
+
+  return (
+    <Autocomplete
+      value={platform}
+      options={platformOptions}
+      onChange={(_, value) => {
+        setPlatform(value);
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Platform..."
+          size="small"
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              height: 36,
+
+              // Background colour
+              backgroundColor: "var(--color-tertiary)",
+
+              // Text colour
+              color: "var(--color-primary)",
+
+              // Border
+              "& fieldset": {
+                borderColor: "var(--color-secondary)",
+                borderWidth: "4px",
+              },
+
+              "&:hover fieldset": {
+                borderColor: "var(--color-secondary)",
+                borderWidth: "4px",
+              },
+
+              "&.Mui-focused fieldset": {
+                borderColor: "var(--color-secondary)",
+                borderWidth: "4px",
+              },
+
+              // Input text
+              "& input": {
+                color: "var(--color-secondary)",
+                borderWidth: "4px",
+              },
+
+              // Placeholder
+              "& input::placeholder": {
+                color: "var(--color-secondary)",
+                opacity: 1,
+              },
+            },
+
+            // Dropdown arrow
+            "& .MuiSvgIcon-root": {
+              color: "var(--color-secondary)",
+            },
+          }}
+        />
+      )}
+      sx={{ width: 220 }}
+      slotProps={{
+        listbox: {
+          sx: {
+            maxHeight: 300,
+
+            // Entire dropdown background
+            backgroundColor: "var(--color-tertiary)",
+            color: "var(--color-primary)",
+
+            // Every option
+            "& .MuiAutocomplete-option": {
+              color: "var(--color-primary)",
+            },
+
+            // Hovered option
+            "& .MuiAutocomplete-option.Mui-focused": {
+              backgroundColor: "var(--color-secondary)",
+              color: "var(--color-tertiary)",
+            },
+
+            // Selected option
+            "& .MuiAutocomplete-option[aria-selected='true']": {
+              backgroundColor: "var(--color-secondary)",
+              color: "var(--color-tertiary)",
+            },
+
+            // Selected + hovered
+            "& .MuiAutocomplete-option[aria-selected='true'].Mui-focused": {
+              backgroundColor: "var(--color-secondary)",
+              color: "var(--color-tertiary)",
+            },
+          },
+        },
+      }}
+    />
+  );
+}
+
+export default PlatformSelector;
