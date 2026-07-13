@@ -25,48 +25,40 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [editError, setEditError] = useState<string | undefined>(undefined);
 
   const uploadImage = async (e) => {
-
     const file = e.target.files[0];
-    if (!file)
-      return;
+    if (!file) return;
     const formData = new FormData();
-    formData.append('file', file);
-	e.target.value = "";
-    const response = await fetch (`http://localhost:4243/profile/upload`,
-      {
-        method: "POST",
-        credentials: "include",
-        body: formData
-      });
-      const data = await response.json();
-      if (response.ok)
-      {
-        setAvatar(data);
-      }
-	  else
-      {
-      	setEditError(data.message || "Error uploading avatar. Please try again.");
-		setTimeout(() => { 
-			setEditError("");
-		}, 5000); 
-	  }
-  }
+    formData.append("file", file);
+    e.target.value = "";
+    const response = await fetch(`http://localhost:4243/profile/upload`, {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setAvatar(data);
+    } else {
+      setEditError(data.message || "Error uploading avatar. Please try again.");
+      setTimeout(() => {
+        setEditError("");
+      }, 5000);
+    }
+  };
   const deleteImage = async (e) => {
-    const response = await fetch (`http://localhost:4243/profile/delete`,
-      {
-        method: "POST",
-        credentials: "include",
-      });
-      if (response.ok)
-      {
-        setAvatar(null);
-      }
-  }
+    const response = await fetch(`http://localhost:4243/profile/delete`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (response.ok) {
+      setAvatar(null);
+    }
+  };
 
   useEffect(() => {
-      setCurrBio(profile.bio);
-  }, [profile]);
-
+    setCurrBio(profile.bio);
+    setAvatar(profile.image ?? null);
+  }, [profile.bio, profile.image]);
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
@@ -110,30 +102,44 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
         <div className="relative m-4 border-secondary border-4 w-40 h-auto rounded-lg m-4">
-        {avatar ?
-        <img
-          src={`data:image/jpeg;base64,${avatar}`}
-          alt="Profile picture"
-        ></img>
-        : <IoPerson size={150} />
-        }
-      {isMyUser && (
-        <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
-        <label className="cursor-pointer" title="Upload avatar">
-          <FaEdit size={15} />
-          <input type="file" accept=".png, .jpg" className="hidden" onChange={uploadImage} />
-        </label>
-        <button className="cursor-pointer" title="Delete avatar" onClick={deleteImage}>
-          <ImCross size={10} />
-          </button>
-    </div>
-      )}
-	{editError && (
-  	<div className="absolute -bottom-12 left-1/2 -translate-x-1/2
+          {avatar ? (
+            <img
+              src={`data:image/jpeg;base64,${avatar}`}
+              alt="Profile picture"
+            ></img>
+          ) : (
+            <IoPerson size={150} />
+          )}
+          {isMyUser && (
+            <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
+              <label className="cursor-pointer" title="Upload avatar">
+                <FaEdit size={15} />
+                <input
+                  type="file"
+                  accept=".png, .jpg"
+                  className="hidden"
+                  onChange={uploadImage}
+                />
+              </label>
+              <button
+                className="cursor-pointer"
+                title="Delete avatar"
+                onClick={deleteImage}
+              >
+                <ImCross size={10} />
+              </button>
+            </div>
+          )}
+          {editError && (
+            <div
+              className="absolute -bottom-12 left-1/2 -translate-x-1/2
                   bg-red-600 text-white text-sm px-3 py-2
-                  rounded shadow-lg whitespace-nowrap z-10">{editError}</div>
-	)}     
-    </div>
+                  rounded shadow-lg whitespace-nowrap z-10"
+            >
+              {editError}
+            </div>
+          )}
+        </div>
         {updateBioMode && (
           <UpdateBio
             setUpdateBioMode={setUpdateBioMode}
@@ -143,16 +149,11 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         )}
         {!updateBioMode && (
           <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
-            <p className="my-4 mr-4 text-left">
-              {currBio}
-            </p>
+            <p className="my-4 mr-4 text-left">{currBio}</p>
           </div>
         )}
         {isMyUser && !updateBioMode && (
-          <button
-            className="mt-4"
-            onClick={() => setUpdateBioMode(true)}
-          >
+          <button className="mt-4" onClick={() => setUpdateBioMode(true)}>
             Edit biography
           </button>
         )}
