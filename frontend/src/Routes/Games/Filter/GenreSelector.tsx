@@ -33,37 +33,41 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
   }, []);
 
   return (
-    <Autocomplete
-      value={selectedValue}
-      inputValue={inputValue}
-      onInputChange={(_, value) => {
-        setInputValue(value);
-      }}
-      options={genreOptions.filter((genre) => !genres.includes(genre))}
-      onChange={(_, value) => {
-        if (value) {
-          setGenres([...genres, value]);
-          setSelectedValue(null);
-          setInputValue(""); // clear text field
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Genre"
-          size="small"
-          sx={FILTER_SX}
-        />
-      )}
-      sx={{ width: FILTER_WIDTH }}
-      slotProps={{
-        listbox: {
-          sx: {
-            maxHeight: 300,
+    <div className="flex flex-col">
+      <label htmlFor="genre" className="text-white">Genre:</label>
+      <Autocomplete
+        id="genre"
+        value={selectedValue}
+        inputValue={inputValue}
+        onInputChange={(_, value) => {
+          setInputValue(value);
+        }}
+        options={genreOptions.filter((genre) => !genres.includes(genre))}
+        onChange={(_, value) => {
+          if (value) {
+            setGenres([...genres, value]);
+            setSelectedValue(null);
+            setInputValue(""); // clear text field
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Choose"
+            size="small"
+            sx={FILTER_SX}
+          />
+        )}
+        sx={{ width: FILTER_WIDTH }}
+        slotProps={{
+          listbox: {
+            sx: {
+              maxHeight: 300,
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 }
 

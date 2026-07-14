@@ -35,36 +35,40 @@ function DeveloperSelector({
   }, []);
 
   return (
-    <Autocomplete
-      value={null}
-      inputValue={inputValue}
-      options={developerOptions.filter((dev) => dev !== developer)}
-      onInputChange={(_, value) => {
-        setInputValue(value);
-      }}
-      onChange={(_, value) => {
-        if (value) {
-          setDeveloper(value);
-          setInputValue("");
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Developer"
-          size="small"
-          sx={FILTER_SX}
-        />
-      )}
-      sx={{ width: FILTER_WIDTH }}
-      slotProps={{
-        listbox: {
-          sx: {
-            maxHeight: 300,
+    <div className="flex flex-col">
+      <label htmlFor="developer" className="text-white">Developer:</label>
+      <Autocomplete
+        id="developer"
+        value={null}
+        inputValue={inputValue}
+        options={developerOptions.filter((dev) => dev !== developer)}
+        onInputChange={(_, value) => {
+          setInputValue(value);
+        }}
+        onChange={(_, value) => {
+          if (value) {
+            setDeveloper(value);
+            setInputValue("");
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Choose"
+            size="small"
+            sx={FILTER_SX}
+          />
+        )}
+        sx={{ width: FILTER_WIDTH }}
+        slotProps={{
+          listbox: {
+            sx: {
+              maxHeight: 300,
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 }
 

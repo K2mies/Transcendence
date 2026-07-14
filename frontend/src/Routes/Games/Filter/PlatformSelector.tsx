@@ -33,39 +33,43 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
   }, []);
 
   return (
-    <Autocomplete
-      value={selectedValue}
-      inputValue={inputValue}
-      options={platformOptions.filter(
-        (platform) => !platforms.includes(platform),
-      )}
-      onInputChange={(_, value) => {
-        setInputValue(value);
-      }}
-      onChange={(_, value) => {
-        if (value) {
-          setPlatforms([...platforms, value]);
-          setSelectedValue(null);
-          setInputValue(""); // clear text field
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Platform"
-          size="small"
-          sx={FILTER_SX}
-        />
-      )}
-      sx={{ width: FILTER_WIDTH }}
-      slotProps={{
-        listbox: {
-          sx: {
-            maxHeight: 300,
+    <div className="flex flex-col">
+      <label htmlFor="platform" className="text-white">Platform:</label>
+      <Autocomplete
+        id="platform"
+        value={selectedValue}
+        inputValue={inputValue}
+        options={platformOptions.filter(
+          (platform) => !platforms.includes(platform),
+        )}
+        onInputChange={(_, value) => {
+          setInputValue(value);
+        }}
+        onChange={(_, value) => {
+          if (value) {
+            setPlatforms([...platforms, value]);
+            setSelectedValue(null);
+            setInputValue(""); // clear text field
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Choose"
+            size="small"
+            sx={FILTER_SX}
+          />
+        )}
+        sx={{ width: FILTER_WIDTH }}
+        slotProps={{
+          listbox: {
+            sx: {
+              maxHeight: 300,
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 }
 
