@@ -8,13 +8,17 @@ type TitleFilterProps = {
 
 function TitleFilter({ titleTerm, setTitleTerm }: TitleFilterProps) {
   return (
-    <TextField
-      value={titleTerm}
-      onChange={(e) => setTitleTerm(e.target.value)}
-      placeholder="Title..."
-      size="small"
-      sx={FILTER_SX}
-    />
+    <div className="flex flex-col">
+      <label htmlFor="title" className="text-white">Title:</label>
+      <TextField
+        value={titleTerm}
+        onChange={(e) => setTitleTerm(e.target.value)}
+        placeholder="Type title..."
+        id="title"
+        size="small"
+        sx={FILTER_SX}
+      />
+    </div>
   );
 }
 
