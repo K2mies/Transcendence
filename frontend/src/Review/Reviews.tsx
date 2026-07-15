@@ -6,6 +6,7 @@ import AddReview from "./AddReview";
 type ReviewsProps = {
   page: "game" | "profile";
   gameName?: string;
+  gamePlatforms?: string[];
   myCurrUser: string | null | undefined;
   reviews: ReviewType[];
   setReviews?: React.Dispatch<React.SetStateAction<ReviewType[]>>;
@@ -18,6 +19,7 @@ type ReviewsProps = {
 function Reviews({
   page,
   gameName,
+  gamePlatforms,
   myCurrUser,
   reviews,
   setReviews,
@@ -35,14 +37,20 @@ function Reviews({
   }
 
   const [showAddReview, setShowAddReview] = useState(false);
+  const [editingReview, setEditingReview] = useState<ReviewType | null>(null);
+  const [editingPlatforms, setEditingPlatforms] = useState<string[]>([]);
 
-  async function submitReview(rating: number, review: string) {
-    if (!gameName) {
-      return false;
-    }
+  async function submitReview(
+    rating: number,
+    review: string,
+    platform: string | null,
+  ) {
+    const targetGame = editingReview?.game ?? gameName;
+
+    if (!targetGame) return false;
 
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(gameName)}/add-review`,
+      `http://localhost:4243/game/${encodeURIComponent(targetGame)}/add-review`,
       {
         method: "POST",
         credentials: "include",
@@ -52,19 +60,49 @@ function Reviews({
         body: JSON.stringify({
           rating,
           review,
+          platform,
         }),
       },
     );
     const newReview = await response.json();
 
     if (response.ok && setReviews) {
-      setReviews((reviews) => [newReview, ...reviews]);
+      if (editingReview) {
+        setReviews((reviews) =>
+          reviews.map((review) =>
+            review.id === newReview.id ? newReview : review,
+          ),
+        );
+
+        setEditingReview(null);
+      } else {
+        setReviews((reviews) => [newReview, ...reviews]);
+      }
+
       setShowAddReview(false);
+
       return true;
     }
 
     return false;
   }
+  function editReview(review: ReviewType) {
+    setEditingReview(review);
+
+    if (page === "profile") {
+      setEditingPlatforms(review.platforms ?? []);
+    } else {
+      setEditingPlatforms(gamePlatforms ?? []);
+    }
+
+    setShowAddReview(true);
+  }
+
+  function closeReviewForm() {
+    setEditingReview(null);
+    setShowAddReview(false);
+  }
+
   return (
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
@@ -86,20 +124,32 @@ function Reviews({
         </div>
 
         {addMyReview && (
-          <button onClick={() => setShowAddReview((show) => !show)}>
-            {showAddReview ? "Cancel" : "Add review"}
+          <button
+            onClick={() => {
+              setEditingReview(null);
+              setShowAddReview(true);
+            }}
+          >
+            Add review
           </button>
         )}
       </div>
-      <AddReview isOpen={showAddReview} onSubmit={submitReview} />
+      <AddReview
+        isOpen={showAddReview}
+        reviewToEdit={editingReview}
+        gamePlatforms={editingReview ? editingPlatforms : (gamePlatforms ?? [])}
+        onSubmit={submitReview}
+        onCancel={closeReviewForm}
+      />
 
-      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[500px] overflow-y-auto">
+      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[400px] overflow-y-auto">
         {reviews.map((review) => (
           <Review
             key={review.id}
             review={review}
             page={page}
             isMyReview={review.user.name === myCurrUser}
+            onEdit={() => editReview(review)}
             onDelete={onDeleteReview ? () => onDeleteReview(review) : undefined}
           />
         ))}

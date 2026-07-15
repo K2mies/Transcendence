@@ -1,19 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RatingSelector from "../Rating/RatingSelector";
 import PlatformSelector from "./PlatformSelector";
 import { ImCross } from "react-icons/im";
+import type { Review as ReviewType } from "../Types/ReviewType";
 
 type AddReviewProps = {
   isOpen: boolean;
-  onSubmit: (rating: number, review: string) => Promise<boolean>;
+  gamePlatforms: string[];
+  reviewToEdit: ReviewType | null;
+  onCancel: () => void;
+  onSubmit: (
+    rating: number,
+    review: string,
+    platform: string | null,
+  ) => Promise<boolean>;
 };
 
-function AddReview({ isOpen, onSubmit }: AddReviewProps) {
+function AddReview({
+  isOpen,
+  gamePlatforms,
+  reviewToEdit,
+  onSubmit,
+  onCancel,
+}: AddReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [platform, setPlatform] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (reviewToEdit) {
+      setRating(reviewToEdit.rating);
+      setReview(reviewToEdit.review);
+      setPlatform(reviewToEdit.platform ?? null);
+    } else {
+      setRating(0);
+      setReview("");
+      setPlatform(null);
+    }
+  }, [reviewToEdit]);
+
   async function handleSubmit() {
-    const success = await onSubmit(rating, review);
+    const success = await onSubmit(rating, review, platform);
 
     if (success) {
       setRating(0);
@@ -38,7 +65,11 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
         </label>
 
         <div className="flex items-center gap-2">
-          <PlatformSelector platform={platform} setPlatform={setPlatform} />
+          <PlatformSelector
+            platform={platform}
+            setPlatform={setPlatform}
+            platforms={gamePlatforms}
+          />
         </div>
       </div>
       <div className="relative">
@@ -65,23 +96,32 @@ function AddReview({ isOpen, onSubmit }: AddReviewProps) {
           <ImCross size={10} />
         </button>
       </div>
+      <div className="mt-4 flex gap-3">
+        <button
+          type="button"
+          disabled={rating === 0}
+          onClick={handleSubmit}
+          className="
+      bg-primary
+      text-tertiary
+      px-4
+      py-2
+      rounded
+      disabled:bg-secondary
+      disabled:cursor-not-allowed
+    "
+        >
+          {reviewToEdit ? "Update" : "Submit"}
+        </button>
 
-      <button
-        type="button"
-        disabled={rating === 0}
-        onClick={handleSubmit}
-        className="
-          bg-primary
-          text-tertiary
-          px-4
-          py-2
-          rounded
-          disabled:bg-secondary
-          disabled:cursor-not-allowed
-        "
-      >
-        Submit
-      </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="bg-secondary text-tertiary px-4 py-2 rounded hover:text-primary"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 }

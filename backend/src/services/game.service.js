@@ -129,6 +129,12 @@ export async function addReview(userId, newData, gameName) {
     },
     include: {
       user: true,
+      game: {
+        include: {
+          platforms: true,
+        },
+      },
+      platform: true,
     },
   });
   return {
@@ -136,6 +142,11 @@ export async function addReview(userId, newData, gameName) {
     game: game.name,
     rating: review.rating,
     review: review.review,
+
+    platform: review.platform?.name,
+
+    platforms: review.game.platforms.map((p) => p.name),
+
     user: {
       name: review.user.name,
     },

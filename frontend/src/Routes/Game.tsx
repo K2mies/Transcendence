@@ -224,6 +224,7 @@ function Game({ myCurrUser }: GameProps) {
           <Reviews
             key={game.name}
             gameName={game.name}
+            gamePlatforms={game.platforms}
             reviews={reviews}
             setReviews={setReviews}
             onDeleteReview={deleteReview}

@@ -194,6 +194,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
           {reviews.length > 0 && (
             <Reviews
               reviews={reviews}
+              setReviews={setReviews}
               myCurrUser={myCurrUser}
               page="profile"
               onDeleteReview={deleteReview}

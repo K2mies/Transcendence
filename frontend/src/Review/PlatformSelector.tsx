@@ -1,37 +1,21 @@
-import { useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
 type PlatformSelectorProps = {
   platform: string | null;
   setPlatform: (platform: string | null) => void;
+  platforms: string[];
 };
 
-function PlatformSelector({ platform, setPlatform }: PlatformSelectorProps) {
-  const [platformOptions, setPlatformOptions] = useState<string[]>([]);
-
-  useEffect(() => {
-    async function fetchPlatforms() {
-      const response = await fetch("http://localhost:4243/games/platforms", {
-        credentials: "include",
-      });
-
-      const result = await response.json();
-
-      if (result.status === "success") {
-        setPlatformOptions(
-          result.data.map((platform: { name: string }) => platform.name),
-        );
-      }
-    }
-
-    fetchPlatforms();
-  }, []);
-
+function PlatformSelector({
+  platform,
+  setPlatform,
+  platforms,
+}: PlatformSelectorProps) {
   return (
     <Autocomplete
       value={platform}
-      options={platformOptions}
+      options={platforms}
       onChange={(_, value) => {
         setPlatform(value);
       }}
@@ -41,6 +25,14 @@ function PlatformSelector({ platform, setPlatform }: PlatformSelectorProps) {
           label="Platform..."
           size="small"
           sx={{
+            "& .MuiInputLabel-root": {
+              color: "var(--color-secondary)",
+            },
+
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "var(--color-secondary)",
+            },
+
             "& .MuiOutlinedInput-root": {
               height: 36,
 

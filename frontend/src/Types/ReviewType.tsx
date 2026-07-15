@@ -7,5 +7,7 @@ export type Review = {
   game: string;
   rating: number;
   review: string;
+  platform?: string;
+  platforms?: string[];
   user: User;
 };
