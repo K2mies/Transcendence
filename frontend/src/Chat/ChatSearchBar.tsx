@@ -55,6 +55,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
 			renderInput={(params) => (
 				<TextField
 					{...params}
+          role="combobox"
 					label="Search friend to chat..."
 					size="small"
 					sx={{

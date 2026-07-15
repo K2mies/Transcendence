@@ -53,6 +53,7 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
         renderInput={(params) => (
           <TextField
             {...params}
+            role="combobox"
             placeholder="Choose"
             size="small"
             sx={FILTER_SX}
