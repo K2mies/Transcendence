@@ -24,6 +24,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   Linux: FaLinux,
   "PC (Microsoft Windows)": BsWindows,
   Mac: FaApple,
+  iOS: FaApple,
   Stea: FaSteam,
 };
 
