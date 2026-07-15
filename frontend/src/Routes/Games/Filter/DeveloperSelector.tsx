@@ -54,6 +54,7 @@ function DeveloperSelector({
         renderInput={(params) => (
           <TextField
             {...params}
+            role="combobox"
             placeholder="Choose"
             size="small"
             sx={FILTER_SX}

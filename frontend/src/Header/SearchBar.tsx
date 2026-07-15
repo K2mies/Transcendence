@@ -70,6 +70,7 @@ const SearchBar = () => {
       renderInput={(params) => (
         <TextField
           {...params}
+          role="combobox"
           placeholder="Search games"
           size="small"
           sx={{
