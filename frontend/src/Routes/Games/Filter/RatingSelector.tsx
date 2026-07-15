@@ -1,6 +1,7 @@
-import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { FILTER_SX } from "./FilterProperties";
+import { InputLabel } from "@mui/material";
 
 type RatingSelectorProps = {
   minRating: number;
@@ -10,14 +11,24 @@ type RatingSelectorProps = {
 function RatingSelector({ minRating, setMinRating }: RatingSelectorProps) {
   return (
     <div className="flex flex-col">
-      <label htmlFor="rating" className="text-white">Rating:</label>
-      <TextField
-        select
+      <InputLabel
+        id="rating-label"
+        sx={{
+          color: "white",
+        }}
+      >
+        Rating:
+      </InputLabel>
+      <Select
         id="rating"
+        labelId="rating-label"
         value={minRating}
         onChange={(e) => setMinRating(Number(e.target.value))}
         size="small"
-        sx={FILTER_SX}
+        sx={{
+          width: 145,
+          backgroundColor: "var(--app-tertiary)",
+        }}
       >
         <MenuItem value={0}>All ratings</MenuItem>
         <MenuItem value={1}>1+ stars</MenuItem>
@@ -25,7 +36,7 @@ function RatingSelector({ minRating, setMinRating }: RatingSelectorProps) {
         <MenuItem value={3}>3+ stars</MenuItem>
         <MenuItem value={4}>4+ stars</MenuItem>
         <MenuItem value={5}>5 stars</MenuItem>
-      </TextField>
+      </Select>
     </div>
   );
 }
