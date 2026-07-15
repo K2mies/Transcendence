@@ -136,6 +136,7 @@ function Reviews({
       </div>
       <AddReview
         isOpen={showAddReview}
+        gameName={editingReview?.game ?? gameName ?? ""}
         reviewToEdit={editingReview}
         gamePlatforms={editingReview ? editingPlatforms : (gamePlatforms ?? [])}
         onSubmit={submitReview}

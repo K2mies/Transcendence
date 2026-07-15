@@ -6,6 +6,7 @@ import type { Review as ReviewType } from "../Types/ReviewType";
 
 type AddReviewProps = {
   isOpen: boolean;
+  gameName: string;
   gamePlatforms: string[];
   reviewToEdit: ReviewType | null;
   onCancel: () => void;
@@ -18,6 +19,7 @@ type AddReviewProps = {
 
 function AddReview({
   isOpen,
+  gameName,
   gamePlatforms,
   reviewToEdit,
   onSubmit,
@@ -60,9 +62,11 @@ function AddReview({
       <RatingSelector rating={rating} setRating={setRating} size={28} />
 
       <div className="flex justify-between items-center mb-2">
-        <label htmlFor="review" className="font-semibold">
-          Review
-        </label>
+        <div>
+          <label htmlFor="review" className="font-semibold">
+            Review : {gameName}
+          </label>
+        </div>
 
         <div className="flex items-center gap-2">
           <PlatformSelector
@@ -102,14 +106,14 @@ function AddReview({
           disabled={rating === 0}
           onClick={handleSubmit}
           className="
-      bg-primary
-      text-tertiary
-      px-4
-      py-2
-      rounded
-      disabled:bg-secondary
-      disabled:cursor-not-allowed
-    "
+             bg-primary
+             text-tertiary
+             px-4
+             py-2
+             rounded
+             disabled:bg-secondary
+             disabled:cursor-not-allowed
+           "
         >
           {reviewToEdit ? "Update" : "Submit"}
         </button>
