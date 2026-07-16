@@ -5,6 +5,7 @@ import FavoriteButton from "../../Rating/FavoriteButton";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";
 import PlatformIcon from "../../Review/PlatformIcon";
+import { MdOutlineDescription } from "react-icons/md";
 
 type GameDataProps = {
   game: Game;
@@ -131,27 +132,34 @@ function GameInfo({ game }: GameInfoProps) {
         />
 
         <div className="flex-1 min-w-0">
-          <p>{game.description}</p>
+          <div className="relative">
+            <label className="absolute top-2 right-2 text-secondary bg-tertiary px-2 font-bold">
+              <MdOutlineDescription className="text-secondary" size={20} />
+            </label>
 
+            <p className="border-3 rounded-lg border-secondary p-6 pt-10">
+              {game.description}
+            </p>
+          </div>
           <div className="my-3 mb-3">
-            <label>Modes:</label>
+            <label className="font-bold">Modes:</label>
             <div className="flex flex-wrap gap-3">
               {game.modes.map((mode) => (
                 <span
                   key={mode}
-                  className="rounded-full border-3 bg-primary text-tertiary border-primary px-3 py-1 whitespace-nowrap"
+                  className="rounded-full bg-primary text-tertiary px-3 py-1 whitespace-nowrap"
                 >
                   {mode}
                 </span>
               ))}
             </div>
 
-            <label>Genres:</label>
+            <label className="font-bold text-secondary">Genres:</label>
             <div className="flex flex-wrap gap-3 mb-3">
               {game.genres.map((genre) => (
                 <span
                   key={genre}
-                  className="rounded-full border-3 bg-secondary text-primary border-secondary px-3 py-1 whitespace-nowrap"
+                  className="rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
                 >
                   {genre}
                 </span>

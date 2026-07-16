@@ -92,13 +92,15 @@ function AddReview({
           </span>
         </div>
 
-        <button
-          type="button"
-          className="absolute top-0 right-0 p-2 bg-secondary rounded text-tertiary hover:text-primary"
-          onClick={() => setReview("")}
-        >
-          <ImCross size={10} />
-        </button>
+        <div className="absolute top-2 right-2 flex gap-2">
+          <button
+            type="button"
+            className="text-secondary hover:text-primary"
+            onClick={() => setReview("")}
+          >
+            <ImCross size={14} />
+          </button>
+        </div>
       </div>
       <div className="mt-4 flex gap-3">
         <button
