@@ -137,7 +137,7 @@ function GameInfo({ game }: GameInfoProps) {
               <MdOutlineDescription className="text-secondary" size={18} />
             </label>
 
-            <p className="border-3 rounded-lg border-secondary p-6 pt-10">
+            <p className="border-3 rounded-lg border-secondary p-6">
               {game.description}
             </p>
           </div>
