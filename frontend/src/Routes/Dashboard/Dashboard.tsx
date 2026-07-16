@@ -65,26 +65,29 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="bg-secondary p-6 min-h-screen">
-      <div>
-        <DisplayGames
-          header="Currently Trending"
-          games={trendingGames}
-        ></DisplayGames>
-        <DisplayGames
-          header="Community Top Rated"
-          games={topRatedGames}
-        ></DisplayGames>
-        <DisplayGames
-          header="Most Played"
-          games={mostPlayedGames}
-        ></DisplayGames>
-        <DisplayGames
-          header="Newest Releases"
-          games={newestGames}
-        ></DisplayGames>
+    <>
+      <title>GoodPlays: Dashboard</title>
+      <div className="bg-secondary p-6 min-h-screen">
+        <div>
+          <DisplayGames
+            header="Currently Trending"
+            games={trendingGames}
+          ></DisplayGames>
+          <DisplayGames
+            header="Community Top Rated"
+            games={topRatedGames}
+          ></DisplayGames>
+          <DisplayGames
+            header="Most Played"
+            games={mostPlayedGames}
+          ></DisplayGames>
+          <DisplayGames
+            header="Newest Releases"
+            games={newestGames}
+          ></DisplayGames>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
