@@ -1,8 +1,10 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
-import Reviews from "../Review/Reviews";
-import FavoriteButton from "../Rating/FavoriteButton";
-import type { Game, Review, GameStatus } from "../Types/GameType";
+import Reviews from "../../Review/Reviews";
+import FavoriteButton from "../../Rating/FavoriteButton";
+import type { Game, GameStatus } from "../../Types/GameType";
+import type { Review } from "../../Types/ReviewType";
+import PlatformIcon from "../../Review/PlatformIcon";
 
 type GameDataProps = {
   game: Game;
@@ -103,15 +105,18 @@ function GameInfo({ game }: GameInfoProps) {
           <div className="flex p-2">
             <FavoriteButton game={game} />
           </div>
-
           <Status key={game.name} game={game} />
         </div>
 
         <div>
-          <ul className="bg-tertiary text-primary flex flex-row gap-[3em] rounded-lg px-1">
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg px-1 text-tertiary">
             {game.platforms.map((platform) => (
-              <li key={platform} className="list-none">
-                <p>{platform}</p>
+              <li
+                key={platform}
+                className="flex items-center gap-1 whitespace-nowrap list-none"
+              >
+                <span>{platform}</span>
+                <PlatformIcon platform={platform} size={16} />
               </li>
             ))}
           </ul>
@@ -125,27 +130,33 @@ function GameInfo({ game }: GameInfoProps) {
           className="rounded-xl border-5 border-secondary"
         />
 
-        <div className="w-[55%]">
+        <div className="flex-1 min-w-0">
           <p>{game.description}</p>
 
-          <div className="lg:flex my-3 gap-x-3 text-sm lg:text-center lg:items-center">
-            {game.genres.map((genre) => (
-              <p
-                key={genre}
-                className="lg:rounded-full lg:border-secondary lg:border-3 text-secondary lg:text-primary lg:p-2"
-              >
-                {genre}
-              </p>
-            ))}
+          <div className="my-3 mb-3">
+            <label>Modes:</label>
+            <div className="flex flex-wrap gap-3">
+              {game.modes.map((mode) => (
+                <span
+                  key={mode}
+                  className="rounded-full border-3 bg-primary text-tertiary border-primary px-3 py-1 whitespace-nowrap"
+                >
+                  {mode}
+                </span>
+              ))}
+            </div>
 
-            {game.modes.map((mode) => (
-              <p
-                key={mode}
-                className="lg:rounded-full lg:border-primary lg:border-3 text-primary lg:p-2"
-              >
-                {mode}
-              </p>
-            ))}
+            <label>Genres:</label>
+            <div className="flex flex-wrap gap-3 mb-3">
+              {game.genres.map((genre) => (
+                <span
+                  key={genre}
+                  className="rounded-full border-3 bg-secondary text-primary border-secondary px-3 py-1 whitespace-nowrap"
+                >
+                  {genre}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
