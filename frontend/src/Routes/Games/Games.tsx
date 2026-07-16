@@ -83,60 +83,64 @@ function Games() {
     fetchGames();
   }, [page, searchTerm, genres, platforms, developer, minRating, sortBy]);
   return (
-    <div className="bg-secondary">
-      <div
-        hidden={!showFilters}
-        className={`
-          overflow-hidden
-          transition-all
-          duration-500
-          ease-in-out
-          ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
-        `}
-      >
-        <GameFilter
-          setShowFilters={setShowFilters}
-          minRating={minRating}
-          setMinRating={setMinRating}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          genres={genres}
-          setGenres={setGenres}
-          platforms={platforms}
-          setPlatforms={setPlatforms}
-          developer={developer}
-          setDeveloper={setDeveloper}
+    <>
+      <title>GoodPlays: Games</title>
+      <div className="bg-secondary">
+        <div
+          hidden={!showFilters}
+          className={`
+            overflow-hidden
+            transition-all
+            duration-500
+            ease-in-out
+            ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
+          `}
+        >
+          <GameFilter
+            setShowFilters={setShowFilters}
+            minRating={minRating}
+            setMinRating={setMinRating}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            genres={genres}
+            setGenres={setGenres}
+            platforms={platforms}
+            setPlatforms={setPlatforms}
+            developer={developer}
+            setDeveloper={setDeveloper}
+          />
+        </div>
+        <div className="flex justify-end">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            aria-label={showFilters ? "Hide filters" : "Show filters"}
+          >
+            <FaGear
+              size={30}
+              className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
+              aria-hidden="true"
+              focusable="false"
+            />
+          </button>
+        </div>
+        <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
+          <div className="relative grid grid-cols-5 gap-2">
+            {games.map((game, index) => (
+              <GameCard key={game.id} game={game} index={index} />
+            ))}
+          </div>
+        </div>
+        <PaginationControls
+          page={page}
+          totalPages={pagination?.totalPages ?? 1}
+          onPrevious={() => setPage((prev) => prev - 1)}
+          onNext={() => setPage((prev) => prev + 1)}
+          onPageChange={(newPage) => setPage(newPage)}
         />
       </div>
-      <div className="flex justify-end">
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          aria-label={showFilters ? "Hide filters" : "Show filters"}>
-          <FaGear
-            size={30}
-            className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
-            aria-hidden="true"
-            focusable="false"
-          />
-        </button>
-      </div>
-      <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
-        <div className="relative grid grid-cols-5 gap-2">
-          {games.map((game, index) => (
-            <GameCard key={game.id} game={game} index={index} />
-          ))}
-        </div>
-      </div>
-      <PaginationControls
-        page={page}
-        totalPages={pagination?.totalPages ?? 1}
-        onPrevious={() => setPage((prev) => prev - 1)}
-        onNext={() => setPage((prev) => prev + 1)}
-        onPageChange={(newPage) => setPage(newPage)}
-      />
-    </div>
+    </>
   );
 }
 export default Games;
