@@ -115,6 +115,7 @@ function FriendList({
                 Manage friends
               </DialogTitle>
               <Tabs
+                selectionFollowsFocus
                 value={value}
                 onChange={handleChange}
                 textColor="inherit"
