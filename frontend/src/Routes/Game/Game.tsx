@@ -138,6 +138,7 @@ function GameInfo({ game }: GameInfoProps) {
             </label>
 
             <p className="border-3 rounded-lg border-secondary p-6">
+              <label className="font-bold">Description: </label>
               {game.description}
             </p>
           </div>
