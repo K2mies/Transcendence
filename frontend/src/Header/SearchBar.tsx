@@ -51,9 +51,28 @@ const SearchBar = () => {
         setInputValue(value);
       }}
       options={games}
+      tabIndex={0}
       filterOptions={filterOptions}
       getOptionLabel={(option) => option.name}
       slotProps={{
+        popupIndicator: {
+          "aria-label": "Open profile search suggestions",
+          tabIndex: 0,
+          sx: {
+            "&:focus": {
+              outline: "2px solid var(--color-secondary)",
+              outlineOffset: "2px",
+            },
+            "&:focus-visible": {
+              outline: "2px solid var(--color-secondary)",
+              outlineOffset: "2px",
+            },
+            "&.Mui-focusVisible": {
+              outline: "2px solid var(--color-secondary)",
+              outlineOffset: "2px",
+            },
+          },
+        },
         listbox: {
           sx: {
             maxHeight: 400,
@@ -70,8 +89,7 @@ const SearchBar = () => {
       renderInput={(params) => (
         <TextField
           {...params}
-          role="combobox"
-          placeholder="Search games"
+          label="Search for games"
           size="small"
           sx={{
             "& .MuiOutlinedInput-root": {
