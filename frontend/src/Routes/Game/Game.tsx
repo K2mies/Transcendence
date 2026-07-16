@@ -134,7 +134,7 @@ function GameInfo({ game }: GameInfoProps) {
         <div className="flex-1 min-w-0">
           <div className="relative">
             <label className="absolute top-2 right-2 text-secondary bg-tertiary px-2 font-bold">
-              <MdOutlineDescription className="text-secondary" size={20} />
+              <MdOutlineDescription className="text-secondary" size={18} />
             </label>
 
             <p className="border-3 rounded-lg border-secondary p-6 pt-10">
@@ -154,16 +154,18 @@ function GameInfo({ game }: GameInfoProps) {
               ))}
             </div>
 
-            <label className="font-bold text-secondary">Genres:</label>
-            <div className="flex flex-wrap gap-3 mb-3">
-              {game.genres.map((genre) => (
-                <span
-                  key={genre}
-                  className="rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
-                >
-                  {genre}
-                </span>
-              ))}
+            <div className="mt-3">
+              <label className="font-bold text-secondary">Genres:</label>
+              <div className="flex flex-wrap gap-3 mb-3">
+                {game.genres.map((genre) => (
+                  <span
+                    key={genre}
+                    className="rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
+                  >
+                    {genre}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
