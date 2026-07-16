@@ -41,7 +41,7 @@ function CustomTabPanel({ children, value, index }: CustomTabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -127,14 +127,38 @@ function FriendList({
               >
                 <Tab
                   label={`Friends (${friendInfo.friends.length})`}
+                  sx={{
+                    "&:focus": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                    "&:focus-visible": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                  }}
                   {...a11yProps(0)}
                 />
                 <Tab
                   label={`Received requests (${friendInfo.recvReqs.length})`}
+                  sx={{
+                    "&:focus": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                    "&:focus-visible": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                  }}
                   {...a11yProps(1)}
                 />
                 <Tab
                   label={`Sent requests (${friendInfo.sentReqs.length})`}
+                  sx={{
+                    "&:focus": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                    "&:focus-visible": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                  }}
                   {...a11yProps(2)}
                 />
               </Tabs>
@@ -169,7 +193,7 @@ function FriendList({
                         }
                       }}
                     >
-                      <ImCross />
+                      <ImCross aria-hidden="true" focusable="false" />
                     </button>
                   </div>
                 ))}
@@ -208,7 +232,7 @@ function FriendList({
                           }
                         }}
                       >
-                        <ImCheckmark />
+                        <ImCheckmark aria-hidden="true" focusable="false" />
                       </button>
                       <button
                         type="button"
@@ -230,7 +254,7 @@ function FriendList({
                           }
                         }}
                       >
-                        <ImCross />
+                        <ImCross aria-hidden="true" focusable="false" />
                       </button>
                     </div>
                   </div>
@@ -267,7 +291,7 @@ function FriendList({
                         }
                       }}
                     >
-                      <ImCross />
+                      <ImCross aria-hidden="true" focusable="false" />
                     </button>
                   </div>
                 ))}
