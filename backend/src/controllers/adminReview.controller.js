@@ -8,12 +8,15 @@ export const listReviews = async (req, res) => {
 			rating: true,
 			createdAt: true,
 			user: { select: { id: true, name: true } },
-			game: { select: { id: true, name: true } },
+			game: { select: { name: true } },
 		},
 		orderBy: { createdAt: "desc" },
 	});
 
-	res.status(200).json({ status: "success", data: reviews });
+	res.status(200).json({
+		status: "success",
+		data: reviews.map((r) => ({ ...r, game: r.game.name })),
+	});
 };
 
 export const deleteReviewById = async (req, res) => {
