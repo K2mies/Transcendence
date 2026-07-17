@@ -101,28 +101,71 @@ function Status({ game }: StatusProps) {
 }
 
 function GameInfo({ game }: GameInfoProps) {
+  const sortedPlatforms = [...game.platforms].sort((a, b) => {
+    const order = [
+      "PlayStation",
+      "PlayStation 2",
+      "PlayStation 3",
+      "PlayStation 4",
+      "PlayStation 5",
+      "PS Vita",
+      "PSP",
+
+      "Xbox",
+      "Xbox 360",
+      "Xbox One",
+      "Xbox Series X|S",
+
+      "Nintendo Entertainment System",
+      "Super Nintendo Entertainment System",
+      "Nintendo 64",
+      "Nintendo GameCube",
+      "Wii",
+      "Wii U",
+      "Nintendo Switch",
+      "Nintendo Switch 2",
+      "Game Boy",
+      "Game Boy Advance",
+      "Nintendo DS",
+      "Nintendo 3DS",
+
+      "PC (Microsoft Windows)",
+      "Linux",
+      "macOS",
+
+      "Steam Deck",
+    ];
+
+    const ia = order.indexOf(a);
+    const ib = order.indexOf(b);
+
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+
+    return ia - ib;
+  });
   return (
     <div className="flex flex-col ml-auto">
-      <div className="bg-primary text-tertiary rounded-t-lg p-2">
-        <div className="flex justify-between">
-          <div className="flex p-2">
+      <div className="bg-primary text-tertiary rounded-t-lg px-4 py-3">
+        <div className="flex items-start gap-4">
+          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary">
+            {sortedPlatforms.map((platform) => (
+              <li
+                key={platform}
+                className="flex items-center gap-1 whitespace-nowrap list-none"
+              >
+                <span>{platform}</span>
+                <PlatformIcon platform={platform} size={16} />
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-4 shrink-0">
             <FavoriteButton game={game} />
+            <Status key={game.name} game={game} />
           </div>
-          <Status key={game.name} game={game} />
         </div>
-      </div>
-      <div>
-        <ul className="bg-primary flex flex-wrap items-center gap-x-6 gap-y-2 px-4 pb-2 text-tertiary">
-          {game.platforms.map((platform) => (
-            <li
-              key={platform}
-              className="flex items-center gap-1 whitespace-nowrap list-none"
-            >
-              <span>{platform}</span>
-              <PlatformIcon platform={platform} size={16} />
-            </li>
-          ))}
-        </ul>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
         {/* Left column */}
