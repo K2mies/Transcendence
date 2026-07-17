@@ -54,6 +54,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   PlayStation: BsPlaystation,
 
   "PlayStation Vita": BsPlaystation,
+  "PlayStation VR": BsPlaystation,
 
   "Xbox Series X|S": BsXbox,
   "Xbox One": BsXbox,

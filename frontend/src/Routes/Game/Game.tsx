@@ -124,57 +124,64 @@ function GameInfo({ game }: GameInfoProps) {
           ))}
         </ul>
       </div>
-
-      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2em] p-4 rounded-b-lg">
+      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
+        {/* Left column */}
         <img
           src={game.image}
           alt={game.name}
-          className="rounded-xl border-5 border-secondary"
+          className="row-span-2 rounded-xl border-5 border-primary"
         />
 
-        <div className="flex-1 min-w-0">
-          <div className="relative">
-            <label className="absolute top-2 right-2 text-secondary bg-tertiary px-2 font-bold">
-              <MdOutlineDescription className="text-secondary" size={18} />
-            </label>
+        {/* Top right */}
+        <div className="flex items-start gap-8">
+          <div className="flex-1 min-w-0">
+            <div className="relative">
+              <label className="absolute top-1 right-2 text-secondary">
+                <MdOutlineDescription size={18} />
+              </label>
 
-            <p className="border-3 rounded-lg border-secondary p-6">
-              <label className="font-bold">Description: </label>
-              {game.description}
-            </p>
+              <p className="pr-8">
+                <label className="font-bold">Description: </label>
+                {game.description}
+              </p>
+            </div>
           </div>
-          <div className="my-3 mb-3">
-            <label className="font-bold">Modes:</label>
-            <div className="flex flex-wrap gap-3">
-              {game.modes.map((mode) => (
+
+          <GameData game={game} />
+        </div>
+
+        {/* Bottom right */}
+        <div className="self-end mt-4">
+          <label className="font-bold">Modes:</label>
+
+          <div className="flex flex-wrap gap-3 mt-2">
+            {game.modes.map((mode) => (
+              <span
+                key={mode}
+                className="inline-flex items-center gap-1 rounded-full bg-primary text-tertiary px-3 py-1 whitespace-nowrap"
+              >
+                <span>{mode}</span>
+                <ModeIcon mode={mode} size={16} />
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-4">
+            <label className="font-bold text-secondary">Genres:</label>
+
+            <div className="flex flex-wrap gap-3 mt-2">
+              {game.genres.map((genre) => (
                 <span
-                  key={mode}
-                  className="inline-flex items-center gap-1 rounded-full bg-primary text-tertiary px-3 py-1 whitespace-nowrap"
+                  key={genre}
+                  className="inline-flex items-center gap-1 rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
                 >
-                  <span>{mode}</span>
-                  <ModeIcon mode={mode} size={16} />
+                  <span>{genre}</span>
+                  <GenreIcon genre={genre} size={16} />
                 </span>
               ))}
             </div>
-
-            <div className="mt-3">
-              <label className="font-bold text-secondary">Genres:</label>
-              <div className="flex flex-wrap gap-3 mb-3">
-                {game.genres.map((genre) => (
-                  <span
-                    key={genre}
-                    className="inline-flex items-center gap-1 rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
-                  >
-                    <span>{genre}</span>
-                    <GenreIcon genre={genre} size={16} />
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
-
-        <GameData game={game} />
       </div>
     </div>
   );
