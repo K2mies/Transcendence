@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useController } from "react-hook-form";
 import { useState } from "react";
-import { useController } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,22 +12,21 @@ type UpdateUsernameProps = {
 
 type FormValues = {
   name: string;
-}
+};
 
-const schema = z
-  .object({
-    name: z
-      .string()
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username must be max 20 characters")
-      .regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
-      .refine((value) => !/^[_-]/.test(value), {
-        message: "Username cannot start with _ or -",
-      })
-      .refine((value) => !/[_-]$/.test(value), {
-        message: "Username cannot end with _ or -",
-      }),
-  });
+const schema = z.object({
+  name: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be max 20 characters")
+    .regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
+    .refine((value) => !/^[_-]/.test(value), {
+      message: "Username cannot start with _ or -",
+    })
+    .refine((value) => !/[_-]$/.test(value), {
+      message: "Username cannot end with _ or -",
+    }),
+});
 
 function UpdateUsername({
   setUpdateUsernameMode,
@@ -36,7 +34,9 @@ function UpdateUsername({
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<string | undefined>(undefined);
-  const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const { handleSubmit, control } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
   const name = "name";
   const {
     field,
@@ -53,14 +53,17 @@ function UpdateUsername({
     const newData: { name: string } = {
       name: newName,
     };
-    const response: Response = await fetch("http://localhost:4243/auth/username", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response: Response = await fetch(
+      "http://localhost:4243/auth/username",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(newData),
       },
-      credentials: "include",
-      body: JSON.stringify(newData),
-    });
+    );
 
     const data = await response.json();
     if (response.status === 200) {
@@ -80,6 +83,9 @@ function UpdateUsername({
       setUpdateUsernameMode(false);
     } else {
       setEditError(data.error || "Error saving username. Please try again.");
+      setTimeout(() => {
+        setEditError("");
+      }, 5000);
     }
   }
   return (
@@ -99,7 +105,6 @@ function UpdateUsername({
                 color: "black",
               },
             }}
-
             type="text"
             autoComplete="off"
             onChange={(e) => {
@@ -127,7 +132,9 @@ function UpdateUsername({
         </div>
       </form>
       {editError && (
-        <p className="font-bold p-2 ml-3">{editError}</p>
+        <p className="bg-red-600 text-white text-sm p-2 ml-3 rounded shadow-lg whitespace-nowrap z-10">
+          {editError}
+        </p>
       )}
     </>
   );
