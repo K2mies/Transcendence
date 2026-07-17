@@ -38,7 +38,6 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
       id="chat-search"
       sx={{ width: "25%" }}
       options={users}
-      tabIndex={0}
       filterOptions={filterOptions}
       getOptionLabel={(option) => option.name}
       onChange={(_, value) => {
@@ -49,22 +48,24 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
       isOptionEqualToValue={(option, value) => option.id === value.id}
       slotProps={{
         popupIndicator: {
-          "aria-label": "Open profile search suggestions",
-          "tabIndex": 0,
+          tabIndex: 0,
+          "aria-label": "Open chat search suggestions",
           sx: {
-            "&:focus": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
-            },
-            "&:focus-visible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
-            },
-            "&.Mui-focusVisible": {
+            "&:focus-visible, &.Mui-focusVisible": {
               outline: "2px solid var(--color-secondary)",
               outlineOffset: "2px",
             },
           }
+        },
+        clearIndicator: {
+          tabIndex: 0,
+          "aria-label": "Clear chat search suggestions",
+          sx: {
+            "&:focus-visible, &.Mui-focusVisible": {
+              outline: "2px solid var(--color-secondary)",
+              outlineOffset: "2px",
+            },
+          },
         },
         listbox: {
           sx: { maxHeight: 300 },
