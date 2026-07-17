@@ -174,7 +174,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
         type="password"
       />
 
-      <input className="cursor-pointer underline" type="submit" />
+      <button className="cursor-pointer underline" type="submit">Submit</button>
 
       {registerStatus !== "init" && (
         <div>
