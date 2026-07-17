@@ -128,7 +128,7 @@ function LoginForm({ setMyCurrUser }: LoginFormProps) {
         type="password"
       />
 
-      <input className="cursor-pointer underline" type="submit" />
+      <button className="cursor-pointer underline" type="submit">Submit</button>
 
       {loginError && (
         <p role="alert" aria-live="assertive">
