@@ -6,9 +6,16 @@ import {
   BsAndroid2,
 } from "react-icons/bs";
 
-import { FaSteam, FaLinux, FaApple, FaGoogle, FaCube } from "react-icons/fa";
+import { FaSteam, FaLinux, FaApple, FaGoogle, FaGamepad } from "react-icons/fa";
 import { SiSega, SiApplearcade } from "react-icons/si";
 import { TiSpiral } from "react-icons/ti";
+
+import Nintendo64Icon from "../Icons/Components/Nintendo64Icon";
+import GameCubeIcon from "../Icons/Components/GameCubeIcon";
+import GameBoyIcon from "../Icons/Components/GameBoyIcon";
+import NintendoDsIcon from "../Icons/Components/NintendoDsIcon";
+import WiiIcon from "../Icons/Components/WiiIcon";
+import WiiUIcon from "../Icons/Components/WiiUIcon";
 
 type PlatformIconProps = {
   platform?: string;
@@ -18,26 +25,52 @@ type PlatformIconProps = {
 const PLATFORM_ICONS: Record<string, React.ElementType> = {
   Arcade: SiApplearcade,
   "Sega Mega Drive/Genesis": SiSega,
+
+  "Super Nintendo Entertainment System": FaGamepad,
+  "Super Famicom": FaGamepad,
+
+  "Nintendo 64": Nintendo64Icon,
+  "Nintendo GameCube": GameCubeIcon,
+
+  Wii: WiiIcon,
+  "Wii U": WiiUIcon,
+
   "Nintendo Switch": BsNintendoSwitch,
   "Nintendo Switch 2": BsNintendoSwitch,
+
+  "Nintendo DS": NintendoDsIcon,
+  "Nintendo 3DS": NintendoDsIcon,
+  "New Nintendo 3DS": NintendoDsIcon,
+
+  "Nintendo Game Boy": GameBoyIcon,
+  "Game Boy Advance": GameBoyIcon,
+
   "PlayStation 5": BsPlaystation,
   "PlayStation 4": BsPlaystation,
   "PlayStation 3": BsPlaystation,
   "PlayStation 2": BsPlaystation,
-  "PlayStation Vita": BsPlaystation,
   PlayStation: BsPlaystation,
-  "Nintendo GameCube": FaCube,
+
+  "PlayStation Vita": BsPlaystation,
+
   "Xbox Series X|S": BsXbox,
   "Xbox One": BsXbox,
   "Xbox 360": BsXbox,
+
   Dreamcast: TiSpiral,
+
   "Google Stadia": FaGoogle,
+
   "PC (Microsoft Windows)": BsWindows,
   "Windows Phone": BsWindows,
+
   Linux: FaLinux,
+
   Mac: FaApple,
   iOS: FaApple,
+
   Android: BsAndroid2,
+
   Steam: FaSteam,
 };
 
