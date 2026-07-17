@@ -108,7 +108,7 @@ function GameInfo({ game }: GameInfoProps) {
       "PlayStation 3",
       "PlayStation 4",
       "PlayStation 5",
-      "PS Vita",
+      "PlayStation Vita",
       "PSP",
 
       "Xbox",
@@ -128,10 +128,14 @@ function GameInfo({ game }: GameInfoProps) {
       "Game Boy Advance",
       "Nintendo DS",
       "Nintendo 3DS",
+      "New Nintendo 3DS",
 
       "PC (Microsoft Windows)",
       "Linux",
-      "macOS",
+      "Mac",
+      "iOS",
+      "Android",
+      "Windows Phone",
 
       "Steam Deck",
     ];
