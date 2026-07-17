@@ -5,6 +5,8 @@ import FavoriteButton from "../../Rating/FavoriteButton";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";
 import PlatformIcon from "../../Review/PlatformIcon";
+import ModeIcon from "../../Review/ModeIcon";
+import GenreIcon from "../../Review/GenreIcon";
 import { MdOutlineDescription } from "react-icons/md";
 
 type GameDataProps = {
@@ -31,7 +33,7 @@ function GameData({ game }: GameDataProps) {
   const updated = temp.toLocaleDateString("fi-FI");
 
   return (
-    <div className="text-primary text-sm ml-auto mr-10">
+    <div className="text-primary text-sm ml-auto mr-10 w-34">
       <p>
         <span className="font-bold">Developer:</span> {game.developer}
       </p>
@@ -108,20 +110,19 @@ function GameInfo({ game }: GameInfoProps) {
           </div>
           <Status key={game.name} game={game} />
         </div>
-
-        <div>
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg px-1 text-tertiary">
-            {game.platforms.map((platform) => (
-              <li
-                key={platform}
-                className="flex items-center gap-1 whitespace-nowrap list-none"
-              >
-                <span>{platform}</span>
-                <PlatformIcon platform={platform} size={16} />
-              </li>
-            ))}
-          </ul>
-        </div>
+      </div>
+      <div>
+        <ul className="bg-primary flex flex-wrap items-center gap-x-6 gap-y-2 px-4 pb-2 text-tertiary">
+          {game.platforms.map((platform) => (
+            <li
+              key={platform}
+              className="flex items-center gap-1 whitespace-nowrap list-none"
+            >
+              <span>{platform}</span>
+              <PlatformIcon platform={platform} size={16} />
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-[2em] p-4 rounded-b-lg">
@@ -148,9 +149,10 @@ function GameInfo({ game }: GameInfoProps) {
               {game.modes.map((mode) => (
                 <span
                   key={mode}
-                  className="rounded-full bg-primary text-tertiary px-3 py-1 whitespace-nowrap"
+                  className="inline-flex items-center gap-1 rounded-full bg-primary text-tertiary px-3 py-1 whitespace-nowrap"
                 >
-                  {mode}
+                  <span>{mode}</span>
+                  <ModeIcon mode={mode} size={16} />
                 </span>
               ))}
             </div>
@@ -161,9 +163,10 @@ function GameInfo({ game }: GameInfoProps) {
                 {game.genres.map((genre) => (
                   <span
                     key={genre}
-                    className="rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
+                    className="inline-flex items-center gap-1 rounded-full bg-secondary text-primary px-3 py-1 whitespace-nowrap"
                   >
-                    {genre}
+                    <span>{genre}</span>
+                    <GenreIcon genre={genre} size={16} />
                   </span>
                 ))}
               </div>
