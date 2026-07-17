@@ -30,7 +30,6 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         {updateUsernameMode && (
           <UpdateUsername
             setUpdateUsernameMode={setUpdateUsernameMode}
-            myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
           />
         )}

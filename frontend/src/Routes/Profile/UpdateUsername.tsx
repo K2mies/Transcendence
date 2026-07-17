@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import ControlledInput from "../../ControlledInput";
+import { useController } from "react-hook-form";
+import { TextField } from "@mui/material";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 type UpdateUsernameProps = {
   setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
-  myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
 };
 
@@ -32,13 +32,20 @@ const schema = z
 
 function UpdateUsername({
   setUpdateUsernameMode,
-  myCurrUser,
   setMyCurrUser,
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<string | undefined>(undefined);
-
   const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const name = "name";
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    defaultValue: "",
+  });
 
   async function update(values: FormValues) {
     const newName = values.name;
@@ -78,15 +85,35 @@ function UpdateUsername({
   return (
     <>
       <form className="flex flex-row p-2" onSubmit={handleSubmit(update)}>
-        <ControlledInput
-          control={control}
-          name="name"
-          label="Username"
-          autoComplete="off"
-          defaultValue={myCurrUser}
-          type="text"
-        />
         <div className="flex flex-col">
+          <label htmlFor="update-username">Username:</label>
+          <TextField
+            id="update-username"
+            className="w-87.5"
+            placeholder="Give new username..."
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "var(--color-tertiary)",
+              },
+              "& .MuiInputLabel-root": {
+                color: "black",
+              },
+            }}
+
+            type="text"
+            autoComplete="off"
+            onChange={(e) => {
+              field.onChange(e.target.value);
+            }}
+            onBlur={field.onBlur}
+            value={field.value}
+            name={name}
+            inputRef={field.ref}
+            error={!!error}
+            helperText={error?.message}
+          />
+        </div>
+        <div className="flex flex-col pt-[1.5em]">
           <input className="cursor-pointer" type="submit" value="Save"></input>
           <button
             type="button"

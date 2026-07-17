@@ -7,7 +7,6 @@ type ControlledInputProps = {
   label: string;
   autoComplete: string | undefined;
   type: string;
-  defaultValue?: string;
 };
 
 const ControlledInput = ({
@@ -16,7 +15,6 @@ const ControlledInput = ({
   label,
   autoComplete,
   type,
-  defaultValue,
 }: ControlledInputProps) => {
   const {
     field,
@@ -45,7 +43,7 @@ const ControlledInput = ({
         autoComplete={autoComplete}
         onChange={(e) => field.onChange(e.target.value)}
         onBlur={field.onBlur}
-        defaultValue={defaultValue || field.value}
+        value={field.value}
         name={field.name}
         inputRef={field.ref}
         error={!!error}
