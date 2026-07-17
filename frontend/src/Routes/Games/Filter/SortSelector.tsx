@@ -1,6 +1,5 @@
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { FILTER_SX } from "./FilterProperties";
 import { InputLabel } from "@mui/material";
 
 type SortSelectorProps = {

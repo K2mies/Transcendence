@@ -55,7 +55,6 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
         renderInput={(params) => (
           <TextField
             {...params}
-            role="combobox"
             placeholder="Choose"
             size="small"
             sx={FILTER_SX}
@@ -63,6 +62,26 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
         )}
         sx={{ width: FILTER_WIDTH }}
         slotProps={{
+          popupIndicator: {
+            tabIndex: 0,
+            "aria-label": "Open platform search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
+          },
+          clearIndicator: {
+            tabIndex: 0,
+            "aria-label": "Clear platform search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
+          },
           listbox: {
             sx: {
               maxHeight: 300,

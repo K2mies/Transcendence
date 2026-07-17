@@ -51,23 +51,24 @@ const SearchBar = () => {
         setInputValue(value);
       }}
       options={games}
-      tabIndex={0}
       filterOptions={filterOptions}
       getOptionLabel={(option) => option.name}
       slotProps={{
         popupIndicator: {
-          "aria-label": "Open profile search suggestions",
           tabIndex: 0,
+          "aria-label": "Open game search suggestions",
           sx: {
-            "&:focus": {
+            "&:focus-visible, &.Mui-focusVisible": {
               outline: "2px solid var(--color-secondary)",
               outlineOffset: "2px",
             },
-            "&:focus-visible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
-            },
-            "&.Mui-focusVisible": {
+          },
+        },
+        clearIndicator: {
+          tabIndex: 0,
+          "aria-label": "Clear game search suggestions",
+          sx: {
+            "&:focus-visible, &.Mui-focusVisible": {
               outline: "2px solid var(--color-secondary)",
               outlineOffset: "2px",
             },

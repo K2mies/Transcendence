@@ -37,7 +37,6 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
       id="profile-search"
       sx={{ width: "25%" }}
       options={users}
-      tabIndex={0}
       filterOptions={filterOptions}
       getOptionLabel={(option) => option?.name ?? ""}
       onChange={(_, value) => {
@@ -48,22 +47,24 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
       isOptionEqualToValue={(option, value) => option.id === value.id}
       slotProps={{
         popupIndicator: {
+          tabIndex: 0,
           "aria-label": "Open profile search suggestions",
-          "tabIndex": 0,
           sx: {
-            "&:focus": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
-            },
-            "&:focus-visible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
-            },
-            "&.Mui-focusVisible": {
+            "&:focus-visible, &.Mui-focusVisible": {
               outline: "2px solid var(--color-secondary)",
               outlineOffset: "2px",
             },
           }
+        },
+        clearIndicator: {
+          tabIndex: 0,
+          "aria-label": "Clear profile search suggestions",
+          sx: {
+            "&:focus-visible, &.Mui-focusVisible": {
+              outline: "2px solid var(--color-secondary)",
+              outlineOffset: "2px",
+            },
+          },
         },
         listbox: {
           sx: { maxHeight: 300 },

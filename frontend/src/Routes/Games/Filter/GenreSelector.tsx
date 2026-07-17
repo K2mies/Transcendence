@@ -12,7 +12,7 @@ type GenreSelectorProps = {
 function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
   const [genreOptions, setGenreOptions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function fetchGenres() {
@@ -46,14 +46,13 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
         onChange={(_, value) => {
           if (value) {
             setGenres([...genres, value]);
-            setSelectedValue(null);
+            setSelectedValue(undefined);
             setInputValue(""); // clear text field
           }
         }}
         renderInput={(params) => (
           <TextField
             {...params}
-            role="combobox"
             placeholder="Choose"
             size="small"
             sx={FILTER_SX}
@@ -61,6 +60,26 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
         )}
         sx={{ width: FILTER_WIDTH }}
         slotProps={{
+          popupIndicator: {
+            tabIndex: 0,
+            "aria-label": "Open genre search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
+          },
+          clearIndicator: {
+            tabIndex: 0,
+            "aria-label": "Clear genre search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
+          },
           listbox: {
             sx: {
               maxHeight: 300,
