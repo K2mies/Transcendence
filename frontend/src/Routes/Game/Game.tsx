@@ -33,7 +33,7 @@ function GameData({ game }: GameDataProps) {
   const updated = temp.toLocaleDateString("fi-FI");
 
   return (
-    <div className="text-primary text-sm ml-auto mr-10 w-34">
+    <div className="text-primary text-sm ml-auto w-54">
       <p>
         <span className="font-bold">Developer:</span> {game.developer}
       </p>
