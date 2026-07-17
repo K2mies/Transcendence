@@ -10,10 +10,12 @@ import { FaSteam, FaLinux, FaApple, FaGoogle, FaGamepad } from "react-icons/fa";
 import { SiSega, SiApplearcade } from "react-icons/si";
 import { TiSpiral } from "react-icons/ti";
 
+//custom svg icons
 import Nintendo64Icon from "../Icons/Components/Nintendo64Icon";
 import GameCubeIcon from "../Icons/Components/GameCubeIcon";
 import GameBoyIcon from "../Icons/Components/GameBoyIcon";
-import NintendoDsIcon from "../Icons/Components/NintendoDsIcon";
+import NintendoIcon from "../Icons/Components/NintendoIcon";
+import Nintendo3DsIcon from "../Icons/Components/Nintendo3DsIcon";
 import WiiIcon from "../Icons/Components/WiiIcon";
 import WiiUIcon from "../Icons/Components/WiiUIcon";
 
@@ -38,9 +40,9 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Nintendo Switch": BsNintendoSwitch,
   "Nintendo Switch 2": BsNintendoSwitch,
 
-  "Nintendo DS": NintendoDsIcon,
-  "Nintendo 3DS": NintendoDsIcon,
-  "New Nintendo 3DS": NintendoDsIcon,
+  "Nintendo DS": NintendoIcon,
+  "Nintendo 3DS": Nintendo3DsIcon,
+  "New Nintendo 3DS": Nintendo3DsIcon,
 
   "Nintendo Game Boy": GameBoyIcon,
   "Game Boy Advance": GameBoyIcon,

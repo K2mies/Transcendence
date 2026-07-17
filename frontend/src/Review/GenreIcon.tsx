@@ -3,7 +3,6 @@ import { IoExtensionPuzzle, IoChatbubbleEllipses } from "react-icons/io5";
 import { GiPlatform } from "react-icons/gi";
 import { FaGun } from "react-icons/fa6";
 import { FaMousePointer, FaFistRaised } from "react-icons/fa";
-
 import { TiPencil } from "react-icons/ti";
 import { RiTreasureMapFill } from "react-icons/ri";
 import { MdWatchLater } from "react-icons/md";
