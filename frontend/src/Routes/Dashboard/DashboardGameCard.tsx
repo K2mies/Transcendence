@@ -41,31 +41,32 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
       </Link>
       <h2
         className="
-            bg-primary 
-            text-tertiary
-            
-            border-2
-            border-primary
-
-            relative
-            -mt-14
-            z-10
-            w-full
-            p-2
-            h-[3.5rem]
-
-            flex
-            items-center
-            justify-center
-            line-clamp-2
-
-            opacity-0
-            group-hover:opacity-100
-            transition-opacity
-            
-            rounded-t-lg 
-            text-center 
-            text-xs
+          absolute
+          left-0
+          right-0
+          bottom-8
+      
+          bg-primary
+          border-2
+          border-primary
+          text-tertiary
+      
+          p-2
+      
+          flex
+          items-center
+          justify-center
+      
+          text-center
+          text-xs
+          break-words
+      
+          opacity-0
+          group-hover:opacity-100
+          transition-opacity
+      
+          rounded-t-lg
+          z-10
         "
       >
         <Link

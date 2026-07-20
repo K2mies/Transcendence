@@ -4,7 +4,7 @@ import type { RegistrationProps } from "../types";
 
 function Login({ setMyCurrUser }: RegistrationProps) {
   return (
-    <div className="bg-secondary flex min-h-screen flex-col items-center justify-center text-center">
+    <div className="bg-secondary flex min-h-screen flex-col items-center justify-center text-center p-6">
       <div className="bg-tertiary rounded-lg p-4">
         <h2 className="bg-primary text-tertiary p-4 rounded-t-lg">
           Login to Goodplays
