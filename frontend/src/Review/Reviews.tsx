@@ -143,9 +143,9 @@ function Reviews({
         onCancel={closeReviewForm}
       />
 
-      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[400px] overflow-y-auto">
+      <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[600px] overflow-y-auto">
         {reviews.length === 0 ? (
-          <li className="flex flex-col items-center justify-center min-h-48 text-center text-primary/70">
+          <li className="flex flex-col items-center justify-center min-h-48 text-center text-secondary">
             <p className="text-lg font-semibold">No reviews yet</p>
 
             {page === "game" && (
