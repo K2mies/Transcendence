@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Review as ReviewType } from "../Types/ReviewType";
 import Review from "./Review";
 import AddReview from "./AddReview";
+import { IoIosAdd } from "react-icons/io";
 
 type ReviewsProps = {
   page: "game" | "profile";
@@ -103,21 +104,33 @@ function Reviews({
     setShowAddReview(false);
   }
 
+  const combinedRating =
+    rating !== undefined && reviewAverage !== undefined && reviews.length > 0
+      ? (
+          (reviewAverage * reviews.length + rating) /
+          (reviews.length + 1)
+        ).toFixed(1)
+      : undefined;
+
   return (
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
         <div className="flex align-text-bottom">
           <h3 className="mr-20">Reviews</h3>
           {page === "game" && (
-            <div className="text-md flex gap-x-8">
+            <div className="text-md flex gap-x-8 mt-1">
               {reviews.length > 0 && reviewAverage !== undefined && (
                 <p className="text-md">
-                  GoodPlays community rating: {reviewAverage}/5
+                  GoodPlays rating: {reviewAverage.toFixed(1)}/5
                 </p>
               )}
 
               {rating !== undefined && (
-                <p className="text-md">IGDB community rating: {rating}/5</p>
+                <p className="text-md">IGDB rating: {rating.toFixed(1)}/5</p>
+              )}
+
+              {combinedRating !== undefined && (
+                <p className="text-md">Combined rating: {combinedRating}/5</p>
               )}
             </div>
           )}
@@ -125,12 +138,14 @@ function Reviews({
 
         {addMyReview && (
           <button
+            className="flex items-center gap-1"
             onClick={() => {
               setEditingReview(null);
               setShowAddReview(true);
             }}
           >
-            Add review
+            <span>Add review</span>
+            <IoIosAdd size={16} className="text-tertiary" />
           </button>
         )}
       </div>
