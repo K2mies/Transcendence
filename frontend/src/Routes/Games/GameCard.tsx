@@ -37,44 +37,39 @@ function GameCard({ game, index }: GameCardProps) {
           alt={game.name}
           className="border-primary border-x-3 border-t-3 w-full rounded-t-lg"
         />
-      </Link>
 
-      <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
-        <FavoriteButton game={game} size={25} />
-      </div>
-      <h2
-        className="
-          absolute
-          bottom-[3.78rem]
-          left-0
-          z-10
-          w-full
-      
-          bg-primary
-          text-tertiary
-      
-          px-4
-          py-2
-      
-          text-center
-          text-[90%]
-          leading-relaxed
-      
-          opacity-0
-          group-hover:opacity-100
-          transition-opacity
-          duration-300
-      
-          rounded-t-lg
-        "
-      >
-        <Link
-          to={"/game/" + encodeURIComponent(game.name)}
-          className="no-underline"
+        <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
+          <FavoriteButton game={game} size={25} />
+        </div>
+        <h2
+          className="
+            absolute
+            bottom-[3.78rem]
+            left-0
+            z-10
+            w-full
+
+            bg-primary
+            text-tertiary
+
+            px-4
+            py-2
+
+            text-center
+            text-[90%]
+            leading-relaxed
+
+            invisible
+            group-hover:visible
+            transition-opacity
+            duration-300
+
+            rounded-t-lg
+          "
         >
-          {game.name}
-        </Link>
-      </h2>
+            {game.name}
+        </h2>
+      </Link>
 
       <div
         className="
