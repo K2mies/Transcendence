@@ -144,16 +144,32 @@ function Reviews({
       />
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[400px] overflow-y-auto">
-        {reviews.map((review) => (
-          <Review
-            key={review.id}
-            review={review}
-            page={page}
-            isMyReview={review.user.name === myCurrUser}
-            onEdit={() => editReview(review)}
-            onDelete={onDeleteReview ? () => onDeleteReview(review) : undefined}
-          />
-        ))}
+        {reviews.length === 0 ? (
+          <li className="flex flex-col items-center justify-center min-h-48 text-center text-primary/70">
+            <p className="text-lg font-semibold">No reviews yet</p>
+
+            {page === "game" && (
+              <p className="mt-2">
+                {myCurrUser
+                  ? "Be the first to share your thoughts about this game!"
+                  : "Sign in to write the first review."}
+              </p>
+            )}
+          </li>
+        ) : (
+          reviews.map((review) => (
+            <Review
+              key={review.id}
+              review={review}
+              page={page}
+              isMyReview={review.user.name === myCurrUser}
+              onEdit={() => editReview(review)}
+              onDelete={
+                onDeleteReview ? () => onDeleteReview(review) : undefined
+              }
+            />
+          ))
+        )}
       </ul>
     </div>
   );
