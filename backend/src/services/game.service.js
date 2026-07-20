@@ -139,15 +139,14 @@ export async function addReview(userId, newData, gameName) {
   });
   return {
     id: review.id,
-    game: game.name,
+    createdAt: review.createdAt,
+    game: review.game.name,
     rating: review.rating,
     review: review.review,
-
     platform: review.platform?.name,
-
     platforms: review.game.platforms.map((p) => p.name),
-
     user: {
+      id: review.user.id,
       name: review.user.name,
     },
   };
