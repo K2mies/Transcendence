@@ -19,9 +19,9 @@ type GameProps = {
 function DisplayGames({ header, games, onRemove }: GameProps) {
   return (
     <div className="mt-6">
-      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg p-5">
+      <h2 className=" bg-primary text-tertiary flex justify-start rounded-t-lg p-5">
         {header}
-      </h4>
+      </h2>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         <div className="">
           <div className="bg-tertiary text-primary relative rounded-b-lg p-5">

@@ -11,9 +11,9 @@ type DisplayGamesProps = {
 function DisplayGames({ header, games }: DisplayGamesProps) {
   return (
     <div className="mb-6">
-      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg py-2 px-4">
+      <h2 className=" bg-primary text-tertiary text-lg flex justify-start rounded-t-lg py-2 px-4">
         {header}
-      </h4>
+      </h2>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         <div className="bg-tertiary text-primary relative rounded-b-lg p-5">
           <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 custom-scrollbar">

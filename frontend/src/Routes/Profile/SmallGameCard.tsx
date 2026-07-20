@@ -41,7 +41,7 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
         <img
           className="border-3 border-primary w-full h-auto rounded-t-lg object-cover"
           src={game.image}
-          alt={game.name}
+          alt=""
         />
       </Link>
 
