@@ -1,23 +1,11 @@
+import type { Review } from "./ReviewType";
+
 export type GameStatus =
   | "NONE"
   | "WANT_TO_PLAY"
   | "PLAYING"
   | "COMPLETED"
   | "DNF";
-
-export type Review = {
-  id: number;
-  review: string;
-  rating: number;
-  createdAt: string;
-
-  user: {
-    id: number;
-    name: string;
-  };
-
-  game?: string;
-};
 
 export type Game = {
   id: number;
@@ -33,7 +21,8 @@ export type Game = {
   favorite?: boolean;
   gameStatus?: GameStatus;
 
-  rating: number;
+  igdbRating: number;
+  combinedRating?: number;
   reviewAverage?: number;
   average?: number;
   count?: number;

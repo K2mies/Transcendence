@@ -45,7 +45,7 @@ function GameCard({ game, index }: GameCardProps) {
       <h2
         className="
           absolute
-          bottom-[4rem]
+          bottom-[3.78rem]
           left-0
           z-10
           w-full
@@ -87,8 +87,8 @@ function GameCard({ game, index }: GameCardProps) {
           rounded-b-lg
         "
       >
-        <p>Rating: {game.rating}</p>
-        <Stars rating={game.rating} size={30} />
+        <p>Rating: {(game.combinedRating ?? game.igdbRating).toFixed(1)}</p>
+        <Stars rating={game.combinedRating ?? game.igdbRating} size={26} />
       </div>
     </div>
   );

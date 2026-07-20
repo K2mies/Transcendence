@@ -6,7 +6,7 @@ function Login({ setMyCurrUser }: RegistrationProps) {
   return (
     <>
       <title>GoodPlays: Log in</title>
-      <div className="bg-secondary flex min-h-screen flex-col items-center justify-center text-center">
+      <div className="bg-secondary flex min-h-screen flex-col items-center justify-center text-center p-6">
         <div className="bg-tertiary rounded-lg p-4">
           <h1 className="bg-primary text-tertiary p-4 rounded-t-lg">
             Log in to Goodplays

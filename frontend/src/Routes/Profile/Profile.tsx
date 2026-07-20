@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
-import Reviews from "../../Reviews";
+import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
+import type { Review as ReviewType } from "../../Types/ReviewType";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -44,6 +45,7 @@ function DisplayGames({ header, games, onRemove }: GameProps) {
 
 function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [favGames, setFavGames] = useState<ProfileGame[]>([]);
   const [currGames, setCurrGames] = useState<ProfileGame[]>([]);
   const [toPlayGames, setToPlayGames] = useState<ProfileGame[]>([]);
@@ -97,6 +99,24 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
     }
   }
 
+  async function deleteReview(review: ReviewType) {
+    const response = await fetch(
+      `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
+
+    if (response.ok) {
+      setReviews((currentReviews) =>
+        currentReviews.filter(
+          (currentReview) => currentReview.id !== review.id,
+        ),
+      );
+    }
+  }
+
   useEffect(() => {
     if (!username) return;
     async function loadProfile() {
@@ -110,6 +130,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         const res: UserProfile = await response.json();
         setIsUserFound(true);
         setProfile(res);
+        setReviews(res.reviews ?? []);
         setFavGames(res.favorites);
         setCurrGames(res.playing);
         setToPlayGames(res.to_play);
@@ -173,12 +194,14 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
                 }
               ></DisplayGames>
             )}
-            {profile && profile.reviews.length > 0 && (
+            {reviews.length > 0 && (
               <Reviews
-                reviews={profile.reviews}
+                reviews={reviews}
+                setReviews={setReviews}
                 myCurrUser={myCurrUser}
                 page="profile"
-              ></Reviews>
+                onDeleteReview={deleteReview}
+            />
             )}
           </div>
         )}
