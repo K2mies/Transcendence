@@ -250,7 +250,7 @@ function Game({ myCurrUser }: GameProps) {
             reviews.length) *
             100,
         ) / 100;
-  const [rating, setRating] = useState(0);
+  const [igdbRating, setIgdbRating] = useState(0);
   const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
     undefined,
   );
@@ -269,7 +269,7 @@ function Game({ myCurrUser }: GameProps) {
         setIsGameFound(true);
         setGame(res);
         setReviews(res.reviews ?? []);
-        setRating(res.rating);
+        setIgdbRating(res.igdbRating);
       } else {
         setIsGameFound(false);
       }
@@ -304,7 +304,6 @@ function Game({ myCurrUser }: GameProps) {
       {isGameFound && game && (
         <>
           <GameInfo game={game} />
-
           <Reviews
             key={game.name}
             gameName={game.name}
@@ -313,7 +312,7 @@ function Game({ myCurrUser }: GameProps) {
             setReviews={setReviews}
             onDeleteReview={deleteReview}
             reviewAverage={reviewAverage}
-            rating={rating}
+            rating={igdbRating}
             page="game"
             myCurrUser={myCurrUser}
           />

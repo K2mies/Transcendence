@@ -87,8 +87,8 @@ function GameCard({ game, index }: GameCardProps) {
           rounded-b-lg
         "
       >
-        <p>Rating: {game.rating}</p>
-        <Stars rating={game.rating} size={26} />
+        <p>Rating: {(game.combinedRating ?? game.igdbRating).toFixed(1)}</p>
+        <Stars rating={game.combinedRating ?? game.igdbRating} size={26} />
       </div>
     </div>
   );

@@ -32,7 +32,15 @@ export async function getGame(gameName, currentUserId) {
     sum += game.reviews[i].rating;
   }
   let averageResult = null;
-  if (game.reviews.length != 0) averageResult = sum / game.reviews.length;
+  let combinedRating = game.rating;
+
+  if (game.reviews.length !== 0) {
+    averageResult = sum / game.reviews.length;
+
+    if (game.rating != null) {
+      combinedRating = (sum + game.rating) / (game.reviews.length + 1);
+    }
+  }
   return {
     id: game.id,
     name: game.name,
@@ -42,7 +50,8 @@ export async function getGame(gameName, currentUserId) {
     updateDate: game.updateDate,
     developer: game.developer,
     publisher: game.publisher,
-    rating: game.rating,
+    igdbRating: game.rating,
+    combinedRating: combinedRating,
     reviews: game.reviews.map((r) => ({
       id: r.id,
       createdAt: r.createdAt,

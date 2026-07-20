@@ -21,7 +21,8 @@ export type Game = {
   favorite?: boolean;
   gameStatus?: GameStatus;
 
-  rating: number;
+  igdbRating: number;
+  combinedRating?: number;
   reviewAverage?: number;
   average?: number;
   count?: number;
