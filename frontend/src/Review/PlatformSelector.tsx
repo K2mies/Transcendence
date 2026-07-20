@@ -26,11 +26,11 @@ function PlatformSelector({
           size="small"
           sx={{
             "& .MuiInputLabel-root": {
-              color: "var(--color-secondary)",
+              color: "var(--color-primary)",
             },
 
             "& .MuiInputLabel-root.Mui-focused": {
-              color: "var(--color-secondary)",
+              color: "var(--color-primary)",
             },
 
             "& .MuiOutlinedInput-root": {

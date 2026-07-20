@@ -50,7 +50,7 @@ function Review({ review, page, isMyReview, onDelete, onEdit }: ReviewProps) {
         )}
       </div>
       {review.platform && (
-        <div className="mt-2 flex items-center gap-2 text-secondary font-bold">
+        <div className="mt-2 flex items-center gap-2 text-primary font-bold">
           <span>{review.platform}</span>
           <PlatformIcon platform={review.platform} size={18} />
         </div>

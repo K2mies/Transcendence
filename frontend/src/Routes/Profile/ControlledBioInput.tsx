@@ -26,6 +26,7 @@ const ControlledBioInput = ({
     <>
       <TextField
         {...field}
+        id={field.name}
         className="w-full"
         label={label}
         sx={{
@@ -34,6 +35,7 @@ const ControlledBioInput = ({
           },
         }}
         autoComplete={autoComplete}
+        aria-label={label}
         error={!!error}
         helperText={error?.message}
         multiline
