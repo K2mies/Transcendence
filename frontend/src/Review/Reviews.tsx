@@ -116,7 +116,7 @@ function Reviews({
     <div>
       <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
         <div className="flex align-text-bottom">
-          <h3 className="mr-20">Reviews</h3>
+          <h2 className="mr-20 text-[1.3rem]">Reviews</h2>
           {page === "game" && (
             <div className="text-md flex gap-x-8 mt-1">
               {reviews.length > 0 && reviewAverage !== undefined && (
@@ -160,7 +160,7 @@ function Reviews({
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[600px] overflow-y-auto">
         {reviews.length === 0 ? (
-          <li className="flex flex-col items-center justify-center min-h-48 text-center text-secondary">
+          <li className="flex flex-col items-center justify-center min-h-48 text-center text-primary">
             <p className="text-lg font-semibold">No reviews yet</p>
 
             {page === "game" && (

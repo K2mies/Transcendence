@@ -65,7 +65,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
           autoComplete="off"
         />
         <div className="flex flex-col">
-          <input className="cursor-pointer" type="submit" value="Save"></input>
+          <button className="cursor-pointer" type="submit">Save</button>
           <button
             type="button"
             className="ml-3"

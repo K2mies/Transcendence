@@ -168,6 +168,7 @@ function FriendList({
                   <div key={friend.id} className="flex justify-between">
                     <button
                       type="button"
+                      aria-label={`Go to ${friend.name} profile`}
                       onClick={() => {
                         navigate(`/user/${encodeURIComponent(friend.name)}`);
                       }}

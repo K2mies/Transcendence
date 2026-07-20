@@ -197,7 +197,7 @@ function GameInfo({ game }: GameInfoProps) {
 
         {/* Bottom right */}
         <div className="self-end mt-4">
-          <label className="font-bold">Modes:</label>
+          <p className="font-bold">Modes:</p>
 
           <div className="flex flex-wrap gap-3 mt-2">
             {game.modes.map((mode) => (
@@ -212,7 +212,7 @@ function GameInfo({ game }: GameInfoProps) {
           </div>
 
           <div className="mt-4">
-            <label className="font-bold text-secondary">Genres:</label>
+            <p className="font-bold text-primary">Genres:</p>
 
             <div className="flex flex-wrap gap-3 mt-2">
               {game.genres.map((genre) => (

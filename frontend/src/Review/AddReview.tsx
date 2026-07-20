@@ -87,7 +87,7 @@ function AddReview({
           className="text-primary w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
         />
         <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end">
-          <span className="text-sm text-secondary">
+          <span className="text-sm text-primary">
             {review.length}/{MAX_REVIEW_LENGTH}
           </span>
         </div>
@@ -109,7 +109,7 @@ function AddReview({
           onClick={handleSubmit}
           className="
              bg-primary
-             text-tertiary
+             text-primary
              px-4
              py-2
              rounded
@@ -123,7 +123,7 @@ function AddReview({
         <button
           type="button"
           onClick={onCancel}
-          className="bg-secondary text-tertiary px-4 py-2 rounded hover:text-primary"
+          className="bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
         >
           Cancel
         </button>
