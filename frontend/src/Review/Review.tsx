@@ -41,9 +41,9 @@ function Review({ review, page, isMyReview, onDelete, onEdit }: ReviewProps) {
 
             <button
               type="button"
+              aria-label="Delete review"
               onClick={onDelete}
-              className="text-secondary hover:text-primary"
-            >
+              className="text-secondary hover:text-primary">
               <ImCross size={14} />
             </button>
           </div>
