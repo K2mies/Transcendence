@@ -34,18 +34,18 @@ const ControlledInput = ({
         label={label}
         sx={{
           "& .MuiInputLabel-root": {
-            color: "var(--color-secondary)",
+            color: "var(--color-primary)",
           },
 
           "& .MuiInputLabel-root.Mui-focused": {
-            color: "var(--color-secondary)",
+            color: "var(--color-primary)",
           },
 
           "& .MuiOutlinedInput-root": {
             backgroundColor: "var(--color-tertiary)",
 
             "& fieldset": {
-              borderColor: "var(--color-secondary)",
+              borderColor: "var(--color-primary)",
             },
 
             "&:hover fieldset": {
