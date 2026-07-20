@@ -95,9 +95,9 @@ function AddReview({
         <div className="absolute top-2 right-2 flex gap-2">
           <button
             type="button"
+            aria-label="Clear review text"
             className="text-secondary hover:text-primary"
-            onClick={() => setReview("")}
-          >
+            onClick={() => setReview("")}>
             <ImCross size={14} />
           </button>
         </div>
