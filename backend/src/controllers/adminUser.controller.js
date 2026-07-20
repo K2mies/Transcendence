@@ -77,6 +77,10 @@ export const updateUser = async (req, res) => {
 export const deleteUserById = async (req, res) => {
 	const id = Number(req.params.id);
 
+	if (id === req.user.id) {
+		return res.status(403).json({ error: "You cannot delete your own account" });
+	}
+
 	const target = await prisma.user.findUnique({
 		where: { id },
 		select: { role: true },
@@ -98,6 +102,10 @@ export const deleteUserById = async (req, res) => {
 export const updateUserRole = async (req, res) => {
 	const id = Number(req.params.id);
 	const { role } = req.body;
+
+	if (id === req.user.id) {
+		return res.status(403).json({ error: "You cannot change your own role" });
+	}
 
 	if (!ASSIGNABLE_ROLES.includes(role)) {
 		return res.status(400).json({ error: `Role must be one of: ${ASSIGNABLE_ROLES.join(", ")}` });
