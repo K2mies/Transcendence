@@ -32,50 +32,47 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
       `}
     >
-      <Link to={`/game/${encodeURIComponent(game.name)}`}>
+      <Link
+        to={`/game/${encodeURIComponent(game.name)}`}
+        aria-label={game.name}
+      >
         <img
           className="border-3 border-primary w-full h-auto rounded-t-lg object-cover"
           src={game.image}
-          alt={game.name}
+          alt=""
         />
-      </Link>
-      <h2
-        className="
-          absolute
-          left-0
-          right-0
-          bottom-8
-      
-          bg-primary
-          border-2
-          border-primary
-          text-tertiary
-      
-          p-2
-      
-          flex
-          items-center
-          justify-center
-      
-          text-center
-          text-xs
-          break-words
-      
-          opacity-0
-          group-hover:opacity-100
-          transition-opacity
-      
-          rounded-t-lg
-          z-10
-        "
-      >
-        <Link
-          to={`/game/${encodeURIComponent(game.name)}`}
-          className="no-underline"
+        <h3
+          className="
+              bg-primary
+              text-tertiary
+
+              border-2
+              border-primary
+
+              relative
+              -mt-14
+              z-10
+              w-full
+              p-2
+              h-[3.5rem]
+
+              flex
+              items-center
+              justify-center
+              line-clamp-2
+
+              invisible
+              group-hover:visible
+              transition-opacity
+
+              rounded-t-lg
+              text-center
+              text-xs
+          "
         >
           {game.name}
-        </Link>
-      </h2>
+        </h3>
+      </Link>
       <div className="bg-primary text-secondary rounded-b-lg flex justify-end p-2">
         <FavoriteButton game={game} size={14} />
       </div>
