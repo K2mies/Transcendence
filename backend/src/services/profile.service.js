@@ -32,11 +32,14 @@ export async function getProfile(profileName) {
       },
       reviews: {
         include: {
+          user: true,
+
           game: {
             include: {
               platforms: true,
             },
           },
+
           platform: true,
         },
         orderBy: {
@@ -97,12 +100,14 @@ export async function getProfile(profileName) {
       game: r.game.name,
       rating: r.rating,
       review: r.review,
+      createdAt: r.createdAt,
       platform: r.platform?.name,
 
       platforms: r.game.platforms.map((p) => p.name),
 
       user: {
-        name: user.name,
+        id: r.user.id,
+        name: r.user.name,
       },
     })),
   };

@@ -8,7 +8,7 @@ export type Review = {
   createdAt?: string;
   game?: string;
   rating: number;
-  review: string;
+  review: string | null;
   platform?: string;
   platforms?: string[];
   user: User;

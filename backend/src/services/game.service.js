@@ -45,9 +45,14 @@ export async function getGame(gameName, currentUserId) {
     rating: game.rating,
     reviews: game.reviews.map((r) => ({
       id: r.id,
+      createdAt: r.createdAt,
+      game: game.name,
       rating: r.rating,
       review: r.review,
       platform: r.platform?.name,
+
+      platforms: game.platforms.map((p) => p.name),
+
       user: {
         id: r.user.id,
         name: r.user.name,
