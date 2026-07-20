@@ -31,6 +31,7 @@ const GENRE_ICONS: Record<string, React.ElementType> = {
   "Turn-based strategy (TBS)": FaChessKnight,
   Tactical: GiBrain,
   "Hack and slash/Beat 'em up": LuSwords,
+  MOBA: LuSwords,
   Simulator: MdDriveEta,
   Racing: MdDriveEta,
   Arcade: SiApplearcade,
