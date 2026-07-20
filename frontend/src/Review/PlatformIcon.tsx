@@ -44,6 +44,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Nintendo 3DS": Nintendo3DsIcon,
   "New Nintendo 3DS": Nintendo3DsIcon,
 
+  "Game Boy": GameBoyIcon,
   "Nintendo Game Boy": GameBoyIcon,
   "Game Boy Advance": GameBoyIcon,
 
