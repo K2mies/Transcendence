@@ -75,7 +75,9 @@ async function updateGameRelation(
 }
 
 function Status({ game }: StatusProps) {
-  const [currentStatus, setCurrentStatus] = useState(game.gameStatus);
+  const [currentStatus, setCurrentStatus] = useState<GameStatus>(
+    game.gameStatus ?? "NONE",
+  );
 
   function changeStatus(e: ChangeEvent<HTMLSelectElement>) {
     const newStatus = e.target.value as GameStatus;

@@ -1,11 +1,11 @@
 import { TextField } from "@mui/material";
-import { useController } from "react-hook-form";
+import { useController, type Control, type FieldValues } from "react-hook-form";
 
 type ControlledInputProps = {
-  control: any;
+  control: Control<FieldValues>;
   name: string;
   label: string;
-  autoComplete: string | undefined;
+  autoComplete?: string;
   type: string;
   defaultValue?: string;
 };
@@ -33,8 +33,40 @@ const ControlledInput = ({
         className="w-87.5"
         label={label}
         sx={{
+          "& .MuiInputLabel-root": {
+            color: "var(--color-secondary)",
+          },
+
+          "& .MuiInputLabel-root.Mui-focused": {
+            color: "var(--color-secondary)",
+          },
+
           "& .MuiOutlinedInput-root": {
             backgroundColor: "var(--color-tertiary)",
+
+            "& fieldset": {
+              borderColor: "var(--color-secondary)",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "var(--color-primary)",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "var(--color-primary)",
+            },
+          },
+
+          "& .MuiInputBase-input": {
+            color: "var(--color-primary)",
+          },
+
+          "& .MuiFormHelperText-root": {
+            color: "var(--color-primary)",
+          },
+
+          "& .MuiFormHelperText-root.Mui-error": {
+            color: "#d32f2f",
           },
         }}
         type={type}
