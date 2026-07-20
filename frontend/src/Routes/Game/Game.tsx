@@ -185,9 +185,12 @@ function GameInfo({ game }: GameInfoProps) {
         <div className="flex items-start gap-8">
           <div className="flex-1 min-w-0">
             <div className="relative">
-              <label className="absolute top-1 right-2 text-secondary">
+              <span
+                aria-hidden="true"
+                className="absolute top-1 right-2 text-secondary"
+              >
                 <MdOutlineDescription size={18} />
-              </label>
+              </span>
 
               <p className="pr-8">
                 <label className="font-bold">Description: </label>
