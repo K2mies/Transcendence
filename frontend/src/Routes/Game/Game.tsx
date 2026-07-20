@@ -193,7 +193,7 @@ function GameInfo({ game }: GameInfoProps) {
               </span>
 
               <p className="pr-8">
-                <label className="font-bold">Description: </label>
+                <span className="font-bold">Description: </span>
                 {game.description}
               </p>
             </div>
