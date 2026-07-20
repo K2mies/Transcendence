@@ -33,9 +33,9 @@ function Review({ review, page, isMyReview, onDelete, onEdit }: ReviewProps) {
           <div className="absolute top-2 right-2 flex gap-2">
             <button
               type="button"
+              aria-label="Edit review"
               onClick={onEdit}
-              className="text-secondary hover:text-primary"
-            >
+              className="text-secondary hover:text-primary">
               <FaEdit size={18} />
             </button>
 
