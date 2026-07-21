@@ -13,6 +13,8 @@ export default function Chat() {
     markAsRead,
     lastMessage,
     onlineUsers,
+    activeChatUser,
+    setActiveChatUser,
   } = UseChat();
 
   const selectedUserRef = useRef<number | null>(null);
@@ -37,6 +39,7 @@ export default function Chat() {
   // ---------------- OPEN CHAT ----------------
   async function openChat(userId: number) {
     setSelectedUser(userId);
+    setActiveChatUser(userId);
     selectedUserRef.current = userId;
 
     const res = await fetch(`http://localhost:4243/message/${userId}`, {
@@ -129,6 +132,12 @@ export default function Chat() {
   if (!me) {
     return <div className="text-black p-6">Loading chat...</div>;
   }
+
+  useEffect(() => {
+    return () => {
+      setActiveChatUser(null);
+    };
+  }, [setActiveChatUser]);
 
   return (
     <>

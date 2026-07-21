@@ -1,6 +1,9 @@
 import { createContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+
 import { FaUserFriends } from "react-icons/fa";
+import { IoChatbubbleEllipses } from "react-icons/io5";
+
 import FriendRequestToast from "./FriendRequestToast";
 import { FRIEND_ICON_SIZE } from "./NotificationConstants";
 import NotificationUserLink from "./NotificationUserLink";
@@ -23,6 +26,8 @@ type ChatContextType = {
   closeSocket: () => void;
   lastMessage: any;
   onlineUsers: Set<number>;
+  activeChatUser: number | null;
+  setActiveChatUser: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -30,12 +35,18 @@ const ChatContext = createContext<ChatContextType | undefined>(undefined);
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const wsRef = useRef<WebSocket | null>(null);
   const friendsMapRef = useRef<Map<number, string>>(new Map());
+  const activeChatUserRef = useRef<number | null>(null);
 
   const [me, setMe] = useState<any>(null);
   const [friends, setFriends] = useState<Map<number, string>>(new Map());
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [lastMessage, setLastMessage] = useState<any>(null);
   const [onlineUsers, setOnlineUsers] = useState(new Set<number>());
+  const [activeChatUser, setActiveChatUser] = useState<number | null>(null);
+
+  useEffect(() => {
+    activeChatUserRef.current = activeChatUser;
+  }, [activeChatUser]);
 
   async function init() {
     try {
@@ -198,6 +209,38 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
         case "chat":
           setLastMessage(data);
+          if (
+            data.senderId !== me.id &&
+            data.senderId !== activeChatUserRef.current
+          ) {
+            const senderName =
+              friendsMapRef.current.get(data.senderId) ?? "Someone";
+
+            toast.custom((t) => (
+              <div className="rounded-lg bg-primary p-4 text-tertiary max-w-sm">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <IoChatbubbleEllipses
+                      size={16}
+                      className="text-secondary shrink-0"
+                    />
+
+                    <span className="text-xs italic">sent you a message</span>
+                  </div>
+
+                  <div className="mt-1 flex items-baseline gap-1 min-w-0 text-sm">
+                    <span className="font-bold text-secondary shrink-0">
+                      {senderName}
+                    </span>
+
+                    <span className="min-w-0 flex-1 truncate opacity-80">
+                      "{data.content}"
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ));
+          }
 
           const otherUser =
             data.senderId === me.id ? data.receiverId : data.senderId;
@@ -279,6 +322,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         closeSocket,
         lastMessage,
         onlineUsers,
+        activeChatUser,
+        setActiveChatUser,
       }}
     >
       {children}
