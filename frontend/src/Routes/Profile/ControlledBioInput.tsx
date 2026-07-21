@@ -27,6 +27,7 @@ const ControlledBioInput = ({
       <TextField
         {...field}
         id={field.name}
+        name={name}
         className="w-full"
         label={label}
         sx={{

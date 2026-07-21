@@ -33,66 +33,70 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
   }, []);
 
   return (
-    <Autocomplete<User>
-      id="profile-search"
-      sx={{ width: "25%" }}
-      options={users}
-      filterOptions={filterOptions}
-      getOptionLabel={(option) => option?.name ?? ""}
-      onChange={(_, value) => {
-        if (value) {
-          onSelectUser(value.name);
-        }
-      }}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
-      slotProps={{
-        popupIndicator: {
-          tabIndex: 0,
-          "aria-label": "Open profile search suggestions",
-          sx: {
-            "&:focus-visible, &.Mui-focusVisible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
-            },
+    <>
+      <label htmlFor="profile-search" className="sr-only">Search for user profile:</label>
+      <Autocomplete<User>
+        id="profile-search"
+        sx={{ width: "25%" }}
+        options={users}
+        filterOptions={filterOptions}
+        getOptionLabel={(option) => option?.name ?? ""}
+        onChange={(_, value) => {
+          if (value) {
+            onSelectUser(value.name);
           }
-        },
-        clearIndicator: {
-          tabIndex: 0,
-          "aria-label": "Clear profile search suggestions",
-          sx: {
-            "&:focus-visible, &.Mui-focusVisible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
+        }}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        slotProps={{
+          popupIndicator: {
+            tabIndex: 0,
+            "aria-label": "Open profile search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            }
+          },
+          clearIndicator: {
+            tabIndex: 0,
+            "aria-label": "Clear profile search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
             },
           },
-        },
-        listbox: {
-          sx: { maxHeight: 300 },
-        },
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search for a user profile..."
-          size="small"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "var(--color-tertiary)",
-              "& fieldset": {
-                borderColor: "var(--color-primary)",
+          listbox: {
+            sx: { maxHeight: 300 },
+          },
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            aria-label="Search for a user profile"
+            placeholder="Search for a user profile"
+            size="small"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "var(--color-tertiary)",
+                "& fieldset": {
+                  borderColor: "var(--color-primary)",
+                },
+                "&:hover fieldset": {
+                  borderColor: "var(--color-secondary)",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "var(--color-secondary)",
+                },
               },
-              "&:hover fieldset": {
-                borderColor: "var(--color-secondary)",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "var(--color-secondary)",
-              },
-            },
-            borderRadius: 10,
-          }}
-        />
-      )}
-    />
+              borderRadius: 10,
+            }}
+          />
+        )}
+      />
+    </>
   );
 };
 
