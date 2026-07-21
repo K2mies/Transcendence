@@ -49,6 +49,7 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
             bottom-8
 
             bg-primary
+            text-xs
             text-tertiary
 
             border-2

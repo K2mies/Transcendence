@@ -208,7 +208,7 @@ export default function Chat() {
                     <div className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl">
                       {msg.content}
                     </div>
-                    <div className="text-xs opacity-60">
+                    <div className="text-xs opacity-80">
                       {msg.createdAt
                         ? new Date(msg.createdAt).toLocaleString("en-GB", {
                             year: "numeric",
@@ -226,12 +226,13 @@ export default function Chat() {
               {selectedUser && (
                 <div className="p-4 border-t border-secondary/20 flex gap-2">
                   <input
+                    aria-label="Type a new message"
                     ref={inputRef}
                     value={text}
                     maxLength={120}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Type a message..."
-                    className="flex-1 p-2 rounded bg-primary/40 outline-none"
+                    className="flex-1 p-2 rounded bg-primary/40 outline-none placeholder:text-white"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         send();

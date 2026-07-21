@@ -43,79 +43,84 @@ const SearchBar = () => {
     fetchGames();
   }, []);
   return (
-    <Autocomplete<Game>
-      value={selectedGame}
-      sx={{ width: "100%" }}
-      inputValue={inputValue}
-      onInputChange={(_, value) => {
-        setInputValue(value);
-      }}
-      options={games}
-      filterOptions={filterOptions}
-      getOptionLabel={(option) => option.name}
-      slotProps={{
-        popupIndicator: {
-          tabIndex: 0,
-          "aria-label": "Open game search suggestions",
-          sx: {
-            "&:focus-visible, &.Mui-focusVisible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
+    <>
+      <label htmlFor="search-game" className="sr-only">Search for games:</label>
+      <Autocomplete<Game>
+        id="search-game"
+        value={selectedGame}
+        sx={{ width: "100%" }}
+        inputValue={inputValue}
+        onInputChange={(_, value) => {
+          setInputValue(value);
+        }}
+        options={games}
+        filterOptions={filterOptions}
+        getOptionLabel={(option) => option.name}
+        slotProps={{
+          popupIndicator: {
+            tabIndex: 0,
+            "aria-label": "Open game search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
             },
           },
-        },
-        clearIndicator: {
-          tabIndex: 0,
-          "aria-label": "Clear game search suggestions",
-          sx: {
-            "&:focus-visible, &.Mui-focusVisible": {
-              outline: "2px solid var(--color-secondary)",
-              outlineOffset: "2px",
+          clearIndicator: {
+            tabIndex: 0,
+            "aria-label": "Clear game search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
             },
           },
-        },
-        listbox: {
-          sx: {
-            maxHeight: 400,
+          listbox: {
+            sx: {
+              maxHeight: 400,
+            },
           },
-        },
-      }}
-      onChange={(_, value) => {
-        setSelectedGame(value);
+        }}
+        onChange={(_, value) => {
+          setSelectedGame(value);
 
-        if (value) {
-          navigate(`/game/${encodeURIComponent(value.name)}`);
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search for games"
-          size="small"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "var(--color-tertiary)",
-              "& fieldset": {
-                borderColor: "var(--color-primary)",
+          if (value) {
+            navigate(`/game/${encodeURIComponent(value.name)}`);
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Search for games"
+            aria-label="Search for games"
+            size="small"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "var(--color-tertiary)",
+                "& fieldset": {
+                  borderColor: "var(--color-primary)",
+                },
+                "&:hover fieldset": {
+                  borderColor: "var(--color-secondary)",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "var(--color-secondary)",
+                },
               },
-              "&:hover fieldset": {
-                borderColor: "var(--color-secondary)",
+              "& .MuiInputLabel-root": {
+                color: "var(--color-primary)",
               },
-              "&.Mui-focused fieldset": {
-                borderColor: "var(--color-secondary)",
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "var(--color-secondary)",
               },
-            },
-            "& .MuiInputLabel-root": {
-              color: "var(--color-primary)",
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "var(--color-secondary)",
-            },
-            borderRadius: 10,
-          }}
-        />
-      )}
-    />
+              borderRadius: 10,
+            }}
+          />
+        )}
+      />
+    </>
   );
 };
 
