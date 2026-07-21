@@ -1,4 +1,9 @@
 import { createContext, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { FaUserFriends } from "react-icons/fa";
+import FriendRequestToast from "./FriendRequestToast";
+import { FRIEND_ICON_SIZE } from "./NotificationConstants";
+import NotificationUserLink from "./NotificationUserLink";
 
 type Conversation = {
   userId: number;
@@ -112,6 +117,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       let data: any;
       try {
         data = JSON.parse(e.data);
+        console.log("WS received:", data); //temp delete
       } catch {
         return;
       }
@@ -137,6 +143,58 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             return next;
           });
           init();
+          break;
+
+        case "friend-request":
+          toast.custom((t) => (
+            <FriendRequestToast
+              toastId={t.id}
+              senderId={data.senderId}
+              senderName={data.senderName}
+            />
+          ));
+          break;
+
+        case "friend-request-accepted":
+          toast.custom((t) => (
+            <div className="rounded-lg bg-primary p-4 text-tertiary">
+              <div className="flex items-center gap-2">
+                <FaUserFriends
+                  size={FRIEND_ICON_SIZE}
+                  className="text-tertiary"
+                />
+
+                <div>
+                  <NotificationUserLink
+                    toastId={t.id}
+                    username={data.accepterName}
+                  />{" "}
+                  accepted your friend request.
+                </div>
+              </div>
+            </div>
+          ));
+          break;
+
+        case "friend-request-declined":
+          toast.custom((t) => (
+            <div className="rounded-lg bg-primary p-4 text-tertiary">
+              <div className="flex items-center gap-2">
+                <FaUserFriends
+                  size={FRIEND_ICON_SIZE}
+                  className="text-tertiary"
+                />
+
+                <div>
+                  <NotificationUserLink
+                    toastId={t.id}
+                    username={data.declinerName}
+                  />{" "}
+                  declined your friend request.
+                </div>
+              </div>
+            </div>
+          ));
           break;
 
         case "chat":

@@ -5,6 +5,7 @@ import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
 import type { Review as ReviewType } from "../../Types/ReviewType";
+import toast from "react-hot-toast";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -144,12 +145,59 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   }, [username]);
 
   return (
-    <>
-      <div className="bg-secondary p-6 min-h-screen">
-        {isUserFound && profile && myCurrUser && (
-          <div>
-            <ProfileInfo
-              profile={profile}
+    <div className="bg-secondary p-6 min-h-screen">
+      <button onClick={() => toast.success("It works!")}>Test Toast</button>
+      {isUserFound && profile && myCurrUser && (
+        <div>
+          <ProfileInfo
+            profile={profile}
+            myCurrUser={myCurrUser}
+            setMyCurrUser={setMyCurrUser}
+          ></ProfileInfo>
+          {favGames.length > 0 && (
+            <DisplayGames
+              header="Favorite games"
+              games={favGames}
+              onRemove={isMyProfile ? removeFavorite : undefined}
+            ></DisplayGames>
+          )}
+          {currGames.length > 0 && (
+            <DisplayGames
+              header="Currently playing"
+              games={currGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCurrGames)
+                  : undefined
+              }
+            ></DisplayGames>
+          )}
+          {toPlayGames.length > 0 && (
+            <DisplayGames
+              header="Games to play"
+              games={toPlayGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setToPlayGames)
+                  : undefined
+              }
+            ></DisplayGames>
+          )}
+          {completedGames.length > 0 && (
+            <DisplayGames
+              header="Completed games"
+              games={completedGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCompletedGames)
+                  : undefined
+              }
+            ></DisplayGames>
+          )}
+          {reviews.length > 0 && (
+            <Reviews
+              reviews={reviews}
+              setReviews={setReviews}
               myCurrUser={myCurrUser}
               setMyCurrUser={setMyCurrUser}
             ></ProfileInfo>
