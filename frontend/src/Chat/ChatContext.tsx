@@ -117,7 +117,6 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       let data: any;
       try {
         data = JSON.parse(e.data);
-        console.log("WS received:", data); //temp delete
       } catch {
         return;
       }

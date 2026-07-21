@@ -146,7 +146,6 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
 
   return (
     <div className="bg-secondary p-6 min-h-screen">
-      <button onClick={() => toast.success("It works!")}>Test Toast</button>
       {isUserFound && profile && myCurrUser && (
         <div>
           <ProfileInfo
