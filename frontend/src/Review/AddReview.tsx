@@ -108,7 +108,7 @@ function AddReview({
           disabled={rating === 0}
           onClick={handleSubmit}
           className="
-             bg-primary
+             bg-secondary
              text-primary
              px-4
              py-2

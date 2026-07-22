@@ -132,3 +132,8 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--color-secondary);
 }
+
+.sr-only:focus-visible + .star {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 4px;
+}
