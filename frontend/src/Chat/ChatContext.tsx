@@ -1,4 +1,5 @@
 import { createContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { FaUserFriends } from "react-icons/fa";
@@ -33,6 +34,8 @@ type ChatContextType = {
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
+
   const wsRef = useRef<WebSocket | null>(null);
   const friendsMapRef = useRef<Map<number, string>>(new Map());
   const activeChatUserRef = useRef<number | null>(null);
@@ -253,7 +256,15 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
               friendsMapRef.current.get(data.senderId) ?? "Someone";
 
             toast.custom((t) => (
-              <div className="rounded-lg bg-primary p-4 text-tertiary max-w-sm">
+              <button
+                type="button"
+                className="rounded-lg bg-primary p-4 text-tertiary max-w-sm cursor-pointer text-left"
+                onClick={() => {
+                  setActiveChatUser(data.senderId);
+                  navigate("/chat");
+                  toast.dismiss(t.id);
+                }}
+              >
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <IoChatbubbleEllipses
@@ -272,7 +283,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                     "{data.content}"
                   </div>
                 </div>
-              </div>
+              </button>
             ));
           }
 

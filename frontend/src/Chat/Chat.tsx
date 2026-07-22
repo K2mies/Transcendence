@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import UserSearchBar from "./ChatSearchBar";
 import ProfileSearchBar from "./ProfileSearchBar";
 import UseChat from "./UseChat";
@@ -23,13 +23,21 @@ export default function Chat() {
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [text, setText] = useState("");
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     document.title = "Chat | GoodPlays";
   }, []);
+  function scrollToBottom() {
+    requestAnimationFrame(() => {
+      messagesContainerRef.current?.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+  }
 
   // ---------------- OPEN PROFILE ----------------
   function openProfile(name: string) {
@@ -78,12 +86,7 @@ export default function Chat() {
 
     await markAsRead(userId);
 
-    requestAnimationFrame(() => {
-      const container = messagesContainerRef.current;
-      if (!container) return;
-
-      container.scrollTop = container.scrollHeight;
-    });
+    scrollToBottom();
   }
 
   function send() {
@@ -97,21 +100,27 @@ export default function Chat() {
   }
 
   // ---------------- MESSAGES AUTO-SCROLL ----------------
+  // ---------------- MESSAGES AUTO-SCROLL ----------------
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (!container) return;
 
-    const isNearBottom =
-      container.scrollHeight - container.scrollTop - container.clientHeight <
-      100;
+    requestAnimationFrame(() => {
+      const container = messagesContainerRef.current;
+      if (!container) return;
 
-    if (isNearBottom) {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: "auto",
-      });
-    }
-  }, [messages]);
+      const isNearBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight <
+        100;
+
+      if (isNearBottom || activeChatUser === selectedUser) {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    });
+  }, [messages, selectedUser, activeChatUser]);
 
   useEffect(() => {
     if (!lastMessage || !selectedUser) return;
@@ -124,7 +133,13 @@ export default function Chat() {
 
     if (!belongsToCurrentChat) return;
 
-    setMessages((prev) => [...prev, lastMessage]);
+    setMessages((prev) => {
+      const updated = [...prev, lastMessage];
+
+      requestAnimationFrame(scrollToBottom);
+
+      return updated;
+    });
 
     if (lastMessage.senderId === selectedUser) markAsRead(selectedUser);
   }, [lastMessage, selectedUser, me]);
@@ -132,6 +147,14 @@ export default function Chat() {
   if (!me) {
     return <div className="text-black p-6">Loading chat...</div>;
   }
+
+  useEffect(() => {
+    if (activeChatUser === null || activeChatUser === selectedUser) {
+      return;
+    }
+
+    openChat(activeChatUser);
+  }, [activeChatUser, selectedUser]);
 
   useEffect(() => {
     return () => {
@@ -198,6 +221,21 @@ export default function Chat() {
                 </button>
               ))}
             </div>
+            {selectedUser && (
+              <div className="border-t border-secondary/20 p-4 flex gap-2 shrink-0">
+                <input
+                  ref={inputRef}
+                  value={text}
+                  maxLength={120}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Type a message..."
+                  className="flex-1 p-2 rounded bg-primary/40 outline-none"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      send();
+                    }
+                  }}
+                />
 
             {/* RIGHT */}
             <div className="flex flex-col flex-1">
