@@ -9,23 +9,23 @@ import FriendRequestToast from "./FriendRequestToast";
 import { FRIEND_ICON_SIZE } from "./NotificationConstants";
 import NotificationUserLink from "./NotificationUserLink";
 
-type Conversation = {
-  userId: number;
-  name: string;
-  lastMessage?: string;
-  lastMessageAt?: string;
-  unreadCount?: number;
-};
+import type {
+  Me,
+  Conversation,
+  ChatSocketMessage,
+  SocketMessage,
+  Friend,
+} from "../Types/ChatType";
 
 type ChatContextType = {
-  me: any | null;
-  friends: any | null;
+  me: Me | null;
+  friends: Map<number, string>;
   conversations: Conversation[];
   setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>;
   sendMessage: (receiverId: number, content: string) => void;
   markAsRead: (userId: number) => Promise<void>;
   closeSocket: () => void;
-  lastMessage: any;
+  lastMessage: ChatSocketMessage | null;
   onlineUsers: Set<number>;
   activeChatUser: number | null;
   setActiveChatUser: React.Dispatch<React.SetStateAction<number | null>>;
@@ -40,10 +40,12 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const friendsMapRef = useRef<Map<number, string>>(new Map());
   const activeChatUserRef = useRef<number | null>(null);
 
-  const [me, setMe] = useState<any>(null);
+  const [me, setMe] = useState<Me | null>(null);
   const [friends, setFriends] = useState<Map<number, string>>(new Map());
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [lastMessage, setLastMessage] = useState<any>(null);
+  const [lastMessage, setLastMessage] = useState<ChatSocketMessage | null>(
+    null,
+  );
   const [onlineUsers, setOnlineUsers] = useState(new Set<number>());
   const [activeChatUser, setActiveChatUser] = useState<number | null>(null);
 
@@ -76,16 +78,21 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       const convData = await convRes.json();
       const friendsData = await friendsRes.json();
 
-      const safeFriends = Array.isArray(friendsData) ? friendsData : [];
+      const safeFriends: Friend[] = Array.isArray(friendsData)
+        ? friendsData
+        : [];
 
-      const friendsMap = new Map(safeFriends.map((f: any) => [f.id, f.name]));
+      const friendsMap = new Map<number, string>(
+        safeFriends.map((friend) => [friend.id, friend.name]),
+      );
+
       setFriends(friendsMap);
       friendsMapRef.current = friendsMap;
 
       const safeConv = Array.isArray(convData) ? convData : [];
 
       setConversations(safeConv);
-    } catch (err) {
+    } catch {
       setMe(null);
     }
   }
@@ -101,11 +108,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const friendsData = await friendsRes.json();
-    const safeFriends = Array.isArray(friendsData) ? friendsData : [];
+    const friendsData: Friend[] = await friendsRes.json();
 
     const friendsMap = new Map<number, string>(
-      safeFriends.map((friend: any) => [friend.id, friend.name]),
+      friendsData.map((friend) => [friend.id, friend.name]),
     );
 
     setFriends(friendsMap);
@@ -136,9 +142,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     wsRef.current = ws;
 
     ws.onmessage = (e) => {
-      let data: any;
+      let data: SocketMessage;
+
       try {
-        data = JSON.parse(e.data);
+        data = JSON.parse(e.data) as SocketMessage;
       } catch {
         return;
       }
@@ -168,11 +175,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
         case "friend-request":
           toast.custom((t) => (
-            <FriendRequestToast
-              toastId={t.id}
-              senderId={data.senderId}
-              senderName={data.senderName}
-            />
+            <FriendRequestToast toastId={t.id} senderName={data.senderName} />
           ));
 
           window.dispatchEvent(new Event("friend-status-changed"));
@@ -246,7 +249,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
           );
 
           break;
-        case "chat":
+
+        case "chat": {
           setLastMessage(data);
           if (
             data.senderId !== me.id &&
@@ -311,6 +315,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             return [updated, ...prev.filter((c) => c.userId !== otherUser)];
           });
           break;
+        }
       }
     };
 
@@ -319,7 +324,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       ws.close();
       wsRef.current = null;
     };
-  }, [me?.id, me?.name]);
+  }, [me?.id, navigate]);
 
   // ---------------- SEND ----------------
   function sendMessage(receiverId: number, content: string) {

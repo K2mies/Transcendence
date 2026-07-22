@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+
 import UserSearchBar from "./ChatSearchBar";
 import ProfileSearchBar from "./ProfileSearchBar";
 import UseChat from "./UseChat";
@@ -7,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ConversationList from "./ConversationList";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
+
+import type { Friend, Message } from "../Types/ChatType";
 
 export default function Chat() {
   const {
@@ -23,7 +26,7 @@ export default function Chat() {
 
   const selectedUserRef = useRef<number | null>(null);
 
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [text, setText] = useState("");
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -49,49 +52,51 @@ export default function Chat() {
   }
 
   // ---------------- OPEN CHAT ----------------
-  async function openChat(userId: number) {
-    setSelectedUser(userId);
-    setActiveChatUser(userId);
-    selectedUserRef.current = userId;
+  const openChat = useCallback(
+    async (userId: number) => {
+      setSelectedUser(userId);
+      setActiveChatUser(userId);
+      selectedUserRef.current = userId;
 
-    const res = await fetch(`http://localhost:4243/message/${userId}`, {
-      method: "GET",
-      credentials: "include",
-    });
-
-    const data = await res.json();
-    if (Array.isArray(data) && data.length === 0) {
-      const friends = await fetch(`http://localhost:4243/user/friends`, {
+      const res = await fetch(`http://localhost:4243/message/${userId}`, {
         method: "GET",
         credentials: "include",
       });
 
-      const friendsdata = await friends.json();
-      const friend = Array.isArray(friendsdata)
-        ? friendsdata.find((friend: any) => friend.id === userId)
-        : undefined;
+      const data = await res.json();
+      if (Array.isArray(data) && data.length === 0) {
+        const friends = await fetch(`http://localhost:4243/user/friends`, {
+          method: "GET",
+          credentials: "include",
+        });
 
-      setConversations((prev) => {
-        if (!friend) return prev;
-        const exists = prev.some((c) => c.userId === friend.id);
+        const friendsdata: Friend[] = await friends.json();
 
-        if (exists) return prev;
+        const friend = friendsdata.find((friend) => friend.id === userId);
 
-        return [
-          {
-            userId: friend.id,
-            name: friend.name,
-          },
-          ...prev,
-        ];
-      });
-    }
-    setMessages(Array.isArray(data) ? data : []);
+        setConversations((prev) => {
+          if (!friend) return prev;
+          const exists = prev.some((c) => c.userId === friend.id);
 
-    await markAsRead(userId);
+          if (exists) return prev;
 
-    scrollToBottom();
-  }
+          return [
+            {
+              userId: friend.id,
+              name: friend.name,
+            },
+            ...prev,
+          ];
+        });
+      }
+      setMessages(Array.isArray(data) ? data : []);
+
+      await markAsRead(userId);
+
+      scrollToBottom();
+    },
+    [markAsRead, setConversations, setActiveChatUser],
+  );
 
   function send() {
     if (!selectedUser || !text.trim()) return;
@@ -103,7 +108,6 @@ export default function Chat() {
     inputRef.current?.focus();
   }
 
-  // ---------------- MESSAGES AUTO-SCROLL ----------------
   // ---------------- MESSAGES AUTO-SCROLL ----------------
   useEffect(() => {
     const container = messagesContainerRef.current;
@@ -146,11 +150,7 @@ export default function Chat() {
     });
 
     if (lastMessage.senderId === selectedUser) markAsRead(selectedUser);
-  }, [lastMessage, selectedUser, me]);
-
-  if (!me) {
-    return <div className="text-black p-6">Loading chat...</div>;
-  }
+  }, [lastMessage, selectedUser, me, markAsRead]);
 
   useEffect(() => {
     if (activeChatUser === null || activeChatUser === selectedUser) {
@@ -158,13 +158,17 @@ export default function Chat() {
     }
 
     openChat(activeChatUser);
-  }, [activeChatUser, selectedUser]);
+  }, [activeChatUser, selectedUser, openChat]);
 
   useEffect(() => {
     return () => {
       setActiveChatUser(null);
     };
   }, [setActiveChatUser]);
+
+  if (!me) {
+    return <div className="text-black p-6">Loading chat...</div>;
+  }
 
   return (
     <>

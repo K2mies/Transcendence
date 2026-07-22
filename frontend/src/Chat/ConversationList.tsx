@@ -1,10 +1,4 @@
-type Conversation = {
-  userId: number;
-  name: string;
-  lastMessage?: string;
-  lastMessageAt?: string;
-  unreadCount?: number;
-};
+import type { Conversation } from "../Types/ChatType";
 
 type ConversationListProps = {
   conversations: Conversation[];
