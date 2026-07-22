@@ -89,7 +89,7 @@ function PlatformIcon({ platform, size = 20 }: PlatformIconProps) {
     return null;
   }
 
-  return <Icon size={size} />;
+  return <Icon size={size} aria-hidden="true" focusable="false"/>;
 }
 
 export default PlatformIcon;

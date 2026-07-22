@@ -160,7 +160,7 @@ function GameInfo({ game }: GameInfoProps) {
     <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg px-4 py-3">
         <div className="flex items-start gap-4">
-          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary">
+          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary" aria-label="Game is available on following platforms">
             {sortedPlatforms.map((platform) => (
               <li
                 key={platform}
