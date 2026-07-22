@@ -38,9 +38,6 @@ function GameCard({ game, index }: GameCardProps) {
           className="border-primary border-x-3 border-t-3 w-full rounded-t-lg"
         />
 
-        <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
-          <FavoriteButton game={game} size={25} />
-        </div>
         <h2
           className="
             absolute
@@ -71,6 +68,9 @@ function GameCard({ game, index }: GameCardProps) {
         </h2>
       </Link>
 
+      <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
+          <FavoriteButton game={game} size={25} />
+        </div>
       <div
         className="
           bg-tertiary
