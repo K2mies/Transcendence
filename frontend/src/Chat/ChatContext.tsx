@@ -1,4 +1,4 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -341,16 +341,24 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }
 
   // ---------------- MARK AS READ ----------------
-  async function markAsRead(userId: number) {
+  const markAsRead = useCallback(async (userId: number) => {
     await fetch(`http://localhost:4243/message/read/${userId}`, {
       method: "POST",
       credentials: "include",
     });
 
-    setConversations((prev) =>
-      prev.map((c) => (c.userId === userId ? { ...c, unreadCount: 0 } : c)),
-    );
-  }
+    setConversations((prev) => {
+      const conversation = prev.find((c) => c.userId === userId);
+
+      if (!conversation || (conversation.unreadCount ?? 0) === 0) {
+        return prev;
+      }
+
+      return prev.map((c) =>
+        c.userId === userId ? { ...c, unreadCount: 0 } : c,
+      );
+    });
+  }, []);
 
   // ---------------- CLOSE SOCKET AT LOGOUT ----------------
   function closeSocket() {

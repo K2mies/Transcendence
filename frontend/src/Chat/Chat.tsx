@@ -89,7 +89,10 @@ export default function Chat() {
           ];
         });
       }
-      setMessages(Array.isArray(data) ? data : []);
+
+      const newMessages = Array.isArray(data) ? data : [];
+
+      setMessages(newMessages);
 
       await markAsRead(userId);
 
@@ -142,11 +145,17 @@ export default function Chat() {
     if (!belongsToCurrentChat) return;
 
     setMessages((prev) => {
-      const updated = [...prev, lastMessage];
+      const messageAlreadyExists = prev.some(
+        (message) => message.id === lastMessage.id,
+      );
+
+      if (messageAlreadyExists) {
+        return prev;
+      }
 
       requestAnimationFrame(scrollToBottom);
 
-      return updated;
+      return [...prev, lastMessage];
     });
 
     if (lastMessage.senderId === selectedUser) markAsRead(selectedUser);
