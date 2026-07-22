@@ -1,185 +1,195 @@
-import {WebSocketServer, WebSocket} from "ws";
+import { WebSocketServer, WebSocket } from "ws";
 import jwt from "jsonwebtoken";
-import {prisma} from "../config/db.js";
+import { prisma } from "../config/db.js";
 import cookie from "cookie";
 
 export const connectedUsers = new Map();
 
 export function setupWebSocket(server) {
-	const wss = new WebSocketServer({server});
+  const wss = new WebSocketServer({ server });
 
-	console.log("WebSocket server initialized");
+  console.log("WebSocket server initialized");
 
-	wss.on("connection", async (ws, req) => {
-		try {
-			console.log("Incoming WS connection");
+  wss.on("connection", async (ws, req) => {
+    try {
+      console.log("Incoming WS connection");
 
-			const cookies = cookie.parse(req.headers.cookie || "");
-			const token = cookies.jwt;
-			if (!token) {
-				console.log("No token provided");
-				ws.close();
-				return;
-			}
+      const cookies = cookie.parse(req.headers.cookie || "");
+      const token = cookies.jwt;
+      if (!token) {
+        console.log("No token provided");
+        ws.close();
+        return;
+      }
 
-			const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-			const user = await prisma.user.findUnique({
-				where: {
-					id: decoded.id,
-				},
-				select: {
-					id: true,
-					name: true,
-				},
-			});
+      const user = await prisma.user.findUnique({
+        where: {
+          id: decoded.id,
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
 
-			if (!user) {
-				console.log("User not found");
-				ws.close();
-				return;
-			}
+      if (!user) {
+        console.log("User not found");
+        ws.close();
+        return;
+      }
 
-			ws.userId = user.id;
+      ws.userId = user.id;
 
-			const existing = connectedUsers.get(user.id);
-			if (existing && existing !== ws) {
-				existing.close(1000, "Replaced by new connection");
-			}
-			connectedUsers.set(user.id, ws);
+      const existing = connectedUsers.get(user.id);
+      if (existing && existing !== ws) {
+        existing.close(1000, "Replaced by new connection");
+      }
+      connectedUsers.set(user.id, ws);
 
-			const friends = await prisma.userUserRelation.findMany({
-				where: {
-					friendStatus: "FRIENDS",
-					OR: [
-						{ senderId: user.id },
-						{ receiverId: user.id },
-					],
-				},
-			});
+      const friends = await prisma.userUserRelation.findMany({
+        where: {
+          friendStatus: "FRIENDS",
+          OR: [{ senderId: user.id }, { receiverId: user.id }],
+        },
+      });
 
-			const friendIds = friends.map(f =>
-				f.senderId === user.id
-					? f.receiverId
-					: f.senderId
-			);
+      const friendIds = friends.map((f) =>
+        f.senderId === user.id ? f.receiverId : f.senderId,
+      );
 
-			const onlineFriends = friendIds.filter(id =>
-				connectedUsers.has(id)
-			);
+      const onlineFriends = friendIds.filter((id) => connectedUsers.has(id));
 
-			ws.send(JSON.stringify({
-				type: "online-users",
-				users: onlineFriends
-			}));
+      ws.send(
+        JSON.stringify({
+          type: "online-users",
+          users: onlineFriends,
+        }),
+      );
 
-			for (const friendId of friendIds) {
-				const friendWs = connectedUsers.get(friendId);
+      for (const friendId of friendIds) {
+        const friendWs = connectedUsers.get(friendId);
 
-				if (friendWs?.readyState === WebSocket.OPEN) {
-					friendWs.send(JSON.stringify({
-						type: "user-online",
-						userId: user.id,
-					}));
-				}
-			}
+        if (friendWs?.readyState === WebSocket.OPEN) {
+          friendWs.send(
+            JSON.stringify({
+              type: "user-online",
+              userId: user.id,
+            }),
+          );
+        }
+      }
 
-			ws.on("message", async (message) => {
-				try {
-					const data = JSON.parse(message.toString());
+      ws.on("message", async (message) => {
+        try {
+          const data = JSON.parse(message.toString());
 
-					if (!data || typeof data !== "object")
-						return;
-					console.log(`${user.name} sent a message`);
-					if (data.type === "broadcast") {
-						for (const [userId, receiverSocket] of connectedUsers) {
-							if (userId !== user.id) {
-								if (receiverSocket && receiverSocket.readyState === WebSocket.OPEN) {
-									receiverSocket.send(
-										JSON.stringify({
-											type: "broadcast",
-											senderId: user.id,
-											content: data.content,
-										})
-									);
-								}
-							}
-						}
-						return;
-					}
+          if (!data || typeof data !== "object") return;
+          console.log(`${user.name} sent a message`);
+          if (data.type === "broadcast") {
+            for (const [userId, receiverSocket] of connectedUsers) {
+              if (userId !== user.id) {
+                if (
+                  receiverSocket &&
+                  receiverSocket.readyState === WebSocket.OPEN
+                ) {
+                  receiverSocket.send(
+                    JSON.stringify({
+                      type: "broadcast",
+                      senderId: user.id,
+                      content: data.content,
+                    }),
+                  );
+                }
+              }
+            }
+            return;
+          }
 
-					const receiverId = Number(data.receiverId);
-					const content = typeof data.content === "string" ? data.content.trim() : "";
+          const receiverId = Number(data.receiverId);
+          const content =
+            typeof data.content === "string" ? data.content.trim() : "";
 
-					if (data.type !== "chat" || receiverId === user.id || !Number.isInteger(receiverId) || !content)
-						return;
+          if (
+            data.type !== "chat" ||
+            receiverId === user.id ||
+            !Number.isInteger(receiverId) ||
+            !content
+          )
+            return;
 
-					const msg = await prisma.message.create({
-						data: {
-							senderId: user.id,
-							receiverId,
-							content,
-						},
-					});
+          const msg = await prisma.message.create({
+            data: {
+              senderId: user.id,
+              receiverId,
+              content,
+            },
+          });
 
-					console.log("Message stored:", msg.id);
+          console.log("Message stored:", msg.id);
 
-					const receiverSocket = connectedUsers.get(receiverId);
-					const senderSocket = connectedUsers.get(user.id);
+          const receiverSocket = connectedUsers.get(receiverId);
+          const senderSocket = connectedUsers.get(user.id);
 
-					if (receiverSocket && receiverSocket.readyState === WebSocket.OPEN) {
-						receiverSocket.send(
-							JSON.stringify({
-								type: "chat",
-								id: msg.id,
-								senderId: user.id,
-								receiverId: receiverId,
-								content: data.content,
-								createdAt: msg.createdAt,
-							})
-						);
-					}
-					if (senderSocket && senderSocket.readyState === WebSocket.OPEN) {
-						senderSocket.send(
-							JSON.stringify({
-								type: "chat",
-								id: msg.id,
-								senderId: user.id,
-								receiverId: receiverId,
-								content: data.content,
-								createdAt:msg.createdAt,
-							})
-						)
-					}
-				} catch (error) {
-					console.error(error);
-				}
-			});
+          if (receiverSocket && receiverSocket.readyState === WebSocket.OPEN) {
+            receiverSocket.send(
+              JSON.stringify({
+                type: "chat",
+                id: msg.id,
+                senderId: user.id,
+                senderName: user.name,
+                receiverId: receiverId,
+                content: data.content,
+                createdAt: msg.createdAt,
+              }),
+            );
+          }
+          if (senderSocket && senderSocket.readyState === WebSocket.OPEN) {
+            senderSocket.send(
+              JSON.stringify({
+                type: "chat",
+                id: msg.id,
+                senderId: user.id,
+                senderName: user.name,
+                receiverId: receiverId,
+                content: data.content,
+                createdAt: msg.createdAt,
+              }),
+            );
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      });
 
-			ws.on("close", () => {
-				if (connectedUsers.get(user.id) === ws) {
-					connectedUsers.delete(user.id);
-				}
+      ws.on("close", () => {
+        if (connectedUsers.get(user.id) === ws) {
+          connectedUsers.delete(user.id);
+        }
 
-				for (const friendId of friendIds) {
-					const friendWs = connectedUsers.get(friendId);
+        for (const friendId of friendIds) {
+          const friendWs = connectedUsers.get(friendId);
 
-					if (friendWs?.readyState === WebSocket.OPEN) {
-						friendWs.send(JSON.stringify({
-							type: "user-offline",
-							userId: user.id,
-						}));
-					}
-				}
-			});
+          if (friendWs?.readyState === WebSocket.OPEN) {
+            friendWs.send(
+              JSON.stringify({
+                type: "user-offline",
+                userId: user.id,
+              }),
+            );
+          }
+        }
+      });
 
-			ws.on("error", (error) => {
-				console.error(error);
-			});
-		} catch (error) {
-			console.error("WS auth error:", error);
-			ws.close();
-		}
-	});
-	return wss;
+      ws.on("error", (error) => {
+        console.error(error);
+      });
+    } catch (error) {
+      console.error("WS auth error:", error);
+      ws.close();
+    }
+  });
+  return wss;
 }
+

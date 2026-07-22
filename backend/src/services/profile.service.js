@@ -274,6 +274,7 @@ export async function declineFriendRequest(friendName, user) {
     error.status = 404;
     throw error;
   }
+
   const decliner = await prisma.user.findUnique({
     where: { id: user },
     select: {
@@ -286,21 +287,28 @@ export async function declineFriendRequest(friendName, user) {
     error.status = 404;
     throw error;
   }
+
   const userRelation = await prisma.userUserRelation.findUnique({
     where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
   });
+
   if (!userRelation || userRelation.friendStatus !== "PENDING") {
     const error = new Error("No pending user relation");
     error.status = 400;
     throw error;
   }
+
   await prisma.userUserRelation.delete({
     where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
   });
+
   sendNotification(friend.id, {
     type: "friend-request-declined",
     declinerName: decliner.name,
   });
+
+  await sendOnlineFriends(friend.id);
+  await sendOnlineFriends(user);
 }
 
 /*

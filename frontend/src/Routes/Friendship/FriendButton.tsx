@@ -18,6 +18,7 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
 
   useEffect(() => {
     if (!user || user === myCurrUser) return;
+
     async function getStatus() {
       const response: Response = await fetch(
         `http://localhost:4243/profile/${username}/friend-status`,
@@ -25,15 +26,33 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
           credentials: "include",
         },
       );
-      const res: { friendStatus: string; sender: string } =
-        await response.json();
-      if (res.friendStatus === "PENDING" && res.sender === user)
+
+      const res: {
+        friendStatus: string | undefined;
+        sender?: string;
+      } = await response.json();
+
+      if (res.friendStatus === "PENDING" && res.sender === user) {
         setFriendStatus("RECEIVED");
-      else setFriendStatus(res.friendStatus);
+      } else {
+        setFriendStatus(res.friendStatus);
+      }
     }
 
     getStatus();
-  }, [user, refreshKey]);
+  }, [user, myCurrUser, username, refreshKey]);
+
+  useEffect(() => {
+    function refreshStatus() {
+      setRefreshKey((key) => key + 1);
+    }
+
+    window.addEventListener("friend-status-changed", refreshStatus);
+
+    return () => {
+      window.removeEventListener("friend-status-changed", refreshStatus);
+    };
+  }, []);
 
   return (
     <>

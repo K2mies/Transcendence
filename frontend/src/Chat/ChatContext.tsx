@@ -81,12 +81,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
       const safeConv = Array.isArray(convData) ? convData : [];
 
-      setConversations(
-        safeConv.map((c: any) => ({
-          ...c,
-          name: friendsMap.get(c.userId) ?? "Unknown",
-        })),
-      );
+      setConversations(safeConv);
     } catch (err) {
       setMe(null);
     }
@@ -97,10 +92,23 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     const friendsRes = await fetch("http://localhost:4243/user/friends", {
       credentials: "include",
     });
+
+    if (!friendsRes.ok) {
+      console.error("Error refreshing friends");
+      return;
+    }
+
     const friendsData = await friendsRes.json();
     const safeFriends = Array.isArray(friendsData) ? friendsData : [];
-    const friendsMap = new Map(safeFriends.map((f: any) => [f.id, f.name]));
+
+    const friendsMap = new Map<number, string>(
+      safeFriends.map((friend: any) => [friend.id, friend.name]),
+    );
+
     setFriends(friendsMap);
+    friendsMapRef.current = friendsMap;
+
+    window.dispatchEvent(new Event("friend-status-changed"));
   }
 
   // ---------------- INIT ----------------
@@ -163,6 +171,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
               senderName={data.senderName}
             />
           ));
+
+          window.dispatchEvent(new Event("friend-status-changed"));
           break;
 
         case "friend-request-accepted":
@@ -184,6 +194,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
               </div>
             </div>
           ));
+          window.dispatchEvent(new Event("friend-status-changed"));
           break;
 
         case "friend-request-declined":
@@ -205,6 +216,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
               </div>
             </div>
           ));
+          window.dispatchEvent(new Event("friend-status-changed"));
           break;
 
         case "chat":
@@ -218,24 +230,22 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
             toast.custom((t) => (
               <div className="rounded-lg bg-primary p-4 text-tertiary max-w-sm">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
                     <IoChatbubbleEllipses
                       size={16}
-                      className="text-secondary shrink-0"
+                      className="shrink-0 text-secondary"
                     />
+
+                    <span className="shrink-0 font-bold text-secondary">
+                      {senderName}
+                    </span>
 
                     <span className="text-xs italic">sent you a message</span>
                   </div>
 
-                  <div className="mt-1 flex items-baseline gap-1 min-w-0 text-sm">
-                    <span className="font-bold text-secondary shrink-0">
-                      {senderName}
-                    </span>
-
-                    <span className="min-w-0 flex-1 truncate opacity-80">
-                      "{data.content}"
-                    </span>
+                  <div className="mt-1 min-w-0 truncate text-sm opacity-80">
+                    "{data.content}"
                   </div>
                 </div>
               </div>
@@ -252,6 +262,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
               userId: otherUser,
               name:
                 existing?.name ??
+                data.senderName ??
                 friendsMapRef.current.get(otherUser) ??
                 "Unknown",
               lastMessage: data.content,
