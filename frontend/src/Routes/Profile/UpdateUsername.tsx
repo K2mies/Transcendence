@@ -79,8 +79,10 @@ function UpdateUsername({
       };
 
       localStorage.setItem("user", JSON.stringify(newUserData));
-
       setMyCurrUser(newName);
+
+      window.dispatchEvent(new Event("auth-changed"));
+
       navigate(`/user/${encodeURIComponent(newName)}`);
       setUpdateUsernameMode(false);
     } else {

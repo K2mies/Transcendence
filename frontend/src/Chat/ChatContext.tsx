@@ -219,6 +219,30 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
           window.dispatchEvent(new Event("friend-status-changed"));
           break;
 
+        case "username-changed":
+          setFriends((previousFriends) => {
+            const updatedFriends = new Map(previousFriends);
+
+            if (updatedFriends.has(data.userId)) {
+              updatedFriends.set(data.userId, data.newName);
+            }
+
+            friendsMapRef.current = updatedFriends;
+            return updatedFriends;
+          });
+
+          setConversations((previousConversations) =>
+            previousConversations.map((conversation) =>
+              conversation.userId === data.userId
+                ? {
+                    ...conversation,
+                    name: data.newName,
+                  }
+                : conversation,
+            ),
+          );
+
+          break;
         case "chat":
           setLastMessage(data);
           if (
@@ -284,7 +308,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       ws.close();
       wsRef.current = null;
     };
-  }, [me?.id]);
+  }, [me?.id, me?.name]);
 
   // ---------------- SEND ----------------
   function sendMessage(receiverId: number, content: string) {

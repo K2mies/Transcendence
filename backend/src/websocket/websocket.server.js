@@ -106,7 +106,16 @@ export function setupWebSocket(server) {
             }
             return;
           }
+          const currentUser = await prisma.user.findUnique({
+            where: { id: user.id },
+            select: {
+              name: true,
+            },
+          });
 
+          if (!currentUser) {
+            return;
+          }
           const receiverId = Number(data.receiverId);
           const content =
             typeof data.content === "string" ? data.content.trim() : "";
@@ -138,7 +147,7 @@ export function setupWebSocket(server) {
                 type: "chat",
                 id: msg.id,
                 senderId: user.id,
-                senderName: user.name,
+                senderName: currentUser.name,
                 receiverId: receiverId,
                 content: data.content,
                 createdAt: msg.createdAt,
@@ -151,7 +160,7 @@ export function setupWebSocket(server) {
                 type: "chat",
                 id: msg.id,
                 senderId: user.id,
-                senderName: user.name,
+                senderName: currentUser.name,
                 receiverId: receiverId,
                 content: data.content,
                 createdAt: msg.createdAt,

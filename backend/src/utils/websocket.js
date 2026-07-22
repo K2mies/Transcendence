@@ -38,3 +38,25 @@ export function sendNotification(receiverId, payload) {
 
   socket.send(JSON.stringify(payload));
 }
+
+export async function sendUsernameUpdate(userId, newName) {
+  const friends = await prisma.userUserRelation.findMany({
+    where: {
+      friendStatus: "FRIENDS",
+      OR: [{ senderId: userId }, { receiverId: userId }],
+    },
+  });
+
+  for (const friend of friends) {
+    const friendId =
+      friend.senderId === userId ? friend.receiverId : friend.senderId;
+
+    console.log(`Sending username update to friend ${friendId}: ${newName}`); //temp delete
+
+    sendNotification(friendId, {
+      type: "username-changed",
+      userId,
+      newName,
+    });
+  }
+}
