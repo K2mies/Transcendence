@@ -4,6 +4,10 @@ import ProfileSearchBar from "./ProfileSearchBar";
 import UseChat from "./UseChat";
 import { useNavigate } from "react-router-dom";
 
+import ConversationList from "./ConversationList";
+import MessageList from "./MessageList";
+import MessageInput from "./MessageInput";
+
 export default function Chat() {
   const {
     me,
