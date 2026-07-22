@@ -134,7 +134,7 @@ export default function Chat() {
   }, [messages, selectedUser, activeChatUser]);
 
   useEffect(() => {
-    if (!lastMessage || !selectedUser) return;
+    if (!lastMessage || !selectedUser || !me) return;
 
     const belongsToCurrentChat =
       (lastMessage.senderId === selectedUser &&

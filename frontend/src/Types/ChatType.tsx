@@ -29,7 +29,7 @@ export type Message = BaseMessage & {
   read?: boolean;
 };
 
-export type ChatSocketMessage = BaseMessage & {
+export type ChatSocketMessage = Message & {
   type: "chat";
 };
 

@@ -1,8 +1,9 @@
-import { RefObject } from "react";
+import type { RefObject } from "react";
+import type { Me, Message } from "../Types/ChatType";
 
 type MessageListProps = {
-  me: any;
-  messages: any[];
+  me: Me;
+  messages: Message[];
   messagesContainerRef: RefObject<HTMLDivElement | null>;
 };
 
