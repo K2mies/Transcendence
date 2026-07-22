@@ -10,8 +10,8 @@ function Stars({ rating, size = 20 }: StarsProps) {
   return (
     <div
       className="flex justify-center gap-1 mb-2"
-      aria-hidden="true"
-      role="figure"
+      aria-label={`Rating: ${roundedRating.toString()} out of 5 stars`}
+      role="img"
     >
       {Array.from({ length: 5 }).map((_, index) => {
         if (roundedRating >= index + 1) {

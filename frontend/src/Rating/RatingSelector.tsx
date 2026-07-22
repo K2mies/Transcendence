@@ -11,36 +11,50 @@ function RatingSelector({ rating, setRating, size = 20 }: RatingSelectorProps) {
   const [hoverRating, setHoverRating] = useState(0);
   const displayRating = hoverRating > 0 ? hoverRating : rating;
   return (
-    <div
+    <fieldset
       className="flex justify-center gap-0 mb-4"
       onMouseLeave={() => setHoverRating(0)}
     >
+      <legend className="sr-only">Rate this game</legend>
+      
       {Array.from({ length: 5 }).map((_, index) => {
         const value = index + 1;
 
-        if (value <= displayRating) {
-          return (
-            <PiStarFill
-              key={value}
-              size={size}
-              className="cursor-pointer text-secondary"
-              onMouseEnter={() => setHoverRating(value)}
-              onClick={() => setRating(value)}
-            />
-          );
-        }
-
         return (
-          <PiStar
+          <label
             key={value}
-            size={size}
-            className="cursor-pointer text-secondary"
             onMouseEnter={() => setHoverRating(value)}
-            onClick={() => setRating(value)}
-          />
-        );
+            className="cursor-pointer"
+          >
+            <input
+              type="radio"
+              name="rating"
+              value={value}
+              checked={rating === value}
+              onChange={() => setRating(value)}
+              onFocus={() => setHoverRating(value)}
+              onBlur={() => setHoverRating(0)}
+              className="sr-only"
+            />
+            {value <= displayRating ? (
+              <PiStarFill
+                aria-hidden="true"
+                focusable="false"
+                size={size}
+                className="star text-secondary"
+              />
+            ) : (
+              <PiStar
+                aria-hidden="true"
+                focusable="false"
+                size={size}
+                className="star text-secondary"
+              />
+            )}
+          </label>
+        )
       })}
-    </div>
+    </fieldset>
   );
 }
 
