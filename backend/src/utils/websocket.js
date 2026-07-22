@@ -51,8 +51,6 @@ export async function sendUsernameUpdate(userId, newName) {
     const friendId =
       friend.senderId === userId ? friend.receiverId : friend.senderId;
 
-    console.log(`Sending username update to friend ${friendId}: ${newName}`); //temp delete
-
     sendNotification(friendId, {
       type: "username-changed",
       userId,
