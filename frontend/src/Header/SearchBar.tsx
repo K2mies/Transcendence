@@ -44,9 +44,7 @@ const SearchBar = () => {
   }, []);
   return (
     <>
-      <label htmlFor="search-game" className="sr-only">Search for games:</label>
       <Autocomplete<Game>
-        id="search-game"
         value={selectedGame}
         sx={{ width: "100%" }}
         inputValue={inputValue}
@@ -91,33 +89,35 @@ const SearchBar = () => {
           }
         }}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Search for games"
-            aria-label="Search for games"
-            size="small"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                backgroundColor: "var(--color-tertiary)",
-                "& fieldset": {
-                  borderColor: "var(--color-primary)",
+          <>
+            <label htmlFor={params.id} className="sr-only">Search for games</label>
+            <TextField
+              {...params}
+              placeholder="Search for games"
+              size="small"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "var(--color-tertiary)",
+                  "& fieldset": {
+                    borderColor: "var(--color-primary)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "var(--color-secondary)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "var(--color-secondary)",
+                  },
                 },
-                "&:hover fieldset": {
-                  borderColor: "var(--color-secondary)",
+                "& .MuiInputLabel-root": {
+                  color: "var(--color-primary)",
                 },
-                "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-secondary)",
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "var(--color-secondary)",
                 },
-              },
-              "& .MuiInputLabel-root": {
-                color: "var(--color-primary)",
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: "var(--color-secondary)",
-              },
-              borderRadius: 10,
-            }}
-          />
+                borderRadius: 10,
+              }}
+            />
+          </>
         )}
       />
     </>

@@ -35,9 +35,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
 
   return (
     <>
-      <label htmlFor="chat-search" className="sr-only">Search for a friend to chat:</label>
       <Autocomplete<User>
-        id="chat-search"
         sx={{ width: "25%" }}
         options={users}
         filterOptions={filterOptions}
@@ -74,27 +72,29 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
           },
         }}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            aria-label="Search for a friend to chat"
-            placeholder="Search for a friend to chat"
-            size="small"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                backgroundColor: "var(--color-tertiary)",
-                "& fieldset": {
-                  borderColor: "var(--color-primary)",
+          <>
+            <label htmlFor={params.id} className="sr-only">Search for a friend to chat</label>
+            <TextField
+              {...params}
+              placeholder="Search for a friend to chat"
+              size="small"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "var(--color-tertiary)",
+                  "& fieldset": {
+                    borderColor: "var(--color-primary)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "var(--color-secondary)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "var(--color-secondary)",
+                  },
                 },
-                "&:hover fieldset": {
-                  borderColor: "var(--color-secondary)",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-secondary)",
-                },
-              },
-              borderRadius: 10,
-            }}
-          />
+                borderRadius: 10,
+              }}
+            />
+          </>
         )}
       />
     </>
