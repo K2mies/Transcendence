@@ -41,7 +41,10 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
     const result = await response.json();
     if (result.status === "success") {
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("user", JSON.stringify(result.data.user));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: result.data.user.id, name: result.data.user.name }),
+      );
       setMyCurrUser(result.data.user.name);
 
       window.dispatchEvent(new Event("auth-changed"));
