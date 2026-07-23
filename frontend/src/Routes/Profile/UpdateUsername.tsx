@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, useController } from "react-hook-form";
 import { useState } from "react";
-import { TextField } from "@mui/material";
+import { Alert, TextField } from "@mui/material";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -131,11 +131,12 @@ function UpdateUsername({
           </button>
         </div>
       </form>
-      {(error || editError) && (
-        <p className="bg-red-600 text-white text-sm p-2 ml-3 rounded shadow-lg whitespace-nowrap z-10" aria-live="polite">
+      <div>
+        {(error || editError) ? 
+        <Alert severity="error" variant="filled">
           {error ? error.message : editError}
-        </p>
-      )}
+        </Alert> : null}
+      </div>
     </>
   );
 }
