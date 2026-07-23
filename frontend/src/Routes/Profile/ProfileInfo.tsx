@@ -40,7 +40,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           <span className="h-2.5 w-2.5 rounded-full bg-online" />
         )}
         {isMyUser && !updateUsernameMode && (
-          <button aria-label="Change username" onClick={() => setUpdateUsernameMode(true)}>
+          <button className="text-secondary hover:text-tertiary" aria-label="Change username" onClick={() => setUpdateUsernameMode(true)}>
             <FaEdit size={16} aria-hidden="true" focusable="false" />
           </button>
         )}
@@ -86,7 +86,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         {isMyUser && !updateBioMode && (
           <div className="flex flex-1 justify-end mr-6">
             <button
-              className="mt-4"
+              className="mt-4 text-secondary hover:text-primary"
               onClick={() => setUpdateBioMode(true)}
               aria-label="Open biography editor"
             >
