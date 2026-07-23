@@ -16,6 +16,8 @@ type Props = {
 };
 
 const UserSearchBar = ({ onSelectUser }: Props) => {
+  const [inputValue, setInputValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -38,11 +40,15 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
       <Autocomplete<User>
         sx={{ width: "25%", maxWidth: "20rem" }}
         options={users}
+        value={selectedValue}
+        inputValue={inputValue}
         filterOptions={filterOptions}
         getOptionLabel={(option) => option.name}
         onChange={(_, value) => {
           if (value) {
             onSelectUser(value.id);
+            setSelectedValue(null);
+            setInputValue("");
           }
         }}
         isOptionEqualToValue={(option, value) => option.id === value.id}
