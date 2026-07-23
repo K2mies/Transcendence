@@ -44,10 +44,10 @@ const ControlledBioInput = ({
             field.onChange(e);
             setBioNow(e.target.value);
           }}
-          aria-describedby={`${field.name}-count`}
+          aria-describedby="character-count"
         />
         <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-hidden="true">
-          <span className="text-sm text-primary">
+          <span className="text-sm text-primary" id="character-count">
             {bioNow.length}/{1000}
           </span>
         </div>

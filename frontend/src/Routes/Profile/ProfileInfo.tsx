@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import UpdateUsername from "./UpdateUsername";
 import UpdateBio from "./UpdateBio";
 import FriendButton from "../Friendship/FriendButton";
@@ -17,6 +17,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [updateUsernameMode, setUpdateUsernameMode] = useState<boolean>(false);
   const [updateBioMode, setUpdateBioMode] = useState<boolean>(false);
   const [currBio, setCurrBio] = useState<string>(profile.bio);
+  const editRef = useRef<any>(null);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
 
@@ -31,16 +32,22 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           <UpdateUsername
             setUpdateUsernameMode={setUpdateUsernameMode}
             setMyCurrUser={setMyCurrUser}
+            editRef={editRef}
           />
         )}
         {!updateUsernameMode && (
           <h2 className="p-4 font-bold">{profile.name}</h2>
         )}
         {onlineUsers.has(profile.id) && (
-          <span className="h-2.5 w-2.5 rounded-full bg-online" />
+          <span aria-label="Online" className="h-2.5 w-2.5 rounded-full bg-online" />
         )}
         {isMyUser && !updateUsernameMode && (
-          <button className="text-secondary hover:text-tertiary" aria-label="Change username" onClick={() => setUpdateUsernameMode(true)}>
+          <button
+            className="text-secondary hover:text-tertiary"
+            aria-label="Change username"
+            onClick={() => {
+              setUpdateUsernameMode(true);
+          }}>
             <FaEdit size={16} aria-hidden="true" focusable="false" />
           </button>
         )}

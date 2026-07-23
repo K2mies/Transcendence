@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 type UpdateUsernameProps = {
   setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
+  editRef: any;
 };
 
 type FormValues = {
@@ -31,6 +32,7 @@ const schema = z.object({
 function UpdateUsername({
   setUpdateUsernameMode,
   setMyCurrUser,
+  editRef,
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<string | undefined>(undefined);
@@ -46,6 +48,8 @@ function UpdateUsername({
     control,
     defaultValue: "",
   });
+
+  editRef.current?.focus();
 
   async function update(values: FormValues) {
     const newName = values.name;
@@ -94,6 +98,7 @@ function UpdateUsername({
         <div className="flex flex-col">
           <label htmlFor="update-username" className="font-semibold mb-2 block">Username:</label>
           <TextField
+            inputRef={editRef}
             id="update-username"
             className="w-87.5"
             placeholder="Give new username..."
@@ -114,7 +119,6 @@ function UpdateUsername({
             onBlur={field.onBlur}
             value={field.value}
             name={name}
-            inputRef={field.ref}
             error={!!error}
           />
         </div>
