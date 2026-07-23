@@ -63,17 +63,7 @@ function DeveloperSelector({
         slotProps={{
           popupIndicator: {
             tabIndex: 0,
-            "aria-label": "Open developer search suggestions",
-            sx: {
-              "&:focus-visible, &.Mui-focusVisible": {
-                outline: "2px solid var(--color-secondary)",
-                outlineOffset: "2px",
-              },
-            },
-          },
-          clearIndicator: {
-            tabIndex: 0,
-            "aria-label": "Clear developer search suggestions",
+            "aria-label": "Open list of developers",
             sx: {
               "&:focus-visible, &.Mui-focusVisible": {
                 outline: "2px solid var(--color-secondary)",

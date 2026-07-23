@@ -86,7 +86,7 @@ function AddReview({
           placeholder="Write your review (optional)..."
           className="text-primary w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
         />
-        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end">
+        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-label="Character count">
           <span className="text-sm text-primary">
             {review.length}/{MAX_REVIEW_LENGTH}
           </span>

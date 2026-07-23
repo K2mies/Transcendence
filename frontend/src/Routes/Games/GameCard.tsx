@@ -34,7 +34,7 @@ function GameCard({ game, index }: GameCardProps) {
       <Link to={"/game/" + encodeURIComponent(game.name)}>
         <img
           src={game.imageBig}
-          alt={game.name}
+          alt=""
           className="border-primary border-x-3 border-t-3 w-full rounded-t-lg"
         />
 
@@ -83,7 +83,7 @@ function GameCard({ game, index }: GameCardProps) {
         "
       >
         <p>Rating: {(game.combinedRating ?? game.igdbRating).toFixed(1)}</p>
-        <Stars rating={game.combinedRating ?? game.igdbRating} size={26} />
+        <Stars hidden={true} rating={game.combinedRating ?? game.igdbRating} size={26} />
       </div>
     </div>
   );

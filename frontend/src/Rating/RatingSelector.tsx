@@ -36,6 +36,7 @@ function RatingSelector({ rating, setRating, size = 20 }: RatingSelectorProps) {
               onBlur={() => setHoverRating(0)}
               className="sr-only"
             />
+            <span className="sr-only">{`${value} ${value === 1 ? "star" : "stars"}`}</span>
             {value <= displayRating ? (
               <PiStarFill
                 aria-hidden="true"
