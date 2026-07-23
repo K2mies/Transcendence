@@ -6,6 +6,7 @@ type PaginationControlsProps = {
   onPrevious: () => void;
   onNext: () => void;
   onPageChange: (page: number) => void;
+  className?: string;
 };
 
 function PaginationControls({
@@ -14,6 +15,7 @@ function PaginationControls({
   onPrevious,
   onNext,
   onPageChange,
+  className = "",
 }: PaginationControlsProps) {
   const [inputPage, setInputPage] = useState(page.toString());
 
@@ -32,7 +34,9 @@ function PaginationControls({
   }
 
   return (
-    <div className="bg-primary text-tertiary flex justify-center items-center gap-4 sticky bottom-0 z-40  ">
+    <div
+      className={`bg-primary text-tertiary flex justify-center items-center gap-4 sticky bottom-0 z-40 ${className}`}
+    >
       <button disabled={page === 1} onClick={onPrevious} className="px-4 py-2">
         Previous
       </button>
