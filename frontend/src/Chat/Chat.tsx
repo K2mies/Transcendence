@@ -138,7 +138,7 @@ export default function Chat() {
 
           <div className="flex flex-1 min-h-0">
             {/* LEFT */}
-            <div className="w-80 border-r border-secondary/20 overflow-y-auto p-4">
+            <div className="w-80 border-r border-secondary/20 overflow-y-auto p-4 flex flex-col">
               <h2 className="mb-4 text-lg text-secondary">Conversations</h2>
 
               {conversations.map((c) => (
