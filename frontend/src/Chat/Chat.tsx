@@ -146,6 +146,10 @@ export default function Chat() {
                   key={c.userId}
                   onClick={() => openChat(c.userId)}
                   className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
+                  aria-label={`Open conversation with ${c.name}${
+                    c.unreadCount > 0 ? `. ${c.unreadCount} unread messages.` : ""
+                    }${onlineUsers.has(c.userId) ? " User is online." : ""
+                  }`}
                 >
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2 font-bold text-secondary">
@@ -205,7 +209,9 @@ export default function Chat() {
                         : "bg-tertiary/40"
                     }`}
                   >
-                    <div className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl">
+                    <div 
+                      className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl"
+                      aria-label={(msg.senderId === me?.id) ? "Sent message:" : "Received message"}>
                       {msg.content}
                     </div>
                     <div className="text-xs opacity-80">
@@ -226,7 +232,7 @@ export default function Chat() {
               {selectedUser && (
                 <div className="p-4 border-t border-secondary/20 flex gap-2">
                   <input
-                    aria-label="Type a new message"
+                    aria-label="Type a message"
                     ref={inputRef}
                     value={text}
                     maxLength={120}

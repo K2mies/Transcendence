@@ -120,7 +120,7 @@ function Header({
             bg-primary
             transition-colors
             "
-            aria-label="Open chat"
+            aria-label={hasUnreadMessages ? "Open chat, unread messages" : "Open chat"}
           >
             <SiWechat
               className="text-tertiary hover:text-secondary"

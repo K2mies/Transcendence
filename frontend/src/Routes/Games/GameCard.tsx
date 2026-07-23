@@ -70,7 +70,7 @@ function GameCard({ game, index }: GameCardProps) {
 
       <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
           <FavoriteButton game={game} size={25} />
-        </div>
+      </div>
       <div
         className="
           bg-tertiary

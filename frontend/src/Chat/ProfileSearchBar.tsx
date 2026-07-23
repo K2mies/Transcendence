@@ -48,23 +48,13 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
         slotProps={{
           popupIndicator: {
             tabIndex: 0,
-            "aria-label": "Open profile search suggestions",
+            "aria-label": "Open list of users",
             sx: {
               "&:focus-visible, &.Mui-focusVisible": {
                 outline: "2px solid var(--color-secondary)",
                 outlineOffset: "2px",
               },
             }
-          },
-          clearIndicator: {
-            tabIndex: 0,
-            "aria-label": "Clear profile search suggestions",
-            sx: {
-              "&:focus-visible, &.Mui-focusVisible": {
-                outline: "2px solid var(--color-secondary)",
-                outlineOffset: "2px",
-              },
-            },
           },
           listbox: {
             sx: { maxHeight: 300 },
