@@ -23,6 +23,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
     resolver: zodResolver(schema),
     defaultValues: { bio: "" },
   });
+  const [bioNow, setBioNow] = useState<string>(currBio || "");
   const [updateError, setUpdateError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -63,12 +64,14 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
           name="bio"
           label="Biography"
           autoComplete="off"
+          bioNow={bioNow}
+          setBioNow={setBioNow}
         />
-        <div className="flex flex-col">
-          <button className="cursor-pointer" type="submit">Save</button>
+        <div className="flex flex-col gap-3">
+          <button className="ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary" type="submit">Save</button>
           <button
             type="button"
-            className="ml-3"
+            className="ml-3 bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
             onClick={() => {
               setUpdateBioMode(false);
             }}

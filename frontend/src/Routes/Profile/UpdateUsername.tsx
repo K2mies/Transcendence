@@ -92,7 +92,7 @@ function UpdateUsername({
     <>
       <form className="flex flex-row p-2" onSubmit={handleSubmit(update)}>
         <div className="flex flex-col">
-          <label htmlFor="update-username">Username:</label>
+          <label htmlFor="update-username" className="font-semibold mb-2 block">Username:</label>
           <TextField
             id="update-username"
             className="w-87.5"
@@ -100,6 +100,7 @@ function UpdateUsername({
             sx={{
               "& .MuiOutlinedInput-root": {
                 backgroundColor: "var(--color-tertiary)",
+                height: "2.5em",
               },
               "& .MuiInputLabel-root": {
                 color: "black",
@@ -115,14 +116,13 @@ function UpdateUsername({
             name={name}
             inputRef={field.ref}
             error={!!error}
-            helperText={error?.message}
           />
         </div>
-        <div className="flex flex-col pt-[1.5em]">
-          <input className="cursor-pointer" type="submit" value="Save"></input>
+        <div className="flex flex-row pt-[2em] gap-3">
+          <input className="h-[2.5em] ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary" type="submit" value="Save"></input>
           <button
             type="button"
-            className="ml-3"
+            className="h-[2.5em] bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
             onClick={() => {
               setUpdateUsernameMode(false);
             }}
@@ -131,9 +131,9 @@ function UpdateUsername({
           </button>
         </div>
       </form>
-      {editError && (
-        <p className="bg-red-600 text-white text-sm p-2 ml-3 rounded shadow-lg whitespace-nowrap z-10">
-          {editError}
+      {(error || editError) && (
+        <p className="bg-red-600 text-white text-sm p-2 ml-3 rounded shadow-lg whitespace-nowrap z-10" aria-live="polite">
+          {error ? error.message : editError}
         </p>
       )}
     </>
