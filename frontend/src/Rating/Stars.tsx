@@ -1,15 +1,17 @@
 import { PiStar, PiStarFill, PiStarHalfFill } from "react-icons/pi";
 
 type StarsProps = {
+  hidden: boolean;
   rating: number;
   size?: number;
 };
 
-function Stars({ rating, size = 20 }: StarsProps) {
+function Stars({ hidden, rating, size = 20 }: StarsProps) {
   const roundedRating = Math.round(rating * 2) / 2;
   return (
     <div
       className="flex justify-center gap-1 mb-2"
+      aria-hidden={hidden}
       aria-label={`Rating: ${roundedRating.toString()} out of 5 stars`}
       role="img"
     >

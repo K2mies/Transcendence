@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import GameCard from "./GameCard";
 import PaginationControls from "./PaginationControls";
 import GameFilter from "./Filter/GameFilter";
@@ -32,6 +32,12 @@ function Games() {
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [developer, setDeveloper] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const firstFilterRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (showFilters)
+      firstFilterRef.current?.focus();
+  }, [showFilters]);
 
   useEffect(() => {
     setPage(1);
@@ -77,6 +83,7 @@ function Games() {
       if (result.status === "success") {
         setGames(result.data);
         setPagination(result.pagination);
+        (document.querySelector("#result-info")).textContent = `Found ${result.data.length} games with current filters`;
       }
     }
 
@@ -110,11 +117,14 @@ function Games() {
             setPlatforms={setPlatforms}
             developer={developer}
             setDeveloper={setDeveloper}
+            firstFilterRef={firstFilterRef}
           />
         </div>
         <div className="flex justify-end">
           <button
             onClick={() => setShowFilters(!showFilters)}
+            aria-expanded={showFilters}
+            aria-controls="game-filters"
             aria-label={showFilters ? "Hide filters" : "Show filters"}
           >
             <FaGear
@@ -125,6 +135,7 @@ function Games() {
             />
           </button>
         </div>
+        <div className="sr-only" aria-live="polite"><p id="result-info"></p></div>
         <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
           <div className="relative grid grid-cols-5 gap-2">
             {games.map((game, index) => (

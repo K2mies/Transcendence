@@ -62,17 +62,7 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
         slotProps={{
           popupIndicator: {
             tabIndex: 0,
-            "aria-label": "Open genre search suggestions",
-            sx: {
-              "&:focus-visible, &.Mui-focusVisible": {
-                outline: "2px solid var(--color-secondary)",
-                outlineOffset: "2px",
-              },
-            },
-          },
-          clearIndicator: {
-            tabIndex: 0,
-            "aria-label": "Clear genre search suggestions",
+            "aria-label": "Open list of genres",
             sx: {
               "&:focus-visible, &.Mui-focusVisible": {
                 outline: "2px solid var(--color-secondary)",

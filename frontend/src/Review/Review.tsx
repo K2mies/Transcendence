@@ -26,7 +26,7 @@ function Review({ review, page, isMyReview, onDelete, onEdit }: ReviewProps) {
         )}
 
         <div className="flex px-5 mt-1">
-          <Stars rating={review.rating} size={16} />
+          <Stars hidden={false} rating={review.rating} size={16} />
         </div>
 
         {isMyReview && (

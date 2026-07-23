@@ -80,6 +80,16 @@ function PlatformSelector({
       )}
       sx={{ width: 220 }}
       slotProps={{
+        popupIndicator: {
+          tabIndex: 0,
+          "aria-label": "Open list of platforms",
+          sx: {
+            "&:focus-visible, &.Mui-focusVisible": {
+              outline: "2px solid var(--color-secondary)",
+              outlineOffset: "2px",
+            },
+          },
+        },
         listbox: {
           sx: {
             maxHeight: 300,

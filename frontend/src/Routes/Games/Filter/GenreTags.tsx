@@ -10,7 +10,7 @@ function GenreTags({ genres, setGenres }: GenreTagsProps) {
 
   return (
     <div className="w-full">
-      <h3 className="mb-2 text-sm text-tertiary font-semibold">Genres</h3>
+      <p className="mb-2 text-sm text-tertiary font-semibold">Genres</p>
 
       <div className="flex flex-row flex-wrap gap-2">
         {genres.map((genre) => (
@@ -22,6 +22,7 @@ function GenreTags({ genres, setGenres }: GenreTagsProps) {
 
             <button
               type="button"
+              aria-label="Remove filter"
               onClick={() => setGenres(genres.filter((g) => g !== genre))}
               className="font-bold"
             >

@@ -64,17 +64,7 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
         slotProps={{
           popupIndicator: {
             tabIndex: 0,
-            "aria-label": "Open platform search suggestions",
-            sx: {
-              "&:focus-visible, &.Mui-focusVisible": {
-                outline: "2px solid var(--color-secondary)",
-                outlineOffset: "2px",
-              },
-            },
-          },
-          clearIndicator: {
-            tabIndex: 0,
-            "aria-label": "Clear platform search suggestions",
+            "aria-label": "Open list of platforms",
             sx: {
               "&:focus-visible, &.Mui-focusVisible": {
                 outline: "2px solid var(--color-secondary)",
