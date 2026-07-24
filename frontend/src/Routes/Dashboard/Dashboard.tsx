@@ -61,12 +61,12 @@ function Dashboard() {
         setInitialFavorites(initialFavoriteIds);
       }
     }
+    document.title = "Dashboard | GoodPlays";
     loadDashboard();
   }, []);
 
   return (
     <>
-      <title>GoodPlays: Dashboard</title>
       <div className="bg-secondary p-6 min-h-screen">
         <div>
           <DisplayGames
