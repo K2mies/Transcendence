@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Review as ReviewType } from "../Types/ReviewType";
 import Review from "./Review";
 import AddReview from "./AddReview";
@@ -40,6 +40,12 @@ function Reviews({
   const [showAddReview, setShowAddReview] = useState(false);
   const [editingReview, setEditingReview] = useState<ReviewType | null>(null);
   const [editingPlatforms, setEditingPlatforms] = useState<string[]>([]);
+  const reviewRef = useRef(null);
+
+  useEffect(() => {
+    if (showAddReview)
+      reviewRef.current?.focus();
+  }, [showAddReview]);
 
   async function submitReview(
     rating: number,
@@ -136,7 +142,7 @@ function Reviews({
           )}
         </div>
 
-        {addMyReview && (
+        {addMyReview && !showAddReview && (
           <button
             className="flex items-center gap-1"
             onClick={() => {
@@ -156,6 +162,7 @@ function Reviews({
         gamePlatforms={editingReview ? editingPlatforms : (gamePlatforms ?? [])}
         onSubmit={submitReview}
         onCancel={closeReviewForm}
+        reviewRef={reviewRef}
       />
 
       <ul className="bg-tertiary text-primary border-primary border-3 rounded-b-lg max-h-[600px] overflow-y-auto">

@@ -15,6 +15,7 @@ type AddReviewProps = {
     review: string,
     platform: string | null,
   ) => Promise<boolean>;
+  reviewRef: any;
 };
 
 function AddReview({
@@ -24,6 +25,7 @@ function AddReview({
   reviewToEdit,
   onSubmit,
   onCancel,
+  reviewRef,
 }: AddReviewProps) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
@@ -59,6 +61,9 @@ function AddReview({
 
   return (
     <div className="bg-tertiary text-primary border-x-3 border-primary p-4">
+      <h3 className="sr-only" ref={reviewRef} tabIndex={-1}>
+          Add a review
+      </h3>
       <RatingSelector rating={rating} setRating={setRating} size={28} />
 
       <div className="flex justify-between items-center mb-2">
@@ -85,19 +90,29 @@ function AddReview({
           rows={6}
           placeholder="Write your review (optional)..."
           className="text-primary w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
+          aria-describedby="review-helper"
         />
-        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-label="Character count">
+        <p id="review-helper" className="sr-only">
+          Review text is optional. Maximum {MAX_REVIEW_LENGTH}{" "} characters.
+        </p>
+        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-hidden={true}>
           <span className="text-sm text-primary">
             {review.length}/{MAX_REVIEW_LENGTH}
           </span>
         </div>
+        <p className="sr-only" aria-live="polite" aria-atomic={true}>
+          {MAX_REVIEW_LENGTH - review.length < 20
+            ? `${MAX_REVIEW_LENGTH - review.length} characters remaining.`
+            : ""}
+        </p>
 
         <div className="absolute top-2 right-2 flex gap-2">
           <button
             type="button"
             aria-label="Clear review text"
             className="text-secondary hover:text-primary"
-            onClick={() => setReview("")}>
+            onClick={() => setReview("")}
+          >
             <ImCross size={14} />
           </button>
         </div>
@@ -108,14 +123,14 @@ function AddReview({
           disabled={rating === 0}
           onClick={handleSubmit}
           className="
-             bg-secondary
-             text-primary
-             px-4
-             py-2
-             rounded
-             disabled:bg-secondary
-             disabled:cursor-not-allowed
-           "
+            bg-secondary
+            text-primary
+            px-4
+            py-2
+            rounded
+            disabled:bg-secondary
+            disabled:cursor-not-allowed
+            "
         >
           {reviewToEdit ? "Update" : "Submit"}
         </button>

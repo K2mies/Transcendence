@@ -49,8 +49,6 @@ function UpdateUsername({
     defaultValue: "",
   });
 
-  editRef.current?.focus();
-
   async function update(values: FormValues) {
     const newName = values.name;
 
@@ -102,6 +100,7 @@ function UpdateUsername({
             id="update-username"
             className="w-87.5"
             placeholder="Give new username..."
+            autoFocus={true}
             sx={{
               "& .MuiOutlinedInput-root": {
                 backgroundColor: "var(--color-tertiary)",

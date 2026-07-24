@@ -26,6 +26,8 @@ const ControlledBioInput = ({
     control,
   });
 
+  const MAX_BIO_LENGTH = 1000;
+
   return (
     <div className="w-full">
       <label htmlFor={field.name} className="font-semibold mb-2 block">{label}</label>
@@ -35,8 +37,9 @@ const ControlledBioInput = ({
           id={field.name}
           placeholder="Tell other users about yourself..."
           value={bioNow}
+          autoFocus={true}
           name={name}
-          maxLength={1000}
+          maxLength={MAX_BIO_LENGTH}
           rows={6}
           className="text-primary w-full rounded border-4 border-secondary p-2 pr-10 resize-none focus:outline-none focus:ring-0"
           autoComplete={autoComplete}
@@ -44,13 +47,19 @@ const ControlledBioInput = ({
             field.onChange(e);
             setBioNow(e.target.value);
           }}
-          aria-describedby="character-count"
+          aria-describedby="bio-helper"
         />
-        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-hidden="true">
-          <span className="text-sm text-primary" id="character-count">
-            {bioNow.length}/{1000}
+        <p id="bio-helper" className="sr-only">Tell other users about yourself. Maximum {MAX_BIO_LENGTH} characters.</p>
+        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-hidden={true}>
+          <span className="text-sm text-primary" id="bio-char-count">
+            {bioNow.length}/{MAX_BIO_LENGTH}
           </span>
         </div>
+        <p className="sr-only" aria-live="polite" aria-atomic={true}>
+          {MAX_BIO_LENGTH - bioNow.length < 20
+            ? `${MAX_BIO_LENGTH - bioNow.length} characters remaining.`
+            : ""}
+        </p>
         <div className="absolute top-2 right-2">
           <button
             type="button"
