@@ -83,7 +83,10 @@ function Games() {
       if (result.status === "success") {
         setGames(result.data);
         setPagination(result.pagination);
-        (document.querySelector("#result-info")).textContent = `Found ${result.data.length} games with current filters`;
+
+        const resultInfo = document.querySelector<HTMLParagraphElement>("#result-info");
+        if (resultInfo)
+          resultInfo.textContent = `Found ${result.data.length} games with current filters`;
       }
     }
 

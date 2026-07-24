@@ -66,7 +66,7 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
 
               invisible
               group-hover:visible
-              transition-opacity
+              group-focus-within:visible
 
               rounded-t-lg
               text-center

@@ -69,7 +69,7 @@ function AddReview({
       <div className="flex justify-between items-center mb-2">
         <div>
           <label htmlFor="review" className="font-semibold">
-            Review : {gameName}
+            Review: {gameName}
           </label>
         </div>
 

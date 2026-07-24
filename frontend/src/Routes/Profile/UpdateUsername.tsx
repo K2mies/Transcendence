@@ -85,9 +85,6 @@ function UpdateUsername({
       setUpdateUsernameMode(false);
     } else {
       setEditError(data.error || "Error saving username. Please try again.");
-      setTimeout(() => {
-        setEditError("");
-      }, 5000);
     }
   }
   return (
@@ -114,6 +111,8 @@ function UpdateUsername({
             autoComplete="off"
             onChange={(e) => {
               field.onChange(e.target.value);
+              if (editError)
+                setEditError(undefined);
             }}
             onBlur={field.onBlur}
             value={field.value}

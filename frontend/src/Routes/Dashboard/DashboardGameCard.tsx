@@ -66,11 +66,14 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
               group-hover:visible
               transition-opacity
 
+              invisible
+              group-hover:visible
+              group-focus-within:visible
+
               rounded-t-lg
-              text-center
-              text-xs
+              z-10
           "
-        >
+      >
           {game.name}
         </h3>
       </Link>
