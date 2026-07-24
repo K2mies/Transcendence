@@ -139,13 +139,12 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         setIsUserFound(false);
       }
     }
-
+    document.title = `${titleName} | GoodPlays`;
     loadProfile();
   }, [username]);
 
   return (
     <>
-      <title>{`GoodPlays: ${titleName}`}</title>
       <div className="bg-secondary p-6 min-h-screen">
         {isUserFound && profile && myCurrUser && (
           <div>

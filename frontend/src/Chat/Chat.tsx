@@ -25,6 +25,10 @@ export default function Chat() {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  useEffect(() => {
+    document.title = "Chat | GoodPlays";
+  }, []);
+
   // ---------------- OPEN PROFILE ----------------
   function openProfile(name: string) {
     navigate(`/user/${name}`);
@@ -128,7 +132,6 @@ export default function Chat() {
 
   return (
     <>
-      <title>GoodPlays: Chat</title>
       <div className="relative min-h-screen overflow-hidden bg-primary">
         <div className="relative z-10 p-6 text-tertiary">
           <div className="flex items-center justify-between">

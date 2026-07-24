@@ -35,6 +35,10 @@ function Games() {
   const firstFilterRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    document.title = "Games | GoodPlays";
+  }, []);
+
+  useEffect(() => {
     if (showFilters)
       firstFilterRef.current?.focus();
   }, [showFilters]);
@@ -94,7 +98,6 @@ function Games() {
   }, [page, searchTerm, genres, platforms, developer, minRating, sortBy]);
   return (
     <>
-      <title>GoodPlays: Games</title>
       <div className="bg-secondary">
         <div
           hidden={!showFilters}

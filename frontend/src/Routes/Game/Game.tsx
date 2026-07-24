@@ -281,6 +281,7 @@ function Game({ myCurrUser }: GameProps) {
     }
 
     if (name) {
+      document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
   }, [name]);
