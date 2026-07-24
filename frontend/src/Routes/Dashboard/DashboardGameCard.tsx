@@ -63,7 +63,7 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
 
             invisible
             group-hover:visible
-            transition-opacity
+            group-focus-within:visible
 
             rounded-t-lg
             z-10

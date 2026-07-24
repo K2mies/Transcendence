@@ -58,8 +58,7 @@ function GameCard({ game, index }: GameCardProps) {
 
             invisible
             group-hover:visible
-            transition-opacity
-            duration-300
+            group-focus-within:visible
 
             rounded-t-lg
           "
