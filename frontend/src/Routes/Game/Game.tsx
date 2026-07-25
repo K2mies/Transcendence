@@ -29,9 +29,6 @@ function GameData({ game }: GameDataProps) {
   let temp = new Date(game.releaseDate);
   const released = temp.toLocaleDateString("fi-FI");
 
-  temp = new Date(game.updateDate);
-  const updated = temp.toLocaleDateString("fi-FI");
-
   return (
     <div className="text-primary text-sm ml-auto w-54">
       <p>
@@ -40,10 +37,6 @@ function GameData({ game }: GameDataProps) {
 
       <p>
         <span className="font-bold">Released:</span> {released}
-      </p>
-
-      <p>
-        <span className="font-bold">Updated:</span> {updated}
       </p>
     </div>
   );

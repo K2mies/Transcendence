@@ -16,7 +16,6 @@ export type Game = {
   imageSmall?: string;
   imageBig?: string;
   releaseDate: string;
-  updateDate: string;
 
   favorite?: boolean;
   gameStatus?: GameStatus;
