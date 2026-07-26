@@ -34,48 +34,42 @@ function GameCard({ game, index }: GameCardProps) {
       <Link to={"/game/" + encodeURIComponent(game.name)}>
         <img
           src={game.imageBig}
-          alt={game.name}
+          alt=""
           className="border-primary border-x-3 border-t-3 w-full rounded-t-lg"
         />
+
+        <h2
+          className="
+            absolute
+            bottom-[3.78rem]
+            left-0
+            z-10
+            w-full
+
+            bg-primary
+            text-tertiary
+
+            px-4
+            py-2
+
+            text-center
+            text-[90%]
+            leading-relaxed
+
+            invisible
+            group-hover:visible
+            group-focus-within:visible
+
+            rounded-t-lg
+          "
+        >
+            {game.name}
+        </h2>
       </Link>
 
       <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
-        <FavoriteButton game={game} size={25} />
+          <FavoriteButton game={game} size={25} />
       </div>
-      <h2
-        className="
-          absolute
-          bottom-[3.78rem]
-          left-0
-          z-10
-          w-full
-      
-          bg-primary
-          text-tertiary
-      
-          px-4
-          py-2
-      
-          text-center
-          text-[90%]
-          leading-relaxed
-      
-          opacity-0
-          group-hover:opacity-100
-          transition-opacity
-          duration-300
-      
-          rounded-t-lg
-        "
-      >
-        <Link
-          to={"/game/" + encodeURIComponent(game.name)}
-          className="no-underline"
-        >
-          {game.name}
-        </Link>
-      </h2>
-
       <div
         className="
           bg-tertiary
@@ -88,7 +82,7 @@ function GameCard({ game, index }: GameCardProps) {
         "
       >
         <p>Rating: {(game.combinedRating ?? game.igdbRating).toFixed(1)}</p>
-        <Stars rating={game.combinedRating ?? game.igdbRating} size={26} />
+        <Stars hidden={true} rating={game.combinedRating ?? game.igdbRating} size={26} />
       </div>
     </div>
   );

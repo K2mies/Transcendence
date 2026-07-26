@@ -10,7 +10,12 @@ function RatingSystem() {
       <div className="mx-auto max-w-4xl">
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           1. IGDB Rating
-          <FaStar size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <FaStar
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           The IGDB rating is sourced from the IGDB api and set as the default
@@ -26,7 +31,12 @@ function RatingSystem() {
         </p>
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           2. Local/User Rating
-          <FaHome size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <FaHome
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           When the user gives a game a rating this counts as 1 review. This is

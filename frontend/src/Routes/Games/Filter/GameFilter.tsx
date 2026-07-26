@@ -32,6 +32,8 @@ type GameFilterProps = {
 
   developer: string;
   setDeveloper: (developer: string) => void;
+
+  firstFilterRef: any;
 };
 
 function GameFilter({
@@ -52,16 +54,18 @@ function GameFilter({
 
   developer,
   setDeveloper,
+
+  firstFilterRef,
 }: GameFilterProps) {
   return (
-    <div className=" bg-primary flex flex-wrap items-center gap-4 p-6">
+    <div id="game-filters" className="bg-primary flex flex-wrap items-center gap-4 p-6">
       <GenreTags genres={genres} setGenres={setGenres} />
 
       <PlatformTags platforms={platforms} setPlatforms={setPlatforms} />
 
       <DeveloperTags developer={developer} setDeveloper={setDeveloper} />
 
-      <TitleSelector titleTerm={searchTerm} setTitleTerm={setSearchTerm} />
+      <TitleSelector titleTerm={searchTerm} setTitleTerm={setSearchTerm} firstFilterRef={firstFilterRef} />
 
       <GenreSelector genres={genres} setGenres={setGenres} />
 

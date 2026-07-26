@@ -10,7 +10,7 @@ function DeveloperTags({ developer, setDeveloper }: DeveloperTagsProps) {
 
   return (
     <div className="w-full">
-      <h3 className="mb-2 text-sm text-tertiary font-semibold">Developer</h3>
+      <p className="mb-2 text-sm text-tertiary font-semibold">Developer</p>
 
       <div className="flex flex-row flex-wrap gap-2">
         <div className="flex items-center gap-1 rounded-full bg-tertiary text-primary px-3 py-1">
@@ -18,6 +18,7 @@ function DeveloperTags({ developer, setDeveloper }: DeveloperTagsProps) {
 
           <button
             type="button"
+            aria-label="Remove filter"
             onClick={() => setDeveloper("")}
             className="font-bold"
           >

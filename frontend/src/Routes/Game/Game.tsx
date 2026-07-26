@@ -90,9 +90,14 @@ function Status({ game }: StatusProps) {
   }
 
   return (
-    <div className="flex flex-row">
-      <select value={currentStatus} onChange={changeStatus}>
-        <option value="NONE">Choose status</option>
+    <div className="inline-block">
+      <label htmlFor="game-status" className="mr-3">Game status:</label>
+      <select
+        id="game-status"
+        value={currentStatus || "NONE"}
+        onChange={changeStatus}
+      >
+        <option value="NONE">None</option>
         <option value="WANT_TO_PLAY">Want to play</option>
         <option value="PLAYING">Playing</option>
         <option value="COMPLETED">Completed</option>
@@ -155,7 +160,7 @@ function GameInfo({ game }: GameInfoProps) {
     <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg px-4 py-3">
         <div className="flex items-start gap-4">
-          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary">
+          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary" aria-label="Game is available on following platforms">
             {sortedPlatforms.map((platform) => (
               <li
                 key={platform}
@@ -204,7 +209,7 @@ function GameInfo({ game }: GameInfoProps) {
 
         {/* Bottom right */}
         <div className="self-end mt-4">
-          <label className="font-bold">Modes:</label>
+          <p className="font-bold">Modes:</p>
 
           <div className="flex flex-wrap gap-3 mt-2">
             {game.modes.map((mode) => (
@@ -219,7 +224,7 @@ function GameInfo({ game }: GameInfoProps) {
           </div>
 
           <div className="mt-4">
-            <label className="font-bold text-secondary">Genres:</label>
+            <p className="font-bold text-primary">Genres:</p>
 
             <div className="flex flex-wrap gap-3 mt-2">
               {game.genres.map((genre) => (
@@ -276,6 +281,7 @@ function Game({ myCurrUser }: GameProps) {
     }
 
     if (name) {
+      document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
   }, [name]);

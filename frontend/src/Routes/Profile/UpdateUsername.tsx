@@ -1,44 +1,53 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useController } from "react-hook-form";
 import { useState } from "react";
-import ControlledInput from "../../ControlledInput";
+import { Alert, TextField } from "@mui/material";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 type UpdateUsernameProps = {
   setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
-  myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
+  editRef: any;
 };
 
 type FormValues = {
   name: string;
-}
+};
 
-const schema = z
-  .object({
-    name: z
-      .string()
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username must be max 20 characters")
-      .regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
-      .refine((value) => !/^[_-]/.test(value), {
-        message: "Username cannot start with _ or -",
-      })
-      .refine((value) => !/[_-]$/.test(value), {
-        message: "Username cannot end with _ or -",
-      }),
-  });
+const schema = z.object({
+  name: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be max 20 characters")
+    .regex(/^[A-Za-z0-9_-]+$/, "Only letters, numbers, _ and -")
+    .refine((value) => !/^[_-]/.test(value), {
+      message: "Username cannot start with _ or -",
+    })
+    .refine((value) => !/[_-]$/.test(value), {
+      message: "Username cannot end with _ or -",
+    }),
+});
 
 function UpdateUsername({
   setUpdateUsernameMode,
-  myCurrUser,
   setMyCurrUser,
+  editRef,
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [editError, setEditError] = useState<string | undefined>(undefined);
-
-  const { handleSubmit, control } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const { handleSubmit, control } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
+  const name = "name";
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    defaultValue: "",
+  });
 
   async function update(values: FormValues) {
     const newName = values.name;
@@ -46,14 +55,17 @@ function UpdateUsername({
     const newData: { name: string } = {
       name: newName,
     };
-    const response: Response = await fetch("http://localhost:4243/auth/username", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const response: Response = await fetch(
+      "http://localhost:4243/auth/username",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(newData),
       },
-      credentials: "include",
-      body: JSON.stringify(newData),
-    });
+    );
 
     const data = await response.json();
     if (response.status === 200) {
@@ -78,19 +90,41 @@ function UpdateUsername({
   return (
     <>
       <form className="flex flex-row p-2" onSubmit={handleSubmit(update)}>
-        <ControlledInput
-          control={control}
-          name="name"
-          label="Username"
-          autoComplete="off"
-          defaultValue={myCurrUser}
-          type="text"
-        />
         <div className="flex flex-col">
-          <input className="cursor-pointer" type="submit" value="Save"></input>
+          <label htmlFor="update-username" className="font-semibold mb-2 block">Username:</label>
+          <TextField
+            inputRef={editRef}
+            id="update-username"
+            className="w-87.5"
+            placeholder="Give new username..."
+            autoFocus={true}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "var(--color-tertiary)",
+                height: "2.5em",
+              },
+              "& .MuiInputLabel-root": {
+                color: "black",
+              },
+            }}
+            type="text"
+            autoComplete="off"
+            onChange={(e) => {
+              field.onChange(e.target.value);
+              if (editError)
+                setEditError(undefined);
+            }}
+            onBlur={field.onBlur}
+            value={field.value}
+            name={name}
+            error={!!error}
+          />
+        </div>
+        <div className="flex flex-row pt-[2em] gap-3">
+          <input className="h-[2.5em] ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary" type="submit" value="Save"></input>
           <button
             type="button"
-            className="ml-3"
+            className="h-[2.5em] bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
             onClick={() => {
               setUpdateUsernameMode(false);
             }}
@@ -99,9 +133,12 @@ function UpdateUsername({
           </button>
         </div>
       </form>
-      {editError && (
-        <p className="font-bold p-2 ml-3">{editError}</p>
-      )}
+      <div>
+        {(error || editError) ? 
+        <Alert severity="error" variant="filled">
+          {error ? error.message : editError}
+        </Alert> : null}
+      </div>
     </>
   );
 }

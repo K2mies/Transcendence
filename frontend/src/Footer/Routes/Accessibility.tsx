@@ -8,7 +8,12 @@ function Accessibility() {
       <div className="mx-auto max-w-4xl">
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           1. Accessibility Placeholder
-          <MdAccessibilityNew size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <MdAccessibilityNew
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           This is placeholder text for accessibility and how it works. Place

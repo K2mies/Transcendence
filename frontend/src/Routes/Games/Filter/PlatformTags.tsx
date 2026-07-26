@@ -10,7 +10,7 @@ function PlatformTags({ platforms, setPlatforms }: PlatformTagsProps) {
 
   return (
     <div className="w-full">
-      <h3 className="mb-2 text-sm text-tertiary font-semibold">Platforms</h3>
+      <p className="mb-2 text-sm text-tertiary font-semibold">Platforms</p>
 
       <div className="flex flex-row flex-wrap gap-2">
         {platforms.map((platform) => (
@@ -22,6 +22,7 @@ function PlatformTags({ platforms, setPlatforms }: PlatformTagsProps) {
 
             <button
               type="button"
+              aria-label="Remove filter"
               onClick={() =>
                 setPlatforms(platforms.filter((p) => p !== platform))
               }

@@ -26,7 +26,7 @@ function ModeIcon({ mode, size = 20 }: ModeIconProps) {
     return null;
   }
 
-  return <Icon size={size} />;
+  return <Icon size={size} aria-hidden="true" focusable="false"/>;
 }
 
 export default ModeIcon;
