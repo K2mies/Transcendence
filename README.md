@@ -1,178 +1,132 @@
-# Transcendence | GoodPlays
-
-## Team members
-Karoliina | Sonja | Inna | Ross | Viljar
+*This project has been created as part of the 42 curriculum by khiidenh, sojala, ikozhina, rhvidste, vuljas.*
 
 ---
 
-## Project description
-
-GoodPlays (WIP name) is a social platform for discovering, tracking and reviewing video games. We want to create a unified space where players have the tools to explore new games, manage their personal game library and connect with others regardless of the platforms they play on.
-
----
-
-## Tech stack
-### Backend
-	- Node.js
-	- Express
-
-### Frontend
-	- React
-	- Tailwind CSS
-	- Three.js (optional)
-
-### Database
-	- PostgreSQL
-	- Prisma (ORM, schema management, and migrations)
+# Description
+	[◦Section that clearly presents the project, including its goal and a brief overview.
+	◦Section should also contain a clear name for the project and its
+key features.]
 
 ---
 
-## Project structure
-	- frontend/ -> React app
-	- backend/  -> API server + database
+# Instructions
+	[◦Section containing any relevant information about compilation,
+	installation, and/or execution.
+	◦Section should mention all the needed prerequisites (software,
+tools, versions, configuration like .env setup, etc.), and step-by-step instructions to
+run the project.]
+
+### Compilation
+
+### Installation
+
+### Execution
+	◦ Run the orchestrated docker-compose file: make
+	◦ Stop containers without deleting images: make down
+	◦ Start containers without building new images: make up
+	◦ Just build docker images: make images
+	◦ Remove containers, images and volumes: make clean
+	◦ Clean up everything: make fclean
+	◦ Clear up everything, build and launch: make re
 
 ---
 
-## Getting started
-### Backend
-	- create .env in repository root (fill it using the .env section at the bottom of this README)
-	- cd backend/
-	- Local postgresql setup:
-		- sudo apt install postgresql
-		- sudo systemctl status postgresql
-		- pg_lsclusters
-		- sudo -u postgres psql
-			- CREATE DATABASE goodplays_db;
-			- ALTER USER postgres WITH PASSWORD 'password';
-			- \l || \d || \q
-		- npx prisma migrate dev --name add_tables	(npm run db:migrate)  -> Needed to call to set up tables from schema.prisma
-		- npx prisma generate						(npm run db:generate) -> Needs to be called after migrate
-		- npx prisma studio							(npm run db:studio)   -> To see database tables in browser UI
-	- npm install (to install node packages defined in package.json)
-	- npm run dev (sets up a local development server, enabling real-time code changes and instant feedback)
+# Resources
+	[◦ Section listing classic references related to the topic (documentation, articles, tutorials, etc.), as well as a description of how AI was used — specifying for which tasks and which parts of the project.]
 
-### Frontend
-	- cd frontend/
-	- npm install
-	- npm run dev
+ ◦ [Alpine Linux setup guide](https://itsfoss.com/alpine-linux-virtualbox/)	
+ 
+ ◦ [SSH connection setup](https://www.geeksforgeeks.org/installation-guide/how-to-install-openssh-on-alpine/)
+ 
+ ◦ [VirtualBox shared folders](https://wiki.alpinelinux.org/wiki/VirtualBox_shared_folders)
+ 
+ ◦ [Install Docker and Docker Compose](https://virtualzone.de/posts/alpine-docker-rootless/)
+ 
+ ◦ [Docker Compose](https://docs.docker.com/compose/intro/compose-application-model/)
+ 
+ ◦ [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/)
+ 
+ ◦ [Dockerfile Best Practices](https://docs.docker.com/build/building/best-practices/)
+ 
+ ◦ [Mariadb](https://hub.docker.com/_/mariadb)
+ 
+ ◦ [Wordpress](https://hub.docker.com/_/wordpress)
 
----
+ ◦ [Nginx](https://hub.docker.com/_/nginx)
+ 
+ ◦ [Wordpress with docker compose](https://www.linode.com/docs/guides/wordpress-with-docker-compose/)
+ 
+ ◦ [Explaining Docker Networking Concepts](https://ostechnix.com/explaining-docker-networking-concepts/)
+ 
+ ◦ [WordPress Deployment with NGINX, PHP-FPM and MariaDB using Docker Compose](https://medium.com/swlh/wordpress-deployment-with-nginx-php-fpm-and-mariadb-using-docker-compose-55f59e5c1a)
+ 
+ ◦ [Virtual Machines vs Docker](https://www.geeksforgeeks.org/devops/difference-between-docker-and-virtualization/)
+ 
+ ◦ [Secrets](https://docs.docker.com/engine/swarm/secrets/)
+ 
+ ◦ [Secrets Handling](https://medium.com/@jagadeeshkema/docker-secrets-environment-variables-handling-sensitive-data-the-right-way-0eacb628b7d9)
+ 
+ ◦ [Docker Networks](https://bunny.net/academy/computing/what-is-docker-networking/)
 
-## Naming convention
-### Backend
-
-👉 Rule:
-  - lowercase
-  - dot-separated (.)
-  - role-based suffix
-
-Example:
-  ```
-	auth.controller.js
-	user.service.js
-	game.route.js
-  ```
-
-### Frontend
-
-👉 Rule:
-  - PascalCase for components
-
-Example:
-  ```
-	Login.tsx
-	GameDetails.tsx
-	UserProfile.tsx
-  ```
-
-### Variable naming
-
-👉 Rule:
-  - camelCase in JS/TS
-
-Example:
-  ```
-	userId
-	gameId
-	createdAt
-	isAuthenticated
-  ```
-
-### Database (Prisma)
-
-👉 Rule:
-  - PascalCase for models
-  - camelCase for fields
-
-Example [models]:
-  ```
-	model User
-	model Game
-	model Review
-  ```
-
-Example [fields]:
-  ```
-	createdAt
-	userId
-  ```
-
-### API Routes
-
-👉 Rule:
-  - plural nouns
-  - lowercase
-  - REST standard
-
-Example:
-  ```
-	/users
-	/games
-	/reviews
-  ```
-
-### Websocket Events
-
-👉 Rule:
-  - UPPER_SNAKE_CASE
-
-Example:
-  ```
-	"SEND_MESSAGE"
-	"NEW_MESSAGE"
-	"TYPING"
-  ```
-
-### GitHub
-
-👉 Rule:
-  - prefix:
-    - Card name from Trello (Example: GG01:)
-  - action description:
-    - feat
-    - fix
-    - setup
-
-Examples:
-  ```
-	GG01: setup: creating base folders + README
-	GG10: feat: User model implementation
-	GG10: fix: User model fields correction
-  ```
+	◦ AI usage:
+		- 
 
 ---
 
-### .env
-  ```
-	BACK_PORT="4243"
-	DB_NAME="goodplays_db"
-	DB_USER="postgres"
-	DB_PASSWORD="password"
-	DATABASE_URL="postgresql://postgres:password@postgres_db:5432/goodplays_db"
-	NODE_ENV="development"
-	# To generate a new JWT_SECRET to your environment run in terminal: openssl rand -base64 32
-	JWT_SECRET="change-me="
-	JWT_EXPIRES_IN="1d"
-  ```
+# Team Information
+	[For each team member mentioned at the top of the README.md, you must provide:
+		◦ Assigned role(s): PO, PM, Tech Lead, Developers, etc.
+		◦ Brief description of their responsibilities.]
 
 ---
+
+# Project Management
+	[◦ How the team organized the work (task distribution, meetings, etc.).
+	◦ Tools used for project management (GitHub Issues, Trello, etc.).
+	◦ Communication channels used (Discord, Slack, etc.).]
+
+---
+
+# Technical Stack
+	[◦ Frontend technologies and frameworks used.
+	◦ Backend technologies and frameworks used.
+	◦ Database system and why it was chosen.
+	◦ Any other significant technologies or libraries.
+	◦ Justification for major technical choices.]
+
+---
+
+# Database Schema
+	[◦ Visual representation or description of the database structure.
+	◦ Tables/collections and their relationships.
+	◦ Key fields and data types.]
+
+---
+
+# Features List
+	[◦ Complete list of implemented features.
+	◦ Which team member(s) worked on each feature.
+	◦ Brief description of each feature’s functionality.]
+
+---
+
+# Modules
+	[◦ List of all chosen modules (Major and Minor).
+	◦ Point calculation (Major = 2pts, Minor = 1pt).
+	◦ Justification for each module choice, especially for custom "Modules of
+	choice".
+	◦ How each module was implemented.
+	◦ Which team member(s) worked on each module.]
+
+---
+
+# Individual Contributions
+	[◦ Detailed breakdown of what each team member contributed.
+	◦ Specific features, modules, or components implemented by each person.
+	◦ Any challenges faced and how they were overcome.]
+
+---
+
+# Additional information
+[Any other useful or relevant information is welcome (usage documentation, known
+limitations, license, credits, etc.).]
