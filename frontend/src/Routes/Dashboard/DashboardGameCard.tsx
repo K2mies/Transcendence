@@ -41,38 +41,33 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
           src={game.image}
           alt=""
         />
-        <h3
-          className="
-              bg-primary
-              text-tertiary
+      <h3
+        className="
+            absolute
+            left-0
+            right-0
+            bottom-8
 
-              bg-primary
-              text-xs
-              text-tertiary
+            bg-primary
+            text-xs
+            text-tertiary
 
-              relative
-              -mt-14
-              z-10
-              w-full
-              p-2
-              h-[3.5rem]
+            border-2
+            border-primary
 
-              flex
-              items-center
-              justify-center
-              line-clamp-2
+            p-2
 
-              invisible
-              group-hover:visible
-              transition-opacity
+            flex
+            items-center
+            justify-center
 
-              invisible
-              group-hover:visible
-              group-focus-within:visible
+            invisible
+            group-hover:visible
+            group-focus-within:visible
 
-              rounded-t-lg
-              z-10
-          "
+            rounded-t-lg
+            z-10
+        "
       >
           {game.name}
         </h3>

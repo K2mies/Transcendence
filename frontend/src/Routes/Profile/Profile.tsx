@@ -193,12 +193,14 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
                 }
               ></DisplayGames>
             )}
-            {profile && profile.reviews.length > 0 && (
+            {reviews.length > 0 && (
               <Reviews
-                reviews={profile.reviews}
+                reviews={reviews}
+                setReviews={setReviews}
                 myCurrUser={myCurrUser}
                 page="profile"
-              ></Reviews>
+                onDeleteReview={deleteReview}
+            />
             )}
           </div>
         )}
