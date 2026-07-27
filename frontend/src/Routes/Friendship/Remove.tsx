@@ -1,3 +1,5 @@
+import { ImCross } from "react-icons/im";
+
 type RemoveFriendProps = {
   text: string;
   username: string;
@@ -30,8 +32,8 @@ function RemoveFriend({
 
   return (
     <>
-      <button className="ml-1.5" onClick={remove}>
-        {text}
+      <button className="inline-flex items-center gap-4" onClick={remove}>
+        {text} <ImCross size={14} className="text-tertiary" />
       </button>
     </>
   );

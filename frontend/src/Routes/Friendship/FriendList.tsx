@@ -10,6 +10,8 @@ import { Tabs, Tab, Box } from "@mui/material";
 import { ImCheckmark, ImCross } from "react-icons/im";
 import type { User, UserProfile } from "../../types";
 
+import { FaUserFriends } from "react-icons/fa";
+
 interface CustomTabPanelProps extends React.PropsWithChildren {
   value: number;
   index: number;
@@ -90,12 +92,14 @@ function FriendList({
   return (
     <div>
       <button
+        className="inline-flex items-center gap-2"
         onClick={() => {
           setOpen(true);
           setRefreshKey(refreshKey + 1);
         }}
       >
-        Manage friends
+        <span>Manage friends</span>
+        <FaUserFriends size={16} className="text-tertiary" />
       </button>
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop

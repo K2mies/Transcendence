@@ -79,7 +79,7 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
       )}
       {friendStatus === "PENDING" && (
         <RemoveFriend
-          text="Request pending - delete"
+          text="Request pending"
           username={username}
           refreshKey={refreshKey}
           setRefreshKey={setRefreshKey}

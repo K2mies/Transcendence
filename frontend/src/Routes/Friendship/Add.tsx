@@ -1,4 +1,5 @@
 import type { FriendStatusRefresh } from "../../types";
+import { MdPersonAdd } from "react-icons/md";
 
 function AddFriend({
   username,
@@ -24,8 +25,11 @@ function AddFriend({
 
   return (
     <>
-      <button className="ml-1.5" onClick={sendFriendRequest}>
-        Add friend
+      <button
+        className="inline-flex items-center gap-2"
+        onClick={sendFriendRequest}
+      >
+        Add friend <MdPersonAdd size={16} className="text-tertiary" />
       </button>
     </>
   );
