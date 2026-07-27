@@ -68,6 +68,10 @@ run the project.]
 
  ◦ [Docker Networks](https://bunny.net/academy/computing/what-is-docker-networking/)
 
+ ◦ [React Accessibility on MDN](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/React_accessibility)
+
+ ◦ [Accessibility checklist](https://www.a11yproject.com/checklist/)
+
 	◦ AI usage:
 		-
 
@@ -89,9 +93,12 @@ run the project.]
 ---
 
 # Project Management
-**Initial architecture:** At project start, we agreed on an initial plan for project modules that we wanted to complete to reach required points. After that, Viljar generated us a *Trello* table with specific tasks based on the subject's general requirements and module descriptions. Karoliina also made us a *Miro* board with project info, design specs, reference screenshots from web applications with a similar idea, and a notes area. *Trello* was used throughout the project to guide Git branch logic: each task card had a separate branch that was eventually merged to main. *Miro* was updates with current status of implemented modules and points, as well as a to do list and other general project management notes. \
-**Git practices:** On GitHub, we used a rule in our repository to prevent merging straight into main. Instead, a pull request was opened for each branch, and code review was done using GitHub Copilot and by at least one team member. \
-**Team communication:** For communication, we used a Discord group chat and weekly face-to-face meetings at campus. \
+***Initial architecture:*** \
+At project start, we agreed on an initial plan for project modules that we wanted to complete to reach required points. After that, Viljar generated us a *Trello* table with specific tasks based on the subject's general requirements and module descriptions. Karoliina also made us a *Miro* board with project info, design specs, reference screenshots from web applications with a similar idea, and a notes area. *Trello* was used throughout the project to guide Git branch logic: each task card had a separate branch that was eventually merged to main. *Miro* was updates with current status of implemented modules and points, as well as a to do list and other general project management notes. \
+***Git practices:*** \
+On GitHub, we used a rule in our repository to prevent merging straight into main. Instead, a pull request was opened for each branch, and code review was done using GitHub Copilot and by at least one team member. \
+***Team communication:*** \
+For communication, we used a Discord group chat and weekly face-to-face meetings at campus. \
 
 	[◦ How the team organized the work (task distribution, meetings, etc.).
 	◦ Tools used for project management (GitHub Issues, Trello, etc.).
@@ -100,6 +107,18 @@ run the project.]
 ---
 
 # Technical Stack
+***Backend*** \
+ ◦ Express: backend server
+ ◦ Node.js
+
+***Database*** \
+ ◦ PostgreSQL
+ ◦ Prisma ORM
+
+***Frontend*** \
+ ◦ React with Typescript
+   ◦ MUI Material, headlessUI
+
 	[◦ Frontend technologies and frameworks used.
 	◦ Backend technologies and frameworks used.
 	◦ Database system and why it was chosen.
@@ -127,12 +146,12 @@ run the project.]
 |:--------|:--------|:--------|:--------|:--------|
 | Use a framework for both the frontend and backend | Major (2 pts) | ? | React for frontend, Node.js and Express | Ross, Viljar, Sonja, Karoliina, Inna |
 | Implement real-time features using WebSockets or similar technology | Major (2 pts) | ? | Chat system, user notifications and real-time updates (Toast) | Viljar, Ross, (Sonja)
-| Allow users to interact with other users | Major (2 pts) | ? | Chat, profile, and friends systems | Ross, Viljar, Sonja, Karoliina |
+| Allow users to interact with other users | Major (2 pts) | A social platform was the core idea for our application, so user-to-user interaction and friendship functionalities were a no brainer to build. | Chat, profile, and friends systems | Ross, Viljar, Sonja, Karoliina |
 | Use an ORM for the database | Minor (1 pt) | ? | Prisma was used for database | Karoliina |
-| Custom-made design system with reusable components | Minor (1 pt) | ? | ? | Ross, Sonja |
-| Implement advanced search functionality with filters, sorting, and pagination | Minor (1 pt) | ? | ? | Ross
-| Complete accessibility compliance (WCAG 2.1 AA) | Major (2 pts) | ? | Support for screen reader, keyboard navigation, and other assistive technologies. Implemented and tested using WAVE and Voice Over (MacOS). | Sonja
-| Standard user management and authentication | Major (2pts) | ? | ? | Karoliina, Ross, Viljar, Sonja, Inna |
+| Custom-made design system with reusable components | Minor (1 pt) | Using React for frontend, reusable components were a natural choice.  | ? | Ross, Sonja |
+| Implement advanced search functionality with filters, sorting, and pagination | Minor (1 pt) | Advanced search functionality was a great fit for our games page UI where user can browse and search for games to play or rate. | ? | Ross
+| Complete accessibility compliance (WCAG 2.1 AA) | Major (2 pts) | Learning to build an accessible wep app was one of Sonja's goals for the project, and accessibility compliance should be the standard for any modern website. | Support for screen reader, keyboard navigation, and other assistive technologies. Implemented and tested using WAVE and Voice Over (MacOS). | Sonja
+| Standard user management and authentication | Major (2pts) | Our app being a social platform required the functionality for user to authenticate to create a profile and to add others as friends. | ? | Karoliina, Ross, Viljar, Sonja, Inna |
 | Implement remote authentication with OAuth 2.0 | Minor (1 pt) | ? | Google authentication | Inna |
 | Advanced permissions system | Major (2 pts) | ? | ? | Inna |
 
@@ -146,7 +165,22 @@ run the project.]
 ---
 
 # Individual Contributions
-	[◦ Detailed breakdown of what each team member contributed.
+***Sonja***:
+- Initial Docker setup (v1.0) with containers for backend, frontend, and database
+- Initial frontend setup with Vite and mvp for landing page and header
+- Functional UI for profile page: profile info, lists of own games (favorites and different statuses), and own reviews
+  - Functionalities to edit profile info and send friend requests
+  - Friends list as a popup element with tabs
+  - Added necessary backend endpoints
+- Migration from plain CSS to Tailwind CSS
+- Translating some frontend files from JS to TS
+- Functional UI for game page: game info, list of reviews
+  - Fuctionalities to add game to favorites and modify status
+- User logout functionality (UI and backend)
+- Accessibility compliance and content for Accessibility footer page
+
+
+[◦ Detailed breakdown of what each team member contributed.
 	◦ Specific features, modules, or components implemented by each person.
 	◦ Any challenges faced and how they were overcome.]
 
