@@ -27,7 +27,6 @@ export const protect = async (req, res, next) => {
 			select: {
 				id: true,
 				name: true,
-				email: true,
                 role: true,
 			},
 		});
