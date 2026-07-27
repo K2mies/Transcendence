@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PaginationControls from "../Games/PaginationControls";
-import type { Review } from "../../Types/GameType";
+import type { Review } from "../../Types/ReviewType";
 
 const PAGE_SIZE = 10;
 
@@ -52,7 +52,7 @@ function AdminReviews() {
 
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     const diff =
-      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      new Date(a.createdAt ?? "").getTime() - new Date(b.createdAt ?? "").getTime();
     return sortAsc ? diff : -diff;
   });
 
@@ -145,7 +145,7 @@ function AdminReviews() {
             </Link>
 
             <span className="text-sm">
-              {new Date(review.createdAt).toLocaleDateString("fi-FI")}
+              {new Date(review.createdAt ?? "").toLocaleDateString("fi-FI")}
             </span>
 
             <button type="button" onClick={() => deleteReview(review.id)}>

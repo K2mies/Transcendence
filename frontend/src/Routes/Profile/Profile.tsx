@@ -5,6 +5,7 @@ import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
 import type { Review as ReviewType } from "../../Types/ReviewType";
+import { useCurrentUser } from "../../Auth/CurrentUserContext";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -53,9 +54,12 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
   const location = useLocation();
+  const { currentUser } = useCurrentUser();
 
   const isMyProfile = myCurrUser === username;
   const titleName = isMyProfile ? "My profile" : username;
+  const isAdminViewer =
+    currentUser?.role === "ADMIN" || currentUser?.role === "SUPERUSER";
 
   async function removeFavorite(game: ProfileGame) {
     const response = await fetch(
@@ -101,13 +105,23 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   }
 
   async function deleteReview(review: ReviewType) {
-    const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      },
-    );
+    const isOwnReview = review.user.name === myCurrUser;
+
+    if (
+      !isOwnReview &&
+      !window.confirm(`Delete ${review.user.name}'s review? This cannot be undone.`)
+    ) {
+      return;
+    }
+
+    const url = isOwnReview
+      ? `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`
+      : `http://localhost:4243/admin/reviews/${review.id}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+      credentials: "include",
+    });
 
     if (response.ok) {
       setReviews((currentReviews) =>
@@ -208,6 +222,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
                   myCurrUser={myCurrUser}
                   page="profile"
                   onDeleteReview={deleteReview}
+                  canAdminDelete={isAdminViewer}
                 />
               </div>
             )}
