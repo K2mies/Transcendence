@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Reviews";
@@ -50,6 +50,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [completedGames, setCompletedGames] = useState<ProfileGame[]>([]);
   const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
+  const location = useLocation();
 
   const isMyProfile = myCurrUser === username;
 
@@ -121,6 +122,12 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
     loadProfile();
   }, [username]);
 
+  useEffect(() => {
+    if (location.hash === "#reviews" && profile) {
+      document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location.hash, profile]);
+
   return (
     <div className="bg-secondary p-6 min-h-screen">
       {isUserFound && profile && myCurrUser && (
@@ -171,11 +178,13 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
             ></DisplayGames>
           )}
           {profile && profile.reviews.length > 0 && (
-            <Reviews
-              reviews={profile.reviews}
-              myCurrUser={myCurrUser}
-              page="profile"
-            ></Reviews>
+            <div id="reviews">
+              <Reviews
+                reviews={profile.reviews}
+                myCurrUser={myCurrUser}
+                page="profile"
+              ></Reviews>
+            </div>
           )}
         </div>
       )}
