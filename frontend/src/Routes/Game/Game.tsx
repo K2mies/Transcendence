@@ -26,7 +26,7 @@ type GameProps = {
 };
 
 function GameData({ game }: GameDataProps) {
-  let temp = new Date(game.releaseDate);
+  const temp = new Date(game.releaseDate);
   const released = temp.toLocaleDateString("fi-FI");
 
   return (
@@ -105,11 +105,20 @@ function Status({ game }: StatusProps) {
 function GameInfo({ game }: GameInfoProps) {
   const sortedPlatforms = [...game.platforms].sort((a, b) => {
     const order = [
+      "Arcade",
+      "Neo Geo AES",
+      "Neo Geo MVS",
+
       "PlayStation",
       "PlayStation 2",
       "PlayStation 3",
       "PlayStation 4",
       "PlayStation 5",
+
+      "PlayStation VR",
+      "PlayStation VR2",
+
+      "PlayStation Portable",
       "PlayStation Vita",
       "PSP",
 
@@ -120,33 +129,70 @@ function GameInfo({ game }: GameInfoProps) {
 
       "Nintendo Entertainment System",
       "Super Nintendo Entertainment System",
+      "Family Computer",
+      "Satellaview",
+
       "Nintendo 64",
+      "64DD",
+
       "Nintendo GameCube",
+
       "Wii",
       "Wii U",
+
       "Nintendo Switch",
       "Nintendo Switch 2",
+
       "Game Boy",
       "Game Boy Advance",
+      "Gamy Boy Color",
+
+      "Nintendo DSi",
       "Nintendo DS",
       "Nintendo 3DS",
       "New Nintendo 3DS",
 
       "PC (Microsoft Windows)",
+      "PC-9800 Series",
+      "FM Towns",
       "DOS",
+
       "Linux",
+
       "Mac",
       "Apple II",
+
       "iOS",
       "Android",
+
       "Windows Phone",
+      "Windows Mixed Reality",
+      "Legacy Mobile Device",
+
+      "N-Gage",
+      "Tapwave Zodiac",
 
       "Amiga",
-      "Atari ST/STE",
+      "Amiga CD32",
 
-      "Commodor C64/128/MAX",
+      "Atari ST/STE",
+      "Atari Jaguar",
+
+      "Commodore C64/128/MAX",
+
+      "Oculus Quest",
+      "Oculus Rift",
+
+      "Meta Quest 2",
+      "Meta Quest 3",
+
+      "Steam VR",
 
       "Steam Deck",
+
+      "Web Browser",
+      "OnLive Game System",
+      "Oiya",
     ];
 
     const ia = order.indexOf(a);

@@ -4,13 +4,23 @@ import {
   BsXbox,
   BsWindows,
   BsAndroid2,
+  BsHeadsetVr,
 } from "react-icons/bs";
 
-import { FaSteam, FaLinux, FaApple, FaGoogle, FaGamepad } from "react-icons/fa";
-import { SiSega, SiApplearcade, SiAtari } from "react-icons/si";
+import {
+  FaSteam,
+  FaLinux,
+  FaApple,
+  FaGoogle,
+  FaGamepad,
+  FaMobile,
+} from "react-icons/fa";
 
-import { TiSpiral } from "react-icons/ti";
+import { SiSega, SiApplearcade, SiAtari, SiCommodore } from "react-icons/si";
+import { TiSpiral, TiTick } from "react-icons/ti";
+
 import { BiSolidTerminal } from "react-icons/bi";
+import { RiCursorFill } from "react-icons/ri";
 
 //custom svg icons
 import Nintendo64Icon from "../Icons/Components/Nintendo64Icon";
@@ -28,12 +38,20 @@ type PlatformIconProps = {
 
 const PLATFORM_ICONS: Record<string, React.ElementType> = {
   Arcade: SiApplearcade,
+  "Neo Geo AES": SiApplearcade,
+  "Neo Geo MVS": SiApplearcade,
+
   "Sega Mega Drive/Genesis": SiSega,
+  "Sega Saturn": SiSega,
+  "Sega CD": SiSega,
 
   "Super Nintendo Entertainment System": FaGamepad,
+  "Family Computer": FaGamepad,
   "Super Famicom": FaGamepad,
+  Satellaview: FaGamepad,
 
   "Nintendo 64": Nintendo64Icon,
+  "64DD": Nintendo64Icon,
   "Nintendo GameCube": GameCubeIcon,
 
   Wii: WiiIcon,
@@ -42,6 +60,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Nintendo Switch": BsNintendoSwitch,
   "Nintendo Switch 2": BsNintendoSwitch,
 
+  "Nintend DSi": NintendoIcon,
   "Nintendo DS": NintendoIcon,
   "Nintendo 3DS": Nintendo3DsIcon,
   "New Nintendo 3DS": Nintendo3DsIcon,
@@ -49,6 +68,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Game Boy": GameBoyIcon,
   "Nintendo Game Boy": GameBoyIcon,
   "Game Boy Advance": GameBoyIcon,
+  "Game Boy Color": GameBoyIcon,
 
   "PlayStation 5": BsPlaystation,
   "PlayStation 4": BsPlaystation,
@@ -57,7 +77,11 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   PlayStation: BsPlaystation,
 
   "PlayStation Vita": BsPlaystation,
+  "PlayStation Portable": BsPlaystation,
+  "Playstation PSP": BsPlaystation,
+
   "PlayStation VR": BsPlaystation,
+  "PlayStation VR2": BsPlaystation,
 
   "Xbox Series X|S": BsXbox,
   "Xbox One": BsXbox,
@@ -69,7 +93,9 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Google Stadia": FaGoogle,
 
   "PC (Microsoft Windows)": BsWindows,
-  "Windows Phone": BsWindows,
+  "PC-9800 Series": BsWindows,
+  "FM Towns": BsWindows,
+
   DOS: BiSolidTerminal,
 
   Linux: FaLinux,
@@ -78,11 +104,37 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   Mac: FaApple,
   iOS: FaApple,
 
+  Amiga: TiTick,
+  "Amiga CD32": TiTick,
+
   "Atari ST/STE": SiAtari,
+  "Atari Jaguar": SiAtari,
+
+  "Commodore C64/128/MAX": SiCommodore,
+
+  "Windows Phone": BsWindows,
+  "Windows Mixed Reality": BsWindows,
+  "Legacy Mobile Device": FaMobile,
 
   Android: BsAndroid2,
 
+  "N-Gage": FaGamepad,
+  "Tapwave Zodiac": FaGamepad,
+
+  "Oculus Quest": BsHeadsetVr,
+  "Oculus Rift": BsHeadsetVr,
+
+  "Meta Quest 2": BsHeadsetVr,
+  "Meta Quest 3": BsHeadsetVr,
+
+  SteamVR: BsHeadsetVr,
+
   Steam: FaSteam,
+  "Steam Deck": FaSteam,
+
+  "Web Browser": RiCursorFill,
+  "OnLive Game System": RiCursorFill,
+  Oiya: RiCursorFill,
 };
 
 function PlatformIcon({ platform, size = 20 }: PlatformIconProps) {
