@@ -190,7 +190,7 @@ function GameInfo({ game }: GameInfoProps) {
 
       "Steam Deck",
 
-      "Web Browser",
+      "Web browser",
       "OnLive Game System",
       "Oiya",
     ];

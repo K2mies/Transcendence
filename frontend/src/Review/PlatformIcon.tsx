@@ -132,7 +132,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   Steam: FaSteam,
   "Steam Deck": FaSteam,
 
-  "Web Browser": RiCursorFill,
+  "Web browser": RiCursorFill,
   "OnLive Game System": RiCursorFill,
   Oiya: RiCursorFill,
 };
