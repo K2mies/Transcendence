@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
@@ -29,6 +29,16 @@ import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
 import { FavoritesProvider } from "./Rating/FavoritesContext";
+
+function ScrollToTop() {
+  const path = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [path]);
+
+  return null;
+}
 
 function Layout() {
   const myUser = localStorage.getItem("user");
@@ -118,6 +128,7 @@ function Layout() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <ChatProvider>
         <FavoritesProvider>
           <Layout />

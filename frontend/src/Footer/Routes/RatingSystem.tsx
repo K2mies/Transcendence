@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
@@ -5,6 +6,11 @@ import { FaHome } from "react-icons/fa";
 const ICON_SIZE = 20;
 
 function RatingSystem() {
+
+  useEffect(() => {
+    document.title = "Rating System | GoodPlays";
+  }, []);
+
   return (
     <div className="bg-primary text-tertiary min-h-screen p-6">
       <div className="mx-auto max-w-4xl">

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   FaShieldAlt,
   FaUserLock,
@@ -8,6 +9,11 @@ import {
 const ICON_SIZE = 20;
 
 function PrivacyPolicy() {
+
+  useEffect(() => {
+    document.title = "Privacy Policy | GoodPlays";
+  }, []);
+
   return (
     <div className="bg-primary text-tertiary min-h-screen p-6">
       <div className="mx-auto max-w-4xl">
