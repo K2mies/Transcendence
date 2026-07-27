@@ -7,8 +7,10 @@ import {
 } from "react-icons/bs";
 
 import { FaSteam, FaLinux, FaApple, FaGoogle, FaGamepad } from "react-icons/fa";
-import { SiSega, SiApplearcade } from "react-icons/si";
+import { SiSega, SiApplearcade, SiAtari } from "react-icons/si";
+
 import { TiSpiral } from "react-icons/ti";
+import { BiSolidTerminal } from "react-icons/bi";
 
 //custom svg icons
 import Nintendo64Icon from "../Icons/Components/Nintendo64Icon";
@@ -60,6 +62,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Xbox Series X|S": BsXbox,
   "Xbox One": BsXbox,
   "Xbox 360": BsXbox,
+  Xbox: BsXbox,
 
   Dreamcast: TiSpiral,
 
@@ -67,11 +70,15 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
 
   "PC (Microsoft Windows)": BsWindows,
   "Windows Phone": BsWindows,
+  DOS: BiSolidTerminal,
 
   Linux: FaLinux,
 
+  "Apple II": FaApple,
   Mac: FaApple,
   iOS: FaApple,
+
+  "Atari ST/STE": SiAtari,
 
   Android: BsAndroid2,
 
@@ -89,7 +96,7 @@ function PlatformIcon({ platform, size = 20 }: PlatformIconProps) {
     return null;
   }
 
-  return <Icon size={size} aria-hidden="true" focusable="false"/>;
+  return <Icon size={size} aria-hidden="true" focusable="false" />;
 }
 
 export default PlatformIcon;
