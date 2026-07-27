@@ -34,9 +34,6 @@ export default function Chat() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    document.title = "Chat | GoodPlays";
-  }, []);
   function scrollToBottom() {
     requestAnimationFrame(() => {
       messagesContainerRef.current?.scrollTo({
@@ -180,151 +177,48 @@ export default function Chat() {
   }
 
   return (
-    <>
-      <div className="relative min-h-screen overflow-hidden bg-primary">
-        <div className="relative z-10 p-6 text-tertiary">
-          <div className="flex items-center justify-between">
-            <UserSearchBar onSelectUser={openChat} />
-            <ProfileSearchBar onSelectUser={openProfile} />
-          </div>
+    <div className="h-screen bg-primary text-tertiary flex flex-col">
+      <div className="p-6">
+        <div className="flex items-center justify-between">
+          <UserSearchBar onSelectUser={openChat} />
+          <ProfileSearchBar onSelectUser={openProfile} />
+        </div>
 
-          <div className="flex flex-1 min-h-0">
-            {/* LEFT */}
-            <div className="w-80 border-r border-secondary/20 overflow-y-auto p-4 flex flex-col">
-              <h2 className="mb-4 text-lg text-secondary">Conversations</h2>
-
-              {conversations.map((c) => (
-                <button
-                  key={c.userId}
-                  onClick={() => openChat(c.userId)}
-                  className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
-                  aria-label={`Open conversation with ${c.name}${
-                    c.unreadCount > 0 ? `. ${c.unreadCount} unread messages.` : ""
-                    }${onlineUsers.has(c.userId) ? " User is online." : ""
-                  }`}
-                >
-                  <div className="flex justify-between">
-                    <div className="flex items-center gap-2 font-bold text-secondary">
-                      <span>{c.name}</span>
-
-                      {onlineUsers.has(c.userId) && (
-                        <span className="h-2.5 w-2.5 rounded-full bg-online" />
-                      )}
-                    </div>
-
-                    {c.unreadCount > 0 && (
-                      <span className="text-xs bg-secondary text-primary py-1 px-2 rounded-full">
-                        {c.unreadCount}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="text-sm text-left text-white opacity-70 truncate">
-                    {c.lastMessage}
-                  </div>
-
-                  <div className="text-xs text-white opacity-50">
-                    {c.lastMessageAt
-                      ? new Date(c.lastMessageAt).toLocaleString("en-GB", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          second: "2-digit",
-                        })
-                      : ""}
-                  </div>
-                </button>
-              ))}
+        <div
+          className="flex flex-1 min-h-0 overflow-hidden px-6 pb-6"
+          style={{ height: "calc(100vh - 88px)" }}
+        >
+          {/* LEFT */}
+          <ConversationList
+            conversations={conversations}
+            onlineUsers={onlineUsers}
+            openChat={openChat}
+          />
+          {/* RIGHT */}
+          <div className="ml-4 flex min-h-0 flex-1 flex-col">
+            <div className="p-4 border-b border-secondary/20">
+              <h2 className="text-secondary">
+                {selectedUser
+                  ? `Chat with ${conversations.find((c) => c.userId === selectedUser)?.name || "User"}`
+                  : "Select a chat"}
+              </h2>
             </div>
+            <MessageList
+              me={me}
+              messages={messages}
+              messagesContainerRef={messagesContainerRef}
+            />{" "}
             {selectedUser && (
-              <div className="border-t border-secondary/20 p-4 flex gap-2 shrink-0">
-                <input
-                  ref={inputRef}
-                  value={text}
-                  maxLength={120}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Type a message..."
-                  className="flex-1 p-2 rounded bg-primary/40 outline-none"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      send();
-                    }
-                  }}
-                />
-
-            {/* RIGHT */}
-            <div className="flex flex-col flex-1">
-              <div className="p-4 border-b border-secondary/20">
-                <h2 className="text-secondary">
-                  {selectedUser
-                    ? `Chat with ${conversations.find((c) => c.userId === selectedUser)?.name || "User"}`
-                    : "Select a chat"}
-                </h2>
-              </div>
-              <div
-                ref={messagesContainerRef}
-                className="flex-1 overflow-y-auto p-4 space-y-3"
-              >
-                {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`max-w-xs p-3 rounded-xl ${
-                      msg.senderId === me?.id
-                        ? "bg-secondary text-primary ml-auto"
-                        : "bg-tertiary/40"
-                    }`}
-                  >
-                    <div 
-                      className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl"
-                      aria-label={(msg.senderId === me?.id) ? "Sent message:" : "Received message"}>
-                      {msg.content}
-                    </div>
-                    <div className="text-xs opacity-80">
-                      {msg.createdAt
-                        ? new Date(msg.createdAt).toLocaleString("en-GB", {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                          })
-                        : ""}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {selectedUser && (
-                <div className="p-4 border-t border-secondary/20 flex gap-2">
-                  <input
-                    aria-label="Type a message"
-                    ref={inputRef}
-                    value={text}
-                    maxLength={120}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Type a message..."
-                    className="flex-1 p-2 rounded bg-primary/40 outline-none placeholder:text-white"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        send();
-                      }
-                    }}
-                  />
-
-                  <button
-                    onClick={send}
-                    className="px-4 py-2 bg-secondary text-primary rounded"
-                  >
-                    Send
-                  </button>
-                </div>
-              )}
-            </div>
+              <MessageInput
+                text={text}
+                setText={setText}
+                send={send}
+                inputRef={inputRef}
+              />
+            )}{" "}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

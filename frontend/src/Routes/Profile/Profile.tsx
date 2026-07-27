@@ -198,66 +198,18 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
               reviews={reviews}
               setReviews={setReviews}
               myCurrUser={myCurrUser}
-              setMyCurrUser={setMyCurrUser}
-            ></ProfileInfo>
-            {favGames.length > 0 && (
-              <DisplayGames
-                header="Favorite games"
-                games={favGames}
-                onRemove={isMyProfile ? removeFavorite : undefined}
-              ></DisplayGames>
-            )}
-            {currGames.length > 0 && (
-              <DisplayGames
-                header="Currently playing"
-                games={currGames}
-                onRemove={
-                  isMyProfile
-                    ? (game) => removeGameState(game, setCurrGames)
-                    : undefined
-                }
-              ></DisplayGames>
-            )}
-            {toPlayGames.length > 0 && (
-              <DisplayGames
-                header="Games to play"
-                games={toPlayGames}
-                onRemove={
-                  isMyProfile
-                    ? (game) => removeGameState(game, setToPlayGames)
-                    : undefined
-                }
-              ></DisplayGames>
-            )}
-            {completedGames.length > 0 && (
-              <DisplayGames
-                header="Completed games"
-                games={completedGames}
-                onRemove={
-                  isMyProfile
-                    ? (game) => removeGameState(game, setCompletedGames)
-                    : undefined
-                }
-              ></DisplayGames>
-            )}
-            {reviews.length > 0 && (
-              <Reviews
-                reviews={reviews}
-                setReviews={setReviews}
-                myCurrUser={myCurrUser}
-                page="profile"
-                onDeleteReview={deleteReview}
+              page="profile"
+              onDeleteReview={deleteReview}
             />
-            )}
-          </div>
-        )}
-        {isUserFound === false && (
-          <div>
-            <p>404 User not found</p>
-          </div>
-        )}
-      </div>
-    </>
+          )}
+        </div>
+      )}
+      {isUserFound === false && (
+        <div>
+          <p>404 User not found</p>
+        </div>
+      )}
+    </div>
   );
 }
 
