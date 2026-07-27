@@ -32,8 +32,18 @@ export async function getProfile(profileName) {
       },
       reviews: {
         include: {
-          game: true,
+          user: true,
+
+          game: {
+            include: {
+              platforms: true,
+            },
+          },
+
           platform: true,
+        },
+        orderBy: {
+          id: "desc",
         },
       },
     },
@@ -90,7 +100,15 @@ export async function getProfile(profileName) {
       game: r.game.name,
       rating: r.rating,
       review: r.review,
+      createdAt: r.createdAt,
       platform: r.platform?.name,
+
+      platforms: r.game.platforms.map((p) => p.name),
+
+      user: {
+        id: r.user.id,
+        name: r.user.name,
+      },
     })),
   };
 }
@@ -202,8 +220,8 @@ export async function acceptFriendRequest(friendName, user) {
     },
   });
 
-	await sendOnlineFriends(friend.id);
-	await sendOnlineFriends(user);
+  await sendOnlineFriends(friend.id);
+  await sendOnlineFriends(user);
 }
 
 /*
@@ -268,6 +286,6 @@ export async function removeFriend(friendName, user) {
     });
   }
 
-	await sendOnlineFriends(friend.id);
-	await sendOnlineFriends(user);
+  await sendOnlineFriends(friend.id);
+  await sendOnlineFriends(user);
 }

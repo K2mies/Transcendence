@@ -15,7 +15,7 @@ import OAuthCallback from "./OAuthCallback";
 import OAuthUsernamePicker from "./OAuthUsernamePicker";
 
 import Profile from "./Routes/Profile/Profile";
-import Game from "./Routes/Game";
+import Game from "./Routes/Game/Game";
 import Games from "./Routes/Games/Games";
 
 import Home from "./Routes/Home";

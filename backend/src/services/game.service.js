@@ -9,6 +9,9 @@ export async function getGame(gameName, currentUserId) {
           user: true,
           platform: true,
         },
+        orderBy: {
+          id: "desc",
+        },
       },
       userGames: true,
       modes: true,
@@ -29,22 +32,35 @@ export async function getGame(gameName, currentUserId) {
     sum += game.reviews[i].rating;
   }
   let averageResult = null;
-  if (game.reviews.length != 0) averageResult = sum / game.reviews.length;
+  let combinedRating = game.rating;
+
+  if (game.reviews.length !== 0) {
+    averageResult = sum / game.reviews.length;
+
+    if (game.rating != null) {
+      combinedRating = (sum + game.rating) / (game.reviews.length + 1);
+    }
+  }
   return {
     id: game.id,
     name: game.name,
     image: game.imageBig,
     description: game.description,
     releaseDate: game.releaseDate,
-    updateDate: game.updateDate,
     developer: game.developer,
     publisher: game.publisher,
-    rating: game.rating,
+    igdbRating: game.rating,
+    combinedRating: combinedRating,
     reviews: game.reviews.map((r) => ({
       id: r.id,
+      createdAt: r.createdAt,
+      game: game.name,
       rating: r.rating,
       review: r.review,
       platform: r.platform?.name,
+
+      platforms: game.platforms.map((p) => p.name),
+
       user: {
         id: r.user.id,
         name: r.user.name,
@@ -97,11 +113,21 @@ export async function addReview(userId, newData, gameName) {
     error.status = 404;
     throw error;
   }
-  const platform = await prisma.platform.findUnique({
-    where: { name: newData.platform },
-  });
-  await prisma.review.upsert({
-    where: { userId_gameId: { userId: userId, gameId: game.id } },
+  let platform = null;
+
+  if (newData.platform) {
+    platform = await prisma.platform.findUnique({
+      where: { name: newData.platform },
+    });
+  }
+
+  const review = await prisma.review.upsert({
+    where: {
+      userId_gameId: {
+        userId: userId,
+        gameId: game.id,
+      },
+    },
     update: {
       review: newData.review,
       rating: newData.rating,
@@ -114,7 +140,29 @@ export async function addReview(userId, newData, gameName) {
       rating: newData.rating,
       platformId: platform?.id,
     },
+    include: {
+      user: true,
+      game: {
+        include: {
+          platforms: true,
+        },
+      },
+      platform: true,
+    },
   });
+  return {
+    id: review.id,
+    createdAt: review.createdAt,
+    game: review.game.name,
+    rating: review.rating,
+    review: review.review,
+    platform: review.platform?.name,
+    platforms: review.game.platforms.map((p) => p.name),
+    user: {
+      id: review.user.id,
+      name: review.user.name,
+    },
+  };
 }
 
 export async function deleteReview(userId, gameName) {

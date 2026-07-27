@@ -38,6 +38,13 @@ function CustomTabPanel({ children, value, index }: CustomTabPanelProps) {
   );
 }
 
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 function FriendList({
   friends,
   sentReqs,
@@ -108,6 +115,7 @@ function FriendList({
                 Manage friends
               </DialogTitle>
               <Tabs
+                selectionFollowsFocus
                 value={value}
                 onChange={handleChange}
                 textColor="inherit"
@@ -116,18 +124,43 @@ function FriendList({
                     backgroundColor: "#c59113",
                   },
                 }}
+                aria-label="Choose friend category"
               >
                 <Tab
                   label={`Friends (${friendInfo.friends.length})`}
-                  value={0}
+                  sx={{
+                    "&:focus": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                    "&:focus-visible": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                  }}
+                  {...a11yProps(0)}
                 />
                 <Tab
                   label={`Received requests (${friendInfo.recvReqs.length})`}
-                  value={1}
+                  sx={{
+                    "&:focus": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                    "&:focus-visible": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                  }}
+                  {...a11yProps(1)}
                 />
                 <Tab
                   label={`Sent requests (${friendInfo.sentReqs.length})`}
-                  value={2}
+                  sx={{
+                    "&:focus": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                    "&:focus-visible": {
+                      outline: "2px solid var(--color-secondary)",
+                    },
+                  }}
+                  {...a11yProps(2)}
                 />
               </Tabs>
               <CustomTabPanel value={value} index={0}>
@@ -135,6 +168,7 @@ function FriendList({
                   <div key={friend.id} className="flex justify-between">
                     <button
                       type="button"
+                      aria-label={`Go to ${friend.name} profile`}
                       onClick={() => {
                         navigate(`/user/${encodeURIComponent(friend.name)}`);
                       }}
@@ -161,7 +195,7 @@ function FriendList({
                         }
                       }}
                     >
-                      <ImCross />
+                      <ImCross aria-hidden="true" focusable="false" />
                     </button>
                   </div>
                 ))}
@@ -200,7 +234,7 @@ function FriendList({
                           }
                         }}
                       >
-                        <ImCheckmark />
+                        <ImCheckmark aria-hidden="true" focusable="false" />
                       </button>
                       <button
                         type="button"
@@ -222,7 +256,7 @@ function FriendList({
                           }
                         }}
                       >
-                        <ImCross />
+                        <ImCross aria-hidden="true" focusable="false" />
                       </button>
                     </div>
                   </div>
@@ -259,7 +293,7 @@ function FriendList({
                         }
                       }}
                     >
-                      <ImCross />
+                      <ImCross aria-hidden="true" focusable="false" />
                     </button>
                   </div>
                 ))}

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import UpdateUsername from "./UpdateUsername";
 import UpdateBio from "./UpdateBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
+import { FaEdit } from "react-icons/fa";
 import type { UserProfile } from "../../types";
 
 type ProfileInfoProps = {
@@ -16,6 +17,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [updateUsernameMode, setUpdateUsernameMode] = useState<boolean>(false);
   const [updateBioMode, setUpdateBioMode] = useState<boolean>(false);
   const [currBio, setCurrBio] = useState<string>(profile.bio);
+  const editRef = useRef<any>(null);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
 
@@ -29,19 +31,24 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         {updateUsernameMode && (
           <UpdateUsername
             setUpdateUsernameMode={setUpdateUsernameMode}
-            myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
+            editRef={editRef}
           />
         )}
         {!updateUsernameMode && (
           <h2 className="p-4 font-bold">{profile.name}</h2>
         )}
         {onlineUsers.has(profile.id) && (
-          <span className="h-2.5 w-2.5 rounded-full bg-online" />
+          <span aria-label="Online" className="h-2.5 w-2.5 rounded-full bg-online" />
         )}
         {isMyUser && !updateUsernameMode && (
-          <button onClick={() => setUpdateUsernameMode(true)}>
-            Change username
+          <button
+            className="text-secondary hover:text-tertiary"
+            aria-label="Change username"
+            onClick={() => {
+              setUpdateUsernameMode(true);
+          }}>
+            <FaEdit size={16} aria-hidden="true" focusable="false" />
           </button>
         )}
         <div className="bg-primary text-tertiary ml-auto m-6">
@@ -69,27 +76,30 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           src="/logo_03.jpg"
           alt="Placeholder for profile picture"
         ></img>
-        {updateBioMode && (
+        {isMyUser && updateBioMode && (
           <UpdateBio
             setUpdateBioMode={setUpdateBioMode}
             currBio={currBio}
             setCurrBio={setCurrBio}
           />
         )}
-        {!updateBioMode && (
+        {!updateBioMode && currBio && (
           <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
-            <p className="my-4 mr-4 text-left">
+            <p className="my-4 mr-4 text-left w-full">
               {currBio}
             </p>
           </div>
         )}
         {isMyUser && !updateBioMode && (
-          <button
-            className="mt-4"
-            onClick={() => setUpdateBioMode(true)}
-          >
-            Edit biography
-          </button>
+          <div className="flex flex-1 justify-end mr-6">
+            <button
+              className="mt-4 text-secondary hover:text-primary"
+              onClick={() => setUpdateBioMode(true)}
+              aria-label="Open biography editor"
+            >
+              <FaEdit size={18} aria-hidden="true" focusable="false" />
+            </button>
+          </div>
         )}
       </div>
     </div>

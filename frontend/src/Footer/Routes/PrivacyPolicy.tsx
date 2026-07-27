@@ -13,7 +13,12 @@ function PrivacyPolicy() {
       <div className="mx-auto max-w-4xl">
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           1. Information We Collect
-          <FaDatabase size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <FaDatabase
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           GoodPlays may collect account information such as your username, email
@@ -23,7 +28,12 @@ function PrivacyPolicy() {
 
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           2. How We Use Your Information
-          <FaShieldAlt size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <FaShieldAlt
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           We use this information to provide core features of the application,
@@ -33,7 +43,12 @@ function PrivacyPolicy() {
 
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           3. Account Security
-          <FaUserLock size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <FaUserLock
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           Passwords are handled securely and should never be shared with other
@@ -43,7 +58,12 @@ function PrivacyPolicy() {
 
         <h2 className="mt-6 mb-2 flex items-center text-2xl">
           4. Data Removal
-          <FaTrashAlt size={ICON_SIZE} className="ml-3 text-tertiary" />
+          <FaTrashAlt
+            size={ICON_SIZE}
+            className="ml-3 text-tertiary"
+            aria-hidden="true"
+            focusable="false"
+          />
         </h2>
         <p>
           Users may request that their account data be updated or removed. Some

@@ -56,7 +56,7 @@ services:
      - "5173:5173"
    networks:
      - gp_internal
-   restart: always 
+   restart: always
 
 volumes:
   postgres:

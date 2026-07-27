@@ -37,14 +37,19 @@ function PaginationControls({
     <div
       className={`bg-primary text-tertiary flex justify-center items-center gap-4 sticky bottom-0 z-40 ${className}`}
     >
-      <button disabled={page === 1} onClick={onPrevious} className="px-4 py-2">
+      <button
+        disabled={page === 1}
+        onClick={onPrevious}
+        className="px-4 py-2 disabled:cursor-default"
+      >
         Previous
       </button>
 
       <div className="flex items-center gap-2">
-        <span>Page</span>
+        <label htmlFor="page-number">Page</label>
 
         <input
+          id="page-number"
           type="text"
           aria-label="Page number"
           inputMode="numeric"
@@ -76,7 +81,7 @@ function PaginationControls({
       <button
         disabled={page === totalPages}
         onClick={onNext}
-        className="px-4 py-2"
+        className="px-4 py-2 disabled:cursor-default"
       >
         Next
       </button>

@@ -18,4 +18,9 @@ export const FILTER_SX = {
       borderColor: "var(--app-primary)",
     },
   },
+
+  "& .MuiInputBase-input::placeholder": {
+      color: "black",
+      opacity: 1,
+  },
 };

@@ -5,6 +5,7 @@ function Home() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    document.title = "GoodPlays";
     setVisible(true);
   }, []);
 

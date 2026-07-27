@@ -41,51 +41,46 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
         <img
           className="border-3 border-primary w-full h-auto rounded-t-lg object-cover"
           src={game.image}
-          alt={game.name}
+          alt=""
         />
-      </Link>
 
-      <h2
-        className="
-            bg-primary
-            text-tertiary
+        <h2
+          className="
+              bg-primary
+              text-tertiary
 
-            border-2
-            border-primary
+              border-2
+              border-primary
 
-            relative
-            -mt-14
-            z-10
-            w-full
-            p-2
-            h-14
+              relative
+              -mt-14
+              z-10
+              w-full
+              p-2
+              h-14
 
-            flex
-            items-center
-            justify-center
-            line-clamp-2
+              flex
+              items-center
+              justify-center
+              line-clamp-2
 
-            opacity-0
-            group-hover:opacity-100
-            transition-opacity
+              invisible
+              group-hover:visible
+              group-focus-within:visible
 
-            rounded-t-lg
-            text-center
-            text-xs
-        "
-      >
-        <Link
-          to={`/game/${encodeURIComponent(game.name)}`}
-          className="no-underline"
+              rounded-t-lg
+              text-center
+              text-xs
+          "
         >
           {game.name}
-        </Link>
-      </h2>
+        </h2>
+      </Link>
       <div className="bg-primary rounded-b-lg flex justify-end p-1.5 h-7">
         {onRemove && (
           <button
             type="button"
-            aria-label={`Remove ${game.name}`}
+            aria-label={`Remove ${game.name} from list`}
             onClick={() => onRemove(game)}
           >
             <ImCross
@@ -96,6 +91,8 @@ function SmallGameCard({ game, onRemove, index }: SmallGameCardProps) {
                  transition-colors
                  duration-300
                "
+              aria-hidden="true"
+              focusable="false"
             />
           </button>
         )}

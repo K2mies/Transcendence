@@ -1,13 +1,12 @@
 import { TextField } from "@mui/material";
-import { useController } from "react-hook-form";
+import { useController, type Control, type FieldValues } from "react-hook-form";
 
 type ControlledInputProps = {
-  control: any;
+  control: Control<FieldValues>;
   name: string;
   label: string;
-  autoComplete: string | undefined;
+  autoComplete?: string;
   type: string;
-  defaultValue?: string;
 };
 
 const ControlledInput = ({
@@ -16,7 +15,6 @@ const ControlledInput = ({
   label,
   autoComplete,
   type,
-  defaultValue,
 }: ControlledInputProps) => {
   const {
     field,
@@ -33,15 +31,48 @@ const ControlledInput = ({
         className="w-87.5"
         label={label}
         sx={{
+          "& .MuiInputLabel-root": {
+            color: "var(--color-primary)",
+          },
+
+          "& .MuiInputLabel-root.Mui-focused": {
+            color: "var(--color-primary)",
+          },
+
           "& .MuiOutlinedInput-root": {
             backgroundColor: "var(--color-tertiary)",
+
+            "& fieldset": {
+              borderColor: "var(--color-primary)",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "var(--color-primary)",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "var(--color-primary)",
+            },
+          },
+
+          "& .MuiInputBase-input": {
+            color: "var(--color-primary)",
+          },
+
+          "& .MuiFormHelperText-root": {
+            color: "var(--color-primary)",
+          },
+
+          "& .MuiFormHelperText-root.Mui-error": {
+            color: "#d32f2f",
           },
         }}
+
         type={type}
         autoComplete={autoComplete}
         onChange={(e) => field.onChange(e.target.value)}
         onBlur={field.onBlur}
-        defaultValue={defaultValue || field.value}
+        value={field.value}
         name={field.name}
         inputRef={field.ref}
         error={!!error}

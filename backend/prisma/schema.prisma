@@ -49,7 +49,6 @@ model Game {
   imageBig    String
   description String
   releaseDate DateTime
-  updateDate  DateTime
   developer   String?
   publisher   String?
   rating      Float
