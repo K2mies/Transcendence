@@ -58,12 +58,17 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 	- npm run dev
 
 ### PRODUCTION
-	- From the repository root on the host, run: `make re`
-	- After everything has been built, manually seed games, profiles and reviews:
-		- `docker compose exec backend node prisma/gamesSeed.js`
-		- `docker compose exec backend node prisma/profilesSeed.js`
-		- `docker compose exec backend node prisma/reviewsSeed.js`
-	- Open the browser and navigate to http://localhost:5173/
+
+- From the repository root on the host, run: `make re`
+- After everything has been built, manually seed games, profiles and reviews:
+
+```bash
+docker compose exec backend node prisma/gamesSeed.js
+docker compose exec backend node prisma/profilesSeed.js
+docker compose exec backend node prisma/reviewsSeed.js
+```
+
+- Open the browser and navigate to http://localhost:5173/
 
 ---
 
