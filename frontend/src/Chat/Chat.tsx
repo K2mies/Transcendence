@@ -34,6 +34,10 @@ export default function Chat() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  useEffect(() => {
+    document.title = "Chat | GoodPlays";
+  }, []);
+
   function scrollToBottom() {
     requestAnimationFrame(() => {
       messagesContainerRef.current?.scrollTo({
