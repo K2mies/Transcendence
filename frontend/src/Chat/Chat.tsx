@@ -22,6 +22,8 @@ export default function Chat() {
     onlineUsers,
     activeChatUser,
     setActiveChatUser,
+    canChat,
+    setCanChat,
   } = UseChat();
 
   const selectedUserRef = useRef<number | null>(null);
@@ -63,6 +65,13 @@ export default function Chat() {
         method: "GET",
         credentials: "include",
       });
+
+      if (res.status === 403) {
+        setCanChat(false);
+        return;
+      }
+
+      setCanChat(true);
 
       const data = await res.json();
       if (Array.isArray(data) && data.length === 0) {
@@ -218,6 +227,7 @@ export default function Chat() {
                 setText={setText}
                 send={send}
                 inputRef={inputRef}
+                canChat={canChat}
               />
             )}{" "}
           </div>

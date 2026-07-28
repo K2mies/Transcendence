@@ -64,4 +64,8 @@ export type SocketMessage =
       userId: number;
       newName: string;
     }
+  | {
+      type: "friend-removed";
+      userId: number;
+    }
   | ChatSocketMessage;

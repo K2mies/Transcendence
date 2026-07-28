@@ -124,9 +124,41 @@ export function setupWebSocket(server) {
             data.type !== "chat" ||
             receiverId === user.id ||
             !Number.isInteger(receiverId) ||
+            receiverId <= 0 ||
             !content
-          )
+          ) {
             return;
+          }
+
+          const friendship = await prisma.userUserRelation.findFirst({
+            where: {
+              friendStatus: "FRIENDS",
+              OR: [
+                {
+                  senderId: user.id,
+                  receiverId,
+                },
+                {
+                  senderId: receiverId,
+                  receiverId: user.id,
+                },
+              ],
+            },
+          });
+
+          if (!friendship) {
+            if (ws.readyState === WebSocket.OPEN) {
+              ws.send(
+                JSON.stringify({
+                  type: "chat-error",
+                  receiverId,
+                  error: "You are no longer friends with this user.",
+                }),
+              );
+            }
+
+            return;
+          }
 
           const msg = await prisma.message.create({
             data: {
@@ -201,4 +233,3 @@ export function setupWebSocket(server) {
   });
   return wss;
 }
-

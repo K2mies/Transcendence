@@ -29,6 +29,9 @@ type ChatContextType = {
   onlineUsers: Set<number>;
   activeChatUser: number | null;
   setActiveChatUser: React.Dispatch<React.SetStateAction<number | null>>;
+
+  canChat: boolean;
+  setCanChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -48,6 +51,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   );
   const [onlineUsers, setOnlineUsers] = useState(new Set<number>());
   const [activeChatUser, setActiveChatUser] = useState<number | null>(null);
+  const [canChat, setCanChat] = useState(true);
 
   useEffect(() => {
     activeChatUserRef.current = activeChatUser;
@@ -250,6 +254,16 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
           break;
 
+        case "friend-removed":
+          getFriends();
+          init();
+
+          if (activeChatUserRef.current === data.userId) {
+            setCanChat(false);
+          }
+
+          break;
+
         case "chat": {
           setLastMessage(data);
           if (
@@ -383,6 +397,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         onlineUsers,
         activeChatUser,
         setActiveChatUser,
+        canChat,
+        setCanChat,
       }}
     >
       {children}

@@ -349,6 +349,16 @@ export async function removeFriend(friendName, user) {
     });
   }
 
+  sendNotification(friend.id, {
+    type: "friend-removed",
+    userId: user,
+  });
+
+  sendNotification(user, {
+    type: "friend-removed",
+    userId: friend.id,
+  });
+
   await sendOnlineFriends(friend.id);
   await sendOnlineFriends(user);
 }
