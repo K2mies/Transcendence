@@ -99,7 +99,7 @@ function FriendList({
         }}
       >
         <span>Manage friends</span>
-        <FaUserFriends size={16} className="text-tertiary" />
+        <FaUserFriends size={16} className="text-tertiary" aria-hidden="true" focusable="false" />
       </button>
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop

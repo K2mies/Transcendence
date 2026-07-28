@@ -29,7 +29,7 @@ function AddFriend({
         className="inline-flex items-center gap-2"
         onClick={sendFriendRequest}
       >
-        Add friend <MdPersonAdd size={16} className="text-tertiary" />
+        Add friend <MdPersonAdd size={16} className="text-tertiary" aria-hidden="true" focusable="false" />
       </button>
     </>
   );

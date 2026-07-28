@@ -33,7 +33,7 @@ function RemoveFriend({
   return (
     <>
       <button className="inline-flex items-center gap-4" onClick={remove}>
-        {text} <ImCross size={14} className="text-tertiary" />
+        {text} <ImCross size={14} className="text-tertiary" aria-hidden="true" focusable="false" />
       </button>
     </>
   );
