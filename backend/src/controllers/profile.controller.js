@@ -33,8 +33,10 @@ FailOn none was added as sometimes JPEG might have an extra byte in the end so w
 */
 export async function uploadImage(req, res)
 {
-	const imageFile = req.file.buffer;
 	const userName = req.user.name
+	if (!req.file?.buffer)
+		return res.status(400).json({ message: "No valid image file provided" });
+	const imageFile = req.file.buffer;
 	try {
 		try 
 		{
