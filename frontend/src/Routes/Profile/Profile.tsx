@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
-import Reviews from "../../Reviews";
+import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
+import type { Review as ReviewType } from "../../Types/ReviewType";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -19,9 +20,9 @@ type GameProps = {
 function DisplayGames({ header, games, onRemove }: GameProps) {
   return (
     <div className="mt-6">
-      <h4 className=" bg-primary text-tertiary flex justify-start rounded-t-lg p-5">
+      <h2 className=" bg-primary text-tertiary text-[1.3rem] flex justify-start rounded-t-lg p-5">
         {header}
-      </h4>
+      </h2>
       <div className="bg-tertiary text-primary border-primary border-3 rounded-b-lg">
         <div className="">
           <div className="bg-tertiary text-primary relative rounded-b-lg p-5">
@@ -44,6 +45,7 @@ function DisplayGames({ header, games, onRemove }: GameProps) {
 
 function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [favGames, setFavGames] = useState<ProfileGame[]>([]);
   const [currGames, setCurrGames] = useState<ProfileGame[]>([]);
   const [toPlayGames, setToPlayGames] = useState<ProfileGame[]>([]);
@@ -52,6 +54,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const { username } = useParams();
 
   const isMyProfile = myCurrUser === username;
+  const titleName = isMyProfile ? "My profile" : username;
 
   async function removeFavorite(game: ProfileGame) {
     const response = await fetch(
@@ -96,6 +99,24 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
     }
   }
 
+  async function deleteReview(review: ReviewType) {
+    const response = await fetch(
+      `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
+
+    if (response.ok) {
+      setReviews((currentReviews) =>
+        currentReviews.filter(
+          (currentReview) => currentReview.id !== review.id,
+        ),
+      );
+    }
+  }
+
   useEffect(() => {
     if (!username) return;
     async function loadProfile() {
@@ -109,6 +130,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         const res: UserProfile = await response.json();
         setIsUserFound(true);
         setProfile(res);
+        setReviews(res.reviews ?? []);
         setFavGames(res.favorites);
         setCurrGames(res.playing);
         setToPlayGames(res.to_play);
@@ -117,74 +139,78 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         setIsUserFound(false);
       }
     }
-
+    document.title = `${titleName} | GoodPlays`;
     loadProfile();
   }, [username]);
 
   return (
-    <div className="bg-secondary p-6 min-h-screen">
-      {isUserFound && profile && myCurrUser && (
-        <div>
-          <ProfileInfo
-            profile={profile}
-            myCurrUser={myCurrUser}
-            setMyCurrUser={setMyCurrUser}
-          ></ProfileInfo>
-          {favGames.length > 0 && (
-            <DisplayGames
-              header="Favorite games"
-              games={favGames}
-              onRemove={isMyProfile ? removeFavorite : undefined}
-            ></DisplayGames>
-          )}
-          {currGames.length > 0 && (
-            <DisplayGames
-              header="Currently playing"
-              games={currGames}
-              onRemove={
-                isMyProfile
-                  ? (game) => removeGameState(game, setCurrGames)
-                  : undefined
-              }
-            ></DisplayGames>
-          )}
-          {toPlayGames.length > 0 && (
-            <DisplayGames
-              header="Games to play"
-              games={toPlayGames}
-              onRemove={
-                isMyProfile
-                  ? (game) => removeGameState(game, setToPlayGames)
-                  : undefined
-              }
-            ></DisplayGames>
-          )}
-          {completedGames.length > 0 && (
-            <DisplayGames
-              header="Completed games"
-              games={completedGames}
-              onRemove={
-                isMyProfile
-                  ? (game) => removeGameState(game, setCompletedGames)
-                  : undefined
-              }
-            ></DisplayGames>
-          )}
-          {profile && profile.reviews.length > 0 && (
-            <Reviews
-              reviews={profile.reviews}
+    <>
+      <div className="bg-secondary p-6 min-h-screen">
+        {isUserFound && profile && myCurrUser && (
+          <div>
+            <ProfileInfo
+              profile={profile}
               myCurrUser={myCurrUser}
-              page="profile"
-            ></Reviews>
-          )}
-        </div>
-      )}
-      {isUserFound === false && (
-        <div>
-          <p>404 User not found</p>
-        </div>
-      )}
-    </div>
+              setMyCurrUser={setMyCurrUser}
+            ></ProfileInfo>
+            {favGames.length > 0 && (
+              <DisplayGames
+                header="Favorite games"
+                games={favGames}
+                onRemove={isMyProfile ? removeFavorite : undefined}
+              ></DisplayGames>
+            )}
+            {currGames.length > 0 && (
+              <DisplayGames
+                header="Currently playing"
+                games={currGames}
+                onRemove={
+                  isMyProfile
+                    ? (game) => removeGameState(game, setCurrGames)
+                    : undefined
+                }
+              ></DisplayGames>
+            )}
+            {toPlayGames.length > 0 && (
+              <DisplayGames
+                header="Games to play"
+                games={toPlayGames}
+                onRemove={
+                  isMyProfile
+                    ? (game) => removeGameState(game, setToPlayGames)
+                    : undefined
+                }
+              ></DisplayGames>
+            )}
+            {completedGames.length > 0 && (
+              <DisplayGames
+                header="Completed games"
+                games={completedGames}
+                onRemove={
+                  isMyProfile
+                    ? (game) => removeGameState(game, setCompletedGames)
+                    : undefined
+                }
+              ></DisplayGames>
+            )}
+            {reviews.length > 0 && (
+              <Reviews
+                reviews={reviews}
+                setReviews={setReviews}
+                myCurrUser={myCurrUser}
+                page="profile"
+                onDeleteReview={deleteReview}
+            />
+            )}
+          </div>
+        )}
+        {isUserFound === false && (
+          <div>
+            <p>404 User not found</p>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

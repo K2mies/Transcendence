@@ -34,7 +34,8 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 ---
 
 ## Getting started
-### Backend
+### DEVELOPMENT
+#### Backend
 	- create .env in repository root (fill it using the .env section at the bottom of this README)
 	- cd backend/
 	- Local postgresql setup:
@@ -51,10 +52,18 @@ GoodPlays (WIP name) is a social platform for discovering, tracking and reviewin
 	- npm install (to install node packages defined in package.json)
 	- npm run dev (sets up a local development server, enabling real-time code changes and instant feedback)
 
-### Frontend
+#### Frontend
 	- cd frontend/
 	- npm install
 	- npm run dev
+
+### PRODUCTION
+	- From the repository root on the host, run: `make re`
+	- After everything has been built, manually seed games, profiles and reviews:
+		- `docker compose exec backend node prisma/gamesSeed.js`
+		- `docker compose exec backend node prisma/profilesSeed.js`
+		- `docker compose exec backend node prisma/reviewsSeed.js`
+	- Open the browser and navigate to http://localhost:5173/
 
 ---
 

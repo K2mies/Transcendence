@@ -54,9 +54,9 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
   return (
     <div className="bg-secondary flex min-h-screen flex-col items-center justify-center text-center">
       <div className="bg-tertiary p-4 rounded-lg">
-        <h2 className="bg-primary text-tertiary p-4 rounded-t-lg">
+        <h1 className="bg-primary text-tertiary p-4 text-[1.6rem] rounded-t-lg">
           Choose your username
-        </h2>
+        </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ControlledInput
             control={control}

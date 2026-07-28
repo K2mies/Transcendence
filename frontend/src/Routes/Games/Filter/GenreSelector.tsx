@@ -12,7 +12,7 @@ type GenreSelectorProps = {
 function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
   const [genreOptions, setGenreOptions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function fetchGenres() {
@@ -33,37 +33,51 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
   }, []);
 
   return (
-    <Autocomplete
-      value={selectedValue}
-      inputValue={inputValue}
-      onInputChange={(_, value) => {
-        setInputValue(value);
-      }}
-      options={genreOptions.filter((genre) => !genres.includes(genre))}
-      onChange={(_, value) => {
-        if (value) {
-          setGenres([...genres, value]);
-          setSelectedValue(null);
-          setInputValue(""); // clear text field
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Genre"
-          size="small"
-          sx={FILTER_SX}
-        />
-      )}
-      sx={{ width: FILTER_WIDTH }}
-      slotProps={{
-        listbox: {
-          sx: {
-            maxHeight: 300,
+    <div className="flex flex-col">
+      <label htmlFor="genre" className="text-white">Genre:</label>
+      <Autocomplete
+        id="genre"
+        value={selectedValue}
+        inputValue={inputValue}
+        onInputChange={(_, value) => {
+          setInputValue(value);
+        }}
+        options={genreOptions.filter((genre) => !genres.includes(genre))}
+        onChange={(_, value) => {
+          if (value) {
+            setGenres([...genres, value]);
+            setSelectedValue(undefined);
+            setInputValue(""); // clear text field
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Choose"
+            size="small"
+            sx={FILTER_SX}
+          />
+        )}
+        sx={{ width: FILTER_WIDTH }}
+        slotProps={{
+          popupIndicator: {
+            tabIndex: 0,
+            "aria-label": "Open list of genres",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
           },
-        },
-      }}
-    />
+          listbox: {
+            sx: {
+              maxHeight: 300,
+            },
+          },
+        }}
+      />
+    </div>
   );
 }
 

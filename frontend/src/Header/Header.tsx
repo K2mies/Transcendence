@@ -62,6 +62,8 @@ function Header({
               <FaSearch
                 size={iconSize}
                 className="text-tertiary hover:text-secondary"
+                aria-hidden="true"
+                focusable="false"
               />
             </button>
 
@@ -78,10 +80,13 @@ function Header({
            no-underline
            text-tertiary
            "
+          aria-label="Go to dashboard"
         >
           <FaHome
             className="text-tertiary hover:text-secondary"
             size={iconSize}
+            aria-hidden="true"
+            focusable="false"
           />
         </Link>
         {myCurrUser && (
@@ -94,10 +99,13 @@ function Header({
               bg-primary
               transition-colors
               "
+            aria-label="Go to your profile"
           >
             <FaUser
               className="text-tertiary hover:text-secondary"
               size={iconSize}
+              aria-hidden="true"
+              focusable="false"
             />
           </Link>
         )}
@@ -111,11 +119,14 @@ function Header({
             text-tertiary
             bg-primary
             transition-colors
-          "
+            "
+            aria-label={hasUnreadMessages ? "Open chat, unread messages" : "Open chat"}
           >
             <SiWechat
               className="text-tertiary hover:text-secondary"
               size={iconSize}
+              aria-hidden="true"
+              focusable="false"
             />
 
             {hasUnreadMessages && (
@@ -140,10 +151,13 @@ function Header({
               no-underline
               text-tertiary
               "
+            aria-label="Go to Games page"
           >
             <FaGamepad
               className="text-tertiary hover:text-secondary"
               size={iconSize}
+              aria-hidden="true"
+              focusable="false"
             />
           </Link>
         )}

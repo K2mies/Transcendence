@@ -43,59 +43,84 @@ const SearchBar = () => {
     fetchGames();
   }, []);
   return (
-    <Autocomplete<Game>
-      value={selectedGame}
-      sx={{ width: "100%" }}
-      inputValue={inputValue}
-      onInputChange={(_, value) => {
-        setInputValue(value);
-      }}
-      options={games}
-      filterOptions={filterOptions}
-      getOptionLabel={(option) => option.name}
-      slotProps={{
-        listbox: {
-          sx: {
-            maxHeight: 400,
+    <>
+      <Autocomplete<Game>
+        value={selectedGame}
+        sx={{ width: "100%" }}
+        inputValue={inputValue}
+        onInputChange={(_, value) => {
+          setInputValue(value);
+        }}
+        options={games}
+        filterOptions={filterOptions}
+        getOptionLabel={(option) => option.name}
+        slotProps={{
+          popupIndicator: {
+            tabIndex: 0,
+            "aria-label": "Open game search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
           },
-        },
-      }}
-      onChange={(_, value) => {
-        setSelectedGame(value);
+          clearIndicator: {
+            tabIndex: 0,
+            "aria-label": "Clear game search suggestions",
+            sx: {
+              "&:focus-visible, &.Mui-focusVisible": {
+                outline: "2px solid var(--color-secondary)",
+                outlineOffset: "2px",
+              },
+            },
+          },
+          listbox: {
+            sx: {
+              maxHeight: 400,
+            },
+          },
+        }}
+        onChange={(_, value) => {
+          setSelectedGame(value);
 
-        if (value) {
-          navigate(`/game/${encodeURIComponent(value.name)}`);
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Search games"
-          size="small"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "var(--color-tertiary)",
-              "& fieldset": {
-                borderColor: "var(--color-primary)",
-              },
-              "&:hover fieldset": {
-                borderColor: "var(--color-secondary)",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "var(--color-secondary)",
-              },
-            },
-            "& .MuiInputLabel-root": {
-              color: "var(--color-primary)",
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "var(--color-secondary)",
-            },
-            borderRadius: 10,
-          }}
-        />
-      )}
-    />
+          if (value) {
+            navigate(`/game/${encodeURIComponent(value.name)}`);
+          }
+        }}
+        renderInput={(params) => (
+          <>
+            <label htmlFor={params.id} className="sr-only">Search for games</label>
+            <TextField
+              {...params}
+              placeholder="Search for games"
+              size="small"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "var(--color-tertiary)",
+                  "& fieldset": {
+                    borderColor: "var(--color-primary)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "var(--color-secondary)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "var(--color-secondary)",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "var(--color-primary)",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "var(--color-secondary)",
+                },
+                borderRadius: 10,
+              }}
+            />
+          </>
+        )}
+      />
+    </>
   );
 };
 

@@ -198,7 +198,7 @@ await prisma.user.upsert({
             favorite: true,
           },
           {
-            game: { connect: { name: "Life is Strange" } },
+            game: { connect: { name: "Rocket League" } },
             gameStatus: "COMPLETED",
             favorite: false,
           },

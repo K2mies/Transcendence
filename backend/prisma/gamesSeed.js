@@ -22,7 +22,6 @@ async function main() {
         imageBig: g.imageBig,
         description: g.description,
         releaseDate: new Date(g.releaseDate),
-        updateDate: new Date(g.updateDate),
         developer: g.developer ?? null,
         publisher: g.publisher ?? null,
         rating: Number(g.rating) || 0,

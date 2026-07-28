@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import GameCard from "./GameCard";
 import PaginationControls from "./PaginationControls";
 import GameFilter from "./Filter/GameFilter";
@@ -32,6 +32,16 @@ function Games() {
   const [platforms, setPlatforms] = useState<string[]>([]);
   const [developer, setDeveloper] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const firstFilterRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    document.title = "Games | GoodPlays";
+  }, []);
+
+  useEffect(() => {
+    if (showFilters)
+      firstFilterRef.current?.focus();
+  }, [showFilters]);
 
   useEffect(() => {
     setPage(1);
@@ -77,61 +87,77 @@ function Games() {
       if (result.status === "success") {
         setGames(result.data);
         setPagination(result.pagination);
+
+        const resultInfo = document.querySelector<HTMLParagraphElement>("#result-info");
+        if (resultInfo)
+          resultInfo.textContent = `Found ${result.data.length} games with current filters`;
       }
     }
 
     fetchGames();
   }, [page, searchTerm, genres, platforms, developer, minRating, sortBy]);
   return (
-    <div className="bg-secondary">
-      <div
-        hidden={!showFilters}
-        className={`
-          overflow-hidden
-          transition-all
-          duration-500
-          ease-in-out
-          ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
-        `}
-      >
-        <GameFilter
-          setShowFilters={setShowFilters}
-          minRating={minRating}
-          setMinRating={setMinRating}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          genres={genres}
-          setGenres={setGenres}
-          platforms={platforms}
-          setPlatforms={setPlatforms}
-          developer={developer}
-          setDeveloper={setDeveloper}
-        />
-      </div>
-      <div>
-        <FaGear
-          size={30}
-          className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
-          onClick={() => setShowFilters(!showFilters)}
-        />
-      </div>
-      <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
-        <div className="relative grid grid-cols-5 gap-2">
-          {games.map((game, index) => (
-            <GameCard key={game.id} game={game} index={index} />
-          ))}
+    <>
+      <div className="bg-secondary">
+        <div
+          hidden={!showFilters}
+          className={`
+            overflow-hidden
+            transition-all
+            duration-500
+            ease-in-out
+            ${showFilters ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}
+          `}
+        >
+          <GameFilter
+            setShowFilters={setShowFilters}
+            minRating={minRating}
+            setMinRating={setMinRating}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            genres={genres}
+            setGenres={setGenres}
+            platforms={platforms}
+            setPlatforms={setPlatforms}
+            developer={developer}
+            setDeveloper={setDeveloper}
+            firstFilterRef={firstFilterRef}
+          />
         </div>
+        <div className="flex justify-end">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            aria-expanded={showFilters}
+            aria-controls="game-filters"
+            aria-label={showFilters ? "Hide filters" : "Show filters"}
+          >
+            <FaGear
+              size={30}
+              className="cursor-pointer text-primary ml-auto mr-7 pt-2 mb-2"
+              aria-hidden="true"
+              focusable="false"
+            />
+          </button>
+        </div>
+        <div className="sr-only" aria-live="polite"><p id="result-info"></p></div>
+        <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
+          <div className="relative grid grid-cols-5 gap-2">
+            {games.map((game, index) => (
+              <GameCard key={game.id} game={game} index={index} />
+            ))}
+          </div>
+        </div>
+        <PaginationControls
+          page={page}
+          totalPages={pagination?.totalPages ?? 1}
+          onPrevious={() => setPage((prev) => prev - 1)}
+          onNext={() => setPage((prev) => prev + 1)}
+          onPageChange={(newPage) => setPage(newPage)}
+        />
       </div>
-      <PaginationControls
-        page={page}
-        totalPages={pagination?.totalPages ?? 1}
-        onPrevious={() => setPage((prev) => prev - 1)}
-        onNext={() => setPage((prev) => prev + 1)}
-        onPageChange={(newPage) => setPage(newPage)}
-      />
-    </div>
+    </>
   );
 }
 export default Games;

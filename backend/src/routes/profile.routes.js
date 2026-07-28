@@ -12,10 +12,18 @@ router.post('/upload', protect, upload.single('file'), profileController.uploadI
 router.post('/delete', protect, profileController.deleteImage)
 router.post("/", protect, validateRequest(updateBioSchema), profileController.updateBio)
 
-router.get("/:name/friend-status", protect, profileController.getFriendStatus)
-router.post("/:name/friend-request", protect, profileController.addFriend)
-router.put("/:name/accept-request", protect, profileController.acceptFriendRequest)
-router.delete("/:name/decline-request", protect, profileController.declineFriendRequest)
-router.delete("/:name/remove-friend", protect, profileController.removeFriend)
+router.get("/:name/friend-status", protect, profileController.getFriendStatus);
+router.post("/:name/friend-request", protect, profileController.addFriend);
+router.put(
+  "/:name/accept-request",
+  protect,
+  profileController.acceptFriendRequest,
+);
+router.delete(
+  "/:name/decline-request",
+  protect,
+  profileController.declineFriendRequest,
+);
+router.delete("/:name/remove-friend", protect, profileController.removeFriend);
 
 export default router;

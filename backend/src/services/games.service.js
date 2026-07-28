@@ -95,6 +95,11 @@ export async function getGames(query, currentUserId) {
         platforms: true,
         genres: true,
         modes: true,
+        reviews: {
+          select: {
+            rating: true,
+          },
+        },
         userGames: {
           where: { userId: Number(currentUserId) },
           select: { userId: true, favorite: true },
@@ -110,8 +115,23 @@ export async function getGames(query, currentUserId) {
       (ug) => ug.userId === Number(currentUserId),
     );
 
+    let sum = 0;
+
+    for (const review of game.reviews) {
+      sum += review.rating;
+    }
+
+    let combinedRating = game.rating;
+
+    if (game.reviews.length !== 0 && game.rating != null) {
+      combinedRating = (sum + game.rating) / (game.reviews.length + 1);
+    }
+    const { reviews, userGames, ...gameData } = game;
+    const { rating, ...rest } = gameData;
     return {
-      ...game,
+      ...rest,
+      igdbRating: rating,
+      combinedRating,
       favorite: userRelation?.favorite ?? false,
     };
   });

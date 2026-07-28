@@ -1,6 +1,6 @@
-import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { FILTER_SX } from "./FilterProperties";
+import { InputLabel } from "@mui/material";
 
 type RatingSelectorProps = {
   minRating: number;
@@ -9,20 +9,36 @@ type RatingSelectorProps = {
 
 function RatingSelector({ minRating, setMinRating }: RatingSelectorProps) {
   return (
-    <TextField
-      select
-      value={minRating}
-      onChange={(e) => setMinRating(Number(e.target.value))}
-      size="small"
-      sx={FILTER_SX}
-    >
-      <MenuItem value={0}>All ratings</MenuItem>
-      <MenuItem value={1}>1+ stars</MenuItem>
-      <MenuItem value={2}>2+ stars</MenuItem>
-      <MenuItem value={3}>3+ stars</MenuItem>
-      <MenuItem value={4}>4+ stars</MenuItem>
-      <MenuItem value={5}>5 stars</MenuItem>
-    </TextField>
+    <div className="flex flex-col">
+      <InputLabel
+        id="rating-label"
+        htmlFor="rating"
+        sx={{
+          color: "white",
+        }}
+      >
+        Rating:
+      </InputLabel>
+      <Select
+        id="rating"
+        labelId="rating-label"
+        value={minRating}
+        onChange={(e) => setMinRating(Number(e.target.value))}
+        size="small"
+        sx={{
+          width: 145,
+          backgroundColor: "var(--app-tertiary)",
+        }}
+        inputProps={{ id: "rating" }}
+      >
+        <MenuItem value={0}>All ratings</MenuItem>
+        <MenuItem value={1}>1+ stars</MenuItem>
+        <MenuItem value={2}>2+ stars</MenuItem>
+        <MenuItem value={3}>3+ stars</MenuItem>
+        <MenuItem value={4}>4+ stars</MenuItem>
+        <MenuItem value={5}>5 stars</MenuItem>
+      </Select>
+    </div>
   );
 }
 
