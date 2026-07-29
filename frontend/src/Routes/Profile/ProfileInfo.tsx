@@ -89,11 +89,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         )}
         <div className="bg-primary text-tertiary ml-auto m-6">
           {!isMyUser && (
-            <FriendButton
-              key={friends.has(profile.id)}
-              user={profile.name}
-              myCurrUser={myCurrUser}
-            ></FriendButton>
+            <FriendButton user={profile.name} myCurrUser={myCurrUser} />
           )}
           {isMyUser && (
             <FriendList
