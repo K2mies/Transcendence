@@ -18,7 +18,12 @@ export default function ConversationList({
       {conversations.map((c) => (
         <div
           key={c.userId}
+          role="button"
+          tabIndex={0}
           onClick={() => openChat(c.userId)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") openChat(c.userId);
+          }}
           className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
         >
           <div className="flex justify-between">
