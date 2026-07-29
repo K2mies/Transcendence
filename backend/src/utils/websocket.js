@@ -40,6 +40,11 @@ export function sendNotification(receiverId, payload) {
 }
 
 export async function sendUsernameUpdate(userId, newName) {
+  const socket = connectedUsers.get(userId);
+
+  if (socket) {
+    socket.userName = newName;
+  }
   const friends = await prisma.userUserRelation.findMany({
     where: {
       friendStatus: "FRIENDS",

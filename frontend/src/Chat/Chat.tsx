@@ -22,8 +22,6 @@ export default function Chat() {
     onlineUsers,
     activeChatUser,
     setActiveChatUser,
-    canChat,
-    setCanChat,
   } = UseChat();
 
   const selectedUserRef = useRef<number | null>(null);
@@ -31,6 +29,10 @@ export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [text, setText] = useState("");
+  const selectedConversation = conversations.find(
+    (c) => c.userId === selectedUser,
+  );
+
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
   const navigate = useNavigate();
@@ -66,13 +68,6 @@ export default function Chat() {
         credentials: "include",
       });
 
-      if (res.status === 403) {
-        setCanChat(false);
-        return;
-      }
-
-      setCanChat(true);
-
       const data = await res.json();
       if (Array.isArray(data) && data.length === 0) {
         const friends = await fetch(`http://localhost:4243/user/friends`, {
@@ -94,6 +89,7 @@ export default function Chat() {
             {
               userId: friend.id,
               name: friend.name,
+              canChat: true,
             },
             ...prev,
           ];
@@ -227,7 +223,7 @@ export default function Chat() {
                 setText={setText}
                 send={send}
                 inputRef={inputRef}
-                canChat={canChat}
+                canChat={selectedConversation?.canChat ?? true}
               />
             )}{" "}
           </div>

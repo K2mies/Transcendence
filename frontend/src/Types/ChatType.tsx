@@ -14,6 +14,7 @@ export type Conversation = {
   lastMessage?: string;
   lastMessageAt?: string;
   unreadCount?: number;
+  canChat: boolean;
 };
 
 type BaseMessage = {
@@ -53,6 +54,7 @@ export type SocketMessage =
     }
   | {
       type: "friend-request-accepted";
+      userId: number;
       accepterName: string;
     }
   | {
