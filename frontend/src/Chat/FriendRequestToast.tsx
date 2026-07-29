@@ -1,7 +1,6 @@
 import toast from "react-hot-toast";
 import { FaUserFriends } from "react-icons/fa";
 import { FRIEND_ICON_SIZE } from "./NotificationConstants";
-import { useNavigate } from "react-router-dom";
 import NotificationUserLink from "./NotificationUserLink";
 
 type FriendRequestToastProps = {
@@ -10,12 +9,6 @@ type FriendRequestToastProps = {
 };
 
 function FriendRequestToast({ toastId, senderName }: FriendRequestToastProps) {
-  const navigate = useNavigate();
-
-  function openProfile(username: string) {
-    toast.dismiss(toastId);
-    navigate(`/user/${username}`);
-  }
 
   async function acceptRequest() {
     try {
