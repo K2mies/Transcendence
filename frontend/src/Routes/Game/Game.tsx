@@ -186,8 +186,7 @@ function GameInfo({ game }: GameInfoProps) {
       "Meta Quest 2",
       "Meta Quest 3",
 
-      "Steam VR",
-
+      "SteamVR",
       "Steam Deck",
 
       "Web browser",
