@@ -1,6 +1,7 @@
 import { prisma } from "../config/db.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
+import { sendUsernameUpdate } from "../utils/websocket.js";
 
 const register = async (req, res) => {
   const { name, email, password } = req.validBody;
@@ -32,15 +33,15 @@ const register = async (req, res) => {
   // Generate JWT token
   const token = generateToken(user.id, res);
 
-	res.status(201).json({
-		status: "success",
-		data: {
-			user: {
-				id: user.id,
-				name: user.name,
-			},
-		},
-	});
+  res.status(201).json({
+    status: "success",
+    data: {
+      user: {
+        id: user.id,
+        name: user.name,
+      },
+    },
+  });
 };
 
 const login = async (req, res) => {
@@ -68,15 +69,15 @@ const login = async (req, res) => {
   // Generate JWT token
   const token = generateToken(user.id, res);
 
-	res.status(200).json({
-		status: "success",
-		data: {
-			user: {
-				id: user.id,
-				name: user.name,
-			},
-		},
-	});
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: {
+        id: user.id,
+        name: user.name,
+      },
+    },
+  });
 };
 
 const logout = async (req, res) => {
@@ -115,6 +116,9 @@ const updateUsername = async (req, res) => {
     data: { name },
     select: { id: true, name: true, email: true },
   });
+
+  await sendUsernameUpdate(user.id, user.name);
+
   res.status(200).json({ status: "success", data: { user } });
 };
 

@@ -33,6 +33,8 @@ import { FavoritesProvider } from "./Rating/FavoritesContext";
 import { CurrentUserProvider } from "./Auth/CurrentUserContext";
 import Admin from "./Routes/Admin/Admin";
 
+import { Toaster } from "react-hot-toast";
+
 function Layout() {
   const myUser = localStorage.getItem("user");
   let myUsername: string | undefined = undefined;
@@ -56,6 +58,18 @@ function Layout() {
 
   return (
     <>
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "var(--color-primary)",
+            color: "var(--color-tertiary)",
+            padding: "12px 16px",
+          },
+        }}
+      />
+
       {!hideHeader && (
         <Header
           showSearch={showSearch}

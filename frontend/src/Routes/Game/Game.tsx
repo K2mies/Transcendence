@@ -26,7 +26,7 @@ type GameProps = {
 };
 
 function GameData({ game }: GameDataProps) {
-  let temp = new Date(game.releaseDate);
+  const temp = new Date(game.releaseDate);
   const released = temp.toLocaleDateString("fi-FI");
 
   return (
@@ -84,7 +84,9 @@ function Status({ game }: StatusProps) {
 
   return (
     <div className="inline-block">
-      <label htmlFor="game-status" className="mr-3">Game status:</label>
+      <label htmlFor="game-status" className="mr-3">
+        Game status:
+      </label>
       <select
         id="game-status"
         value={currentStatus || "NONE"}
@@ -103,11 +105,20 @@ function Status({ game }: StatusProps) {
 function GameInfo({ game }: GameInfoProps) {
   const sortedPlatforms = [...game.platforms].sort((a, b) => {
     const order = [
+      "Arcade",
+      "Neo Geo AES",
+      "Neo Geo MVS",
+
       "PlayStation",
       "PlayStation 2",
       "PlayStation 3",
       "PlayStation 4",
       "PlayStation 5",
+
+      "PlayStation VR",
+      "PlayStation VR2",
+
+      "PlayStation Portable",
       "PlayStation Vita",
       "PSP",
 
@@ -118,26 +129,69 @@ function GameInfo({ game }: GameInfoProps) {
 
       "Nintendo Entertainment System",
       "Super Nintendo Entertainment System",
+      "Family Computer",
+      "Satellaview",
+
       "Nintendo 64",
+      "64DD",
+
       "Nintendo GameCube",
+
       "Wii",
       "Wii U",
+
       "Nintendo Switch",
       "Nintendo Switch 2",
+
       "Game Boy",
       "Game Boy Advance",
+      "Game Boy Color",
+
+      "Nintendo DSi",
       "Nintendo DS",
       "Nintendo 3DS",
       "New Nintendo 3DS",
 
       "PC (Microsoft Windows)",
+      "PC-9800 Series",
+      "FM Towns",
+      "DOS",
+
       "Linux",
+
       "Mac",
+      "Apple II",
+
       "iOS",
       "Android",
-      "Windows Phone",
 
+      "Windows Phone",
+      "Windows Mixed Reality",
+      "Legacy Mobile Device",
+
+      "N-Gage",
+      "Tapwave Zodiac",
+
+      "Amiga",
+      "Amiga CD32",
+
+      "Atari ST/STE",
+      "Atari Jaguar",
+
+      "Commodore C64/128/MAX",
+
+      "Oculus Quest",
+      "Oculus Rift",
+
+      "Meta Quest 2",
+      "Meta Quest 3",
+
+      "SteamVR",
       "Steam Deck",
+
+      "Web browser",
+      "OnLive Game System",
+      "Ouya",
     ];
 
     const ia = order.indexOf(a);
@@ -153,7 +207,10 @@ function GameInfo({ game }: GameInfoProps) {
     <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg px-4 py-3">
         <div className="flex items-start gap-4">
-          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary" aria-label="Game is available on following platforms">
+          <ul
+            className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary"
+            aria-label="Game is available on following platforms"
+          >
             {sortedPlatforms.map((platform) => (
               <li
                 key={platform}
