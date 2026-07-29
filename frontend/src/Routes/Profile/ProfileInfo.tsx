@@ -129,13 +129,14 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
                   onChange={uploadImage}
                 />
               </label>
+			  {avatar && (
               <button
                 className="cursor-pointer"
                 title="Delete avatar"
                 onClick={deleteImage}
               >
                 <ImCross size={10} />
-              </button>
+              </button> )}
             </div>
           )}
           {editError && (
