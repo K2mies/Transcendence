@@ -1,8 +1,8 @@
-import type { RefObject } from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 
 type MessageInputProps = {
   text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
+  setText: Dispatch<SetStateAction<string>>;
   send: () => void;
   inputRef: RefObject<HTMLInputElement | null>;
   canChat: boolean;
