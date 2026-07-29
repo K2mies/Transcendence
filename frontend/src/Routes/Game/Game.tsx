@@ -192,8 +192,7 @@ function GameInfo({ game }: GameInfoProps) {
 
       "Web browser",
       "OnLive Game System",
-      "Oiya",
-    ];
+      "Ouya",
 
     const ia = order.indexOf(a);
     const ib = order.indexOf(b);
