@@ -337,6 +337,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
                 data.receiverId === me.id
                   ? (existing?.unreadCount ?? 0) + 1
                   : (existing?.unreadCount ?? 0),
+              canChat: existing?.canChat ?? true,
             };
 
             return [updated, ...prev.filter((c) => c.userId !== otherUser)];
