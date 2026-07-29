@@ -51,8 +51,14 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
       method: "POST",
       credentials: "include",
     });
+    const data = await response.json();
     if (response.ok) {
       setAvatar(null);
+    } else {
+      setEditError(data.message || "Error deleting avatar. Please try again.");
+      setTimeout(() => {
+        setEditError("");
+      }, 5000);
     }
   };
 
@@ -118,7 +124,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
                 <FaEdit size={15} />
                 <input
                   type="file"
-                  accept=".png, .jpg"
+                  accept="image/png, image/jpeg, .png, .jpg, .jpeg"
                   className="hidden"
                   onChange={uploadImage}
                 />
