@@ -1,7 +1,6 @@
 import { prisma } from "../config/db.js";
 
-const canActOnTarget = (actorRole, targetRole) =>
-	!(actorRole === "ADMIN" && targetRole === "SUPERUSER");
+const canActOnTarget = (targetRole) => targetRole !== "SUPERUSER";
 
 const ASSIGNABLE_ROLES = ["ADMIN", "USER"];
 
@@ -59,8 +58,8 @@ export const updateUser = async (req, res) => {
 		return res.status(404).json({ error: "User not found" });
 	}
 
-	if (!canActOnTarget(req.user.role, target.role)) {
-		return res.status(403).json({ error: "Admins cannot modify superuser accounts" });
+	if (!canActOnTarget(target.role)) {
+		return res.status(403).json({ error: "Superuser accounts cannot be modified through the admin panel" });
 	}
 
 	const { name, email, bio } = req.body;
@@ -95,8 +94,8 @@ export const deleteUserById = async (req, res) => {
 		return res.status(404).json({ error: "User not found" });
 	}
 
-	if (!canActOnTarget(req.user.role, target.role)) {
-		return res.status(403).json({ error: "Admins cannot delete superuser accounts" });
+	if (!canActOnTarget(target.role)) {
+		return res.status(403).json({ error: "Superuser accounts cannot be deleted through the admin panel" });
 	}
 
 	try {
@@ -127,6 +126,10 @@ export const updateUserRole = async (req, res) => {
 
 	if (!target) {
 		return res.status(404).json({ error: "User not found" });
+	}
+
+	if (!canActOnTarget(target.role)) {
+		return res.status(403).json({ error: "Superuser accounts cannot be modified through the admin panel" });
 	}
 
 	try {

@@ -115,8 +115,7 @@ function AdminUsers() {
         {pagedUsers.map((user) => {
           const isSelf = user.id === currentUser?.id;
           const isSuperuserRow = user.role === "SUPERUSER";
-          const canDelete =
-            !isSelf && !(currentUser?.role === "ADMIN" && isSuperuserRow);
+          const canDelete = !isSelf && !isSuperuserRow;
 
           return (
             <div
