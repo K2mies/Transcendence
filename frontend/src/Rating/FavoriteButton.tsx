@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useFavorites } from "./FavoritesContext";
 import type { Game } from "../Types/GameType";
@@ -47,8 +48,14 @@ function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
       await updateGameRelation(game.name, {
         favorite: newValue,
       });
-    } catch (error) {
-      console.error(error);
+    } catch {
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Error updating favorite status. Please try again.
+          </div>
+        </div>
+      ));
 
       setFavorite(game.id, favoriteState);
     }
