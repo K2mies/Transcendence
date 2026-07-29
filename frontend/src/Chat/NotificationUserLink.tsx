@@ -17,7 +17,7 @@ function NotificationUserLink({
       toast.dismiss(toastId);
     }
 
-    navigate(`/user/${username}`);
+    navigate(`/user/${encodeURIComponent(username)}`);
   }
 
   return (
