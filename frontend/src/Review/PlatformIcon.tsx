@@ -60,7 +60,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
   "Nintendo Switch": BsNintendoSwitch,
   "Nintendo Switch 2": BsNintendoSwitch,
 
-  "Nintend DSi": NintendoIcon,
+  "Nintendo DSi": NintendoIcon,
   "Nintendo DS": NintendoIcon,
   "Nintendo 3DS": Nintendo3DsIcon,
   "New Nintendo 3DS": Nintendo3DsIcon,
