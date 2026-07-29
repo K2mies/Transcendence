@@ -31,7 +31,7 @@ export default function ConversationList({
               <span>{c.name}</span>
 
               {onlineUsers.has(c.userId) && (
-                <span className="h-2.5 w-2.5 rounded-full bg-online)]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-online" />
               )}
             </div>
 
