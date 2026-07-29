@@ -126,7 +126,7 @@ function AdminReviews() {
 
             {review.game ? (
               <Link
-                to={`/game/${review.game}`}
+                to={`/game/${encodeURIComponent(review.game)}`}
                 className="text-sm no-underline text-primary truncate"
               >
                 {review.game}
