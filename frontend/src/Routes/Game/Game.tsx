@@ -145,7 +145,7 @@ function GameInfo({ game }: GameInfoProps) {
 
       "Game Boy",
       "Game Boy Advance",
-      "Gamy Boy Color",
+      "Game Boy Color",
 
       "Nintendo DSi",
       "Nintendo DS",
