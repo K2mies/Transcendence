@@ -115,7 +115,13 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     });
 
     if (!friendsRes.ok) {
-      console.error("Error refreshing friends");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Error updating friend list. Please try again.
+          </div>
+        </div>
+      ));
       return;
     }
 
