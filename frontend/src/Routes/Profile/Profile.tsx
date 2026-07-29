@@ -5,7 +5,6 @@ import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
 import type { Review as ReviewType } from "../../Types/ReviewType";
-import toast from "react-hot-toast";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
