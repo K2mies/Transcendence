@@ -134,7 +134,7 @@ const PLATFORM_ICONS: Record<string, React.ElementType> = {
 
   "Web browser": RiCursorFill,
   "OnLive Game System": RiCursorFill,
-  Oiya: RiCursorFill,
+  Ouya: RiCursorFill,
 };
 
 function PlatformIcon({ platform, size = 20 }: PlatformIconProps) {
