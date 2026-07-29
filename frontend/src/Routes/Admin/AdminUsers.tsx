@@ -90,7 +90,7 @@ function AdminUsers() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by nickname..."
+          placeholder="Search by username..."
           className="rounded px-2 py-1 text-sm text-primary bg-tertiary"
         />
       </div>
@@ -99,7 +99,7 @@ function AdminUsers() {
         <div
           className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
         >
-          <span>Nickname</span>
+          <span>Username</span>
           <span>Email</span>
           <span>Role</span>
           <button

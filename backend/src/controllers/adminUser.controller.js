@@ -65,13 +65,18 @@ export const updateUser = async (req, res) => {
 
 	const { name, email, bio } = req.body;
 
-	const updatedUser = await prisma.user.update({
-		where: { id },
-		data: { name, email, bio },
-		select: { id: true, name: true, email: true, bio: true, role: true },
-	});
+	try {
+		const updatedUser = await prisma.user.update({
+			where: { id },
+			data: { name, email, bio },
+			select: { id: true, name: true, email: true, bio: true, role: true },
+		});
 
-	res.status(200).json({ status: "success", data: updatedUser });
+		res.status(200).json({ status: "success", data: updatedUser });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Failed to update user" });
+	}
 };
 
 export const deleteUserById = async (req, res) => {
@@ -94,9 +99,13 @@ export const deleteUserById = async (req, res) => {
 		return res.status(403).json({ error: "Admins cannot delete superuser accounts" });
 	}
 
-	await prisma.user.delete({ where: { id } });
-
-	res.status(200).json({ status: "success", message: "User deleted successfully" });
+	try {
+		await prisma.user.delete({ where: { id } });
+		res.status(200).json({ status: "success", message: "User deleted successfully" });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Failed to delete user" });
+	}
 };
 
 export const updateUserRole = async (req, res) => {
@@ -120,11 +129,16 @@ export const updateUserRole = async (req, res) => {
 		return res.status(404).json({ error: "User not found" });
 	}
 
-	const updatedUser = await prisma.user.update({
-		where: { id },
-		data: { role },
-		select: { id: true, name: true, email: true, role: true },
-	});
+	try {
+		const updatedUser = await prisma.user.update({
+			where: { id },
+			data: { role },
+			select: { id: true, name: true, email: true, role: true },
+		});
 
-	res.status(200).json({ status: "success", data: updatedUser });
+		res.status(200).json({ status: "success", data: updatedUser });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Failed to update user role" });
+	}
 };
