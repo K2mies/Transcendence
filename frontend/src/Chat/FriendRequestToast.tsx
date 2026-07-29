@@ -14,7 +14,7 @@ function FriendRequestToast({ toastId, senderName }: FriendRequestToastProps) {
     try {
       toast.dismiss(toastId);
       const response = await fetch(
-        `http://localhost:4243/profile/${senderName}/accept-request`,
+        `http://localhost:4243/profile/${encodeURIComponent(senderName)}/accept-request`,
         {
           method: "PUT",
           credentials: "include",
