@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import type { FriendStatusRefresh } from "../../types";
 import { MdPersonAdd } from "react-icons/md";
 
@@ -17,7 +18,13 @@ function AddFriend({
     if (response.status === 200) {
       await response.json();
     } else {
-      console.error("Error sending friend request");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Error sending friend request. Please try again.
+          </div>
+        </div>
+      ));
     }
     window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);
@@ -29,7 +36,13 @@ function AddFriend({
         className="inline-flex items-center gap-2"
         onClick={sendFriendRequest}
       >
-        Add friend <MdPersonAdd size={16} className="text-tertiary" aria-hidden="true" focusable="false" />
+        Add friend{" "}
+        <MdPersonAdd
+          size={16}
+          className="text-tertiary"
+          aria-hidden="true"
+          focusable="false"
+        />
       </button>
     </>
   );

@@ -96,8 +96,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
       } else {
         setRegisterStatus(result.error ?? "Registration failed");
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch {
       setRegisterStatus("Registration failed");
     }
   }
@@ -174,7 +173,9 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
         type="password"
       />
 
-      <button className="cursor-pointer underline" type="submit">Submit</button>
+      <button className="cursor-pointer underline" type="submit">
+        Submit
+      </button>
 
       {registerStatus !== "init" && (
         <div>

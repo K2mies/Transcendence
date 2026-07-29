@@ -1,4 +1,5 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Reviews from "../../Review/Reviews";
 import FavoriteButton from "../../Rating/FavoriteButton";
@@ -63,7 +64,13 @@ async function updateGameRelation(
   if (response.status === 200) {
     await response.json();
   } else {
-    console.error("Error updating game relation");
+    toast.custom(() => (
+      <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+        <div className="flex items-center gap-2">
+          Error updating game status. Please try again.
+        </div>
+      </div>
+    ));
   }
 }
 
