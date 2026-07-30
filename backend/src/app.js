@@ -3,6 +3,7 @@ import session from "express-session";
 import profileRoutes from "./routes/profile.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import multer from "multer";
 import "./config/passport.js";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -12,7 +13,10 @@ import gameRoutes from "./routes/game.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import gamesRoutes from "./routes/games.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import adminUserRoutes from "./routes/adminUser.routes.js";
+import adminReviewRoutes from "./routes/adminReview.routes.js";
 import { protect } from "./utils/protectJWT.js";
+import { requireRole } from "./middlewares/requireRole.js";
 import { corsValidator } from "./middlewares/validateCors.js";
 
 // Initialize express
@@ -48,6 +52,8 @@ app.use("/game", gameRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/message", protect, messageRoutes);
 app.use("/search", protect, gamesRoutes);
+app.use("/admin/users", protect, requireRole(["ADMIN", "SUPERUSER"]), adminUserRoutes);
+app.use("/admin/reviews", protect, requireRole(["ADMIN", "SUPERUSER"]), adminReviewRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -57,7 +63,11 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   let errCode = err.status || err.statusCode;
-
+  if (err instanceof multer.MulterError)
+  {
+	if (err.code === "LIMIT_FILE_SIZE")
+		return res.status(400).json({ message: "File must be 5MB or smaller." });
+  }
   if (!errCode) {
     switch (err.type) {
       case "CORS":

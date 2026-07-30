@@ -5,6 +5,8 @@ import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
 import { FaEdit } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
+import { IoPerson } from "react-icons/io5";
 import type { UserProfile } from "../../types";
 
 type ProfileInfoProps = {
@@ -17,13 +19,53 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [updateUsernameMode, setUpdateUsernameMode] = useState<boolean>(false);
   const [updateBioMode, setUpdateBioMode] = useState<boolean>(false);
   const [currBio, setCurrBio] = useState<string>(profile.bio);
+  const [avatar, setAvatar] = useState<string | null>(profile.image ?? null);
   const editRef = useRef<any>(null);
   const isMyUser = myCurrUser === profile.name;
   const { onlineUsers, friends } = UseChat();
+  const [editError, setEditError] = useState<string | undefined>(undefined);
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    e.target.value = "";
+    const response = await fetch(`http://localhost:4243/profile/upload`, {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setAvatar(data);
+    } else {
+      setEditError(data.message || "Error uploading avatar. Please try again.");
+      setTimeout(() => {
+        setEditError("");
+      }, 5000);
+    }
+  };
+  const deleteImage = async (e) => {
+    const response = await fetch(`http://localhost:4243/profile/delete`, {
+      method: "POST",
+      credentials: "include",
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setAvatar(null);
+    } else {
+      setEditError(data.message || "Error deleting avatar. Please try again.");
+      setTimeout(() => {
+        setEditError("");
+      }, 5000);
+    }
+  };
 
   useEffect(() => {
     setCurrBio(profile.bio);
-  }, [profile]);
+    setAvatar(profile.image ?? null);
+  }, [profile.bio, profile.image]);
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
@@ -67,12 +109,47 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         </div>
       </div>
       <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
-        <img
-          className="border-secondary border-4 w-40 h-auto rounded-lg m-4"
-          src="/logo_03.jpg"
-          alt="Placeholder for profile picture"
-        ></img>
-        {isMyUser && updateBioMode && (
+        <div className="relative m-4 border-secondary border-4 w-40 h-auto rounded-lg m-4">
+          {avatar ? (
+            <img
+              src={`data:image/jpeg;base64,${avatar}`}
+              alt="Profile picture"
+            ></img>
+          ) : (
+            <IoPerson size={150} />
+          )}
+          {isMyUser && (
+            <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
+              <label className="cursor-pointer" title="Upload avatar">
+                <FaEdit size={15} />
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, .png, .jpg, .jpeg"
+                  className="hidden"
+                  onChange={uploadImage}
+                />
+              </label>
+			  {avatar && (
+              <button
+                className="cursor-pointer"
+                title="Delete avatar"
+                onClick={deleteImage}
+              >
+                <ImCross size={10} />
+              </button> )}
+            </div>
+          )}
+          {editError && (
+            <div
+              className="absolute -bottom-12 left-1/2 -translate-x-1/2
+                  bg-red-600 text-white text-sm px-3 py-2
+                  rounded shadow-lg whitespace-nowrap z-10"
+            >
+              {editError}
+            </div>
+          )}
+        </div>
+        {updateBioMode && (
           <UpdateBio
             setUpdateBioMode={setUpdateBioMode}
             currBio={currBio}

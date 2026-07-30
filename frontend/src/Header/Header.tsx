@@ -6,8 +6,10 @@ import { FaGamepad } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { FaUserShield } from "react-icons/fa";
 import { SiWechat } from "react-icons/si";
 import { useLocation } from "react-router-dom";
+import { useCurrentUser } from "../Auth/CurrentUserContext";
 
 type HeaderProps = {
   showSearch: boolean;
@@ -26,6 +28,7 @@ function Header({
   const { conversations } = UseChat();
   const hasUnreadMessages = conversations.some((c) => c.unreadCount > 0);
   const location = useLocation();
+  const { currentUser } = useCurrentUser();
 
   const pageTitles: Record<string, string> = {
     "/": "Home",
@@ -158,6 +161,21 @@ function Header({
               size={iconSize}
               aria-hidden="true"
               focusable="false"
+            />
+          </Link>
+        )}
+
+        {(currentUser?.role === "ADMIN" || currentUser?.role === "SUPERUSER") && (
+          <Link
+            to="/admin"
+            className="
+              no-underline
+              text-tertiary
+              "
+          >
+            <FaUserShield
+              className="text-tertiary hover:text-secondary"
+              size={iconSize + 4}
             />
           </Link>
         )}

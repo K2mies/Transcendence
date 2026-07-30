@@ -57,6 +57,7 @@ export async function getProfile(profileName) {
     id: user.id,
     name: user.name,
     bio: user.bio,
+    image: user.image? Buffer.from(user.image).toString('base64') : null,
     friends: [
       //... combines these into one array
       ...user.receivedRequests
@@ -128,6 +129,37 @@ export async function updateBio(profileName, newData) {
       bio: newData.bio,
     },
   });
+}
+
+export async function uploadImage(profileName, imageFile) {
+	const currentUser = await prisma.user.findUnique({ where: { name: profileName } });
+	if (!currentUser) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
+	const updatedUser = await prisma.user.update({
+	where: { name: profileName },
+	data: {
+		image: imageFile,
+	},
+	});
+	return Buffer.from(updatedUser.image).toString('base64');
+}
+
+export async function deleteImage(profileName) {
+	const currentUser = await prisma.user.findUnique({ where: { name: profileName } });
+	if (!currentUser) {
+		const error = new Error("No user found");
+		error.status = 404;
+		throw error;
+	}
+	await prisma.user.update({
+	where: { name: profileName },
+	data: {
+		image: null,
+	},
+	});
 }
 
 export async function getFriendStatus(friendName, userId, userName) {
