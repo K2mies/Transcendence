@@ -4,6 +4,7 @@ import UpdateBio from "./UpdateBio";
 import FriendButton from "../Friendship/FriendButton";
 import FriendList from "../Friendship/FriendList";
 import UseChat from "../../Chat/UseChat";
+import { Alert } from "@mui/material";
 import { FaEdit } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 import { IoPerson } from "react-icons/io5";
@@ -56,9 +57,6 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
       setAvatar(null);
     } else {
       setEditError(data.message || "Error deleting avatar. Please try again.");
-      setTimeout(() => {
-        setEditError("");
-      }, 5000);
     }
   };
 
@@ -81,7 +79,10 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           <h2 className="p-4 font-bold">{profile.name}</h2>
         )}
         {onlineUsers.has(profile.id) && (
-          <span aria-label="Online" className="h-2.5 w-2.5 rounded-full bg-online" />
+          <span
+            aria-label="Online"
+            className="h-2.5 w-2.5 rounded-full bg-online"
+          />
         )}
         {isMyUser && !updateUsernameMode && (
           <button
@@ -89,7 +90,8 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
             aria-label="Change username"
             onClick={() => {
               setUpdateUsernameMode(true);
-          }}>
+            }}
+          >
             <FaEdit size={16} aria-hidden="true" focusable="false" />
           </button>
         )}
@@ -129,24 +131,25 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
                   onChange={uploadImage}
                 />
               </label>
-			  {avatar && (
-              <button
-                className="cursor-pointer"
-                title="Delete avatar"
-                onClick={deleteImage}
-              >
-                <ImCross size={10} />
-              </button> )}
+              {avatar && (
+                <button
+                  className="cursor-pointer"
+                  title="Delete avatar"
+                  onClick={deleteImage}
+                >
+                  <ImCross size={10} />
+                </button>
+              )}
             </div>
           )}
           {editError && (
-            <div
-              className="absolute -bottom-12 left-1/2 -translate-x-1/2
-                  bg-red-600 text-white text-sm px-3 py-2
-                  rounded shadow-lg whitespace-nowrap z-10"
+            <Alert
+              severity="error"
+              variant="filled"
+              className="absolute -bottom-15.5 text-nowrap"
             >
               {editError}
-            </div>
+            </Alert>
           )}
         </div>
         {updateBioMode && (
@@ -158,9 +161,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         )}
         {!updateBioMode && currBio && (
           <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
-            <p className="my-4 mr-4 text-left w-full">
-              {currBio}
-            </p>
+            <p className="my-4 mr-4 text-left w-full">{currBio}</p>
           </div>
         )}
         {isMyUser && !updateBioMode && (

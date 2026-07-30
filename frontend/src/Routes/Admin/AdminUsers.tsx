@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCurrentUser } from "../../Auth/CurrentUserContext";
@@ -45,7 +46,13 @@ function AdminUsers() {
     if (response.ok) {
       setUsers((prev) => prev.filter((user) => user.id !== id));
     } else {
-      console.error("Error deleting user");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Error deleting user. Please try again.
+          </div>
+        </div>
+      ));
     }
   }
 
@@ -62,7 +69,13 @@ function AdminUsers() {
         prev.map((user) => (user.id === id ? { ...user, role } : user)),
       );
     } else {
-      console.error("Error updating role");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Error changing role. Please try again.
+          </div>
+        </div>
+      ));
     }
   }
 
@@ -139,7 +152,7 @@ function AdminUsers() {
                     className="appearance-none border-none bg-transparent p-0 pr-4 text-sm"
                   >
                     {ASSIGNABLE_ROLES.map((role) => (
-                      <option key={role} value={role} className="text-lg py-2">
+                      <option key={role} value={role} className="py-2">
                         {role}
                       </option>
                     ))}
