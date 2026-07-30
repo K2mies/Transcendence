@@ -134,4 +134,3 @@ const postRead = async (req, res) => {
 };
 
 export { getMessages, getConversations, postRead };
-

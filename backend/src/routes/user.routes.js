@@ -1,5 +1,10 @@
 import express from "express";
-import {meUser, deleteUser, myFriends, allUsers} from "../controllers/user.controllers.js";
+import {
+  meUser,
+  deleteUser,
+  myFriends,
+  allUsers,
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
