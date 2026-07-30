@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PaginationControls from "../Games/PaginationControls";
@@ -40,7 +41,13 @@ function AdminReviews() {
     if (response.ok) {
       setReviews((prev) => prev.filter((review) => review.id !== id));
     } else {
-      console.error("Error deleting review");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Error deleting review. Please try again.
+          </div>
+        </div>
+      ));
     }
   }
 
