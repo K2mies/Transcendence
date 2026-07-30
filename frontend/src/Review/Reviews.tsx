@@ -12,6 +12,7 @@ type ReviewsProps = {
   reviews: ReviewType[];
   setReviews?: React.Dispatch<React.SetStateAction<ReviewType[]>>;
   onDeleteReview?: (review: ReviewType) => void;
+  canAdminDelete?: boolean;
 
   reviewAverage?: number;
   rating?: number;
@@ -25,6 +26,7 @@ function Reviews({
   reviews,
   setReviews,
   onDeleteReview,
+  canAdminDelete,
   reviewAverage,
   rating,
 }: ReviewsProps) {
@@ -185,6 +187,7 @@ function Reviews({
               review={review}
               page={page}
               isMyReview={review.user.name === myCurrUser}
+              canAdminDelete={canAdminDelete}
               onEdit={() => editReview(review)}
               onDelete={
                 onDeleteReview ? () => onDeleteReview(review) : undefined

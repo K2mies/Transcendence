@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
+import AdminRoute from "./Routes/Protection/AdminRoute";
 
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -29,6 +30,8 @@ import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
 import { FavoritesProvider } from "./Rating/FavoritesContext";
+import { CurrentUserProvider } from "./Auth/CurrentUserContext";
+import Admin from "./Routes/Admin/Admin";
 
 import { Toaster } from "react-hot-toast";
 
@@ -121,6 +124,10 @@ function Layout() {
             />
             <Route path="chat" element={<Chat />} />
           </Route>
+
+          <Route element={<AdminRoute />}>
+            <Route path="admin" element={<Admin />} />
+          </Route>
         </Routes>
       </main>
 
@@ -134,7 +141,9 @@ function App() {
     <BrowserRouter>
       <ChatProvider>
         <FavoritesProvider>
-          <Layout />
+          <CurrentUserProvider>
+            <Layout />
+          </CurrentUserProvider>
         </FavoritesProvider>
       </ChatProvider>
     </BrowserRouter>
