@@ -3,6 +3,7 @@ import session from "express-session";
 import profileRoutes from "./routes/profile.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import multer from "multer";
 import "./config/passport.js";
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -62,7 +63,11 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   let errCode = err.status || err.statusCode;
-
+  if (err instanceof multer.MulterError)
+  {
+	if (err.code === "LIMIT_FILE_SIZE")
+		return res.status(400).json({ message: "File must be 5MB or smaller." });
+  }
   if (!errCode) {
     switch (err.type) {
       case "CORS":
