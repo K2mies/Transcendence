@@ -13,7 +13,10 @@ import gameRoutes from "./routes/game.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import gamesRoutes from "./routes/games.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import adminUserRoutes from "./routes/adminUser.routes.js";
+import adminReviewRoutes from "./routes/adminReview.routes.js";
 import { protect } from "./utils/protectJWT.js";
+import { requireRole } from "./middlewares/requireRole.js";
 import { corsValidator } from "./middlewares/validateCors.js";
 
 // Initialize express
@@ -49,6 +52,8 @@ app.use("/game", gameRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/message", protect, messageRoutes);
 app.use("/search", protect, gamesRoutes);
+app.use("/admin/users", protect, requireRole(["ADMIN", "SUPERUSER"]), adminUserRoutes);
+app.use("/admin/reviews", protect, requireRole(["ADMIN", "SUPERUSER"]), adminReviewRoutes);
 
 // 404 handler
 app.use((req, res) => {
