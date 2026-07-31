@@ -77,6 +77,9 @@ const getConversations = async (req, res) => {
 };
 
 const postRead = async (req, res) => {
+  const me = req.user.id;
+  const otherUserId = Number(req.params.userId);
+
   try {
     const me = req.user.id;
     const otherUserId = Number(req.params.userId);
