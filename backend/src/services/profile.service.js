@@ -291,12 +291,6 @@ export async function acceptFriendRequest(friendName, user) {
     accepterName: accepter.name,
   });
 
-  sendNotification(user, {
-    type: "friend-request-accepted",
-    userId: friend.id,
-    accepterName: accepter.name,
-  });
-
   await sendOnlineFriends(friend.id);
   await sendOnlineFriends(user);
 }
