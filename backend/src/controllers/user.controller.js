@@ -1,4 +1,4 @@
-import { prisma } from "../config/db.js";
+import * as userService from "../services/user.service.js";
 
 const meUser = async (req, res) => {
   res.status(200).json({
@@ -7,72 +7,42 @@ const meUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  await prisma.user.delete({
-    where: {
-      id: req.user.id,
-    },
-  });
+  const userId = req.user.id;
 
-  res.cookie("jwt", "", {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-
-  res.status(200).json({
-    status: "success",
-    message: "User deleted successfully",
-  });
+  try {
+    await userService.deleteUser(userId);
+    res.status(200).json({
+      status: "success",
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+  }
 };
 
 const myFriends = async (req, res) => {
   const me = req.user.id;
 
-  const relations = await prisma.userUserRelation.findMany({
-    where: {
-      friendStatus: "FRIENDS",
-      OR: [{ senderId: me }, { receiverId: me }],
-    },
-    include: {
-      sender: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      receiver: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  });
-
-  const friends = relations.map((relation) =>
-    relation.senderId === me ? relation.receiver : relation.sender,
-  );
-
-  res.json(friends);
+  try {
+    const friends = await userService.myFriends(me);
+    res.status(200).json(friends);
+  } catch (error) {
+    console.error(error);
+    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+  }
 };
 
 const allUsers = async (req, res) => {
   const search = typeof req.query.search === "string" ? req.query.search : "";
 
-  const users = await prisma.user.findMany({
-    where: {
-      name: {
-        contains: search,
-        mode: "insensitive",
-      },
-    },
-    select: {
-      id: true,
-      name: true,
-    },
-    take: 20,
-  });
-
-  res.json(users);
+  try {
+    const users = await userService.allUsers(search);
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+  }
 };
 
 export { meUser, deleteUser, myFriends, allUsers };
