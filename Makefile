@@ -20,7 +20,10 @@ up:
 
 wait:
 	@echo "$(YELLOW)Waiting for backend...$(RESET)"
-	@until [ "$$(docker inspect --format='{{.State.Health.Status}}' $(BACKEND))" = "healthy" ]; do \
+	@i=0; \
+	until [ "$$(docker inspect --format='{{.State.Health.Status}}' $(BACKEND) 2>/dev/null)" = "healthy" ]; do \
+		i=$$((i+1)); \
+		[ $$i -ge 60 ] && { echo ""; echo "$(RED)Timed out waiting for backend healthcheck.$(RESET)"; exit 1; }; \
 		printf "."; \
 		sleep 2; \
 	done
@@ -30,13 +33,13 @@ wait:
 seed:
 	@echo "$(BLUE)Seeding database...$(RESET)"
 
-	@docker exec backend node prisma/gamesSeed.js
+	@docker exec $(BACKEND) node prisma/gamesSeed.js
 	@echo "$(GREEN)GAMES SEED DONE!$(RESET)"
 
-	@docker exec backend node prisma/profilesSeed.js
+	@docker exec $(BACKEND) node prisma/profilesSeed.js
 	@echo "$(GREEN)PROFILES SEED DONE!$(RESET)"
 
-	@docker exec backend node prisma/reviewsSeed.js
+	@docker exec $(BACKEND) node prisma/reviewsSeed.js
 	@echo "$(GREEN)REVIEWS SEED DONE!$(RESET)"
 
 down:
