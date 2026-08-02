@@ -5,8 +5,9 @@ YELLOW=$(shell echo "\033[1;33m")
 BLUE=$(shell echo "\033[1;34m")
 
 COMPOSE_FILE=docker-compose.yml
+BACKEND=backend
 
-all: images up
+all: images up wait seed
 	@echo "$(GREEN)ALL GOOD. DONE!$(RESET)"
 
 images:
@@ -16,6 +17,27 @@ images:
 up:
 	@echo "$(BLUE)Starting containers...$(RESET)"
 	@docker compose -f $(COMPOSE_FILE) up -d
+
+wait:
+	@echo "$(YELLOW)Waiting for backend...$(RESET)"
+	@until [ "$$(docker inspect --format='{{.State.Health.Status}}' $(BACKEND))" = "healthy" ]; do \
+		printf "."; \
+		sleep 2; \
+	done
+	@echo ""
+	@echo "$(GREEN)Backend is ready.$(RESET)"
+
+seed:
+	@echo "$(BLUE)Seeding database...$(RESET)"
+
+	@docker exec backend node prisma/gamesSeed.js
+	@echo "$(GREEN)GAMES SEED DONE!$(RESET)"
+
+	@docker exec backend node prisma/profilesSeed.js
+	@echo "$(GREEN)PROFILES SEED DONE!$(RESET)"
+
+	@docker exec backend node prisma/reviewsSeed.js
+	@echo "$(GREEN)REVIEWS SEED DONE!$(RESET)"
 
 down:
 	@echo "$(RED)Stopping containers...$(RESET)"
@@ -31,4 +53,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all images clean fclean re up down
+.PHONY: all images wait seed clean fclean re up down
