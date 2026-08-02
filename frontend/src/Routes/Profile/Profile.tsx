@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
 import type { UserProfile, ProfileGame } from "../../types";
 import type { Review as ReviewType } from "../../Types/ReviewType";
+import { useCurrentUser } from "../../Auth/CurrentUserContext";
 
 type ProfileProps = {
   myCurrUser: string | undefined;
@@ -52,9 +53,13 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   const [completedGames, setCompletedGames] = useState<ProfileGame[]>([]);
   const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
+  const location = useLocation();
+  const { currentUser } = useCurrentUser();
 
   const isMyProfile = myCurrUser === username;
   const titleName = isMyProfile ? "My profile" : username;
+  const isAdminViewer =
+    currentUser?.role === "ADMIN" || currentUser?.role === "SUPERUSER";
 
   async function removeFavorite(game: ProfileGame) {
     const response = await fetch(
@@ -100,13 +105,23 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   }
 
   async function deleteReview(review: ReviewType) {
-    const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      },
-    );
+    const isOwnReview = review.user.name === myCurrUser;
+
+    if (
+      !isOwnReview &&
+      !window.confirm(`Delete ${review.user.name}'s review? This cannot be undone.`)
+    ) {
+      return;
+    }
+
+    const url = isOwnReview
+      ? `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`
+      : `http://localhost:4243/admin/reviews/${review.id}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+      credentials: "include",
+    });
 
     if (response.ok) {
       setReviews((currentReviews) =>
@@ -143,74 +158,81 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
     loadProfile();
   }, [username]);
 
+  useEffect(() => {
+    if (location.hash === "#reviews" && profile) {
+      document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location.hash, profile]);
+
   return (
-    <>
-      <div className="bg-secondary p-6 min-h-screen">
-        {isUserFound && profile && myCurrUser && (
-          <div>
-            <ProfileInfo
-              profile={profile}
-              myCurrUser={myCurrUser}
-              setMyCurrUser={setMyCurrUser}
-            ></ProfileInfo>
-            {favGames.length > 0 && (
-              <DisplayGames
-                header="Favorite games"
-                games={favGames}
-                onRemove={isMyProfile ? removeFavorite : undefined}
-              ></DisplayGames>
-            )}
-            {currGames.length > 0 && (
-              <DisplayGames
-                header="Currently playing"
-                games={currGames}
-                onRemove={
-                  isMyProfile
-                    ? (game) => removeGameState(game, setCurrGames)
-                    : undefined
-                }
-              ></DisplayGames>
-            )}
-            {toPlayGames.length > 0 && (
-              <DisplayGames
-                header="Games to play"
-                games={toPlayGames}
-                onRemove={
-                  isMyProfile
-                    ? (game) => removeGameState(game, setToPlayGames)
-                    : undefined
-                }
-              ></DisplayGames>
-            )}
-            {completedGames.length > 0 && (
-              <DisplayGames
-                header="Completed games"
-                games={completedGames}
-                onRemove={
-                  isMyProfile
-                    ? (game) => removeGameState(game, setCompletedGames)
-                    : undefined
-                }
-              ></DisplayGames>
-            )}
-            {reviews.length > 0 && (
+    <div className="bg-secondary p-6 min-h-screen">
+      {isUserFound && profile && myCurrUser && (
+        <div>
+          <ProfileInfo
+            profile={profile}
+            myCurrUser={myCurrUser}
+            setMyCurrUser={setMyCurrUser}
+          ></ProfileInfo>
+          {favGames.length > 0 && (
+            <DisplayGames
+              header="Favorite games"
+              games={favGames}
+              onRemove={isMyProfile ? removeFavorite : undefined}
+            ></DisplayGames>
+          )}
+          {currGames.length > 0 && (
+            <DisplayGames
+              header="Currently playing"
+              games={currGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCurrGames)
+                  : undefined
+              }
+            ></DisplayGames>
+          )}
+          {toPlayGames.length > 0 && (
+            <DisplayGames
+              header="Games to play"
+              games={toPlayGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setToPlayGames)
+                  : undefined
+              }
+            ></DisplayGames>
+          )}
+          {completedGames.length > 0 && (
+            <DisplayGames
+              header="Completed games"
+              games={completedGames}
+              onRemove={
+                isMyProfile
+                  ? (game) => removeGameState(game, setCompletedGames)
+                  : undefined
+              }
+            ></DisplayGames>
+          )}
+          {reviews.length > 0 && (
+            <div id="reviews">
               <Reviews
                 reviews={reviews}
                 setReviews={setReviews}
                 myCurrUser={myCurrUser}
                 page="profile"
                 onDeleteReview={deleteReview}
-            />
-            )}
-          </div>
-        )}
-        {isUserFound === false && (
-          <div>
-            <p>404 User not found</p>
-          </div>
-        )}
-      </div>
-    </>
+                canAdminDelete={isAdminViewer}
+              />
+            </div>
+          )}
+        </div>
+      )}
+      {isUserFound === false && (
+        <div>
+          <p>404 User not found</p>
+        </div>
+      )}
+    </div>
   );
 }
 

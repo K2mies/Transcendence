@@ -13,7 +13,9 @@ model User {
   email            String             @unique
   password         String?
   bio              String?
+  role             Role               @default(USER)
   createdAt        DateTime           @default(now())
+  image            Bytes?
 
   oauthAccounts    OAuthAccount[]
   likeReviews      LikeReview[]
@@ -23,6 +25,12 @@ model User {
   sentRequests     UserUserRelation[] @relation("sentRequests")
   sentMessages     Message[] @relation("Sender")
   receivedMessages Message[] @relation("Receiver")
+}
+
+enum Role {
+  SUPERUSER
+  ADMIN
+  USER
 }
 
 model OAuthAccount {
