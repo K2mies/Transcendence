@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
@@ -30,7 +30,7 @@ import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
 import { FavoritesProvider } from "./Rating/FavoritesContext";
-import { CurrentUserProvider } from "./Auth/CurrentUserContext";
+import { CurrentUserProvider, useCurrentUser } from "./Auth/CurrentUserContext";
 import Admin from "./Routes/Admin/Admin";
 
 import { Toaster } from "react-hot-toast";
@@ -48,6 +48,17 @@ function Layout() {
   const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
+  const { currentUser } = useCurrentUser();
+
+  useEffect(() => {
+    if (currentUser && currentUser.name !== myCurrUser) {
+      setMyCurrUser(currentUser.name);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: currentUser.id, name: currentUser.name }),
+      );
+    }
+  }, [currentUser, myCurrUser]);
 
   const hideHeader =
     location.pathname === "/" ||
