@@ -51,12 +51,15 @@ function Layout() {
   const { currentUser } = useCurrentUser();
 
   useEffect(() => {
-    if (currentUser && currentUser.name !== myCurrUser) {
+    if (!currentUser) return;
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ id: currentUser.id, name: currentUser.name }),
+    );
+
+    if (currentUser.name !== myCurrUser) {
       setMyCurrUser(currentUser.name);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ id: currentUser.id, name: currentUser.name }),
-      );
     }
   }, [currentUser, myCurrUser]);
 
