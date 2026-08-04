@@ -11,6 +11,8 @@ import { useCurrentUser } from "../../Auth/CurrentUserContext";
 type ProfileProps = {
   myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
+  isUserFound: boolean | undefined;
+  setIsUserFound: (isUserFound: boolean | undefined) => void;
 };
 
 type GameProps = {
@@ -45,14 +47,13 @@ function DisplayGames({ header, games, onRemove }: GameProps) {
   );
 }
 
-function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
+function Profile({ myCurrUser, setMyCurrUser, isUserFound, setIsUserFound }: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [favGames, setFavGames] = useState<ProfileGame[]>([]);
   const [currGames, setCurrGames] = useState<ProfileGame[]>([]);
   const [toPlayGames, setToPlayGames] = useState<ProfileGame[]>([]);
   const [completedGames, setCompletedGames] = useState<ProfileGame[]>([]);
-  const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
   const location = useLocation();
   const { currentUser } = useCurrentUser();
@@ -155,7 +156,9 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         setIsUserFound(false);
       }
     }
-    document.title = `${titleName} | GoodPlays`;
+    if (isUserFound === true) {
+      document.title = `${titleName} | GoodPlays`;
+    }
     loadProfile();
   }, [username]);
 
@@ -167,7 +170,7 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
 
   return (
     <>
-      {isUserFound && profile && myCurrUser && (
+      {isUserFound === true && profile && myCurrUser && (
         <div className="bg-secondary p-6 min-h-screen">
           <ProfileInfo
             profile={profile}

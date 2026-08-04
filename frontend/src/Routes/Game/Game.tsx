@@ -25,6 +25,8 @@ type GameInfoProps = {
 
 type GameProps = {
   myCurrUser: string | undefined;
+  isGameFound: boolean | undefined;
+  setIsGameFound: (isGameFound: boolean | undefined) => void;
 };
 
 function GameData({ game }: GameDataProps) {
@@ -302,7 +304,7 @@ function GameInfo({ game }: GameInfoProps) {
   );
 }
 
-function Game({ myCurrUser }: GameProps) {
+function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
   const [game, setGame] = useState<Game | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const reviewAverage =
@@ -314,9 +316,6 @@ function Game({ myCurrUser }: GameProps) {
             100,
         ) / 100;
   const [igdbRating, setIgdbRating] = useState(0);
-  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
-    undefined,
-  );
 
   const { name } = useParams<{ name: string }>();
 
@@ -342,6 +341,7 @@ function Game({ myCurrUser }: GameProps) {
       document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
+
   }, [name]);
 
   async function deleteReview(review: Review) {
@@ -365,7 +365,7 @@ function Game({ myCurrUser }: GameProps) {
   }
   return (
     <>
-      {isGameFound && game && (
+      {isGameFound === true && game && (
         <div className="bg-secondary text-primary min-h-screen p-6">
           <>
             <GameInfo game={game} />
