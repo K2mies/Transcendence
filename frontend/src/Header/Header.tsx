@@ -34,7 +34,6 @@ function Header({
     "/": "Home",
     "/games": "GoodPlays",
     "/dashboard": "GoodPlays",
-    "/profile": "Profile",
     "/terms": "Terms of Service",
     "/privacy": "Privacy Policy",
     "/rating": "Rating System",

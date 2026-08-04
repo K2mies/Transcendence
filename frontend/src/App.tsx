@@ -21,6 +21,8 @@ import Games from "./Routes/Games/Games";
 import Home from "./Routes/Home";
 import Dashboard from "./Routes/Dashboard/Dashboard";
 
+import NotFound from "./NotFound";
+
 import { ChatProvider } from "./Chat/ChatContext";
 import Chat from "./Chat/Chat";
 
@@ -137,11 +139,13 @@ function Layout() {
               element={<Game myCurrUser={myCurrUser} />}
             />
             <Route path="chat" element={<Chat />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           <Route element={<AdminRoute />}>
             <Route path="admin" element={<Admin />} />
           </Route>
+
         </Routes>
       </main>
 
