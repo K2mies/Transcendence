@@ -1,4 +1,5 @@
 import { prisma } from "../config/db.js";
+import { sendUsernameUpdate } from "../utils/websocket.js";
 import bcrypt from "bcryptjs";
 
 export async function register(name, email, password) {

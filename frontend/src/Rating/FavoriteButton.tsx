@@ -52,7 +52,9 @@ function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            {error instanceof Error && error.message}
+            {error instanceof Error && error.message
+                ? error.message
+                : "Failed to update favorite status. Please try again."}
           </div>
         </div>
       ));

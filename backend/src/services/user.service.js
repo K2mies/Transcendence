@@ -6,11 +6,6 @@ export async function deleteUser(userId) {
       id: userId,
     },
   });
-
-  res.cookie("jwt", "", {
-    httpOnly: true,
-    expires: new Date(0),
-  });
 }
 
 export async function myFriends(myId) {
