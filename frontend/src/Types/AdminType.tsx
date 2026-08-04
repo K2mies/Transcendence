@@ -2,6 +2,7 @@ export type Role = "SUPERUSER" | "ADMIN" | "USER";
 
 export type CurrentUser = {
   id: number;
+  name: string;
   role: Role;
 };
 

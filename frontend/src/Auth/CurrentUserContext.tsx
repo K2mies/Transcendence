@@ -29,7 +29,11 @@ export function CurrentUserProvider({ children }: { children: ReactNode }) {
         .then((result) => {
           setCurrentUser(
             result?.status === "success"
-              ? { id: result.data.user.id, role: result.data.user.role }
+              ? {
+                  id: result.data.user.id,
+                  name: result.data.user.name,
+                  role: result.data.user.role,
+                }
               : null,
           );
         })
