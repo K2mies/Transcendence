@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import toast from "react-hot-toast";
 import GameCard from "./GameCard";
 import PaginationControls from "./PaginationControls";
 import GameFilter from "./Filter/GameFilter";
@@ -91,6 +92,14 @@ function Games() {
           document.querySelector<HTMLParagraphElement>("#result-info");
         if (resultInfo)
           resultInfo.textContent = `Found ${result.data.length} games with current filters`;
+      } else {
+          toast.custom(() => (
+            <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+              <div className="flex items-center gap-2">
+                Failed to search for games. Please try again.
+              </div>
+            </div>
+          ));
       }
     }
 

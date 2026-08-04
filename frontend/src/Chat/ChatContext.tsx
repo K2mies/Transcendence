@@ -83,6 +83,16 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         }),
       ]);
 
+      if (!convRes.ok || !friendsRes.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Oops! Something went wrong. Please try again.
+            </div>
+          </div>
+        ));
+      }
+
       const convData = await convRes.json();
       const friendsData = await friendsRes.json();
 
@@ -118,11 +128,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error updating friend list. Please try again.
+            Failed to update friends list. Please try again.
           </div>
         </div>
       ));
-      return;
     }
 
     const friendsData: Friend[] = await friendsRes.json();
@@ -396,10 +405,20 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   // ---------------- MARK AS READ ----------------
   const markAsRead = useCallback(async (userId: number) => {
-    await fetch(`http://localhost:4243/message/read/${userId}`, {
+    const res = await fetch(`http://localhost:4243/message/read/${userId}`, {
       method: "POST",
       credentials: "include",
     });
+
+    if (!res.ok) {
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to mark messages as read. Please try again.
+          </div>
+        </div>
+      ));
+    }
 
     setConversations((prev) => {
       const conversation = prev.find((c) => c.userId === userId);

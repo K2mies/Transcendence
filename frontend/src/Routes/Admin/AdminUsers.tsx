@@ -49,7 +49,7 @@ function AdminUsers() {
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error deleting user. Please try again.
+            Failed to delete user. Please try again.
           </div>
         </div>
       ));
@@ -75,7 +75,7 @@ function AdminUsers() {
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error changing role. Please try again.
+            Failed to change role. Please try again.
           </div>
         </div>
       ));

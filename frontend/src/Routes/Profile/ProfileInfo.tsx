@@ -41,7 +41,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
     if (response.ok) {
       setAvatar(data);
     } else {
-      setEditError(data.message || "Error uploading avatar. Please try again.");
+      setEditError(data.message || "Failed to upload avatar. Please try again.");
       setTimeout(() => {
         setEditError("");
       }, 5000);
@@ -56,7 +56,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
     if (response.ok) {
       setAvatar(null);
     } else {
-      setEditError(data.message || "Error deleting avatar. Please try again.");
+      setEditError(data.message || "Failed to delete avatar. Please try again.");
     }
   };
 

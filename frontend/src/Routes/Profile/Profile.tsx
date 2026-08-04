@@ -1,5 +1,6 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import toast from "react-hot-toast";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
@@ -85,6 +86,14 @@ function Profile({
 
     if (response.ok) {
       setFavGames((games) => games.filter((g) => g.id !== game.id));
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get favorite games. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
 
@@ -108,6 +117,14 @@ function Profile({
 
     if (response.ok) {
       setGames((games: ProfileGame[]) => games.filter((g) => g.id !== game.id));
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to reset game status. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
 
@@ -138,6 +155,14 @@ function Profile({
           (currentReview) => currentReview.id !== review.id,
         ),
       );
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to delete review. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
 

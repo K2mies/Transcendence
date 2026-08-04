@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
@@ -37,6 +38,14 @@ const SearchBar = () => {
 
       if (result.status === "success") {
         setGames(result.data);
+      } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get list of games. Please try again.
+            </div>
+          </div>
+        ));
       }
     }
 

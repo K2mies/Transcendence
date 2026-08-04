@@ -70,7 +70,7 @@ async function updateGameRelation(
     toast.custom(() => (
       <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
         <div className="flex items-center gap-2">
-          Error updating game status. Please try again.
+          Failed to update game status. Please try again.
         </div>
       </div>
     ));
@@ -360,6 +360,14 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
           (currentReview) => currentReview.id !== review.id,
         ),
       );
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to delete review. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
   return (
