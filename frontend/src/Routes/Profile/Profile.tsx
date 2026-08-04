@@ -3,6 +3,7 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
+import NotFound from "../../NotFound";
 import type { UserProfile, ProfileGame } from "../../types";
 import type { Review as ReviewType } from "../../Types/ReviewType";
 import { useCurrentUser } from "../../Auth/CurrentUserContext";
@@ -165,9 +166,9 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
   }, [location.hash, profile]);
 
   return (
-    <div className="bg-secondary p-6 min-h-screen">
+    <>
       {isUserFound && profile && myCurrUser && (
-        <div>
+        <div className="bg-secondary p-6 min-h-screen">
           <ProfileInfo
             profile={profile}
             myCurrUser={myCurrUser}
@@ -228,11 +229,9 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         </div>
       )}
       {isUserFound === false && (
-        <div>
-          <p>404 User not found</p>
-        </div>
+        <NotFound />
       )}
-    </div>
+    </>
   );
 }
 

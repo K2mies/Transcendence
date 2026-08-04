@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Reviews from "../../Review/Reviews";
 import FavoriteButton from "../../Rating/FavoriteButton";
+import NotFound from "../../NotFound";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";
 import PlatformIcon from "../../Review/PlatformIcon";
@@ -363,31 +364,30 @@ function Game({ myCurrUser }: GameProps) {
     }
   }
   return (
-    <div className="bg-secondary text-primary min-h-screen p-6">
+    <>
       {isGameFound && game && (
-        <>
-          <GameInfo game={game} />
-          <Reviews
-            key={game.name}
-            gameName={game.name}
-            gamePlatforms={game.platforms}
-            reviews={reviews}
-            setReviews={setReviews}
-            onDeleteReview={deleteReview}
-            reviewAverage={reviewAverage}
-            rating={igdbRating}
-            page="game"
-            myCurrUser={myCurrUser}
-          />
-        </>
-      )}
-
-      {isGameFound === false && (
-        <div>
-          <p>404 Game not found</p>
+        <div className="bg-secondary text-primary min-h-screen p-6">
+          <>
+            <GameInfo game={game} />
+            <Reviews
+              key={game.name}
+              gameName={game.name}
+              gamePlatforms={game.platforms}
+              reviews={reviews}
+              setReviews={setReviews}
+              onDeleteReview={deleteReview}
+              reviewAverage={reviewAverage}
+              rating={igdbRating}
+              page="game"
+              myCurrUser={myCurrUser}
+            />
+          </>
         </div>
       )}
-    </div>
+      {isGameFound === false && (
+        <NotFound />
+      )}
+    </>
   );
 }
 
