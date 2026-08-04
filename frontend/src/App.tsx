@@ -11,8 +11,8 @@ import Footer from "./Footer/Footer";
 import Login from "./Registration/Login";
 import SignUp from "./Registration/Register";
 
-import OAuthCallback from "./OAuthCallback";
-import OAuthUsernamePicker from "./OAuthUsernamePicker";
+import OAuthCallback from "./Auth/OAuthCallback";
+import OAuthUsernamePicker from "./Auth/OAuthUsernamePicker";
 
 import Profile from "./Routes/Profile/Profile";
 import Game from "./Routes/Game/Game";
