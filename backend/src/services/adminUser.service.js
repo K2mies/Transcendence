@@ -43,35 +43,6 @@ export async function getUserById(userId) {
   return user;
 }
 
-export async function updateUser(userId, newBody) {
-  const target = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { role: true },
-  });
-
-  if (!target) {
-    const error = new Error("User not found");
-    error.status = 404;
-    throw error;
-  }
-
-  if (!canActOnTarget(target.role)) {
-    const error = new Error("Superuser accounts cannot be modified through the admin panel");
-    error.status = 403;
-    throw error;
-  }
-
-  const { name, email, bio } = newBody;
-
-  const updatedUser = await prisma.user.update({
-    where: { id: userId },
-    data: { name, email, bio },
-    select: { id: true, name: true, email: true, bio: true, role: true },
-  });
-
-  return updatedUser;
-}
-
 export async function deleteUserById(userId, ownUserId) {
   if (userId === ownUserId) {
     const error = new Error("You cannot delete your own account");
