@@ -1,6 +1,5 @@
 import * as authService from "../services/auth.service.js";
 import { generateToken } from "../utils/generateToken.js";
-import { sendUsernameUpdate } from "../utils/websocket.js";
 
 const register = async (req, res) => {
   const { name, email, password } = req.validBody;
