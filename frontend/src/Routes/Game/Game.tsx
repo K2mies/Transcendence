@@ -30,7 +30,7 @@ function GameData({ game }: GameDataProps) {
   const released = temp.toLocaleDateString("fi-FI");
 
   return (
-    <div className="text-primary text-sm ml-auto w-54">
+    <div className="text-primary text-sm ml-auto w-full md:w-54">
       <p>
         <span className="font-bold">Developer:</span> {game.developer}
       </p>
@@ -83,7 +83,7 @@ function Status({ game }: StatusProps) {
   }
 
   return (
-    <div className="inline-block">
+    <div className="flex flex-col md:flex-row">
       <label htmlFor="game-status" className="mr-3">
         Game status:
       </label>
@@ -222,7 +222,7 @@ function GameInfo({ game }: GameInfoProps) {
             ))}
           </ul>
 
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex flex-col md:flex-row items-center gap-4 shrink-0">
             <FavoriteButton game={game} />
             <Status key={game.name} game={game} />
           </div>
@@ -237,7 +237,7 @@ function GameInfo({ game }: GameInfoProps) {
         />
 
         {/* Top right */}
-        <div className="flex items-start gap-8">
+        <div className="flex flex-col md:flex-row items-start gap-8 w-full">
           <div className="flex-1 min-w-0">
             <div className="relative">
               <span
