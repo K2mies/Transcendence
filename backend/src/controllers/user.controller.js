@@ -17,7 +17,9 @@ const deleteUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal server error" });
   }
 };
 
@@ -29,7 +31,9 @@ const myFriends = async (req, res) => {
     res.status(200).json(friends);
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal server error" });
   }
 };
 
@@ -41,7 +45,9 @@ const allUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal server error" });
   }
 };
 

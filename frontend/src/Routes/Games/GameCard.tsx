@@ -63,12 +63,12 @@ function GameCard({ game, index }: GameCardProps) {
             rounded-t-lg
           "
         >
-            {game.name}
+          {game.name}
         </h2>
       </Link>
 
       <div className="absolute top-2 right-2 z-20 text-2xl text-secondary">
-          <FavoriteButton game={game} size={25} />
+        <FavoriteButton game={game} size={25} />
       </div>
       <div
         className="
@@ -82,7 +82,11 @@ function GameCard({ game, index }: GameCardProps) {
         "
       >
         <p>Rating: {(game.combinedRating ?? game.igdbRating).toFixed(1)}</p>
-        <Stars hidden={true} rating={game.combinedRating ?? game.igdbRating} size={26} />
+        <Stars
+          hidden={true}
+          rating={game.combinedRating ?? game.igdbRating}
+          size={26}
+        />
       </div>
     </div>
   );

@@ -341,7 +341,6 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
       document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
-
   }, [name]);
 
   async function deleteReview(review: Review) {
@@ -384,9 +383,7 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
           </>
         </div>
       )}
-      {isGameFound === false && (
-        <NotFound />
-      )}
+      {isGameFound === false && <NotFound />}
     </>
   );
 }

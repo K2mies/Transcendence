@@ -34,7 +34,9 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="platform" className="text-white">Platform:</label>
+      <label htmlFor="platform" className="text-white">
+        Platform:
+      </label>
       <Autocomplete
         id="platform"
         value={selectedValue}

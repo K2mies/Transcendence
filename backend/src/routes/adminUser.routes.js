@@ -7,6 +7,10 @@ const router = express.Router();
 router.get("/", adminUserController.listUsers);
 router.get("/:id", adminUserController.getUserById);
 router.delete("/:id", adminUserController.deleteUserById);
-router.patch("/:id/role", requireRole(["SUPERUSER"]), adminUserController.updateUserRole);
+router.patch(
+  "/:id/role",
+  requireRole(["SUPERUSER"]),
+  adminUserController.updateUserRole,
+);
 
 export default router;

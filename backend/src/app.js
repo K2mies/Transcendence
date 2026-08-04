@@ -52,8 +52,18 @@ app.use("/game", gameRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/message", protect, messageRoutes);
 app.use("/search", protect, gamesRoutes);
-app.use("/admin/users", protect, requireRole(["ADMIN", "SUPERUSER"]), adminUserRoutes);
-app.use("/admin/reviews", protect, requireRole(["ADMIN", "SUPERUSER"]), adminReviewRoutes);
+app.use(
+  "/admin/users",
+  protect,
+  requireRole(["ADMIN", "SUPERUSER"]),
+  adminUserRoutes,
+);
+app.use(
+  "/admin/reviews",
+  protect,
+  requireRole(["ADMIN", "SUPERUSER"]),
+  adminReviewRoutes,
+);
 
 // 404 handler
 app.use((req, res) => {
@@ -63,10 +73,9 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   let errCode = err.status || err.statusCode;
-  if (err instanceof multer.MulterError)
-  {
-	if (err.code === "LIMIT_FILE_SIZE")
-		return res.status(400).json({ message: "File must be 5MB or smaller." });
+  if (err instanceof multer.MulterError) {
+    if (err.code === "LIMIT_FILE_SIZE")
+      return res.status(400).json({ message: "File must be 5MB or smaller." });
   }
   if (!errCode) {
     switch (err.type) {

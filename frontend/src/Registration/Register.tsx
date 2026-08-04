@@ -4,7 +4,6 @@ import RegisterForm from "./RegisterForm";
 import type { RegistrationProps } from "../types";
 
 function SignUp({ setMyCurrUser }: RegistrationProps) {
-
   useEffect(() => {
     document.title = "Sign up | GoodPlays";
   }, []);

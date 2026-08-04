@@ -59,7 +59,8 @@ function AdminReviews() {
 
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     const diff =
-      new Date(a.createdAt ?? "").getTime() - new Date(b.createdAt ?? "").getTime();
+      new Date(a.createdAt ?? "").getTime() -
+      new Date(b.createdAt ?? "").getTime();
     return sortAsc ? diff : -diff;
   });
 

@@ -44,7 +44,8 @@ function Review({
                 type="button"
                 aria-label="Edit review"
                 onClick={onEdit}
-                className="text-secondary hover:text-primary">
+                className="text-secondary hover:text-primary"
+              >
                 <FaEdit size={18} />
               </button>
             )}
@@ -53,7 +54,8 @@ function Review({
               type="button"
               aria-label="Delete review"
               onClick={onDelete}
-              className="text-secondary hover:text-primary">
+              className="text-secondary hover:text-primary"
+            >
               <ImCross size={14} />
             </button>
           </div>

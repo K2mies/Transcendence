@@ -36,7 +36,9 @@ function DeveloperSelector({
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="developer" className="text-white">Developer:</label>
+      <label htmlFor="developer" className="text-white">
+        Developer:
+      </label>
       <Autocomplete
         id="developer"
         value={null}

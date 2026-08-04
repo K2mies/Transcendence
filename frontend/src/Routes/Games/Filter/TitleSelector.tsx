@@ -7,10 +7,16 @@ type TitleFilterProps = {
   firstFilterRef: any;
 };
 
-function TitleFilter({ titleTerm, setTitleTerm, firstFilterRef }: TitleFilterProps) {
+function TitleFilter({
+  titleTerm,
+  setTitleTerm,
+  firstFilterRef,
+}: TitleFilterProps) {
   return (
     <div className="flex flex-col">
-      <label htmlFor="title" className="text-white">Title:</label>
+      <label htmlFor="title" className="text-white">
+        Title:
+      </label>
       <TextField
         inputRef={firstFilterRef}
         value={titleTerm}

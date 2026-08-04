@@ -39,8 +39,7 @@ function Games() {
   }, []);
 
   useEffect(() => {
-    if (showFilters)
-      firstFilterRef.current?.focus();
+    if (showFilters) firstFilterRef.current?.focus();
   }, [showFilters]);
 
   useEffect(() => {
@@ -88,7 +87,8 @@ function Games() {
         setGames(result.data);
         setPagination(result.pagination);
 
-        const resultInfo = document.querySelector<HTMLParagraphElement>("#result-info");
+        const resultInfo =
+          document.querySelector<HTMLParagraphElement>("#result-info");
         if (resultInfo)
           resultInfo.textContent = `Found ${result.data.length} games with current filters`;
       }
@@ -141,7 +141,9 @@ function Games() {
             />
           </button>
         </div>
-        <div className="sr-only" aria-live="polite"><p id="result-info"></p></div>
+        <div className="sr-only" aria-live="polite">
+          <p id="result-info"></p>
+        </div>
         <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
           <div className="relative grid grid-cols-5 gap-2">
             {games.map((game, index) => (

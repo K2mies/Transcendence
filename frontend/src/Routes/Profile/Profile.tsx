@@ -47,7 +47,12 @@ function DisplayGames({ header, games, onRemove }: GameProps) {
   );
 }
 
-function Profile({ myCurrUser, setMyCurrUser, isUserFound, setIsUserFound }: ProfileProps) {
+function Profile({
+  myCurrUser,
+  setMyCurrUser,
+  isUserFound,
+  setIsUserFound,
+}: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [favGames, setFavGames] = useState<ProfileGame[]>([]);
@@ -111,7 +116,9 @@ function Profile({ myCurrUser, setMyCurrUser, isUserFound, setIsUserFound }: Pro
 
     if (
       !isOwnReview &&
-      !window.confirm(`Delete ${review.user.name}'s review? This cannot be undone.`)
+      !window.confirm(
+        `Delete ${review.user.name}'s review? This cannot be undone.`,
+      )
     ) {
       return;
     }
@@ -164,7 +171,9 @@ function Profile({ myCurrUser, setMyCurrUser, isUserFound, setIsUserFound }: Pro
 
   useEffect(() => {
     if (location.hash === "#reviews" && profile) {
-      document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("reviews")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   }, [location.hash, profile]);
 
@@ -231,9 +240,7 @@ function Profile({ myCurrUser, setMyCurrUser, isUserFound, setIsUserFound }: Pro
           )}
         </div>
       )}
-      {isUserFound === false && (
-        <NotFound />
-      )}
+      {isUserFound === false && <NotFound />}
     </>
   );
 }

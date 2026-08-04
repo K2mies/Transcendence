@@ -9,7 +9,9 @@ const getMessages = async (req, res) => {
     res.status(200).json(messages);
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal server error" });
   }
 };
 
@@ -25,7 +27,9 @@ const getConversations = async (req, res) => {
     res.status(200).json(conversations);
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal server error" });
   }
 };
 
@@ -35,10 +39,17 @@ const postRead = async (req, res) => {
 
   try {
     await messageService.postRead(me, otherUserId);
-    res.status(200).json({ status: "success", message: "Messages marked as read successfully" });
+    res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Messages marked as read successfully",
+      });
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Internal server error" });
   }
 };
 
