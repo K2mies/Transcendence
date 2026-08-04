@@ -27,7 +27,7 @@ async function updateGameRelation(
   );
 
   if (response.status !== 200) {
-    throw new Error("Error updating game relation");
+    throw new Error("Failed to update favorite status. Please try again");
   }
 }
 
@@ -48,11 +48,11 @@ function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
       await updateGameRelation(game.name, {
         favorite: newValue,
       });
-    } catch {
+    } catch (error) {
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error updating favorite status. Please try again.
+            {error instanceof Error && error.message}
           </div>
         </div>
       ));

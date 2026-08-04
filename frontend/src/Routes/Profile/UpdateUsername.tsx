@@ -86,7 +86,7 @@ function UpdateUsername({
       navigate(`/user/${encodeURIComponent(newName)}`);
       setUpdateUsernameMode(false);
     } else {
-      setEditError(data.error || "Error saving username. Please try again.");
+      setEditError(data.error || "Failed to save username. Please try again.");
     }
   }
   return (

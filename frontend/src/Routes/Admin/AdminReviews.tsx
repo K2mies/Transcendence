@@ -22,6 +22,14 @@ function AdminReviews() {
       if (response.status === 200) {
         const result = await response.json();
         setReviews(result.data);
+      } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to display reviews. Please try again.
+            </div>
+          </div>
+        ));
       }
     }
 
@@ -44,7 +52,7 @@ function AdminReviews() {
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error deleting review. Please try again.
+            Failed to delete review. Please try again.
           </div>
         </div>
       ));

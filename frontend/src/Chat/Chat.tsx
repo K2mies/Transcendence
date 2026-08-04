@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import toast from "react-hot-toast";
 
 import UserSearchBar from "./ChatSearchBar";
 import ProfileSearchBar from "./ProfileSearchBar";
@@ -68,12 +69,32 @@ export default function Chat() {
         credentials: "include",
       });
 
+      if (!res.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to open chat. Please try again.
+            </div>
+          </div>
+        ));
+      }
+
       const data = await res.json();
       if (Array.isArray(data) && data.length === 0) {
         const friends = await fetch(`http://localhost:4243/user/friends`, {
           method: "GET",
           credentials: "include",
         });
+
+        if (!friends.ok) {
+          toast.custom(() => (
+            <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+              <div className="flex items-center gap-2">
+                Failed to open chat. Please try again.
+              </div>
+            </div>
+          ));
+        }
 
         const friendsdata: Friend[] = await friends.json();
 

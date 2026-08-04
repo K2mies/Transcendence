@@ -20,7 +20,7 @@ function AcceptFriendRequest({
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error accepting friend request. Please try again.
+            Failed to accept friend request. Please try again.
           </div>
         </div>
       ));

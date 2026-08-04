@@ -50,7 +50,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
       setCurrBio(newBio);
       setUpdateBioMode(false);
     } else {
-      setUpdateError(data.error || "Error saving biography. Please try again.");
+      setUpdateError(data.error || "Failed to save biography. Please try again.");
     }
   }
   return (

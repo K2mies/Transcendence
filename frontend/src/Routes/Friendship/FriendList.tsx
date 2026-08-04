@@ -72,6 +72,15 @@ function FriendList({
           credentials: "include",
         },
       );
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get friend list. Please try again.
+            </div>
+          </div>
+        ));
+      }
       const res: UserProfile = await response.json();
       setFriendInfo({
         friends: res.friends,
@@ -204,7 +213,7 @@ function FriendList({
                           toast.custom(() => (
                             <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
                               <div className="flex items-center gap-2">
-                                Error removing friend. Please try again.
+                                Failed to remove friend. Please try again.
                               </div>
                             </div>
                           ));
@@ -249,7 +258,7 @@ function FriendList({
                             toast.custom(() => (
                               <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
                                 <div className="flex items-center gap-2">
-                                  Error accepting friend request. Please try
+                                  Failed to accept friend request. Please try
                                   again.
                                 </div>
                               </div>
@@ -278,7 +287,7 @@ function FriendList({
                             toast.custom(() => (
                               <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
                                 <div className="flex items-center gap-2">
-                                  Error declining friend request. Please try
+                                  Failed to decline friend request. Please try
                                   again.
                                 </div>
                               </div>
@@ -322,7 +331,7 @@ function FriendList({
                           toast.custom(() => (
                             <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
                               <div className="flex items-center gap-2">
-                                Error removing friend. Please try again.
+                                Failed to remove friend. Please try again.
                               </div>
                             </div>
                           ));

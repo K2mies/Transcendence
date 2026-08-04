@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
@@ -24,6 +25,16 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
         method: "GET",
         credentials: "include",
       });
+
+      if (!res.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get list of users. Please try again.
+            </div>
+          </div>
+        ));
+      }
 
       const result = await res.json();
       setUsers(Array.isArray(result) ? result : []);

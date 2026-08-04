@@ -28,7 +28,7 @@ function RemoveFriend({
       toast.custom(() => (
         <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
           <div className="flex items-center gap-2">
-            Error removing friend. Please try again.
+            Failed to remove friend. Please try again.
           </div>
         </div>
       ));
