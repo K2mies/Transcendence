@@ -70,6 +70,12 @@ function Layout() {
       setMyCurrUser(currentUser.name);
     }
   }, [currentUser, myCurrUser]);
+  const [isUserFound, setIsUserFound] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
+    undefined,
+  );
 
   const hideHeader =
     location.pathname === "/" ||
@@ -161,7 +167,6 @@ function Layout() {
           <Route element={<AdminRoute />}>
             <Route path="admin" element={<Admin />} />
           </Route>
-
         </Routes>
       </main>
 
