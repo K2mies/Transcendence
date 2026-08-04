@@ -16,6 +16,8 @@ type HeaderProps = {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
   myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
+  isUserFound: boolean | undefined;
+  isGameFound: boolean | undefined;
 };
 
 function Header({
@@ -23,6 +25,8 @@ function Header({
   setShowSearch,
   myCurrUser,
   setMyCurrUser,
+  isUserFound,
+  isGameFound
 }: HeaderProps) {
   const iconSize = 18;
   const { conversations } = UseChat();
@@ -43,9 +47,9 @@ function Header({
 
   let pageTitle: string;
 
-  if (location.pathname.startsWith("/user/")) {
+  if (location.pathname.startsWith("/user/") && isUserFound === true) {
     pageTitle = decodeURIComponent(location.pathname.replace("/user/", ""));
-  } else if (location.pathname.startsWith("/game/")) {
+  } else if (location.pathname.startsWith("/game/") && isGameFound === true) {
     pageTitle = decodeURIComponent(location.pathname.replace("/game/", ""));
   } else {
     pageTitle = pageTitles[location.pathname] || "GoodPlays";

@@ -50,6 +50,12 @@ function Layout() {
   const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
+  const [isUserFound, setIsUserFound] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
+    undefined,
+  );
 
   const hideHeader =
     location.pathname === "/" ||
@@ -78,6 +84,8 @@ function Layout() {
           setShowSearch={setShowSearch}
           myCurrUser={myCurrUser}
           setMyCurrUser={setMyCurrUser}
+          isUserFound={isUserFound}
+          isGameFound={isGameFound}
         />
       )}
 
@@ -117,12 +125,20 @@ function Layout() {
                 <Profile
                   myCurrUser={myCurrUser}
                   setMyCurrUser={setMyCurrUser}
+                  isUserFound={isUserFound}
+                  setIsUserFound={setIsUserFound}
                 />
               }
             />
             <Route
               path="game/:name"
-              element={<Game myCurrUser={myCurrUser} />}
+              element={
+                <Game
+                  myCurrUser={myCurrUser}
+                  isGameFound={isGameFound}
+                  setIsGameFound={setIsGameFound}
+                />
+              }
             />
             <Route path="chat" element={<Chat />} />
             <Route path="*" element={<NotFound />} />
@@ -131,7 +147,6 @@ function Layout() {
           <Route element={<AdminRoute />}>
             <Route path="admin" element={<Admin />} />
           </Route>
-
         </Routes>
       </main>
 
