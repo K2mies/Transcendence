@@ -11,6 +11,12 @@ const deleteUser = async (req, res) => {
 
   try {
     await userService.deleteUser(userId);
+
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    });
+
     res.status(200).json({
       status: "success",
       message: "User deleted successfully",

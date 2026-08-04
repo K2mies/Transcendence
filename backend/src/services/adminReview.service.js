@@ -21,7 +21,7 @@ export async function deleteReviewById(reviewId) {
 
   if (!review) {
     const error = new Error("Review not found");
-    error.status(404);
+    error.status = 404;
     throw error;
   }
 
