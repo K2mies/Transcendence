@@ -67,7 +67,6 @@ const ControlledInput = ({
             color: "#d32f2f",
           },
         }}
-
         type={type}
         autoComplete={autoComplete}
         onChange={(e) => field.onChange(e.target.value)}

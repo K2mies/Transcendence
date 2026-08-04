@@ -57,12 +57,15 @@ function AdminUsers() {
   }
 
   async function changeRole(id: number, role: Role) {
-    const response = await fetch(`http://localhost:4243/admin/users/${id}/role`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ role }),
-    });
+    const response = await fetch(
+      `http://localhost:4243/admin/users/${id}/role`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ role }),
+      },
+    );
 
     if (response.ok) {
       setUsers((prev) =>
@@ -148,7 +151,9 @@ function AdminUsers() {
                 <div className="relative inline-flex items-center">
                   <select
                     value={user.role}
-                    onChange={(e) => changeRole(user.id, e.target.value as Role)}
+                    onChange={(e) =>
+                      changeRole(user.id, e.target.value as Role)
+                    }
                     className="appearance-none border-none bg-transparent p-0 pr-4 text-sm"
                   >
                     {ASSIGNABLE_ROLES.map((role) => (
@@ -174,7 +179,9 @@ function AdminUsers() {
                 disabled={!canDelete}
                 onClick={() => deleteUser(user.id, user.name)}
                 className={
-                  canDelete ? "" : "text-gray-400 cursor-not-allowed hover:text-gray-400"
+                  canDelete
+                    ? ""
+                    : "text-gray-400 cursor-not-allowed hover:text-gray-400"
                 }
               >
                 Delete

@@ -62,7 +62,9 @@ export async function deleteUserById(userId, ownUserId) {
   }
 
   if (!canActOnTarget(target.role)) {
-    const error = new Error("Superuser accounts cannot be deleted through the admin panel");
+    const error = new Error(
+      "Superuser accounts cannot be deleted through the admin panel",
+    );
     error.status = 403;
     throw error;
   }
@@ -78,7 +80,9 @@ export async function updateUserRole(userId, ownUserId, userRole) {
   }
 
   if (!ASSIGNABLE_ROLES.includes(userRole)) {
-    const error = new Error(`Role must be one of: ${ASSIGNABLE_ROLES.join(", ")}`);
+    const error = new Error(
+      `Role must be one of: ${ASSIGNABLE_ROLES.join(", ")}`,
+    );
     error.status = 400;
     throw error;
   }
@@ -95,7 +99,9 @@ export async function updateUserRole(userId, ownUserId, userRole) {
   }
 
   if (!canActOnTarget(target.role)) {
-    const error = new Error("Superuser accounts cannot be modified through the admin panel");
+    const error = new Error(
+      "Superuser accounts cannot be modified through the admin panel",
+    );
     error.status = 403;
     throw error;
   }

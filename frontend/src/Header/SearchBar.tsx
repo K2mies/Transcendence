@@ -90,7 +90,9 @@ const SearchBar = () => {
         }}
         renderInput={(params) => (
           <>
-            <label htmlFor={params.id} className="sr-only">Search for games</label>
+            <label htmlFor={params.id} className="sr-only">
+              Search for games
+            </label>
             <TextField
               {...params}
               placeholder="Search for games"

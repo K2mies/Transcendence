@@ -45,8 +45,7 @@ function Reviews({
   const reviewRef = useRef(null);
 
   useEffect(() => {
-    if (showAddReview)
-      reviewRef.current?.focus();
+    if (showAddReview) reviewRef.current?.focus();
   }, [showAddReview]);
 
   async function submitReview(

@@ -12,7 +12,9 @@ type GenreSelectorProps = {
 function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
   const [genreOptions, setGenreOptions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     async function fetchGenres() {
@@ -34,7 +36,9 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="genre" className="text-white">Genre:</label>
+      <label htmlFor="genre" className="text-white">
+        Genre:
+      </label>
       <Autocomplete
         id="genre"
         value={selectedValue}

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export default function NotFound() {
   useEffect(() => {
-    document.title =  "404: Not Found | GoodPlays"
+    document.title = "404: Not Found | GoodPlays";
   }, []);
 
   return (
@@ -21,5 +21,5 @@ export default function NotFound() {
         </div>
       </div>
     </div>
-  )
+  );
 }

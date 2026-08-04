@@ -9,7 +9,6 @@ type FriendRequestToastProps = {
 };
 
 function FriendRequestToast({ toastId, senderName }: FriendRequestToastProps) {
-
   async function acceptRequest() {
     try {
       toast.dismiss(toastId);

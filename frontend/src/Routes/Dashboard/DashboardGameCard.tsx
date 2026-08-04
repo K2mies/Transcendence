@@ -41,8 +41,8 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
           src={game.image}
           alt=""
         />
-      <h3
-        className="
+        <h3
+          className="
             absolute
             left-0
             right-0
@@ -68,7 +68,7 @@ function DashboardGameCard({ game, index }: DashboardGameCardProps) {
             rounded-t-lg
             z-10
         "
-      >
+        >
           {game.name}
         </h3>
       </Link>

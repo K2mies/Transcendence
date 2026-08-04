@@ -14,7 +14,7 @@ function SortSelector({ sortBy, setSortBy }: SortSelectorProps) {
         id="sort-label"
         htmlFor="sort"
         sx={{
-          color: "white"
+          color: "white",
         }}
       >
         Sort by:

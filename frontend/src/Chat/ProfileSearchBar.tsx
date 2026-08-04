@@ -54,7 +54,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
                 outline: "2px solid var(--color-secondary)",
                 outlineOffset: "2px",
               },
-            }
+            },
           },
           listbox: {
             sx: { maxHeight: 300 },
@@ -62,7 +62,9 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
         }}
         renderInput={(params) => (
           <>
-            <label htmlFor={params.id} className="sr-only">Search for a user profile</label>
+            <label htmlFor={params.id} className="sr-only">
+              Search for a user profile
+            </label>
             <TextField
               {...params}
               placeholder="Search for a user profile"

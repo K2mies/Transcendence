@@ -26,7 +26,7 @@ function Header({
   myCurrUser,
   setMyCurrUser,
   isUserFound,
-  isGameFound
+  isGameFound,
 }: HeaderProps) {
   const iconSize = 18;
   const { conversations } = UseChat();
@@ -126,7 +126,9 @@ function Header({
             bg-primary
             transition-colors
             "
-            aria-label={hasUnreadMessages ? "Open chat, unread messages" : "Open chat"}
+            aria-label={
+              hasUnreadMessages ? "Open chat, unread messages" : "Open chat"
+            }
           >
             <SiWechat
               className="text-tertiary hover:text-secondary"
@@ -168,7 +170,8 @@ function Header({
           </Link>
         )}
 
-        {(currentUser?.role === "ADMIN" || currentUser?.role === "SUPERUSER") && (
+        {(currentUser?.role === "ADMIN" ||
+          currentUser?.role === "SUPERUSER") && (
           <Link
             to="/admin"
             className="
