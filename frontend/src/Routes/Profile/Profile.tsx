@@ -65,7 +65,6 @@ function Profile({
   const { currentUser } = useCurrentUser();
 
   const isMyProfile = myCurrUser === username;
-  const titleName = isMyProfile ? "My profile" : username;
   const isAdminViewer =
     currentUser?.role === "ADMIN" || currentUser?.role === "SUPERUSER";
 
@@ -129,7 +128,7 @@ function Profile({
   }
 
   async function deleteReview(review: ReviewType) {
-    const isOwnReview = review.user.name === myCurrUser;
+    const isOwnReview: boolean = review.user.name === myCurrUser;
 
     if (
       !isOwnReview &&
@@ -184,12 +183,11 @@ function Profile({
         setCurrGames(res.playing);
         setToPlayGames(res.to_play);
         setCompletedGames(res.completed);
+        const titleName: string = isMyProfile ? "My profile" : username;
+        document.title = `${titleName} | GoodPlays`;
       } else {
         setIsUserFound(false);
       }
-    }
-    if (isUserFound === true) {
-      document.title = `${titleName} | GoodPlays`;
     }
     loadProfile();
   }, [username]);
