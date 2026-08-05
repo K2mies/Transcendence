@@ -67,6 +67,13 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         credentials: "include",
       });
 
+      if (meRes.status === 401 || meRes.status === 403) {
+        localStorage.removeItem("isLoggedIn");
+        closeSocket();
+        window.dispatchEvent(new Event("auth-changed"));
+        return;
+      }
+
       if (!meRes.ok) {
         throw new Error("Not authenticated yet");
       }
