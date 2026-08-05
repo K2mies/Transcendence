@@ -156,12 +156,14 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
             setCurrBio={setCurrBio}
           />
         )}
-        {!updateBioMode && currBio && (
-          <div className="relative w-full md:flex-1 min-w-0">
+        {!updateBioMode && (
+          <div className="relative w-full md:flex-1 min-w-0 min-h-6">
+            {currBio && (
             <p className="whitespace-pre-wrap wrap-anywhere text-left w-full md:max-w-prose">
               {currBio}
             </p>
-        {isMyUser && !updateBioMode && (
+            )}
+        {isMyUser && (
             <button
               className="absolute top-0 right-2 text-secondary hover:text-primary"
               onClick={() => setUpdateBioMode(true)}
