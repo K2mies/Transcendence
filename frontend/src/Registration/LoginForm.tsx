@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ControlledInput from "../ControlledInput";
+import ControlledInput from "./ControlledInput";
 import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
@@ -128,7 +128,9 @@ function LoginForm({ setMyCurrUser }: LoginFormProps) {
         type="password"
       />
 
-      <button className="cursor-pointer underline" type="submit">Submit</button>
+      <button className="cursor-pointer underline" type="submit">
+        Submit
+      </button>
 
       {loginError && (
         <p role="alert" aria-live="assertive">

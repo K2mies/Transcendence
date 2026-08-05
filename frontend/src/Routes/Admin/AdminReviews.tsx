@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PaginationControls from "../Games/PaginationControls";
@@ -21,6 +22,14 @@ function AdminReviews() {
       if (response.status === 200) {
         const result = await response.json();
         setReviews(result.data);
+      } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to display reviews. Please try again.
+            </div>
+          </div>
+        ));
       }
     }
 
@@ -40,7 +49,13 @@ function AdminReviews() {
     if (response.ok) {
       setReviews((prev) => prev.filter((review) => review.id !== id));
     } else {
-      console.error("Error deleting review");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to delete review. Please try again.
+          </div>
+        </div>
+      ));
     }
   }
 
@@ -52,7 +67,8 @@ function AdminReviews() {
 
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     const diff =
-      new Date(a.createdAt ?? "").getTime() - new Date(b.createdAt ?? "").getTime();
+      new Date(a.createdAt ?? "").getTime() -
+      new Date(b.createdAt ?? "").getTime();
     return sortAsc ? diff : -diff;
   });
 

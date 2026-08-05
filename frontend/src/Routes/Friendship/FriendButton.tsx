@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import AddFriend from "./Add";
 import AcceptFriendRequest from "./Accept";
 import DeclineFriendRequest from "./Decline";
@@ -26,6 +27,16 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
           credentials: "include",
         },
       );
+
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get friendship status. Please try again.
+            </div>
+          </div>
+        ));
+      }
 
       const res: {
         friendStatus: string | undefined;

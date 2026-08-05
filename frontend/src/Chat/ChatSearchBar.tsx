@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import toast from "react-hot-toast";
 
 type User = {
   id: number;
@@ -27,6 +28,15 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
         credentials: "include",
       });
 
+      if (!res.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get list of friends. Please try again.
+            </div>
+          </div>
+        ));
+      }
       const result = await res.json();
       // expected: [{ id, name }]
       setUsers(Array.isArray(result) ? result : []);
@@ -61,7 +71,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
                 outline: "2px solid var(--color-secondary)",
                 outlineOffset: "2px",
               },
-            }
+            },
           },
           listbox: {
             sx: { maxHeight: 300 },
@@ -69,7 +79,9 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
         }}
         renderInput={(params) => (
           <>
-            <label htmlFor={params.id} className="sr-only">Search for a friend to chat</label>
+            <label htmlFor={params.id} className="sr-only">
+              Search for a friend to chat
+            </label>
             <TextField
               {...params}
               placeholder="Search for a friend to chat"

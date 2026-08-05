@@ -50,7 +50,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
       setCurrBio(newBio);
       setUpdateBioMode(false);
     } else {
-      setUpdateError(data.error || "Error saving biography. Please try again.");
+      setUpdateError(data.error || "Failed to save biography. Please try again.");
     }
   }
   return (
@@ -68,7 +68,12 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
           setBioNow={setBioNow}
         />
         <div className="flex flex-col gap-3">
-          <button className="ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary" type="submit">Save</button>
+          <button
+            className="ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
+            type="submit"
+          >
+            Save
+          </button>
           <button
             type="button"
             className="ml-3 bg-secondary text-primary px-4 py-2 rounded hover:text-primary"

@@ -14,4 +14,3 @@ export const validateRequest = (schema) => {
     next();
   };
 };
-

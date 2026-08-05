@@ -3,8 +3,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ControlledInput from "./ControlledInput";
-import type { RegistrationProps } from "./types";
+import ControlledInput from "../Registration/ControlledInput";
+import type { RegistrationProps } from "../types";
 
 const schema = z.object({
   name: z
@@ -43,7 +43,10 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem(
         "user",
-        JSON.stringify({ id: result.data.user.id, name: result.data.user.name }),
+        JSON.stringify({
+          id: result.data.user.id,
+          name: result.data.user.name,
+        }),
       );
       setMyCurrUser(result.data.user.name);
 
@@ -69,7 +72,11 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
             type="text"
           />
           <input type="submit" value="Continue" />
-          {serverError && <p role="alert" aria-live="assertive">{serverError}</p>}
+          {serverError && (
+            <p role="alert" aria-live="assertive">
+              {serverError}
+            </p>
+          )}
         </form>
       </div>
     </div>

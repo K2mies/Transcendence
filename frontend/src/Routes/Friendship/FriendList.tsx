@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -71,6 +72,15 @@ function FriendList({
           credentials: "include",
         },
       );
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get friend list. Please try again.
+            </div>
+          </div>
+        ));
+      }
       const res: UserProfile = await response.json();
       setFriendInfo({
         friends: res.friends,
@@ -99,7 +109,12 @@ function FriendList({
         }}
       >
         <span>Manage friends</span>
-        <FaUserFriends size={16} className="text-tertiary" aria-hidden="true" focusable="false" />
+        <FaUserFriends
+          size={16}
+          className="text-tertiary"
+          aria-hidden="true"
+          focusable="false"
+        />
       </button>
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop
@@ -195,7 +210,13 @@ function FriendList({
                           await response.json();
                           setRefreshKey(refreshKey + 1);
                         } else {
-                          console.error("Error removing friend");
+                          toast.custom(() => (
+                            <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+                              <div className="flex items-center gap-2">
+                                Failed to remove friend. Please try again.
+                              </div>
+                            </div>
+                          ));
                         }
                       }}
                     >
@@ -234,7 +255,14 @@ function FriendList({
                             await response.json();
                             setRefreshKey(refreshKey + 1);
                           } else {
-                            console.error("Error accepting request");
+                            toast.custom(() => (
+                              <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+                                <div className="flex items-center gap-2">
+                                  Failed to accept friend request. Please try
+                                  again.
+                                </div>
+                              </div>
+                            ));
                           }
                         }}
                       >
@@ -256,7 +284,14 @@ function FriendList({
                             await response.json();
                             setRefreshKey(refreshKey + 1);
                           } else {
-                            console.error("Error declining request");
+                            toast.custom(() => (
+                              <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+                                <div className="flex items-center gap-2">
+                                  Failed to decline friend request. Please try
+                                  again.
+                                </div>
+                              </div>
+                            ));
                           }
                         }}
                       >
@@ -293,7 +328,13 @@ function FriendList({
                           await response.json();
                           setRefreshKey(refreshKey + 1);
                         } else {
-                          console.error("Error removing friend");
+                          toast.custom(() => (
+                            <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+                              <div className="flex items-center gap-2">
+                                Failed to remove friend. Please try again.
+                              </div>
+                            </div>
+                          ));
                         }
                       }}
                     >

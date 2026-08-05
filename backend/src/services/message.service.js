@@ -1,39 +1,38 @@
 import { prisma } from "../config/db.js";
 
-const getMessages = async (req, res) => {
-  const me = req.user.id;
-  const other = Number(req.params.userId);
-
-  if (!Number.isInteger(other) || other <= 0) {
-    return res.status(400).json({ error: "Invalid userId" });
+export async function getMessages(myId, otherId) {
+  if (!Number.isInteger(otherId) || otherId <= 0) {
+    const error = new Error("Invalid userId");
+    error.status = 400;
+    throw error;
   }
 
   const friendship = await prisma.userUserRelation.findFirst({
     where: {
       friendStatus: "FRIENDS",
       OR: [
-        { senderId: me, receiverId: other },
-        { senderId: other, receiverId: me },
+        { senderId: myId, receiverId: otherId },
+        { senderId: otherId, receiverId: myId },
       ],
     },
   });
 
   if (!friendship) {
-    return res.status(403).json({
-      error: "You are not friends with this user",
-    });
+    const error = new Error("You are not friends with this user");
+    error.status = 403;
+    throw error;
   }
 
   const messages = await prisma.message.findMany({
     where: {
       OR: [
         {
-          senderId: me,
-          receiverId: other,
+          senderId: myId,
+          receiverId: otherId,
         },
         {
-          senderId: other,
-          receiverId: me,
+          senderId: otherId,
+          receiverId: myId,
         },
       ],
     },
@@ -41,15 +40,11 @@ const getMessages = async (req, res) => {
       createdAt: "asc",
     },
   });
-  res.json(messages);
-};
 
-const getConversations = async (req, res) => {
-  if (!req.user) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-  const userId = req.user.id;
+  return messages;
+}
 
+export async function getConversations(userId) {
   // 1. Get FRIENDS ONLY
   const relations = await prisma.userUserRelation.findMany({
     where: {
@@ -103,35 +98,24 @@ const getConversations = async (req, res) => {
     }
   }
 
-  return res.json(Array.from(map.values()));
-};
+  return Array.from(map.values());
+}
 
-const postRead = async (req, res) => {
-  try {
-    const me = req.user.id;
-    const otherUserId = Number(req.params.userId);
-
-    if (!Number.isInteger(otherUserId) || otherUserId <= 0) {
-      return res.status(400).json({ error: `Invalid userId` });
-    }
-
-    await prisma.message.updateMany({
-      where: {
-        senderId: otherUserId,
-        receiverId: me,
-        read: false,
-      },
-      data: {
-        read: true,
-      },
-    });
-
-    return res.status(200).json({ success: true });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: `Internal server error [${err}]` });
+export async function postRead(myId, otherId) {
+  if (!Number.isInteger(otherId) || otherId <= 0) {
+    const error = new Error("Invalid userId");
+    error.status = 400;
+    throw error;
   }
-};
 
-export { getMessages, getConversations, postRead };
-
+  await prisma.message.updateMany({
+    where: {
+      senderId: otherId,
+      receiverId: myId,
+      read: false,
+    },
+    data: {
+      read: true,
+    },
+  });
+}

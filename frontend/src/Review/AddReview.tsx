@@ -62,7 +62,7 @@ function AddReview({
   return (
     <div className="bg-tertiary text-primary border-x-3 border-primary p-4">
       <h3 className="sr-only" ref={reviewRef} tabIndex={-1}>
-          Add a review
+        Add a review
       </h3>
       <RatingSelector rating={rating} setRating={setRating} size={28} />
 
@@ -93,9 +93,12 @@ function AddReview({
           aria-describedby="review-helper"
         />
         <p id="review-helper" className="sr-only">
-          Review text is optional. Maximum {MAX_REVIEW_LENGTH}{" "} characters.
+          Review text is optional. Maximum {MAX_REVIEW_LENGTH} characters.
         </p>
-        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-hidden={true}>
+        <div
+          className="absolute bottom-0 right-0 px-7 py-4 flex justify-end"
+          aria-hidden={true}
+        >
           <span className="text-sm text-primary">
             {review.length}/{MAX_REVIEW_LENGTH}
           </span>

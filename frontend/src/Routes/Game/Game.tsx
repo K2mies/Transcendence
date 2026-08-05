@@ -1,7 +1,10 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Reviews from "../../Review/Reviews";
 import FavoriteButton from "../../Rating/FavoriteButton";
+import { useFavorites } from "../../Rating/useFavorites";
+import NotFound from "../../NotFound";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";
 import PlatformIcon from "../../Review/PlatformIcon";
@@ -23,6 +26,8 @@ type GameInfoProps = {
 
 type GameProps = {
   myCurrUser: string | undefined;
+  isGameFound: boolean | undefined;
+  setIsGameFound: (isGameFound: boolean | undefined) => void;
 };
 
 function GameData({ game }: GameDataProps) {
@@ -63,7 +68,13 @@ async function updateGameRelation(
   if (response.status === 200) {
     await response.json();
   } else {
-    console.error("Error updating game relation");
+    toast.custom(() => (
+      <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+        <div className="flex items-center gap-2">
+          Failed to update game status. Please try again.
+        </div>
+      </div>
+    ));
   }
 }
 
@@ -294,7 +305,9 @@ function GameInfo({ game }: GameInfoProps) {
   );
 }
 
-function Game({ myCurrUser }: GameProps) {
+function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
+  const { setFavorite } = useFavorites();
+
   const [game, setGame] = useState<Game | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const reviewAverage =
@@ -306,9 +319,6 @@ function Game({ myCurrUser }: GameProps) {
             100,
         ) / 100;
   const [igdbRating, setIgdbRating] = useState(0);
-  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
-    undefined,
-  );
 
   const { name } = useParams<{ name: string }>();
 
@@ -320,6 +330,8 @@ function Game({ myCurrUser }: GameProps) {
 
       if (response.status === 200) {
         const res: Game = await response.json();
+
+        setFavorite(res.id, res.favorite === true);
 
         setIsGameFound(true);
         setGame(res);
@@ -334,7 +346,7 @@ function Game({ myCurrUser }: GameProps) {
       document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
-  }, [name]);
+  }, [name, setFavorite, setIsGameFound]);
 
   async function deleteReview(review: Review) {
     if (!game) return;
@@ -353,34 +365,39 @@ function Game({ myCurrUser }: GameProps) {
           (currentReview) => currentReview.id !== review.id,
         ),
       );
+    } else {
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to delete review. Please try again.
+          </div>
+        </div>
+      ));
     }
   }
   return (
-    <div className="bg-secondary text-primary min-h-screen p-6">
-      {isGameFound && game && (
-        <>
-          <GameInfo game={game} />
-          <Reviews
-            key={game.name}
-            gameName={game.name}
-            gamePlatforms={game.platforms}
-            reviews={reviews}
-            setReviews={setReviews}
-            onDeleteReview={deleteReview}
-            reviewAverage={reviewAverage}
-            rating={igdbRating}
-            page="game"
-            myCurrUser={myCurrUser}
-          />
-        </>
-      )}
-
-      {isGameFound === false && (
-        <div>
-          <p>404 Game not found</p>
+    <>
+      {isGameFound === true && game && (
+        <div className="bg-secondary text-primary min-h-screen p-6">
+          <>
+            <GameInfo game={game} />
+            <Reviews
+              key={game.name}
+              gameName={game.name}
+              gamePlatforms={game.platforms}
+              reviews={reviews}
+              setReviews={setReviews}
+              onDeleteReview={deleteReview}
+              reviewAverage={reviewAverage}
+              rating={igdbRating}
+              page="game"
+              myCurrUser={myCurrUser}
+            />
+          </>
         </div>
       )}
-    </div>
+      {isGameFound === false && <NotFound />}
+    </>
   );
 }
 

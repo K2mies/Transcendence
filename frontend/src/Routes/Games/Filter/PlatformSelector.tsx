@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { FILTER_SX } from "./FilterProperties";
@@ -20,6 +21,16 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
         credentials: "include",
       });
 
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get available platforms. Please try again.
+            </div>
+          </div>
+        ));
+      }
+
       const result = await response.json();
 
       if (result.status === "success") {
@@ -34,7 +45,9 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="platform" className="text-white">Platform:</label>
+      <label htmlFor="platform" className="text-white">
+        Platform:
+      </label>
       <Autocomplete
         id="platform"
         value={selectedValue}
