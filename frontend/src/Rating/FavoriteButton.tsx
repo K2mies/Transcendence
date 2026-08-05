@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useFavorites } from "./FavoritesContext";
+import { useFavorites } from "./useFavorites";
 import type { Game } from "../Types/GameType";
 
 type FavoriteButtonProps = {
