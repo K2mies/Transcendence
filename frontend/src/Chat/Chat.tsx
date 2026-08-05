@@ -181,54 +181,56 @@ export default function Chat() {
     };
   }, [setActiveChatUser]);
 
-  if (!me) {
-    return <div className="text-black p-6">Loading chat...</div>;
-  }
-
   return (
     <div className="h-screen bg-primary text-tertiary flex flex-col">
-      <div className="p-6">
-        <div className="flex items-center justify-between">
-          <UserSearchBar onSelectUser={openChat} />
-          <ProfileSearchBar onSelectUser={openProfile} />
-        </div>
+      {me ? (
+        <div className="p-6">
+          <div className="flex items-center justify-between">
+            <UserSearchBar onSelectUser={openChat} />
+            <ProfileSearchBar onSelectUser={openProfile} />
+          </div>
 
-        <div
-          className="flex flex-1 min-h-0 overflow-hidden px-6 pb-6"
-          style={{ height: "calc(100vh - 88px)" }}
-        >
-          {/* LEFT */}
-          <ConversationList
-            conversations={conversations}
-            onlineUsers={onlineUsers}
-            openChat={openChat}
-          />
-          {/* RIGHT */}
-          <div className="ml-4 flex min-h-0 flex-1 flex-col">
-            <div className="p-4 border-b border-secondary/20">
-              <h2 className="text-secondary">
-                {selectedUser
-                  ? `Chat with ${conversations.find((c) => c.userId === selectedUser)?.name || "User"}`
-                  : "Select a chat"}
-              </h2>
+          <div
+            className="flex flex-1 min-h-0 overflow-hidden px-6 pb-6"
+            style={{ height: "calc(100vh - 88px)" }}
+          >
+            {/* LEFT */}
+            <ConversationList
+              conversations={conversations}
+              onlineUsers={onlineUsers}
+              openChat={openChat}
+            />
+            {/* RIGHT */}
+            <div className="ml-4 flex min-h-0 flex-1 flex-col">
+              <div className="p-4 border-b border-secondary/20">
+                <h2 className="text-secondary">
+                  {selectedUser
+                    ? `Chat with ${conversations.find((c) => c.userId === selectedUser)?.name || "User"}`
+                    : "Select a chat"}
+                </h2>
+              </div>
+              <MessageList
+                me={me}
+                messages={messages}
+                messagesContainerRef={messagesContainerRef}
+              />{" "}
+              {selectedUser && (
+                <MessageInput
+                  text={text}
+                  setText={setText}
+                  send={send}
+                  inputRef={inputRef}
+                  canChat={selectedConversation?.canChat ?? true}
+                />
+              )}{" "}
             </div>
-            <MessageList
-              me={me}
-              messages={messages}
-              messagesContainerRef={messagesContainerRef}
-            />{" "}
-            {selectedUser && (
-              <MessageInput
-                text={text}
-                setText={setText}
-                send={send}
-                inputRef={inputRef}
-                canChat={selectedConversation?.canChat ?? true}
-              />
-            )}{" "}
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="text-black p-6">
+          Loading chat...
+        </div>
+      )}
     </div>
   );
 }
