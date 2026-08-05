@@ -134,6 +134,7 @@ function AdminReviews() {
       <p aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
 
       <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
+        <caption className="sr-only">Reviews</caption>
         <tr
           className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
         >
