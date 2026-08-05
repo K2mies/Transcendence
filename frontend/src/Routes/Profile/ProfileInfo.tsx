@@ -122,8 +122,9 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           )}
           {isMyUser && (
             <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
-              <label className="cursor-pointer" title="Upload avatar">
-                <FaEdit size={15} />
+              <label className="cursor-pointer">
+                <FaEdit size={15} aria-hidden="true" focusable="false" />
+                <span className="sr-only">Upload avatar</span>
                 <input
                   type="file"
                   accept="image/png, image/jpeg, .png, .jpg, .jpeg"

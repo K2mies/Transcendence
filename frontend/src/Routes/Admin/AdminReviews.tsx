@@ -148,25 +148,25 @@ function AdminReviews() {
               {review.user.name}
             </Link>
 
-            {review.game ? (
-              <Link
-                to={`/game/${encodeURIComponent(review.game)}`}
-                className="text-sm no-underline text-primary truncate"
-              >
-                {review.game}
-              </Link>
-            ) : (
-              <span className="text-sm">—</span>
+            {review.game && (
+              <>
+                <Link
+                  to={`/game/${encodeURIComponent(review.game)}`}
+                  className="text-sm no-underline text-primary truncate"
+                >
+                  {review.game}
+                </Link>
+
+                <span className="text-sm">{review.rating}</span>
+
+                <Link
+                  to={`/game/${encodeURIComponent(review.game)}#reviews`}
+                  className="text-sm no-underline text-primary truncate min-w-0 w-full"
+                >
+                  {review.review}
+                </Link>
+              </>
             )}
-
-            <span className="text-sm">{review.rating}</span>
-
-            <Link
-              to={`/user/${review.user.name}#reviews`}
-              className="text-sm no-underline text-primary truncate min-w-0 w-full"
-            >
-              {review.review}
-            </Link>
 
             <span className="text-sm">
               {new Date(review.createdAt ?? "").toLocaleDateString("fi-FI")}
