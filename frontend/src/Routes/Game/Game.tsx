@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Reviews from "../../Review/Reviews";
 import FavoriteButton from "../../Rating/FavoriteButton";
-import { useFavorites } from "../../Rating/FavoritesContext";
+import { useFavorites } from "../../Rating/useFavorites";
 import NotFound from "../../NotFound";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";

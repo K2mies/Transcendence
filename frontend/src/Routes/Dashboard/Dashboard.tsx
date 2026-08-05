@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DashboardGameCard from "./DashboardGameCard";
-import { useFavorites } from "../../Rating/FavoritesContext";
+import { useFavorites } from "../../Rating/useFavorites";
 import type { Game } from "../../Types/GameType";
 
 type DisplayGamesProps = {
