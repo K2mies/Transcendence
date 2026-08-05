@@ -54,6 +54,14 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }, [activeChatUser]);
 
   async function init() {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      setMe(null);
+      setFriends(new Map());
+      setConversations([]);
+      setOnlineUsers(new Set());
+      return;
+    }
+
     try {
       const meRes = await fetch("/api/user/me", {
         credentials: "include",
@@ -104,6 +112,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setConversations(safeConv);
     } catch {
       setMe(null);
+      setFriends(new Map());
+      setConversations([]);
+      setOnlineUsers(new Set());
     }
   }
 
@@ -142,6 +153,14 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     function reload() {
+      if (localStorage.getItem("isLoggedIn") !== "true") {
+        setMe(null);
+        setFriends(new Map());
+        setConversations([]);
+        setOnlineUsers(new Set());
+        return;
+      }
+
       init();
     }
 
@@ -185,6 +204,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
             next.delete(data.userId);
             return next;
           });
+
           init();
           break;
 
@@ -416,9 +436,14 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   // ---------------- CLOSE SOCKET AT LOGOUT ----------------
   function closeSocket() {
     const ws = wsRef.current;
-    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    if (!ws)
+      return;
 
-    ws.close();
+    ws.onmessage = null;
+
+    if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)
+      ws.close();
+
     wsRef.current = null;
   }
 
