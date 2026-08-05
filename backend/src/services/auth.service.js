@@ -59,12 +59,7 @@ export async function login(email, password) {
     throw error;
   }
 
-  return ({
-    user: {
-      id: user.id,
-      name: user.name,
-    },
-  });
+  return user;
 }
 
 export async function updateUsername(name, userId) {
