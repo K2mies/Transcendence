@@ -193,6 +193,131 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 - User logout functionality (UI and backend)
 - Accessibility compliance and content for Accessibility footer page
 
+**\_Ross:**
+
+### Frontend Architecture
+
+- Led the design and architecture of the React frontend.
+- Established the overall project structure, routing, and component hierarchy.
+- Developed reusable UI components and shared application patterns.
+- Introduced React Contexts and custom hooks to improve state management and code reuse.
+- Maintained frontend coding standards and TypeScript best practices.
+
+### Authentication & User Management
+
+- Implemented the frontend authentication flow.
+- Developed login, registration Hook forms and front end validation.
+- Implemented protected routes and authenticated navigation.
+- Created profile pages and user information displays.
+
+### UI Color coordination
+
+- created a 3 color/value theme system in accordance with design color design
+- Makes it easier to update/customise the theme without the UI getting too noisy/distracting
+- Especially noticable once the Components get more cluttered
+
+### Header Implamentation and Routes Management
+
+- Created header navigation system and designed the Header functionality
+- Implamented contextual header title that changes depending on Route Context
+- Implamented quick search function that can be minimised
+- Implamented Public and Private route management
+- Managed UI design and icon formatting
+
+### Games Library
+
+- Designed and implemented the Games browser.
+- Added advanced search, filtering, sorting, and pagination.
+- Integrated game data from the backend.
+- Created reusable components for displaying game information.
+
+### Game Pages
+
+- Implemented the individual game pages.
+- Developed the review display interface.
+- Added rating summaries and statistics.
+- Integrated platform, genre, and game mode information.
+- Designed responsive layouts for presenting game information.
+- Created icon Selectors for Platform, Genre and Modes
+- Created Icon Components from .svg graphics that were not included in the react library
+
+### Rating & Favourite System
+
+- Designed and implemented the game rating interface.
+- Created reusable star rating components.
+- Implemented the favourites system.
+- Developed shared React Contexts for managing favourite state.
+- Integrated frontend interactions with backend rating APIs.
+
+### Review System
+
+- Built the frontend review interface.
+- Added review creation, editing, and display functionality.
+- Implamented both in the Game page and the Profile Pages
+- Fetches game platforms from the database related to that game and works at scale
+- Integrated review validation and backend communication.
+
+### Real-Time Chat
+
+- Added some quality of life improvements to the Chat headlessUI
+- implamented Chat scrolling so that it also goes to the latest message (in style of messaging apps)
+- implamented feature where by the user can type and use enter to send continuous messages (rather than having to click the chatbox manually)
+
+### Friend System
+
+- Developed the frontend notification system for:
+  - Sending friend requests
+  - Accepting requests
+  - Declining requests
+  - Removing friends
+- Integrated friend management into user profiles and chat so they update accordingly.
+
+### Notifications
+
+- Implemented toast notifications throughout the application.
+- Designed reusable notification components.
+- Integrated real-time notifications for:
+  - Friend requests
+  - Chat messages
+  - Friend status updates
+
+### User Experience & Accessibility
+
+- Designed a consistent responsive interface using Tailwind CSS.
+- Refined layouts and navigation throughout development.
+- Improved overall usability through continuous UI refinement.
+
+### Reusable Component Library
+
+Developed numerous reusable frontend components, including:
+
+- Buttons
+- Rating controls
+- Favourite buttons
+- Search bars
+- Pagination controls
+- Notification components
+- Profile components
+- Chat components
+- Game information components
+- Shared icons and utility components
+
+### Frontend–Backend Integration
+
+- Worked closely with backend developers to define API requirements.
+- Integrated REST endpoints across the application.
+- Implemented WebSocket event handling for realtime features.
+- Resolved frontend/backend integration issues throughout development.
+
+### Technical Leadership
+
+- Served as Frontend Technical Lead.
+- Guided frontend architecture and technical implementation.
+- Reviewed frontend design decisions and maintained coding standards.
+- Refactored existing code to improve maintainability and consistency.
+- Resolved merge conflicts and frontend integration issues.
+- Helped other team members with frontend implementation, debugging, and code reviews.
+
 [◦ Detailed breakdown of what each team member contributed.
 ◦ Specific features, modules, or components implemented by each person.
 ◦ Any challenges faced and how they were overcome.]
