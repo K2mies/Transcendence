@@ -85,7 +85,7 @@ function AdminReviews() {
   return (
     <div className="mb-6">
       <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
-        <span className="font-bold">Reviews</span>
+        <h2 className="text-[1.4rem] font-bold">Reviews</h2>
         <div className="flex gap-2">
           <label htmlFor="admin-reviewer-search" className="sr-only">
             Search for a review by reviewer username
@@ -118,76 +118,96 @@ function AdminReviews() {
         </div>
       </div>
 
-      <div className="bg-tertiary text-primary border-primary border-3 overflow-hidden">
-        <div
+      <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden">
+        <tr
           className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
         >
-          <span>Reviewer</span>
-          <span>Game</span>
-          <span>Rating</span>
-          <span>Review</span>
-          <button
-            type="button"
-            onClick={() => setSortAsc((prev) => !prev)}
-            className="font-bold"
-          >
-            Posted {sortAsc ? "▲" : "▼"}
-          </button>
-          <span />
-        </div>
+          <th>Reviewer</th>
+          <th>Game</th>
+          <th>Rating</th>
+          <th>Review</th>
+          <th>
+            <span className="sr-only">Date of post</span>
+            <button
+              type="button"
+              onClick={() => setSortAsc((prev) => !prev)}
+              className="font-bold"
+              aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
+            >
+              <span aria-hidden="true">Posted {sortAsc ? "▲" : "▼"}</span>
+            </button>
+          </th>
+          <th>Delete?</th>
+        </tr>
 
         {pagedReviews.map((review) => (
-          <div
-            key={review.id}
-            className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-          >
-            <Link
-              to={`/user/${review.user.name}#reviews`}
-              className="text-sm no-underline text-primary truncate"
+          <tr>
+            <div
+              key={review.id}
+              className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
             >
-              {review.user.name}
-            </Link>
-
-            {review.game && (
-              <>
+              <td>
                 <Link
-                  to={`/game/${encodeURIComponent(review.game)}`}
+                  to={`/user/${review.user.name}#reviews`}
                   className="text-sm no-underline text-primary truncate"
                 >
-                  {review.game}
+                  {review.user.name}
                 </Link>
+              </td>
 
-                <span className="text-sm">{review.rating}</span>
+              {review.game && (
+                <>
+                  <td>
+                    <Link
+                      to={`/game/${encodeURIComponent(review.game)}`}
+                      className="text-sm no-underline text-primary truncate"
+                    >
+                      {review.game}
+                    </Link>
+                  </td>
 
-                <Link
-                  to={`/game/${encodeURIComponent(review.game)}#reviews`}
-                  className="text-sm no-underline text-primary truncate min-w-0 w-full"
-                >
-                  {review.review}
-                </Link>
-              </>
-            )}
+                  <td>
+                    <span className="text-sm">{review.rating}</span>
+                  </td>
 
-            <span className="text-sm">
-              {new Date(review.createdAt ?? "").toLocaleDateString("fi-FI")}
-            </span>
+                  <td className="truncate min-w-0 w-full">
+                    <Link
+                      to={`/game/${encodeURIComponent(review.game)}#reviews`}
+                      className="text-sm no-underline text-primary"
+                    >
+                      {review.review}
+                    </Link>
+                  </td>
+                </>
+              )}
 
-            <button type="button" onClick={() => deleteReview(review.id)}>
-              Delete
-            </button>
-          </div>
+              <td>
+                <span className="text-sm">
+                  {new Date(review.createdAt ?? "").toLocaleDateString("fi-FI")}
+                </span>
+              </td>
+
+              <td>  
+                <button type="button" onClick={() => deleteReview(review.id)}>
+                  Delete
+                </button>
+              </td>
+            </div>
+          </tr>
         ))}
 
         {Array.from({ length: PAGE_SIZE - pagedReviews.length }).map((_, i) => (
-          <div
-            key={`empty-${i}`}
-            className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-            aria-hidden="true"
-          >
-            <span>&nbsp;</span>
-          </div>
+          <tr>
+            <div
+              key={`empty-${i}`}
+              className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
+              aria-hidden="true"
+            >
+              <span>&nbsp;</span>
+            </div>
+          </tr>
         ))}
-      </div>
+      </table>
 
       <PaginationControls
         page={currentPage}

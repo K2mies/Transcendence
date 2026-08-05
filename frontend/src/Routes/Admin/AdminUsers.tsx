@@ -101,7 +101,7 @@ function AdminUsers() {
   return (
     <div className="mb-6">
       <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
-        <span className="font-bold">Users</span>
+        <h2 className="text-[1.4rem] font-bold">Users</h2>
         <label htmlFor="admin-user-search" className="sr-only">
           Search for a user by username
         </label>
@@ -115,22 +115,24 @@ function AdminUsers() {
         />
       </div>
 
-      <div className="bg-tertiary text-primary border-primary border-3 overflow-hidden">
-        <div
-          className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
-        >
-          <span>Username</span>
-          <span>Email</span>
-          <span>Role</span>
-          <button
-            type="button"
-            onClick={() => setSortAsc((prev) => !prev)}
-            className="font-bold"
-          >
-            Joined {sortAsc ? "▲" : "▼"}
-          </button>
-          <span />
-        </div>
+      <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
+        <tr className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>
+            <span className="sr-only">Date of joining</span>
+            <button
+              type="button"
+              onClick={() => setSortAsc((prev) => !prev)}
+              className="font-bold"
+              aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
+            >
+              <span aria-hidden="true">Joined {sortAsc ? "▲" : "▼"}</span>
+            </button>
+          </th>
+          <th>Delete?</th>
+        </tr>
 
         {pagedUsers.map((user) => {
           const isSelf = user.id === currentUser?.id;
@@ -138,73 +140,88 @@ function AdminUsers() {
           const canDelete = !isSelf && !isSuperuserRow;
 
           return (
-            <div
-              key={user.id}
-              className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-            >
-              <Link
-                to={`/user/${user.name}`}
-                className="text-sm no-underline text-primary truncate"
+            <tr>
+              <div
+                key={user.id}
+                className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
               >
-                {user.name}
-              </Link>
-
-              <span className="text-sm truncate">{user.email}</span>
-
-              {currentUser?.role === "SUPERUSER" && !isSuperuserRow ? (
-                <div className="relative inline-flex items-center">
-                  <select
-                    aria-label="Choose a role"
-                    value={user.role}
-                    onChange={(e) =>
-                      changeRole(user.id, e.target.value as Role)
-                    }
-                    className="appearance-none border-none bg-transparent p-0 pr-4 text-sm"
+                <td>
+                  <Link
+                    to={`/user/${user.name}`}
+                    className="text-sm no-underline text-primary truncate"
                   >
-                    {ASSIGNABLE_ROLES.map((role) => (
-                      <option key={role} value={role} className="py-2">
-                        {role}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="pointer-events-none absolute right-0 text-lg">
-                    ▾
+                    {user.name}
+                  </Link>
+                </td>
+
+                <td>
+                  <span className="text-sm truncate">{user.email}</span>
+                </td>
+
+                <td>
+                  {currentUser?.role === "SUPERUSER" && !isSuperuserRow ? (
+                    <div className="relative inline-flex items-center">
+                      <select
+                        aria-label="Choose a role"
+                        value={user.role}
+                        onChange={(e) =>
+                          changeRole(user.id, e.target.value as Role)
+                        }
+                        className="appearance-none border-none bg-transparent p-0 pr-4 text-sm"
+                      >
+                        {ASSIGNABLE_ROLES.map((role) => (
+                          <option key={role} value={role} className="py-2">
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="pointer-events-none absolute right-0 text-lg">
+                        ▾
+                      </span>
+                    </div>
+                ) : (
+                  <span className="text-sm">{user.role}</span>
+                )}
+                </td>
+
+                <td>
+                  <span className="text-sm">
+                    {new Date(user.createdAt).toLocaleDateString("fi-FI")}
                   </span>
-                </div>
-              ) : (
-                <span className="text-sm">{user.role}</span>
-              )}
+                </td>
 
-              <span className="text-sm">
-                {new Date(user.createdAt).toLocaleDateString("fi-FI")}
-              </span>
-
-              <button
-                type="button"
-                disabled={!canDelete}
-                onClick={() => deleteUser(user.id, user.name)}
-                className={
-                  canDelete
-                    ? ""
-                    : "text-gray-400 cursor-not-allowed hover:text-gray-400"
-                }
-              >
-                Delete
-              </button>
-            </div>
+                <td>
+                  <button
+                    type="button"
+                    disabled={!canDelete}
+                    aria-hidden={!canDelete}
+                    onClick={() => deleteUser(user.id, user.name)}
+                    className={
+                      canDelete
+                        ? ""
+                        : "text-gray-400 cursor-not-allowed hover:text-gray-400"
+                    }
+                  >
+                    Delete
+                  </button>
+                </td>
+              </div>
+            </tr>          
           );
         })}
 
         {Array.from({ length: PAGE_SIZE - pagedUsers.length }).map((_, i) => (
-          <div
-            key={`empty-${i}`}
-            className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-            aria-hidden="true"
-          >
-            <span>&nbsp;</span>
-          </div>
+          <tr>
+            <div
+              key={`empty-${i}`}
+              className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
+              aria-hidden="true"
+            >
+              <span>&nbsp;</span>
+            </div>
+          </tr>
         ))}
-      </div>
+      </table>
 
       <PaginationControls
         page={currentPage}
