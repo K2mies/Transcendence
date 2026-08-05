@@ -31,11 +31,11 @@ export default function MessageInput({
           maxLength={120}
           disabled={!canChat}
           onChange={(e) => setText(e.target.value)}
-          aria-label="Type a new message"
+          aria-label="Type a message"
           placeholder={
             canChat ? "Type a message..." : "You can no longer send messages"
           }
-          className="flex-1 rounded bg-primary/40 p-2 outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex-1 rounded bg-primary/40 p-2 outline-none disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-white"
           onKeyDown={(e) => {
             if (e.key === "Enter" && canChat) {
               send();
