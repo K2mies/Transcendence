@@ -46,7 +46,7 @@ function PaginationControls({
       </button>
 
       <div className="flex items-center gap-2">
-        <label htmlFor="page-number">Page</label>
+        <span>Page</span>
 
         <input
           id="page-number"

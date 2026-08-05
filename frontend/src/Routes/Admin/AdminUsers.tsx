@@ -102,7 +102,11 @@ function AdminUsers() {
     <div className="mb-6">
       <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
         <span className="font-bold">Users</span>
+        <label htmlFor="admin-user-search" className="sr-only">
+          Search for a user by username
+        </label>
         <input
+          id="admin-user-search"
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -150,6 +154,7 @@ function AdminUsers() {
               {currentUser?.role === "SUPERUSER" && !isSuperuserRow ? (
                 <div className="relative inline-flex items-center">
                   <select
+                    aria-label="Choose a role"
                     value={user.role}
                     onChange={(e) =>
                       changeRole(user.id, e.target.value as Role)

@@ -178,10 +178,13 @@ function Header({
               no-underline
               text-tertiary
               "
+            aria-label="Go to admin page"
           >
             <FaUserShield
               className="text-tertiary hover:text-secondary"
               size={iconSize + 4}
+              aria-hidden="true"
+              focusable="false"
             />
           </Link>
         )}

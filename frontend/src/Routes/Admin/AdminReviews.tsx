@@ -87,7 +87,11 @@ function AdminReviews() {
       <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
         <span className="font-bold">Reviews</span>
         <div className="flex gap-2">
+          <label htmlFor="admin-reviewer-search" className="sr-only">
+            Search for a review by reviewer username
+          </label>
           <input
+            id="admin-reviewer-search"
             type="text"
             value={reviewerSearch}
             onChange={(e) => {
@@ -97,7 +101,11 @@ function AdminReviews() {
             placeholder="Search by reviewer..."
             className="rounded px-2 py-1 text-sm text-primary bg-tertiary"
           />
+          <label htmlFor="admin-game-search" className="sr-only">
+            Search for a review by game
+          </label>
           <input
+            id="admin-game-search"
             type="text"
             value={gameSearch}
             onChange={(e) => {
