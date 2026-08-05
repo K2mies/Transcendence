@@ -222,13 +222,13 @@ function GameInfo({ game }: GameInfoProps) {
             ))}
           </ul>
 
-          <div className="flex flex-col md:flex-row items-center gap-4 shrink-0">
+          <div className="flex flex-col md:flex-row items-end md:items-center gap-4 shrink-0">
             <FavoriteButton game={game} />
             <Status key={game.name} game={game} />
           </div>
         </div>
       </div>
-      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
+      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
         {/* Left column */}
         <img
           src={game.image}
