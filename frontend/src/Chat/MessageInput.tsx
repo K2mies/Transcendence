@@ -31,6 +31,7 @@ export default function MessageInput({
           maxLength={120}
           disabled={!canChat}
           onChange={(e) => setText(e.target.value)}
+          aria-label="Type a new message"
           placeholder={
             canChat ? "Type a message..." : "You can no longer send messages"
           }

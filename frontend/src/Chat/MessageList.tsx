@@ -28,7 +28,7 @@ export default function MessageList({
         >
           <div className="whitespace-pre-wrap break-words">{msg.content}</div>
 
-          <div className="text-xs opacity-60">
+          <div className="text-xs opacity-80">
             {msg.createdAt
               ? new Date(msg.createdAt).toLocaleString("en-GB", {
                   year: "numeric",
