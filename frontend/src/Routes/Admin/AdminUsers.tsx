@@ -14,6 +14,7 @@ function AdminUsers() {
   const [search, setSearch] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
   const [page, setPage] = useState(1);
+  const [announcement, setAnnouncement] = useState<string>("");
 
   useEffect(() => {
     async function loadUsers() {
@@ -26,6 +27,11 @@ function AdminUsers() {
         const result = await response.json();
         setUsers(result.data);
         setPage(1);
+        setAnnouncement(
+          result.data.length === 1
+            ? "1 user found"
+            : `${result.data.length} users found`,
+        );
       }
     }
 
@@ -103,7 +109,7 @@ function AdminUsers() {
       <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
         <h2 className="text-[1.4rem] font-bold">Users</h2>
         <label htmlFor="admin-user-search" className="sr-only">
-          Search for a user by username
+          Search for a user
         </label>
         <input
           id="admin-user-search"
@@ -114,6 +120,8 @@ function AdminUsers() {
           className="rounded px-2 py-1 text-sm text-primary bg-tertiary"
         />
       </div>
+
+      <p aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
 
       <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
         <tr className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}>

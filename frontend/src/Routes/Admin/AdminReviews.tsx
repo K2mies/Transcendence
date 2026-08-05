@@ -12,6 +12,7 @@ function AdminReviews() {
   const [gameSearch, setGameSearch] = useState("");
   const [sortAsc, setSortAsc] = useState(false);
   const [page, setPage] = useState(1);
+  const [announcement, setAnnouncement] = useState("");
 
   useEffect(() => {
     async function loadReviews() {
@@ -65,6 +66,18 @@ function AdminReviews() {
       (review.game ?? "").toLowerCase().includes(gameSearch.toLowerCase()),
   );
 
+  useEffect(() => {
+    const count = filteredReviews.length;
+  
+    setAnnouncement(
+      count === 0
+        ? "No reviews found"
+        : count === 1
+          ? "1 review found"
+          : `${count} reviews found`,
+    );
+  }, [filteredReviews.length]);
+
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     const diff =
       new Date(a.createdAt ?? "").getTime() -
@@ -88,7 +101,7 @@ function AdminReviews() {
         <h2 className="text-[1.4rem] font-bold">Reviews</h2>
         <div className="flex gap-2">
           <label htmlFor="admin-reviewer-search" className="sr-only">
-            Search for a review by reviewer username
+            Search for a review by reviewer
           </label>
           <input
             id="admin-reviewer-search"
@@ -118,7 +131,9 @@ function AdminReviews() {
         </div>
       </div>
 
-      <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden">
+      <p aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
+
+      <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
         <tr
           className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
         >
