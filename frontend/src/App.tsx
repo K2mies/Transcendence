@@ -70,12 +70,7 @@ function Layout() {
       setMyCurrUser(currentUser.name);
     }
   }, [currentUser, myCurrUser]);
-  const [isUserFound, setIsUserFound] = useState<boolean | undefined>(
-    undefined,
-  );
-  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
-    undefined,
-  );
+  
 
   const hideHeader =
     location.pathname === "/" ||

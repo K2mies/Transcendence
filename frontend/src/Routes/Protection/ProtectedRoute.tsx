@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-import { useCurrentUser } from "../../Auth/CurrentUserContext.js";
+import { useCurrentUser } from "../../Auth/CurrentUserContext";
 
 export default function ProtectedRoute() {
   const { currentUser, loading } = useCurrentUser();
