@@ -50,6 +50,12 @@ function Layout() {
   const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
+  const [isUserFound, setIsUserFound] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
+    undefined,
+  );
   const { currentUser } = useCurrentUser();
 
   useEffect(() => {
