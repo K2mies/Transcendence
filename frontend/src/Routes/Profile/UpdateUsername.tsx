@@ -35,7 +35,7 @@ function UpdateUsername({
   editRef,
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
-  const [editError, setEditError] = useState<string | undefined>(undefined);
+  const [updateError, setUpdateError] = useState<string | undefined>(undefined);
   const { handleSubmit, control } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -86,7 +86,7 @@ function UpdateUsername({
       navigate(`/user/${encodeURIComponent(newName)}`);
       setUpdateUsernameMode(false);
     } else {
-      setEditError(data.message || "Failed to save username. Please try again.");
+      setUpdateError(data.message || "Failed to save username. Please try again.");
     }
   }
   return (
@@ -115,7 +115,7 @@ function UpdateUsername({
             autoComplete="off"
             onChange={(e) => {
               field.onChange(e.target.value);
-              if (editError) setEditError(undefined);
+              if (updateError) setUpdateError(undefined);
             }}
             onBlur={field.onBlur}
             value={field.value}
@@ -141,9 +141,9 @@ function UpdateUsername({
         </div>
       </form>
       <div>
-        {error || editError ? (
+        {error || updateError ? (
           <Alert severity="error" variant="filled">
-            {error ? error.message : editError}
+            {error ? error.message : updateError}
           </Alert>
         ) : null}
       </div>
