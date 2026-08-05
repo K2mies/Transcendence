@@ -346,7 +346,7 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
       document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
-  }, [name]);
+  }, [name, setFavorite, setIsGameFound]);
 
   async function deleteReview(review: Review) {
     if (!game) return;

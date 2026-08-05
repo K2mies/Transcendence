@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  type ReactNode,
+} from "react";
 
 type FavoritesContextValue = {
   favoriteIds: Set<number>;
@@ -14,15 +20,16 @@ const FavoritesContext = createContext<FavoritesContextValue | undefined>(
 export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [favoriteIds, setFavoriteIds] = useState<Set<number>>(new Set());
 
-  function setInitialFavorites(ids: number[]) {
+  const setInitialFavorites = useCallback((ids: number[]) => {
     setFavoriteIds(new Set(ids));
-  }
+  }, []);
 
-  function isFavorite(gameId: number) {
-    return favoriteIds.has(gameId);
-  }
+  const isFavorite = useCallback(
+    (gameId: number) => favoriteIds.has(gameId),
+    [favoriteIds],
+  );
 
-  function setFavorite(gameId: number, value: boolean) {
+  const setFavorite = useCallback((gameId: number, value: boolean) => {
     setFavoriteIds((prev) => {
       const next = new Set(prev);
 
@@ -34,7 +41,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
       return next;
     });
-  }
+  }, []);
 
   return (
     <FavoritesContext.Provider
