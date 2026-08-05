@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import type { RegistrationProps } from "./types";
+import type { RegistrationProps } from "../types";
 
 function OAuthCallback({ setMyCurrUser }: RegistrationProps) {
   const navigate = useNavigate();

@@ -10,14 +10,14 @@ export async function getGames(req, res) {
       data: games,
     });
   } catch (error) {
-    res.status(500).json({
-      status: "error",
-      error: "Failed to get games",
+    console.error(error);
+    res.status(error.status || 500).json({
+      message: error.message || "Internal server error",
     });
   }
 }
 
-//gets all the genre's for the front end
+//gets all the genres for the front end
 export async function getGenres(req, res) {
   try {
     const genres = await prisma.genre.findMany({
@@ -25,14 +25,14 @@ export async function getGenres(req, res) {
       orderBy: { name: "asc" },
     });
 
-    res.json({
+    res.status(200).json({
       status: "success",
       data: genres,
     });
   } catch (error) {
-    res.status(500).json({
-      status: "error",
-      error: "Failed to get genres",
+    console.error(error);
+    res.status(error.status || 500).json({
+      message: error.message || "Internal server error",
     });
   }
 }
@@ -50,14 +50,14 @@ export async function getPlatforms(req, res) {
       },
     });
 
-    res.json({
+    res.status(200).json({
       status: "success",
       data: platforms,
     });
   } catch (error) {
-    res.status(500).json({
-      status: "error",
-      error: "Failed to get platforms",
+    console.error(error);
+    res.status(error.status || 500).json({
+      message: error.message || "Internal server error",
     });
   }
 }
@@ -75,15 +75,14 @@ export async function getDevelopers(req, res) {
       },
     });
 
-    return res.status(200).json({
+    res.status(200).json({
       status: "success",
       data: developers.filter((d) => d.developer),
     });
   } catch (error) {
-    console.error("Error fetching developers:", error);
-    return res.status(500).json({
-      status: "error",
-      message: "Failed to get developers",
+    console.error(error);
+    res.status(error.status || 500).json({
+      message: error.message || "Internal server error",
     });
   }
 }

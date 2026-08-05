@@ -11,8 +11,8 @@ import Footer from "./Footer/Footer";
 import Login from "./Registration/Login";
 import SignUp from "./Registration/Register";
 
-import OAuthCallback from "./OAuthCallback";
-import OAuthUsernamePicker from "./OAuthUsernamePicker";
+import OAuthCallback from "./Auth/OAuthCallback";
+import OAuthUsernamePicker from "./Auth/OAuthUsernamePicker";
 
 import Profile from "./Routes/Profile/Profile";
 import Game from "./Routes/Game/Game";
@@ -20,6 +20,8 @@ import Games from "./Routes/Games/Games";
 
 import Home from "./Routes/Home";
 import Dashboard from "./Routes/Dashboard/Dashboard";
+
+import NotFound from "./NotFound";
 
 import { ChatProvider } from "./Chat/ChatContext";
 import Chat from "./Chat/Chat";
@@ -29,7 +31,7 @@ import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
 import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
-import { FavoritesProvider } from "./Rating/FavoritesContext";
+import { FavoritesProvider } from "./Rating/FavoritesProvider";
 import { CurrentUserProvider, useCurrentUser } from "./Auth/CurrentUserContext";
 import Admin from "./Routes/Admin/Admin";
 
@@ -48,6 +50,12 @@ function Layout() {
   const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
+  const [isUserFound, setIsUserFound] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
+    undefined,
+  );
   const { currentUser } = useCurrentUser();
 
   useEffect(() => {
@@ -90,6 +98,8 @@ function Layout() {
           setShowSearch={setShowSearch}
           myCurrUser={myCurrUser}
           setMyCurrUser={setMyCurrUser}
+          isUserFound={isUserFound}
+          isGameFound={isGameFound}
         />
       )}
 
@@ -129,14 +139,23 @@ function Layout() {
                 <Profile
                   myCurrUser={myCurrUser}
                   setMyCurrUser={setMyCurrUser}
+                  isUserFound={isUserFound}
+                  setIsUserFound={setIsUserFound}
                 />
               }
             />
             <Route
               path="game/:name"
-              element={<Game myCurrUser={myCurrUser} />}
+              element={
+                <Game
+                  myCurrUser={myCurrUser}
+                  isGameFound={isGameFound}
+                  setIsGameFound={setIsGameFound}
+                />
+              }
             />
             <Route path="chat" element={<Chat />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           <Route element={<AdminRoute />}>

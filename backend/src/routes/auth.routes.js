@@ -7,7 +7,7 @@ import {
   googleCallback,
   getMe,
   updateUsername,
-} from "../controllers/auth.controllers.js";
+} from "../controllers/auth.controller.js";
 import { protect } from "../utils/protectJWT.js";
 import { validateRequest } from "../middlewares/validateRequest.js";
 import {

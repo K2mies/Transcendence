@@ -1,8 +1,10 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import toast from "react-hot-toast";
 import ProfileInfo from "./ProfileInfo";
 import Reviews from "../../Review/Reviews";
 import SmallGameCard from "./SmallGameCard";
+import NotFound from "../../NotFound";
 import type { UserProfile, ProfileGame } from "../../types";
 import type { Review as ReviewType } from "../../Types/ReviewType";
 import { useCurrentUser } from "../../Auth/CurrentUserContext";
@@ -10,6 +12,8 @@ import { useCurrentUser } from "../../Auth/CurrentUserContext";
 type ProfileProps = {
   myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
+  isUserFound: boolean | undefined;
+  setIsUserFound: (isUserFound: boolean | undefined) => void;
 };
 
 type GameProps = {
@@ -44,20 +48,23 @@ function DisplayGames({ header, games, onRemove }: GameProps) {
   );
 }
 
-function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
+function Profile({
+  myCurrUser,
+  setMyCurrUser,
+  isUserFound,
+  setIsUserFound,
+}: ProfileProps) {
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
   const [reviews, setReviews] = useState<ReviewType[]>([]);
   const [favGames, setFavGames] = useState<ProfileGame[]>([]);
   const [currGames, setCurrGames] = useState<ProfileGame[]>([]);
   const [toPlayGames, setToPlayGames] = useState<ProfileGame[]>([]);
   const [completedGames, setCompletedGames] = useState<ProfileGame[]>([]);
-  const [isUserFound, setIsUserFound] = useState<boolean>(false);
   const { username } = useParams();
   const location = useLocation();
   const { currentUser } = useCurrentUser();
 
   const isMyProfile = myCurrUser === username;
-  const titleName = isMyProfile ? "My profile" : username;
   const isAdminViewer =
     currentUser?.role === "ADMIN" || currentUser?.role === "SUPERUSER";
 
@@ -78,6 +85,14 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
 
     if (response.ok) {
       setFavGames((games) => games.filter((g) => g.id !== game.id));
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get favorite games. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
 
@@ -101,15 +116,25 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
 
     if (response.ok) {
       setGames((games: ProfileGame[]) => games.filter((g) => g.id !== game.id));
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to reset game status. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
 
   async function deleteReview(review: ReviewType) {
-    const isOwnReview = review.user.name === myCurrUser;
+    const isOwnReview: boolean = review.user.name === myCurrUser;
 
     if (
       !isOwnReview &&
-      !window.confirm(`Delete ${review.user.name}'s review? This cannot be undone.`)
+      !window.confirm(
+        `Delete ${review.user.name}'s review? This cannot be undone.`,
+      )
     ) {
       return;
     }
@@ -129,6 +154,14 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
           (currentReview) => currentReview.id !== review.id,
         ),
       );
+    } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to delete review. Please try again.
+            </div>
+          </div>
+        ));
     }
   }
 
@@ -150,24 +183,27 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
         setCurrGames(res.playing);
         setToPlayGames(res.to_play);
         setCompletedGames(res.completed);
+        const titleName: string = isMyProfile ? "My profile" : username;
+        document.title = `${titleName} | GoodPlays`;
       } else {
         setIsUserFound(false);
       }
     }
-    document.title = `${titleName} | GoodPlays`;
     loadProfile();
   }, [username]);
 
   useEffect(() => {
     if (location.hash === "#reviews" && profile) {
-      document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("reviews")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   }, [location.hash, profile]);
 
   return (
-    <div className="bg-secondary p-6 min-h-screen">
-      {isUserFound && profile && myCurrUser && (
-        <div>
+    <>
+      {isUserFound === true && profile && myCurrUser && (
+        <div className="bg-secondary p-6 min-h-screen">
           <ProfileInfo
             profile={profile}
             myCurrUser={myCurrUser}
@@ -227,12 +263,8 @@ function Profile({ myCurrUser, setMyCurrUser }: ProfileProps) {
           )}
         </div>
       )}
-      {isUserFound === false && (
-        <div>
-          <p>404 User not found</p>
-        </div>
-      )}
-    </div>
+      {isUserFound === false && <NotFound />}
+    </>
   );
 }
 

@@ -50,7 +50,7 @@ function GenreIcon({ genre, size = 20 }: GenreIconProps) {
     return null;
   }
 
-  return <Icon size={size} aria-hidden="true" focusable="false"/>;
+  return <Icon size={size} aria-hidden="true" focusable="false" />;
 }
 
 export default GenreIcon;
