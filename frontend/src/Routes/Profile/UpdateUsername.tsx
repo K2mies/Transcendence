@@ -7,8 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 type UpdateUsernameProps = {
   setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
+  myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
   editRef: any;
+  setMyOldUser: (myOldUser: string | undefined) => void;
 };
 
 type FormValues = {
@@ -31,8 +33,10 @@ const schema = z.object({
 
 function UpdateUsername({
   setUpdateUsernameMode,
+  myCurrUser,
   setMyCurrUser,
   editRef,
+  setMyOldUser
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
   const [updateError, setUpdateError] = useState<string | undefined>(undefined);
@@ -79,6 +83,7 @@ function UpdateUsername({
       };
 
       localStorage.setItem("user", JSON.stringify(newUserData));
+      setMyOldUser(myCurrUser);
       setMyCurrUser(newName);
 
       window.dispatchEvent(new Event("auth-changed"));

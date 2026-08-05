@@ -22,7 +22,8 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [currBio, setCurrBio] = useState<string>(profile.bio);
   const [avatar, setAvatar] = useState<string | null>(profile.image ?? null);
   const editRef = useRef<any>(null);
-  const isMyUser = myCurrUser === profile.name;
+  const [myOldUser, setMyOldUser] = useState<string | undefined>(undefined);
+  const isMyUser = (myCurrUser === profile.name) || (myOldUser === profile.name);
   const { onlineUsers, friends } = UseChat();
   const [editError, setEditError] = useState<string | undefined>(undefined);
 
@@ -71,7 +72,9 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         {updateUsernameMode && (
           <UpdateUsername
             setUpdateUsernameMode={setUpdateUsernameMode}
+            myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
+            setMyOldUser={setMyOldUser}
             editRef={editRef}
           />
         )}
