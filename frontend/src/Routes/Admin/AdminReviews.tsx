@@ -97,9 +97,9 @@ function AdminReviews() {
 
   return (
     <div className="mb-6">
-      <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
+      <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5 flex-wrap">
         <h2 className="text-[1.4rem] font-bold">Reviews</h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 md:mt-0 mt-2">
           <label htmlFor="admin-reviewer-search" className="sr-only">
             Search for a review by reviewer
           </label>
@@ -199,7 +199,7 @@ function AdminReviews() {
                       to={`/game/${encodeURIComponent(review.game)}#reviews`}
                       className="text-sm no-underline text-primary"
                     >
-                      {review.review}
+                      {review.review !== "" ? review.review : "-"}
                     </Link>
                   </td>
                 </>
@@ -232,6 +232,7 @@ function AdminReviews() {
       </table>
 
       <PaginationControls
+        pagename="admin-reviews"
         page={currentPage}
         totalPages={totalPages}
         onPrevious={() => setPage((p) => Math.max(1, p - 1))}

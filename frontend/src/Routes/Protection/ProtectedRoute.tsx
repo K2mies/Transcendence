@@ -16,7 +16,7 @@ export default function ProtectedRoute() {
 
     return (
       <Navigate
-        to="/register"
+        to="/"
         replace
         state={{ from: location }}
       />

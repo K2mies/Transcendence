@@ -173,6 +173,7 @@ function AdminUsers() {
                   {currentUser?.role === "SUPERUSER" && !isSuperuserRow ? (
                     <div className="relative inline-flex items-center">
                       <select
+                        id={`role-select-id-${user.id}`}
                         aria-label="Choose a role"
                         value={user.role}
                         onChange={(e) =>
@@ -233,6 +234,7 @@ function AdminUsers() {
       </table>
 
       <PaginationControls
+        pagename="admin-users"
         page={currentPage}
         totalPages={totalPages}
         onPrevious={() => setPage((p) => Math.max(1, p - 1))}

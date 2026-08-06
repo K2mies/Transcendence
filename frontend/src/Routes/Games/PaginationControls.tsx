@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 type PaginationControlsProps = {
+  pagename: string,
   page: number;
   totalPages: number;
   onPrevious: () => void;
@@ -10,6 +11,7 @@ type PaginationControlsProps = {
 };
 
 function PaginationControls({
+  pagename,
   page,
   totalPages,
   onPrevious,
@@ -49,7 +51,7 @@ function PaginationControls({
         <span>Page</span>
 
         <input
-          id="page-number"
+          id={`page-number-${pagename}`}
           type="text"
           aria-label="Page number"
           inputMode="numeric"
