@@ -70,6 +70,7 @@ function Layout() {
       setMyCurrUser(currentUser.name);
     }
   }, [currentUser, myCurrUser]);
+  
 
   const hideHeader =
     location.pathname === "/" ||
