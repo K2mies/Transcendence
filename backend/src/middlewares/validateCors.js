@@ -7,9 +7,7 @@ import cors from "cors";
  * Only allowed headers are "Content-Type" and "Authorization"
  */
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:4243",
-  "http://127.0.0.1:5173",
+  "https://localhost",
 ];
 
 /*

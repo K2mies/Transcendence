@@ -9,7 +9,7 @@ function AddFriend({
 }: FriendStatusRefresh) {
   async function sendFriendRequest() {
     const response: Response = await fetch(
-      `http://localhost:4243/profile/${username}/friend-request`,
+      `/api/profile/${username}/friend-request`,
       {
         method: "POST",
         credentials: "include",

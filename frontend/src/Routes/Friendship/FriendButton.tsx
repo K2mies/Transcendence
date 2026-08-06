@@ -22,7 +22,7 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
 
     async function getStatus() {
       const response: Response = await fetch(
-        `http://localhost:4243/profile/${username}/friend-status`,
+        `/api/profile/${username}/friend-status`,
         {
           credentials: "include",
         },

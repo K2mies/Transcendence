@@ -17,7 +17,7 @@ function PlatformSelector({ platforms, setPlatforms }: PlatformSelectorProps) {
 
   useEffect(() => {
     async function fetchPlatforms() {
-      const response = await fetch("http://localhost:4243/games/platforms", {
+      const response = await fetch("/api/games/platforms", {
         credentials: "include",
       });
 

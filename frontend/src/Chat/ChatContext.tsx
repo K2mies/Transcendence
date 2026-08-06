@@ -55,7 +55,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   async function init() {
     try {
-      const meRes = await fetch("http://localhost:4243/user/me", {
+      const meRes = await fetch("/api/user/me", {
         credentials: "include",
       });
 
@@ -67,10 +67,10 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setMe(meData.user);
 
       const [convRes, friendsRes] = await Promise.all([
-        fetch("http://localhost:4243/message/conversations", {
+        fetch("/api/message/conversations", {
           credentials: "include",
         }),
-        fetch("http://localhost:4243/user/friends", {
+        fetch("/api/user/friends", {
           credentials: "include",
         }),
       ]);
@@ -109,7 +109,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   // ---------------- GET MY FRIENDS ----------------
   async function getFriends() {
-    const friendsRes = await fetch("http://localhost:4243/user/friends", {
+    const friendsRes = await fetch("/api/user/friends", {
       credentials: "include",
     });
 
@@ -153,7 +153,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!me?.id) return;
 
-    const ws = new WebSocket("ws://localhost:4243");
+    const ws = new WebSocket("wss://localhost/ws");
     wsRef.current = ws;
 
     ws.onmessage = (e) => {
@@ -385,7 +385,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   // ---------------- MARK AS READ ----------------
   const markAsRead = useCallback(async (userId: number) => {
-    const res = await fetch(`http://localhost:4243/message/read/${userId}`, {
+    const res = await fetch(`/api/message/read/${userId}`, {
       method: "POST",
       credentials: "include",
     });

@@ -23,7 +23,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
 
   useEffect(() => {
     async function fetchUsers() {
-      const res = await fetch("http://localhost:4243/user/friends", {
+      const res = await fetch("/api/user/friends", {
         method: "GET",
         credentials: "include",
       });

@@ -32,7 +32,7 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
 
   const onSubmit = async (data: FormData) => {
     setServerError(null);
-    const response = await fetch("http://localhost:4243/auth/username", {
+    const response = await fetch("/api/auth/username", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

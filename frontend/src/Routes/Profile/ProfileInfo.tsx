@@ -32,7 +32,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
     const formData = new FormData();
     formData.append("file", file);
     e.target.value = "";
-    const response = await fetch(`http://localhost:4243/profile/upload`, {
+    const response = await fetch(`/api/profile/upload`, {
       method: "POST",
       credentials: "include",
       body: formData,
@@ -48,7 +48,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
     }
   };
   const deleteImage = async (e) => {
-    const response = await fetch(`http://localhost:4243/profile/delete`, {
+    const response = await fetch(`/api/profile/delete`, {
       method: "POST",
       credentials: "include",
     });

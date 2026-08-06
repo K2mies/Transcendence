@@ -13,7 +13,7 @@ function FriendRequestToast({ toastId, senderName }: FriendRequestToastProps) {
     try {
       toast.dismiss(toastId);
       const response = await fetch(
-        `http://localhost:4243/profile/${encodeURIComponent(senderName)}/accept-request`,
+        `/api/profile/${encodeURIComponent(senderName)}/accept-request`,
         {
           method: "PUT",
           credentials: "include",
@@ -44,7 +44,7 @@ function FriendRequestToast({ toastId, senderName }: FriendRequestToastProps) {
     try {
       toast.dismiss(toastId);
       const response = await fetch(
-        `http://localhost:4243/profile/${senderName}/decline-request`,
+        `/api/profile/${senderName}/decline-request`,
         {
           method: "DELETE",
           credentials: "include",

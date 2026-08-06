@@ -14,7 +14,7 @@ function OAuthCallback({ setMyCurrUser }: RegistrationProps) {
       return;
     }
 
-    fetch("http://localhost:4243/auth/me", { credentials: "include" })
+    fetch("/api/auth/me", { credentials: "include" })
       .then((res) => res.json())
       .then((result) => {
         if (result.status === "success") {
