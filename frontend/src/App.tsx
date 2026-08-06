@@ -31,7 +31,7 @@ import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
 import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
-import { FavoritesProvider } from "./Rating/FavoritesContext";
+import { FavoritesProvider } from "./Rating/FavoritesProvider";
 import { CurrentUserProvider, useCurrentUser } from "./Auth/CurrentUserContext";
 import Admin from "./Routes/Admin/Admin";
 
@@ -70,6 +70,7 @@ function Layout() {
       setMyCurrUser(currentUser.name);
     }
   }, [currentUser, myCurrUser]);
+  
 
   const hideHeader =
     location.pathname === "/" ||

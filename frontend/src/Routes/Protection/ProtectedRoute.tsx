@@ -1,10 +1,26 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
+import { useCurrentUser } from "../../Auth/CurrentUserContext";
 
 export default function ProtectedRoute() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const { currentUser, loading } = useCurrentUser();
+  const location = useLocation();
 
-  if (isLoggedIn !== "true") {
-    return <Navigate to="/" replace />;
+  if (loading) {
+    return null;
+  }
+
+  if (!currentUser) {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("user");
+
+    return (
+      <Navigate
+        to="/register"
+        replace
+        state={{ from: location }}
+      />
+    );
   }
 
   return <Outlet />;

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Reviews from "../../Review/Reviews";
 import FavoriteButton from "../../Rating/FavoriteButton";
+import { useFavorites } from "../../Rating/useFavorites";
 import NotFound from "../../NotFound";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";
@@ -305,6 +306,8 @@ function GameInfo({ game }: GameInfoProps) {
 }
 
 function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
+  const { setFavorite } = useFavorites();
+
   const [game, setGame] = useState<Game | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const reviewAverage =
@@ -328,6 +331,8 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
       if (response.status === 200) {
         const res: Game = await response.json();
 
+        setFavorite(res.id, res.favorite === true);
+
         setIsGameFound(true);
         setGame(res);
         setReviews(res.reviews ?? []);
@@ -341,7 +346,7 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
       document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
-  }, [name]);
+  }, [name, setFavorite, setIsGameFound]);
 
   async function deleteReview(review: Review) {
     if (!game) return;
@@ -361,13 +366,13 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
         ),
       );
     } else {
-        toast.custom(() => (
-          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
-            <div className="flex items-center gap-2">
-              Failed to delete review. Please try again.
-            </div>
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to delete review. Please try again.
           </div>
-        ));
+        </div>
+      ));
     }
   }
   return (
