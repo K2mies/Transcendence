@@ -70,7 +70,7 @@ const googleCallback = (res, user) => {
     ? "/oauth/username-picker"
     : "/oauth/callback";
   res.redirect(
-    `${process.env.FRONTEND_URL ?? "https://localhost"}${destination}`,
+    `${process.env.FRONTEND_URL ?? "https://localhost:8443"}${destination}`,
   );
 };
 
