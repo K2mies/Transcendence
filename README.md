@@ -292,6 +292,22 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 
 # Features List
 
+| Feature | Description | Work Division |
+|---|---|---|
+| User Registration & Login| Allows users to create an account and log in using email and password|---|
+| Google Authentication| Allows users to register and log in using their Google account| Inna|
+| Dashboard| A langin view with curated game lists: Trending, Newest, Top Rated and Most played. To help users discover games without manually searching | Karoliina|
+| Game Browsing and Filtering| Lets users browse the game catalogue and narrow results using filters| Ross|
+| Search| Lets users search for specific games or users| Ross, Viljar|
+| Game Library| Displays a user's tracked games(Want to play, playing, Completed, Favourites) | Sonja, Ross, Karoliina|
+| Game Status Tracking & Favouriting | Lets users mark a game's status | Sonja, Karoliina, Ross|
+| Reviews & Rating| Lets users write reviews on the games they have played | Ross, Karoliina|
+| Friends System| Lets users search for other users, see own friends list, send/accept friend requests, and remove friends | Sonja, Karoliina|
+| Chat| Lets friends message each other directly | Viljar|
+| Online Status Indicator | Shows which friends are currently online | Viljar|
+| Profile Customization | Lets users edit their avatar, bio and username | Sonja, Karoliina|
+| Advanced Permissions | Grants more permissions to designated admin users for moderation | Inna|
+
     [◦ Complete list of implemented features.
     ◦ Which team member(s) worked on each feature.
     ◦ Brief description of each feature’s functionality.]
