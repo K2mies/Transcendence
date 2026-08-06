@@ -12,7 +12,7 @@ function RatingSelector({ minRating, setMinRating }: RatingSelectorProps) {
     <div className="flex flex-col">
       <InputLabel
         id="rating-label"
-        htmlFor="rating"
+        htmlFor="rating-input"
         sx={{
           color: "white",
         }}
@@ -29,7 +29,7 @@ function RatingSelector({ minRating, setMinRating }: RatingSelectorProps) {
           width: 145,
           backgroundColor: "var(--app-tertiary)",
         }}
-        inputProps={{ id: "rating" }}
+        inputProps={{ id: "rating-input", name: "rating" }}
       >
         <MenuItem value={0}>All ratings</MenuItem>
         <MenuItem value={1}>1+ stars</MenuItem>

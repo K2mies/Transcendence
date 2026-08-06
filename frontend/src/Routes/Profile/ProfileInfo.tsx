@@ -22,7 +22,8 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
   const [currBio, setCurrBio] = useState<string>(profile.bio);
   const [avatar, setAvatar] = useState<string | null>(profile.image ?? null);
   const editRef = useRef<any>(null);
-  const isMyUser = myCurrUser === profile.name;
+  const [myOldUser, setMyOldUser] = useState<string | undefined>(undefined);
+  const isMyUser = (myCurrUser === profile.name) || (myOldUser === profile.name);
   const { onlineUsers, friends } = UseChat();
   const [editError, setEditError] = useState<string | undefined>(undefined);
 
@@ -67,11 +68,13 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
 
   return (
     <div className="bg-primary text-tertiary flex flex-col rounded-t-lg">
-      <div className="flex gap-2 items-center text-tertiary">
+      <div className="flex gap-2 items-center text-tertiary flex-wrap">
         {updateUsernameMode && (
           <UpdateUsername
             setUpdateUsernameMode={setUpdateUsernameMode}
+            myCurrUser={myCurrUser}
             setMyCurrUser={setMyCurrUser}
+            setMyOldUser={setMyOldUser}
             editRef={editRef}
           />
         )}
@@ -122,8 +125,9 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           )}
           {isMyUser && (
             <div className="absolute bottom-0 right-0 bg-secondary px-2 py-1 rounded-l flex gap-2">
-              <label className="cursor-pointer" title="Upload avatar">
-                <FaEdit size={15} />
+              <label className="cursor-pointer">
+                <FaEdit size={15} aria-hidden="true" focusable="false" />
+                <span className="sr-only">Upload avatar</span>
                 <input
                   type="file"
                   accept="image/png, image/jpeg, .png, .jpg, .jpeg"

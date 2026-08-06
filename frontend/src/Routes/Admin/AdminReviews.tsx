@@ -12,6 +12,7 @@ function AdminReviews() {
   const [gameSearch, setGameSearch] = useState("");
   const [sortAsc, setSortAsc] = useState(false);
   const [page, setPage] = useState(1);
+  const [announcement, setAnnouncement] = useState("");
 
   useEffect(() => {
     async function loadReviews() {
@@ -65,6 +66,18 @@ function AdminReviews() {
       (review.game ?? "").toLowerCase().includes(gameSearch.toLowerCase()),
   );
 
+  useEffect(() => {
+    const count = filteredReviews.length;
+
+    setAnnouncement(
+      count === 0
+        ? "No reviews found"
+        : count === 1
+          ? "1 review found"
+          : `${count} reviews found`,
+    );
+  }, [filteredReviews.length]);
+
   const sortedReviews = [...filteredReviews].sort((a, b) => {
     const diff =
       new Date(a.createdAt ?? "").getTime() -
@@ -84,10 +97,14 @@ function AdminReviews() {
 
   return (
     <div className="mb-6">
-      <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5">
-        <span className="font-bold">Reviews</span>
-        <div className="flex gap-2">
+      <div className="bg-primary text-tertiary flex items-center justify-between rounded-t-lg py-2 px-5 flex-wrap">
+        <h2 className="text-[1.4rem] font-bold">Reviews</h2>
+        <div className="flex gap-2 md:mt-0 mt-2 flex-wrap md:flex-nowrap">
+          <label htmlFor="admin-reviewer-search" className="sr-only">
+            Search for a review by reviewer
+          </label>
           <input
+            id="admin-reviewer-search"
             type="text"
             value={reviewerSearch}
             onChange={(e) => {
@@ -97,7 +114,11 @@ function AdminReviews() {
             placeholder="Search by reviewer..."
             className="rounded px-2 py-1 text-sm text-primary bg-tertiary"
           />
+          <label htmlFor="admin-game-search" className="sr-only">
+            Search for a review by game
+          </label>
           <input
+            id="admin-game-search"
             type="text"
             value={gameSearch}
             onChange={(e) => {
@@ -110,78 +131,110 @@ function AdminReviews() {
         </div>
       </div>
 
-      <div className="bg-tertiary text-primary border-primary border-3 overflow-hidden">
-        <div
-          className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
-        >
-          <span>Reviewer</span>
-          <span>Game</span>
-          <span>Rating</span>
-          <span>Review</span>
-          <button
-            type="button"
-            onClick={() => setSortAsc((prev) => !prev)}
-            className="font-bold"
-          >
-            Posted {sortAsc ? "▲" : "▼"}
-          </button>
-          <span />
-        </div>
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {announcement}
+      </p>
 
-        {pagedReviews.map((review) => (
-          <div
-            key={review.id}
-            className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-          >
-            <Link
-              to={`/user/${review.user.name}#reviews`}
-              className="text-sm no-underline text-primary truncate"
+      <div className="w-full min-w-0 overflow-x-auto">
+        <table className="bg-tertiary text-primary border-primary border-3 md:overflow-hidden w-full overflow-x-auto scroll-smooth snap-x snap-mandatory md:table flex flex-wrap">
+          <caption className="sr-only">Reviews</caption>
+          <thead>
+            <tr
+              className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
             >
-              {review.user.name}
-            </Link>
+              <th scope="col">Reviewer</th>
+              <th scope="col">Game</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Review</th>
+              <th scope="col">
+                <span className="sr-only">Date of post</span>
+                <button
+                  type="button"
+                  onClick={() => setSortAsc((prev) => !prev)}
+                  className="font-bold"
+                  aria-label={
+                    sortAsc
+                      ? "Change to descending sorting"
+                      : "Change to ascending sorting"
+                  }
+                >
+                  <span aria-hidden="true">Posted {sortAsc ? "▲" : "▼"}</span>
+                </button>
+              </th>
+              <th scope="col">Delete?</th>
+            </tr>
+          </thead>
 
-            {review.game ? (
-              <Link
-                to={`/game/${encodeURIComponent(review.game)}`}
-                className="text-sm no-underline text-primary truncate"
+          <tbody>
+            {pagedReviews.map((review) => (
+              <tr
+                key={review.id}
+                className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
               >
-                {review.game}
-              </Link>
-            ) : (
-              <span className="text-sm">—</span>
-            )}
+                <td className="min-w-0 max-w-full">
+                  <Link
+                    to={`/user/${review.user.name}#reviews`}
+                    className="block min-w-0 max-w-full text-sm no-underline text-primary truncate"
+                  >
+                    {review.user.name}
+                  </Link>
+                </td>
 
-            <span className="text-sm">{review.rating}</span>
+                {review.game && (
+                  <>
+                    <td className="min-w-0 max-w-full">
+                      <Link
+                        to={`/game/${encodeURIComponent(review.game)}`}
+                        className="block min-w-0 max-w-full text-sm no-underline text-primary truncate"
+                      >
+                        {review.game}
+                      </Link>
+                    </td>
 
-            <Link
-              to={`/user/${review.user.name}#reviews`}
-              className="text-sm no-underline text-primary truncate min-w-0 w-full"
-            >
-              {review.review}
-            </Link>
+                    <td className="min-w-0">
+                      <span className="text-sm">{review.rating}</span>
+                    </td>
 
-            <span className="text-sm">
-              {new Date(review.createdAt ?? "").toLocaleDateString("fi-FI")}
-            </span>
+                    <td className="min-w-0 max-w-full">
+                      <Link
+                        to={`/game/${encodeURIComponent(review.game)}#reviews`}
+                        className="block min-w-0 max-w-full text-sm no-underline text-primary truncate"
+                      >
+                        {review.review !== "" ? review.review : "-"}
+                      </Link>
+                    </td>
+                  </>
+                )}
 
-            <button type="button" onClick={() => deleteReview(review.id)}>
-              Delete
-            </button>
-          </div>
-        ))}
+                <td className="min-w-0 whitespace-nowrap">
+                  <span className="text-sm">
+                    {new Date(review.createdAt ?? "").toLocaleDateString("fi-FI")}
+                  </span>
+                </td>
 
-        {Array.from({ length: PAGE_SIZE - pagedReviews.length }).map((_, i) => (
-          <div
-            key={`empty-${i}`}
-            className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-            aria-hidden="true"
-          >
-            <span>&nbsp;</span>
-          </div>
-        ))}
+                <td className="min-w-0 whitespace-nowrap">
+                  <button type="button" onClick={() => deleteReview(review.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+
+            {Array.from({ length: PAGE_SIZE - pagedReviews.length }).map((_, i) => (
+              <tr
+                key={`empty-${i}`}
+                className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
+                aria-hidden="true"
+              >
+                <td>&nbsp;</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <PaginationControls
+        pageName="admin-page-reviews"
         page={currentPage}
         totalPages={totalPages}
         onPrevious={() => setPage((p) => Math.max(1, p - 1))}

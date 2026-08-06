@@ -26,9 +26,14 @@ export default function MessageList({
               : "bg-tertiary/40"
           }`}
         >
-          <div className="whitespace-pre-wrap break-words">{msg.content}</div>
+          <div className="whitespace-pre-wrap break-words">
+            <span className="sr-only">
+              {msg.senderId === me?.id ? "Sent message: " : "Received message: "}
+            </span>
+            {msg.content}
+          </div>
 
-          <div className="text-xs opacity-60">
+          <div className="text-xs opacity-80">
             {msg.createdAt
               ? new Date(msg.createdAt).toLocaleString("en-GB", {
                   year: "numeric",

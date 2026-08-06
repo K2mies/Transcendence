@@ -7,8 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 type UpdateUsernameProps = {
   setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
+  myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
   editRef: any;
+  setMyOldUser: (myOldUser: string | undefined) => void;
 };
 
 type FormValues = {
@@ -31,11 +33,13 @@ const schema = z.object({
 
 function UpdateUsername({
   setUpdateUsernameMode,
+  myCurrUser,
   setMyCurrUser,
   editRef,
+  setMyOldUser
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
-  const [editError, setEditError] = useState<string | undefined>(undefined);
+  const [updateError, setUpdateError] = useState<string | undefined>(undefined);
   const { handleSubmit, control } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -79,6 +83,7 @@ function UpdateUsername({
       };
 
       localStorage.setItem("user", JSON.stringify(newUserData));
+      setMyOldUser(myCurrUser);
       setMyCurrUser(newName);
 
       window.dispatchEvent(new Event("auth-changed"));
@@ -86,7 +91,7 @@ function UpdateUsername({
       navigate(`/user/${encodeURIComponent(newName)}`);
       setUpdateUsernameMode(false);
     } else {
-      setEditError(data.error || "Failed to save username. Please try again.");
+      setUpdateError(data.message || "Failed to save username. Please try again.");
     }
   }
   return (
@@ -114,7 +119,7 @@ function UpdateUsername({
             autoComplete="off"
             onChange={(e) => {
               field.onChange(e.target.value);
-              if (editError) setEditError(undefined);
+              if (updateError) setUpdateError(undefined);
             }}
             onBlur={field.onBlur}
             value={field.value}
@@ -140,9 +145,9 @@ function UpdateUsername({
         </div>
       </form>
       <div>
-        {error || editError ? (
+        {error || updateError ? (
           <Alert severity="error" variant="filled">
-            {error ? error.message : editError}
+            {error ? error.message : updateError}
           </Alert>
         ) : null}
       </div>

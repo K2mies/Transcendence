@@ -56,8 +56,8 @@ function Header({
   }
   return (
     <nav className="bg-primary text-tertiary flex w-full flex-row items-center gap-6 py-2 px-6 sticky top-0 z-50">
-      <h1 className="text-tertiary">{pageTitle}</h1>
-      <div className="flex items-center gap-5 ml-auto mr-5 flex-col md:flex-row">
+      <h1 className="text-tertiary max-w-[90%]">{pageTitle}</h1>
+      <div className="flex items-center gap-5 ml-auto mr-5 flex-col md:flex-row my-3 md:my-0">
         {myCurrUser && (
           <div className="flex items-center">
             <button
@@ -178,10 +178,13 @@ function Header({
               no-underline
               text-tertiary
               "
+            aria-label="Go to admin page"
           >
             <FaUserShield
               className="text-tertiary hover:text-secondary"
               size={iconSize + 4}
+              aria-hidden="true"
+              focusable="false"
             />
           </Link>
         )}

@@ -12,18 +12,17 @@ export default function ConversationList({
   openChat,
 }: ConversationListProps) {
   return (
-    <div className="w-1/4 shrink-0 overflow-y-auto border-r border-secondary/20 pr-4">
+    <div className="w-1/4 shrink-0 overflow-y-auto border-r border-secondary/20 pr-4 md:flex md:flex-col">
       <h2 className="mb-4 text-sm md:text-lg  text-secondary">Conversations</h2>
 
       {conversations.map((c) => (
-        <div
+        <button
           key={c.userId}
-          role="button"
-          tabIndex={0}
+          aria-label={`Open conversation with ${c.name}${
+            c.unreadCount > 0 ? `. ${c.unreadCount} unread messages.` : ""
+            }${onlineUsers.has(c.userId) ? " User is online." : ""
+          }`}
           onClick={() => openChat(c.userId)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") openChat(c.userId);
-          }}
           className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
         >
           <div className="flex justify-between">
@@ -41,9 +40,9 @@ export default function ConversationList({
             )}
           </div>
 
-          <div className="text-sm opacity-70 truncate">{c.lastMessage}</div>
+          <div className="text-sm opacity-70 truncate text-left">{c.lastMessage}</div>
 
-          <div className="text-xs opacity-50">
+          <div className="text-xs opacity-50 text-left">
             {c.lastMessageAt
               ? new Date(c.lastMessageAt).toLocaleString("en-GB", {
                   year: "numeric",
@@ -55,7 +54,7 @@ export default function ConversationList({
                 })
               : ""}
           </div>
-        </div>
+        </button>
       ))}
     </div>
   );

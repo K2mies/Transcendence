@@ -248,7 +248,7 @@ function GameInfo({ game }: GameInfoProps) {
         />
 
         {/* Top right */}
-        <div className="flex flex-col md:flex-row items-start gap-8 w-full">
+        <div className="flex flex-col md:flex-row items-start gap-8 w-full mt-3 md:mt-0">
           <div className="flex-1 min-w-0">
             <div className="relative">
               <span
