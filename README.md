@@ -121,8 +121,14 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 # Technical Stack
 
 **_Backend_** \
- ◦ Express: backend server
-◦ Node.js
+◦ Node.js \
+◦ Express: backend server \
+◦ WebSocket (ws): real-time communication \
+◦ Passport.js + Google OAuth 2.0: authentication \
+◦ JWT (jsonwebtoken): session/auth tokens \
+◦ bcryptjs: password hashing \
+◦ Zod: input validation \
+◦ CORS: cross-origin request handling between frontend and backend
 
 **_Database_** \
  ◦ PostgreSQL
@@ -141,10 +147,109 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 ---
 
 # Database Schema
-
     [◦ Visual representation or description of the database structure.
     ◦ Tables/collections and their relationships.
     ◦ Key fields and data types.]
+
+### User
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key, autoincrement |
+| name | String | unique |
+| email | String | unique |
+| password | String | nullable (OAuth users won't have one) |
+| bio | String | nullable |
+| createdAt | DateTime | |
+
+### OAuthAccount
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| userId | Int | foreign key → User.id |
+| provider | Enum | GOOGLE / FT |
+| providerUserId | String | unique per provider |
+
+### Game
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| name | String | unique |
+| description | String | |
+| imageSmall / imageBig | String | |
+| releaseDate / updateDate | DateTime | |
+| developer / publisher | String | nullable |
+| rating | Float | |
+
+### Platform
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| name | String | unique |
+
+### GameMode
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| name | String | unique |
+
+### Genre
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| name | String | unique |
+
+### Review
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| review | String | nullable |
+| rating | Int | |
+| userId | Int | foreign key → User.id |
+| gameId | Int | foreign key → Game.id |
+| platformId | Int | nullable, foreign key → Platform.id |
+| createdAt | DateTime | |
+
+### LikeReview
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| userId | Int | foreign key → User.id |
+| reviewId | Int | foreign key → Review.id |
+
+### UserGameRelation (favorites / play-status join table)
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| userId | Int | foreign key → User.id |
+| gameId | Int | foreign key → Game.id |
+| gameStatus | Enum | nullable — NONE / WANT_TO_PLAY / PLAYING / COMPLETED / DNF |
+| favorite | Boolean | |
+
+### UserUserRelation (friend requests)
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| senderId | Int | foreign key → User.id |
+| receiverId | Int | foreign key → User.id |
+| friendStatus | Enum | PENDING / FRIENDS |
+
+### Message
+| Field | Type | Notes |
+|---|---|---|
+| id | Int | primary key |
+| senderId | Int | foreign key → User.id |
+| receiverId | Int | foreign key → User.id |
+| content | String | |
+| read | Boolean | default false |
+| createdAt | DateTime | |
+
+**Relationships:**
+- One `User` has many `Review`s, `OAuthAccount`s, and `Message`s sent/received (1-to-many)
+- One `Game` has many `Review`s (1-to-many)
+- `User` ↔ `Game` is many-to-many via `UserGameRelation` (favorites/status)
+- `Game` ↔ `Platform`, `Game` ↔ `GameMode`, `Game` ↔ `Genre` are many-to-many
+- `User` ↔ `Review` is many-to-many via `LikeReview` (liking reviews)
+- `User` ↔ `User` is many-to-many via `UserUserRelation` (self-relation, friend requests) and via `Message` (self-relation, direct messaging)
 
 ---
 
