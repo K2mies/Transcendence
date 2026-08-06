@@ -16,7 +16,7 @@ import cors from "cors";
  * sent from the frontend to the backend.
  */
 const allowedOrigins = [
-  "https://localhost",
+  "https://localhost:8443",
 ];
 
 /*
