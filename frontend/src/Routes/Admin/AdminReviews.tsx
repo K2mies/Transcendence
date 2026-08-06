@@ -135,7 +135,7 @@ function AdminReviews() {
         {announcement}
       </p>
 
-      <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
+      <table className="bg-tertiary text-primary border-primary border-3 md:overflow-hidden w-full overflow-x-auto scroll-smooth snap-x snap-mandatory md:table flex flex-wrap">
         <caption className="sr-only">Reviews</caption>
         <thead>
           <tr
@@ -225,10 +225,6 @@ function AdminReviews() {
               className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
               aria-hidden="true"
             >
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
               <td>&nbsp;</td>
             </tr>
           ))}
