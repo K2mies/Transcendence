@@ -66,27 +66,13 @@ run the project.]
 
     [◦ Section listing classic references related to the topic (documentation, articles, tutorials, etc.), as well as a description of how AI was used — specifying for which tasks and which parts of the project.]
 
-◦ [Alpine Linux setup guide](https://itsfoss.com/alpine-linux-virtualbox/)
-
-◦ [SSH connection setup](https://www.geeksforgeeks.org/installation-guide/how-to-install-openssh-on-alpine/)
-
-◦ [VirtualBox shared folders](https://wiki.alpinelinux.org/wiki/VirtualBox_shared_folders)
-
-◦ [Install Docker and Docker Compose](https://virtualzone.de/posts/alpine-docker-rootless/)
-
 ◦ [Docker Compose](https://docs.docker.com/compose/intro/compose-application-model/)
 
 ◦ [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/)
 
 ◦ [Dockerfile Best Practices](https://docs.docker.com/build/building/best-practices/)
 
-◦ [Mariadb](https://hub.docker.com/_/mariadb)
-
-◦ [Wordpress](https://hub.docker.com/_/wordpress)
-
 ◦ [Nginx](https://hub.docker.com/_/nginx)
-
-◦ [Wordpress with docker compose](https://www.linode.com/docs/guides/wordpress-with-docker-compose/)
 
 ◦ [Explaining Docker Networking Concepts](https://ostechnix.com/explaining-docker-networking-concepts/)
 
@@ -116,10 +102,10 @@ run the project.]
 
 ◦ [Backend Folder structure](https://medium.com/@dwincahya8/best-practices-for-structuring-and-writing-express-js-applications-0fa4fe127f07)
 
-
+◦ [FrontendMasters Courses](https://frontendmasters.com/)
 
     ◦ AI usage:
-    	-
+    	- 
 
 ---
 
@@ -129,7 +115,7 @@ run the project.]
 | :---------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Karoliina   | Product Owner             | Defined the product vision and created a Miro board outlining the design specification, including what the product is, the problems it solves, our target audience, the core loop, and additional resources for inspiration. Tracked the backlog on a Trello board to ensure tasks were properly logged and placed in the right columns. Also contributed as a developer, primarily focusing on backend endpoints.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | Ross        | Technical Lead (Frontend) | Responsible for the architecture, implementation, and maintenance of the React frontend. Established coding standards and reusable component patterns, reviewed and integrated frontend features, coordinated UI development across the team, and ensured a consistent, responsive, and accessible user experience while collaborating closely with backend developers to define APIs and integrate real-time functionality. |
-| Viljar      | Technical Lead (Backend)  |                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Viljar      | Technical Lead (Backend)  | Established the Trello workflow for project planning and task tracking. As Backend Technical Lead, evaluated backend technologies, selected Node.js with Express, designed the backend architecture and set up the backend server. Shared backend knowledge with the team and provided technical support when needed. Created script to gather data of games for the database. As a Backend Developer, implemented the real-time chat system using WebSockets on both the backend and frontend, and led the integration of NGINX with HTTPS to provide secure communication for the application. |
 | Inna        | Developer                 | Implemented Google OAuth 2.0 authentication end-to-end (frontend and backend), and built the application's role-based permissions system end-to-end (frontend and backend), including a dedicated admin panel for users and reviews |
 | Sonja       | Project Manager           | Scheduling and booking weekly meetings, team coordination, process tracking                                                                                                                                                                                                                                                                                                                                                  |
 
@@ -157,23 +143,35 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 # Technical Stack
 
 **_Backend_** \
-◦ Node.js \
-◦ Express: backend server \
-◦ WebSocket (ws): real-time communication \
-◦ Passport.js + Google OAuth 2.0: authentication \
-◦ JWT (jsonwebtoken): session/auth tokens \
-◦ bcryptjs: password hashing \
-◦ Zod: input validation \
-◦ CORS: cross-origin request handling between frontend and backend \
+◦ Node.js: JavaScript runtime used to build the backend. \
+◦ Express: Lightweight web framework for creating REST APIs and middleware. \
+◦ WebSocket (ws): Enables real-time communication for the chat system. \
+◦ Passport.js + Google OAuth 2.0: Secure authentication using Google accounts. \
+◦ JWT (jsonwebtoken): Stateless authentication and authorization using JSON Web Tokens. \
+◦ bcryptjs: Password hashing for secure credential storage. \
+◦ Zod: Runtime validation of incoming request data. \
+◦ CORS: Restricts cross-origin requests to trusted frontend origins.
 ◦ Multer: image uploads
 
 **_Database_** \
- ◦ PostgreSQL
-◦ Prisma ORM
+◦ PostgreSQL: Relational database chosen for its reliability, excellent performance and seamless integration with Prisma. \
+◦ Prisma ORM: Type-safe database access, schema management and migrations. \
 
 **_Frontend_** \
- ◦ React with Typescript
+◦ React with Typescript
 ◦ MUI Material, headlessUI
+
+**_Security_** \
+◦ NGINX: Acts as a reverse proxy, serves the frontend, routes API and WebSocket traffic, terminates SSL/TLS and redirects HTTP requests to HTTPS. \
+◦ HTTPS (TLS/SSL): Encrypts communication between clients and the server. \
+
+## Technical Choices
+
+The project uses **React** and **TypeScript** to create a maintainable, type-safe frontend with reusable components. The backend is built with **Node.js** and **Express** because they provide a lightweight and efficient environment for REST APIs and integrate well with **WebSockets** for real-time chat functionality.
+
+**PostgreSQL** was selected as the database because it is robust, reliable, and well-suited for relational data. **Prisma ORM** was chosen to simplify database development through type-safe queries, migrations and schema management.
+
+For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide secure user authentication and session handling. **NGINX** was introduced as a reverse proxy to centralize traffic routing, terminate HTTPS connections, proxy WebSocket communication and improve the application's security by enforcing encrypted communication.
 
     [◦ Frontend technologies and frameworks used.
     ◦ Backend technologies and frameworks used.
@@ -515,6 +513,18 @@ Developed numerous reusable frontend components, including:
 [◦ Detailed breakdown of what each team member contributed.
 ◦ Specific features, modules, or components implemented by each person.
 ◦ Any challenges faced and how they were overcome.]
+
+**_Viljar_**:
+
+- Planned and organized the backend development workflow as Backend Technical Lead.
+- Set up the backend architecture using Node.js and Express.
+- Implemented JWT authentication.
+- Designed and implemented the real-time chat system using WebSockets (`ws`) on both the backend and frontend.
+- Developed the messaging functionality, conversation management, online status tracking indicator and friend-based chat permissions.
+- Implemented secure HTTPS communication by configuring Nginx as a reverse proxy with SSL/TLS termination.
+- Configured reverse proxy routing for the frontend, backend API and WebSocket connections.
+- Improved backend security by configuring CORS, secure cookies, authentication middleware and request validation.
+- Assisted teammates if needed throughout the project.
 
 ---
 
