@@ -89,6 +89,7 @@ const UserSearchBar = ({ onSelectUser }: Props) => {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   backgroundColor: "var(--color-tertiary)",
+                  fontSize: "0.875rem",
                   "& fieldset": {
                     borderColor: "var(--color-primary)",
                   },
