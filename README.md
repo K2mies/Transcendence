@@ -108,6 +108,16 @@ run the project.]
 
 ◦ [Passport-google-oauth20 strategy](https://www.passportjs.org/packages/passport-google-oauth20/)
 
+◦ [Multer for file uploads](https://betterstack.com/community/guides/scaling-nodejs/multer-in-nodejs/)
+
+◦ [Prisma Instructions](https://medium.com/@fardeenmansuri0316/prisma-for-beginners-setting-up-migrating-and-querying-data-050fc401fa0d)
+
+◦ [Prisma Documentation](https://www.prisma.io/docs/orm)
+
+◦ [Backend Folder structure](https://medium.com/@dwincahya8/best-practices-for-structuring-and-writing-express-js-applications-0fa4fe127f07)
+
+
+
     ◦ AI usage:
     	-
 
@@ -154,7 +164,8 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 ◦ JWT (jsonwebtoken): session/auth tokens \
 ◦ bcryptjs: password hashing \
 ◦ Zod: input validation \
-◦ CORS: cross-origin request handling between frontend and backend
+◦ CORS: cross-origin request handling between frontend and backend \
+◦ Multer: image uploads
 
 **_Database_** \
  ◦ PostgreSQL
@@ -294,7 +305,7 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 | Use a framework for both the frontend and backend                             | Major (2 pts)        | ?                                                                                                                                                             | React for frontend, Node.js and Express                                                                                                     | Ross, Viljar, Sonja, Karoliina, Inna |
 | Implement real-time features using WebSockets or similar technology           | Major (2 pts)        | ?                                                                                                                                                             | Chat system, user notifications and real-time updates (Toast)                                                                               | Viljar, Ross, (Sonja)                |
 | Allow users to interact with other users                                      | Major (2 pts)        | A social platform was the core idea for our application, so user-to-user interaction and friendship functionalities were a no brainer to build.               | Chat, profile, and friends systems                                                                                                          | Ross, Viljar, Sonja, Karoliina       |
-| Use an ORM for the database                                                   | Minor (1 pt)         | ?                                                                                                                                                             | Prisma was used for database                                                                                                                | Karoliina                            |
+| Use an ORM for the database                                                   | Minor (1 pt)         | We used Prisma as our ORM. With the Prisma Client, we could easily query and update the database, making it easier as we were able to use Javascript rather than SQL                                                                                                                                                             | Prisma was used for database                                                                                                                | Karoliina                            |
 | Custom-made design system with reusable components                            | Minor (1 pt)         | Using React for frontend, reusable components were a natural choice.                                                                                          | ?                                                                                                                                           | Ross, Sonja                          |
 | Implement advanced search functionality with filters, sorting, and pagination | Minor (1 pt)         | Advanced search functionality was a great fit for our games page UI where user can browse and search for games to play or rate.                               | ?                                                                                                                                           | Ross                                 |
 | Complete accessibility compliance (WCAG 2.1 AA)                               | Major (2 pts)        | Learning to build an accessible wep app was one of Sonja's goals for the project, and accessibility compliance should be the standard for any modern website. | Support for screen reader, keyboard navigation, and other assistive technologies. Implemented and tested using WAVE and Voice Over (MacOS). | Sonja                                |
@@ -467,6 +478,23 @@ Developed numerous reusable frontend components, including:
   - Search, sort, and pagination for both users and reviews
   - Delete users/reviews, assign roles
   - Safeguards against self-deletion, self-demotion, and any admin action targeting superuser accounts
+
+ **_Karoliina_**:
+ 
+  - Set up the project in Miro, including design specification outlining the project vision, target audience, what problems the project aims to solve, as well as collecting inspiration and resources that could be beneficial.
+- Designed the database schema
+- Integrated Prisma for database access and management.
+- Developed backend endpoints for:
+    - Fetching profile and game pages
+    - Adding and removing friends
+    - Updating user bios and nicknames
+    - Managing game statuses
+    - Adding reviews
+    - Fetching dashboard game data
+- Created database seeders for users and reviews, populating the database with realistic user profiles representing different player types and generating reviews.
+- Implemented the dashboard view on both frontend and backend. Including sections for Top Rated, Newest, Most Played, and Currently Trending games.
+- Developed the frontend and backend functionality for avatar uploads, allowing users to upload and update their profile pictures.
+- Worked on Profile, Game and Chat UI pages to ensure the layout worked on mobile viewports.
 
 [◦ Detailed breakdown of what each team member contributed.
 ◦ Specific features, modules, or components implemented by each person.
