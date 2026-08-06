@@ -70,7 +70,7 @@ function Profile({
 
   async function removeFavorite(game: ProfileGame) {
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
+      `/api/game/${encodeURIComponent(game.name)}/update-game-relation`,
       {
         method: "POST",
         credentials: "include",
@@ -101,7 +101,7 @@ function Profile({
     setGames: Dispatch<SetStateAction<ProfileGame[]>>,
   ) {
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(game.name)}/update-game-relation`,
+      `/api/game/${encodeURIComponent(game.name)}/update-game-relation`,
       {
         method: "POST",
         credentials: "include",
@@ -140,8 +140,8 @@ function Profile({
     }
 
     const url = isOwnReview
-      ? `http://localhost:4243/game/${encodeURIComponent(review.game)}/delete-review`
-      : `http://localhost:4243/admin/reviews/${review.id}`;
+      ? `/api/game/${encodeURIComponent(review.game)}/delete-review`
+      : `/api/admin/reviews/${review.id}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -169,7 +169,7 @@ function Profile({
     if (!username) return;
     async function loadProfile() {
       const response: Response = await fetch(
-        `http://localhost:4243/profile/${username}`,
+        `/api/profile/${username}`,
         {
           credentials: "include",
         },

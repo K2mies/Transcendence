@@ -67,7 +67,7 @@ function FriendList({
   useEffect(() => {
     async function getFriendInfo() {
       const response: Response = await fetch(
-        `http://localhost:4243/profile/${encodeURIComponent(myCurrUser)}`,
+        `/api/profile/${encodeURIComponent(myCurrUser)}`,
         {
           credentials: "include",
         },
@@ -203,7 +203,7 @@ function FriendList({
                       onClick={async () => {
                         const user: string = encodeURIComponent(friend.name);
                         const response: Response = await fetch(
-                          `http://localhost:4243/profile/${user}/remove-friend`,
+                          `/api/profile/${user}/remove-friend`,
                           {
                             method: "DELETE",
                             credentials: "include",
@@ -248,7 +248,7 @@ function FriendList({
                         onClick={async () => {
                           const user: string = encodeURIComponent(friend.name);
                           const response: Response = await fetch(
-                            `http://localhost:4243/profile/${user}/accept-request`,
+                            `/api/profile/${user}/accept-request`,
                             {
                               method: "PUT",
                               credentials: "include",
@@ -277,7 +277,7 @@ function FriendList({
                         onClick={async () => {
                           const user: string = encodeURIComponent(friend.name);
                           const response: Response = await fetch(
-                            `http://localhost:4243/profile/${user}/decline-request`,
+                            `/api/profile/${user}/decline-request`,
                             {
                               method: "DELETE",
                               credentials: "include",
@@ -321,7 +321,7 @@ function FriendList({
                       onClick={async () => {
                         const user: string = encodeURIComponent(friend.name);
                         const response: Response = await fetch(
-                          `http://localhost:4243/profile/${user}/remove-friend`,
+                          `/api/profile/${user}/remove-friend`,
                           {
                             method: "DELETE",
                             credentials: "include",

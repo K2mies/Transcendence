@@ -71,7 +71,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
     const submitData = (({ confirmPassword, ...rest }) => rest)(data);
 
     try {
-      const response = await fetch("http://localhost:4243/auth/register", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <a
-        href="http://localhost:4243/auth/google"
+        href="/api/auth/google"
         className="flex items-center justify-center gap-3 w-full border border-gray-300 rounded-lg py-2 px-4 bg-white text-black font-medium hover:bg-gray-50 transition-colors mt-4"
       >
         <svg

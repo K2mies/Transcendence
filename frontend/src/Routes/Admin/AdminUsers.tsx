@@ -19,7 +19,7 @@ function AdminUsers() {
   useEffect(() => {
     async function loadUsers() {
       const response = await fetch(
-        `http://localhost:4243/admin/users?search=${encodeURIComponent(search)}`,
+        `/api/admin/users?search=${encodeURIComponent(search)}`,
         { credentials: "include" },
       );
 
@@ -44,7 +44,7 @@ function AdminUsers() {
       return;
     }
 
-    const response = await fetch(`http://localhost:4243/admin/users/${id}`, {
+    const response = await fetch(`/api/admin/users/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -64,7 +64,7 @@ function AdminUsers() {
 
   async function changeRole(id: number, role: Role) {
     const response = await fetch(
-      `http://localhost:4243/admin/users/${id}/role`,
+      `/api/admin/users/${id}/role`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },

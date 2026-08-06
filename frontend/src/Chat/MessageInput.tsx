@@ -35,7 +35,7 @@ export default function MessageInput({
           placeholder={
             canChat ? "Type a message..." : "You can no longer send messages"
           }
-          className="flex-1 rounded bg-primary/40 p-2 outline-none disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-white"
+          className="flex-1 min-w-0 rounded bg-primary/40 p-2 outline-none disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-white"
           onKeyDown={(e) => {
             if (e.key === "Enter" && canChat) {
               send();

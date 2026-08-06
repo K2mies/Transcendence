@@ -19,7 +19,7 @@ function DeveloperSelector({
 
   useEffect(() => {
     async function fetchDevelopers() {
-      const response = await fetch("http://localhost:4243/games/developers", {
+      const response = await fetch("/api/games/developers", {
         credentials: "include",
       });
 

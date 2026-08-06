@@ -6,7 +6,10 @@ import cookie from "cookie";
 export const connectedUsers = new Map();
 
 export function setupWebSocket(server) {
-  const wss = new WebSocketServer({ server });
+  const wss = new WebSocketServer({
+    server,
+    path: "/ws"
+  });
 
   console.log("WebSocket server initialized");
 

@@ -14,9 +14,6 @@ services:
       postgres_db:
         condition: service_healthy
     env_file: .env
-    # In development only opened (to test out API calls to backend)
-    ports:
-      - "${BACK_PORT}:${BACK_PORT}"
     networks:
       - gp_internal
     restart: always
@@ -39,24 +36,37 @@ services:
       - gp_internal
     restart: always
   frontend:
-   container_name: frontend
-   build: ./frontend
-   healthcheck:
-     test: ["CMD", "node", "-e", "require('http').get('http://localhost:' + 5173, res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
-     interval: 5s
-     timeout: 5s
-     retries: 10
-   depends_on:
-     backend:
-       condition: service_healthy
-   volumes:
-     - ./frontend:/app
-     - /app/node_modules
-   ports:
-     - "5173:5173"
-   networks:
-     - gp_internal
-   restart: always
+    container_name: frontend
+    build: ./frontend
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:' + 5173, res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - gp_internal
+    restart: always
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+      - "8443:443"
+    networks:
+      - gp_internal
+    restart: always
+
 
 volumes:
   postgres:
@@ -64,6 +74,4 @@ volumes:
 networks:
   gp_internal:
     name: gp_internal
-    # In development only commented out! (to test out API calls to backend)
-    # internal: true
     driver: bridge
