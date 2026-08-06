@@ -165,8 +165,19 @@ Missing Social Layer and Unified Gaming Community
 
 ◦ [FrontendMasters Courses](https://frontendmasters.com/)
 
-    ◦ AI usage:
-    	- 
+## AI usage
+◦ AI assistance was used throughout the development of GoodPlays to improve development efficiency, verify implementation ideas and enhance code quality.
+
+◦ All design decisions, implementation, testing, debugging and system integration were carried out by the development team.
+
+◦ AI was used for the following tasks:
+  - Explaining programming concepts and technologies.
+  - Assisting with debugging and identifying potential issues in the codebase.
+  - Reviewing code and suggesting improvements for readability, maintainability, and performance.
+  - Providing guidance during technical discussions and implementation planning.
+  - Assisting with improving project documentation.
+
+All AI-generated suggestions were reviewed, validated and modified where necessary before being incorporated into the project. The development team is fully responsible for the project's architecture, functionality, security, testing and the correctness of the final implementation.
 
 ---
 
