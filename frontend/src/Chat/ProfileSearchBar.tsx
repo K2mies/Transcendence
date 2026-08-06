@@ -46,7 +46,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
   return (
     <>
       <Autocomplete<User>
-        sx={{ width: "25%" }}
+        sx={{ width: { xs :"50%", md: "25%" }}}
         options={users}
         filterOptions={filterOptions}
         getOptionLabel={(option) => option?.name ?? ""}
@@ -83,6 +83,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   backgroundColor: "var(--color-tertiary)",
+                  fontSize: "0.875rem",
                   "& fieldset": {
                     borderColor: "var(--color-primary)",
                   },

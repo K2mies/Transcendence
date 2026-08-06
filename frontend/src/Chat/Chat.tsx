@@ -205,15 +205,14 @@ export default function Chat() {
   return (
     <div className="h-screen bg-primary text-tertiary flex flex-col">
       {me ? (
-        <div className="p-6">
+        <div className="p-6 flex flex-col flex-1 min-h-0">
           <div className="flex items-center justify-between">
             <UserSearchBar onSelectUser={openChat} />
             <ProfileSearchBar onSelectUser={openProfile} />
           </div>
 
           <div
-            className="flex flex-1 min-h-0 overflow-hidden px-6 pb-6"
-            style={{ height: "calc(100vh - 88px)" }}
+            className="flex flex-1 min-h-0 overflow-hidden pb-6"
           >
             {/* LEFT */}
             <ConversationList
@@ -222,7 +221,7 @@ export default function Chat() {
               openChat={openChat}
             />
             {/* RIGHT */}
-            <div className="ml-4 flex min-h-0 flex-1 flex-col">
+            <div className="ml-4 flex min-h-0 flex-1 flex-col min-w-0">
               <div className="p-4 border-b border-secondary/20">
                 <h2 className="text-secondary">
                   {selectedUser

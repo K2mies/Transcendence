@@ -12,8 +12,8 @@ export default function ConversationList({
   openChat,
 }: ConversationListProps) {
   return (
-    <div className="w-80 shrink-0 overflow-y-auto border-r border-secondary/20 pr-4">
-      <h2 className="mb-4 text-lg text-secondary">Conversations</h2>
+    <div className="w-1/4 shrink-0 overflow-y-auto border-r border-secondary/20 pr-4">
+      <h2 className="mb-4 text-sm md:text-lg  text-secondary">Conversations</h2>
 
       {conversations.map((c) => (
         <div
