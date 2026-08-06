@@ -56,7 +56,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
   return (
     <>
       <form
-        className="my-4 w-[50%] flex flex-row"
+        className="my-4 md:w-[50%] flex flex-row"
         onSubmit={handleSubmit(update)}
       >
         <ControlledBioInput

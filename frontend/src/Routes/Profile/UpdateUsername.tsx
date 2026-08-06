@@ -96,7 +96,7 @@ function UpdateUsername({
   }
   return (
     <>
-      <form className="flex flex-row p-2" onSubmit={handleSubmit(update)}>
+      <form className="flex flex-col md:flex-row p-2 min-w-0" onSubmit={handleSubmit(update)}>
         <div className="flex flex-col">
           <label htmlFor="update-username" className="font-semibold mb-2 block">
             Username:
@@ -104,7 +104,6 @@ function UpdateUsername({
           <TextField
             inputRef={editRef}
             id="update-username"
-            className="w-87.5"
             placeholder="Give new username..."
             autoFocus={true}
             sx={{

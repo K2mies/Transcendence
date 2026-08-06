@@ -35,7 +35,7 @@ function GameData({ game }: GameDataProps) {
   const released = temp.toLocaleDateString("fi-FI");
 
   return (
-    <div className="text-primary text-sm ml-auto w-54">
+    <div className="text-primary text-sm ml-auto w-full md:w-54">
       <p>
         <span className="font-bold">Developer:</span> {game.developer}
       </p>
@@ -94,8 +94,8 @@ function Status({ game }: StatusProps) {
   }
 
   return (
-    <div className="inline-block">
-      <label htmlFor="game-status" className="mr-3">
+    <div className="flex flex-col md:flex-row">
+      <label htmlFor="game-status" className="mb-2 md:mb-0 md:mr-3">
         Game status:
       </label>
       <select
@@ -233,13 +233,13 @@ function GameInfo({ game }: GameInfoProps) {
             ))}
           </ul>
 
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex flex-col md:flex-row items-end md:items-center gap-4 shrink-0">
             <FavoriteButton game={game} />
             <Status key={game.name} game={game} />
           </div>
         </div>
       </div>
-      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
+      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
         {/* Left column */}
         <img
           src={game.image}
@@ -248,7 +248,7 @@ function GameInfo({ game }: GameInfoProps) {
         />
 
         {/* Top right */}
-        <div className="flex items-start gap-8">
+        <div className="flex flex-col md:flex-row items-start gap-8 w-full">
           <div className="flex-1 min-w-0">
             <div className="relative">
               <span

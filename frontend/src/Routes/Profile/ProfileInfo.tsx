@@ -113,8 +113,8 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
           )}
         </div>
       </div>
-      <div className="bg-tertiary text-primary border-primary border-3 flex flex-row items-start gap-8 rounded-b-lg">
-        <div className="relative m-4 border-secondary border-4 w-40 h-auto rounded-lg m-4">
+      <div className="bg-tertiary text-primary border-primary border-3 flex flex-col md:flex-row items-start gap-8 rounded-b-lg p-4">
+        <div className="relative border-secondary border-4 w-40 h-auto rounded-lg">
           {avatar ? (
             <img
               src={`data:image/jpeg;base64,${avatar}`}
@@ -163,24 +163,26 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
             setCurrBio={setCurrBio}
           />
         )}
-        {!updateBioMode && currBio && (
-          <div className="whitespace-pre-wrap w-[50%] wrap-anywhere">
-            <p className="my-4 mr-4 text-left w-full">{currBio}</p>
-          </div>
-        )}
-        {isMyUser && !updateBioMode && (
-          <div className="flex flex-1 justify-end mr-6">
+        {!updateBioMode && (
+          <div className="relative w-full md:flex-1 min-w-0 min-h-6">
+            {currBio && (
+            <p className="whitespace-pre-wrap wrap-anywhere text-left w-full md:max-w-prose pr-8">
+              {currBio}
+            </p>
+            )}
+        {isMyUser && (
             <button
-              className="mt-4 text-secondary hover:text-primary"
+              className="absolute top-0 right-2 text-secondary hover:text-primary"
               onClick={() => setUpdateBioMode(true)}
               aria-label="Open biography editor"
             >
               <FaEdit size={18} aria-hidden="true" focusable="false" />
             </button>
-          </div>
         )}
       </div>
-    </div>
+  )}
+        </div>
+      </div>
   );
 }
 
