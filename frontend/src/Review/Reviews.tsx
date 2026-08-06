@@ -121,11 +121,11 @@ function Reviews({
 
   return (
     <div>
-      <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
-        <div className="flex align-text-bottom">
+      <div className="flex flex-wrap bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
+        <div className="flex flex-wrap align-text-bottom">
           <h2 className="mr-20 text-[1.3rem]">Reviews</h2>
           {page === "game" && (
-            <div className="text-md flex gap-x-8 mt-1">
+            <div className="text-md flex flex-wrap gap-x-8 gap-y-2 mt-1">
               {reviews.length > 0 && reviewAverage !== undefined && (
                 <p className="text-md">
                   GoodPlays rating: {reviewAverage.toFixed(1)}/5
