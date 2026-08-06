@@ -78,6 +78,10 @@ run the project.]
 
 ◦ [Accessibility checklist](https://www.a11yproject.com/checklist/)
 
+◦ [Google Identity: OAuth 2.0 for sign-in](https://developers.google.com/identity/protocols/oauth2)
+
+◦ [Passport-google-oauth20 strategy](https://www.passportjs.org/packages/passport-google-oauth20/)
+
     ◦ AI usage:
     	-
 
@@ -90,7 +94,7 @@ run the project.]
 | Karoliina   | Product Owner             |                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | Ross        | Technical Lead (Frontend) | Responsible for the architecture, implementation, and maintenance of the React frontend. Established coding standards and reusable component patterns, reviewed and integrated frontend features, coordinated UI development across the team, and ensured a consistent, responsive, and accessible user experience while collaborating closely with backend developers to define APIs and integrate real-time functionality. |
 | Viljar      | Technical Lead (Backend)  |                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Inna        | Developer                 |                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Inna        | Developer                 | Implemented Google OAuth 2.0 authentication end-to-end (frontend and backend), and built the application's role-based permissions system end-to-end (frontend and backend), including a dedicated admin panel for users and reviews |
 | Sonja       | Project Manager           | Scheduling and booking weekly meetings, team coordination, process tracking                                                                                                                                                                                                                                                                                                                                                  |
 
     [For each team member mentioned at the top of the README.md, you must provide:
@@ -164,8 +168,8 @@ For communication, we used a Discord group chat and weekly face-to-face meetings
 | Implement advanced search functionality with filters, sorting, and pagination | Minor (1 pt)         | Advanced search functionality was a great fit for our games page UI where user can browse and search for games to play or rate.                               | ?                                                                                                                                           | Ross                                 |
 | Complete accessibility compliance (WCAG 2.1 AA)                               | Major (2 pts)        | Learning to build an accessible wep app was one of Sonja's goals for the project, and accessibility compliance should be the standard for any modern website. | Support for screen reader, keyboard navigation, and other assistive technologies. Implemented and tested using WAVE and Voice Over (MacOS). | Sonja                                |
 | Standard user management and authentication                                   | Major (2pts)         | Our app being a social platform required the functionality for user to authenticate to create a profile and to add others as friends.                         | ?                                                                                                                                           | Karoliina, Ross, Viljar, Sonja, Inna |
-| Implement remote authentication with OAuth 2.0                                | Minor (1 pt)         | ?                                                                                                                                                             | Google authentication                                                                                                                       | Inna                                 |
-| Advanced permissions system                                                   | Major (2 pts)        | ?                                                                                                                                                             | ?                                                                                                                                           | Inna                                 |
+| Implement remote authentication with OAuth 2.0                                | Minor (1 pt)         | Lets users sign in with an account they already trust instead of creating a new password.                                                                     | Google OAuth 2.0 via Passport.js, with a frontend callback page and username picker for new sign-ins.                                       | Inna                                 |
+| Advanced permissions system                                                   | Major (2 pts)        | Needed a way to manage users and reviews without giving out direct database access.                                                                            | SUPERUSER/ADMIN/USER roles with an admin panel for managing users and reviews, plus safeguards against self-deletion and admin actions targeting superuser accounts. | Inna                                 |
 
     [◦ List of all chosen modules (Major and Minor).
     ◦ Point calculation (Major = 2pts, Minor = 1pt).
@@ -317,6 +321,21 @@ Developed numerous reusable frontend components, including:
 - Refactored existing code to improve maintainability and consistency.
 - Resolved merge conflicts and frontend integration issues.
 - Helped other team members with frontend implementation, debugging, and code reviews.
+
+**_Inna_**:
+
+- Google OAuth 2.0 authentication
+  - Added an OAuthAccount table via Prisma, and made User.password optional for OAuth-only accounts
+  - Google sign-in flow via Passport.js, distinguishing new vs. returning users
+  - Frontend callback page and username picker for first-time sign-ins
+- Role-based permissions system (SUPERUSER/ADMIN/USER)
+  - Bootstrap script to create the initial superuser from environment variables
+  - requireRole middleware and role-gated backend routes
+  - Frontend Context that tracks the current user's role in memory (not persisted to storage), used to show/hide admin-only UI and gate the admin page
+- Admin panel for managing users and reviews
+  - Search, sort, and pagination for both users and reviews
+  - Delete users/reviews, assign roles
+  - Safeguards against self-deletion, self-demotion, and any admin action targeting superuser accounts
 
 [◦ Detailed breakdown of what each team member contributed.
 ◦ Specific features, modules, or components implemented by each person.
