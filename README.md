@@ -4,10 +4,36 @@ _This project has been created as part of the 42 curriculum by khiidenh, sojala,
 
 # Description
 
-    [◦Section that clearly presents the project, including its goal and a brief overview.
-    ◦Section should also contain a clear name for the project and its
+GoodPlays is a social platform for discovering, tracking and reviewing video games. It is a unified space where players have the tools to explore new games, manage their personal game library, and connect with others regardless of the platforms they play on.
 
-key features.]
+Users can browse games using a range of filters, or explore a dashboard view highlighting trending games, newest releases, community top-rated titles, and most-played games. They can mark which games they have played, are playing, or want to play, add reviews, and mark favourites. As this is a social platform, users can also search for other users, befriend them, chat with them, and see what games they have in their own gaming library.
+
+<img width="1202" height="589" alt="image" src="https://github.com/user-attachments/assets/97c26ef2-bd0d-497b-a940-5329212078b7" />
+
+### What problems are we solving?
+
+Fragmented Discovery
+
+- Players discover games through scattered sources (friends, social media, Steam, websites), making the actual discovery of game inconsistent and troublesome. The recommendations are also typically platform-specific and do not reflect player's entire gaming profile
+
+Disconnected Platforms
+
+- Game platforms feel siloed, making it difficult for players to discover or feel motivated to explore games outside their primary platform, even for players who are curious to try new experiences.
+
+Lack of Unified Tracking
+
+- Players have no single space to track all the games they have played, are playing, or want to play across different platforms.
+
+Missing Social Layer and Unified Gaming Community
+
+- Social features (friends, communities) are often tied to a specific platform, neglecting many players. This specifically touches on players who tend to play on mobile.
+
+### Who are we targeting?
+
+- All players, but being especially mindful to players who use multiple platforms (PC, console, mobile)
+- Players looking for better game recommendations via social features or personalized recommendations.
+- Players who want to track and organize their gaming backlog.
+- Players who want to find inspiration from other people's experiences, looking at reviews and game histories to discover new games they might enjoy.
 
 ---
 
@@ -91,7 +117,7 @@ run the project.]
 
 | Team member | Role                      | Responsibilities                                                                                                                                                                                                                                                                                                                                                                                                             |
 | :---------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Karoliina   | Product Owner             |                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Karoliina   | Product Owner             | Defined the product vision and created a Miro board outlining the design specification, including what the product is, the problems it solves, our target audience, the core loop, and additional resources for inspiration. Tracked the backlog on a Trello board to ensure tasks were properly logged and placed in the right columns. Also contributed as a developer, primarily focusing on backend endpoints.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | Ross        | Technical Lead (Frontend) | Responsible for the architecture, implementation, and maintenance of the React frontend. Established coding standards and reusable component patterns, reviewed and integrated frontend features, coordinated UI development across the team, and ensured a consistent, responsive, and accessible user experience while collaborating closely with backend developers to define APIs and integrate real-time functionality. |
 | Viljar      | Technical Lead (Backend)  |                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | Inna        | Developer                 | Implemented Google OAuth 2.0 authentication end-to-end (frontend and backend), and built the application's role-based permissions system end-to-end (frontend and backend), including a dedicated admin panel for users and reviews |
