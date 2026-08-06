@@ -125,32 +125,34 @@ function AdminUsers() {
 
       <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
         <caption className="sr-only">Users</caption>
-        <tr className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>
-            <span className="sr-only">Date of joining</span>
-            <button
-              type="button"
-              onClick={() => setSortAsc((prev) => !prev)}
-              className="font-bold"
-              aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
-            >
-              <span aria-hidden="true">Joined {sortAsc ? "▲" : "▼"}</span>
-            </button>
-          </th>
-          <th>Delete?</th>
-        </tr>
+        <thead>
+          <tr className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">
+              <span className="sr-only">Date of joining</span>
+              <button
+                type="button"
+                onClick={() => setSortAsc((prev) => !prev)}
+                className="font-bold"
+                aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
+              >
+                <span aria-hidden="true">Joined {sortAsc ? "▲" : "▼"}</span>
+              </button>
+            </th>
+            <th scope="col">Delete?</th>
+          </tr>
+        </thead>
 
-        {pagedUsers.map((user) => {
-          const isSelf = user.id === currentUser?.id;
-          const isSuperuserRow = user.role === "SUPERUSER";
-          const canDelete = !isSelf && !isSuperuserRow;
+        <tbody>
+          {pagedUsers.map((user) => {
+            const isSelf = user.id === currentUser?.id;
+            const isSuperuserRow = user.role === "SUPERUSER";
+            const canDelete = !isSelf && !isSuperuserRow;
 
-          return (
-            <tr>
-              <div
+            return (
+              <tr
                 key={user.id}
                 className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
               >
@@ -214,22 +216,24 @@ function AdminUsers() {
                     Delete
                   </button>
                 </td>
-              </div>
-            </tr>          
-          );
-        })}
+              </tr>
+            );
+          })}
 
-        {Array.from({ length: PAGE_SIZE - pagedUsers.length }).map((_, i) => (
-          <tr>
-            <div
+          {Array.from({ length: PAGE_SIZE - pagedUsers.length }).map((_, i) => (
+            <tr
               key={`empty-${i}`}
               className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
               aria-hidden="true"
             >
-              <span>&nbsp;</span>
-            </div>
-          </tr>
-        ))}
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       <PaginationControls

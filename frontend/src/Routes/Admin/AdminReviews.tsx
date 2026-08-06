@@ -68,7 +68,7 @@ function AdminReviews() {
 
   useEffect(() => {
     const count = filteredReviews.length;
-  
+
     setAnnouncement(
       count === 0
         ? "No reviews found"
@@ -131,34 +131,42 @@ function AdminReviews() {
         </div>
       </div>
 
-      <p aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {announcement}
+      </p>
 
       <table className="bg-tertiary text-primary border-primary border-3 overflow-hidden w-full">
         <caption className="sr-only">Reviews</caption>
-        <tr
-          className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
-        >
-          <th>Reviewer</th>
-          <th>Game</th>
-          <th>Rating</th>
-          <th>Review</th>
-          <th>
-            <span className="sr-only">Date of post</span>
-            <button
-              type="button"
-              onClick={() => setSortAsc((prev) => !prev)}
-              className="font-bold"
-              aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
-            >
-              <span aria-hidden="true">Posted {sortAsc ? "▲" : "▼"}</span>
-            </button>
-          </th>
-          <th>Delete?</th>
-        </tr>
+        <thead>
+          <tr
+            className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}
+          >
+            <th scope="col">Reviewer</th>
+            <th scope="col">Game</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Review</th>
+            <th scope="col">
+              <span className="sr-only">Date of post</span>
+              <button
+                type="button"
+                onClick={() => setSortAsc((prev) => !prev)}
+                className="font-bold"
+                aria-label={
+                  sortAsc
+                    ? "Change to descending sorting"
+                    : "Change to ascending sorting"
+                }
+              >
+                <span aria-hidden="true">Posted {sortAsc ? "▲" : "▼"}</span>
+              </button>
+            </th>
+            <th scope="col">Delete?</th>
+          </tr>
+        </thead>
 
-        {pagedReviews.map((review) => (
-          <tr>
-            <div
+        <tbody>
+          {pagedReviews.map((review) => (
+            <tr
               key={review.id}
               className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
             >
@@ -203,26 +211,28 @@ function AdminReviews() {
                 </span>
               </td>
 
-              <td>  
+              <td>
                 <button type="button" onClick={() => deleteReview(review.id)}>
                   Delete
                 </button>
               </td>
-            </div>
-          </tr>
-        ))}
+            </tr>
+          ))}
 
-        {Array.from({ length: PAGE_SIZE - pagedReviews.length }).map((_, i) => (
-          <tr>
-            <div
+          {Array.from({ length: PAGE_SIZE - pagedReviews.length }).map((_, i) => (
+            <tr
               key={`empty-${i}`}
               className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
               aria-hidden="true"
             >
-              <span>&nbsp;</span>
-            </div>
-          </tr>
-        ))}
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       <PaginationControls
