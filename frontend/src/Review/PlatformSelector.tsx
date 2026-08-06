@@ -60,7 +60,7 @@ function PlatformSelector({
 
               // Input text
               "& input": {
-                color: "var(--color-secondary)",
+                color: "var(--color-primary)",
                 borderWidth: "4px",
               },
 
