@@ -179,7 +179,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!me?.id) return;
 
-    const ws = new WebSocket("wss://localhost/ws");
+    const wsUrl = `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`;
+    const ws = new WebSocket(wsUrl);
+
     wsRef.current = ws;
 
     ws.onmessage = (e) => {

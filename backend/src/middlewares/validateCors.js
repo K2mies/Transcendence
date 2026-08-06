@@ -2,9 +2,18 @@ import cors from "cors";
 
 /*
  * CORS (Cross-Origin Resource Sharing)
- * cors allows only requests from port 8080 (frontend) and 4242(backend in development),
- * allowed methods: GET, POST, PUT, DELETE.
- * Only allowed headers are "Content-Type" and "Authorization"
+ *
+ * Only requests originating from the HTTPS frontend served through the
+ * nginx reverse proxy (https://localhost) are allowed.
+ *
+ * Allowed HTTP methods:
+ *    GET, POST, PUT, PATCH and DELETE.
+ *
+ * Allowed request headers:
+ *    Content-Type and Authorization.
+ *
+ * Credentials (cookies) are enabled so authenticated requests can be
+ * sent from the frontend to the backend.
  */
 const allowedOrigins = [
   "https://localhost",

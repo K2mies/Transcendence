@@ -42,7 +42,7 @@ router.get("/google/callback", (req, res, next) => {
     if (err) return next(err);
     if (!user)
       return res.redirect(
-        `${process.env.FRONTEND_URL ?? "http://localhost"}/oauth/callback?error=${encodeURIComponent(info?.message || "Authentication failed")}`,
+        `${process.env.FRONTEND_URL ?? "https://localhost"}/oauth/callback?error=${encodeURIComponent(info?.message || "Authentication failed")}`,
       );
     googleCallback(res, user);
   })(req, res, next);
