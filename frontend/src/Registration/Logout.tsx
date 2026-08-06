@@ -12,7 +12,7 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
   async function logMeOut() {
     try {
       const response: Response = await fetch(
-        "http://localhost:4243/auth/logout",
+        "/api/auth/logout",
         {
           method: "POST",
           credentials: "include",

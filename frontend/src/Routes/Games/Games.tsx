@@ -76,7 +76,7 @@ function Games() {
       params.set("sortBy", sortBy);
 
       const response = await fetch(
-        `http://localhost:4243/search?${params.toString()}`,
+        `/api/search?${params.toString()}`,
         {
           credentials: "include",
         },

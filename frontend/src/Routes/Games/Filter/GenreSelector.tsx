@@ -19,7 +19,7 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
 
   useEffect(() => {
     async function fetchGenres() {
-      const response = await fetch("http://localhost:4243/games/genres", {
+      const response = await fetch("/api/games/genres", {
         credentials: "include",
       });
 

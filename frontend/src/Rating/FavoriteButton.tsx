@@ -15,7 +15,7 @@ async function updateGameRelation(
   const name = encodeURIComponent(gamename);
 
   const response = await fetch(
-    `http://localhost:4243/game/${name}/update-game-relation`,
+    `/api/game/${name}/update-game-relation`,
     {
       method: "POST",
       headers: {

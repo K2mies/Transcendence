@@ -21,7 +21,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
 
   useEffect(() => {
     async function fetchUsers() {
-      const res = await fetch(`http://localhost:4243/user/all`, {
+      const res = await fetch(`/api/user/all`, {
         method: "GET",
         credentials: "include",
       });

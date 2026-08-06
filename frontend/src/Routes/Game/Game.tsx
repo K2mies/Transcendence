@@ -54,7 +54,7 @@ async function updateGameRelation(
   const name = encodeURIComponent(gamename);
 
   const response = await fetch(
-    `http://localhost:4243/game/${name}/update-game-relation`,
+    `/api/game/${name}/update-game-relation`,
     {
       method: "POST",
       headers: {
@@ -324,7 +324,7 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
 
   useEffect(() => {
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${name}`, {
+      const response = await fetch(`/api/game/${name}`, {
         credentials: "include",
       });
 
@@ -352,7 +352,7 @@ function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
     if (!game) return;
 
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(game.name)}/delete-review`,
+      `/api/game/${encodeURIComponent(game.name)}/delete-review`,
       {
         method: "DELETE",
         credentials: "include",

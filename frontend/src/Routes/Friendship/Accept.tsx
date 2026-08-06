@@ -8,7 +8,7 @@ function AcceptFriendRequest({
 }: FriendStatusRefresh) {
   async function acceptRequest() {
     const response: Response = await fetch(
-      `http://localhost:4243/profile/${username}/accept-request`,
+      `/api/profile/${username}/accept-request`,
       {
         method: "PUT",
         credentials: "include",
