@@ -162,7 +162,7 @@ function ProfileInfo({ profile, myCurrUser, setMyCurrUser }: ProfileInfoProps) {
         {!updateBioMode && (
           <div className="relative w-full md:flex-1 min-w-0 min-h-6">
             {currBio && (
-            <p className="whitespace-pre-wrap wrap-anywhere text-left w-full md:max-w-prose">
+            <p className="whitespace-pre-wrap wrap-anywhere text-left w-full md:max-w-prose pr-8">
               {currBio}
             </p>
             )}

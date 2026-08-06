@@ -95,7 +95,7 @@ function Status({ game }: StatusProps) {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <label htmlFor="game-status" className="mr-3">
+      <label htmlFor="game-status" className="mb-2 md:mb-0 md:mr-3">
         Game status:
       </label>
       <select
