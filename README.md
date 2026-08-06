@@ -39,19 +39,48 @@ Missing Social Layer and Unified Gaming Community
 
 # Instructions
 
-    [◦Section containing any relevant information about compilation,
-    installation, and/or execution.
-    ◦Section should mention all the needed prerequisites (software,
+### Prerequisites
+  ◦ Before running the project, make sure the following software is installed:
+    - Docker (version 20.10 or newer)
+    - Docker Compose (version 2 or newer)
+    - Make (GNU Make)
+    - Git
 
-tools, versions, configuration like .env setup, etc.), and step-by-step instructions to
-run the project.]
+  ◦ The project uses Docker to manage all services, including:
+    - Frontend: React + TypeScript + Vite
+    - Backend: Node.js + Express + Prisma
+    - Database: PostgreSQL
+    - Reverse Proxy: NGINX
+
+### Environment Configuration
+  ◦ Create the required environment file in the project root before starting the application.
+
+    - Copy `.env.example` to `.env`
+    - Update the environment variables if necessary.
 
 ### Compilation
+  ◦ The project is built and orchestrated using Docker Compose.
+  ◦ To build and start the complete application, run:
+    - `make`
+      - This command will:
+        - build the frontend Docker image
+        - build the backend Docker image
+        - build the NGINX image
+        - create the PostgreSQL database container
+        - install all project dependencies
+        - generate the Prisma Client
+        - apply Prisma database migrations
+        - launch all services
+        seed the PostgreSQL database with the initial application data, including:
+          - games
+          - user profiles
+          - reviews
 
 ### Installation
+  ◦ The application is completely installed inside Docker containers.
+  ◦ All frontend and backend dependencies are installed automatically during the Docker image build process.
 
 ### Execution
-
     ◦ Run the orchestrated docker-compose file: make
     ◦ Stop containers without deleting images: make down
     ◦ Start containers without building new images: make up
@@ -59,6 +88,35 @@ run the project.]
     ◦ Remove containers, images and volumes: make clean
     ◦ Clean up everything: make fclean
     ◦ Clear up everything, build and launch: make re
+
+### Accessing the Application
+  ◦ After all containers have started successfully, GoodPlays is available at:
+    - https://localhost:8443
+
+  ◦ All incoming requests are handled by NGINX, which:
+    - serves the React frontend
+    - proxies REST API requests to the Express backend
+    - forwards WebSocket connections used for the real-time chat and notification system
+
+  ◦ The PostgreSQL database is only accessible from within the Docker network and is not exposed publicly.
+
+### Project Architecture
+
+```text
+            Browser
+               │
+               ▼
+             NGINX
+        ┌──────┼──────┐
+        │      │      │
+        ▼      ▼      ▼
+   React UI  Express  WebSocket
+              API      Server
+                   \/│
+                  Prisma ORM
+                    │
+                PostgreSQL
+```
 
 ---
 
@@ -493,10 +551,6 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 - Implemented the dashboard view on both frontend and backend. Including sections for Top Rated, Newest, Most Played, and Currently Trending games.
 - Developed the frontend and backend functionality for avatar uploads, allowing users to upload and update their profile pictures.
 - Worked on Profile, Game and Chat UI pages to ensure the layout worked on mobile viewports.
-
-[◦ Detailed breakdown of what each team member contributed.
-◦ Specific features, modules, or components implemented by each person.
-◦ Any challenges faced and how they were overcome.]
 
 **_Viljar_**:
 
