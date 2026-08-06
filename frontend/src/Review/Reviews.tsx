@@ -58,7 +58,7 @@ function Reviews({
     if (!targetGame) return false;
 
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(targetGame)}/add-review`,
+      `/api/game/${encodeURIComponent(targetGame)}/add-review`,
       {
         method: "POST",
         credentials: "include",

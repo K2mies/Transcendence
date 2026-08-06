@@ -30,7 +30,7 @@ export function CurrentUserProvider({ children }: { children: ReactNode }) {
 
       setLoading(true);
 
-      fetch("http://localhost:4243/auth/me", { credentials: "include" })
+      fetch("/api/auth/me", { credentials: "include" })
         .then((res) => (res.status === 200 ? res.json() : null))
         .then((result) => {
           setCurrentUser(

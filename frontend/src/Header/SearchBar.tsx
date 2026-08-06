@@ -30,7 +30,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     async function fetchGames() {
-      const response = await fetch("http://localhost:4243/games", {
+      const response = await fetch("/api/games", {
         method: "GET",
         credentials: "include",
       });

@@ -38,7 +38,7 @@ function Dashboard() {
 
   useEffect(() => {
     async function loadDashboard() {
-      const response = await fetch(`http://localhost:4243/dashboard`, {
+      const response = await fetch(`/api/dashboard`, {
         credentials: "include",
       });
       if (response.status === 200) {

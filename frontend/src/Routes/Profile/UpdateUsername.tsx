@@ -56,7 +56,7 @@ function UpdateUsername({
       name: newName,
     };
     const response: Response = await fetch(
-      "http://localhost:4243/auth/username",
+      "/api/auth/username",
       {
         method: "PATCH",
         headers: {

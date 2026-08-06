@@ -64,7 +64,7 @@ export default function Chat() {
       setActiveChatUser(userId);
       selectedUserRef.current = userId;
 
-      const res = await fetch(`http://localhost:4243/message/${userId}`, {
+      const res = await fetch(`/api/message/${userId}`, {
         method: "GET",
         credentials: "include",
       });
@@ -81,7 +81,7 @@ export default function Chat() {
 
       const data = await res.json();
       if (Array.isArray(data) && data.length === 0) {
-        const friends = await fetch(`http://localhost:4243/user/friends`, {
+        const friends = await fetch(`/api/user/friends`, {
           method: "GET",
           credentials: "include",
         });

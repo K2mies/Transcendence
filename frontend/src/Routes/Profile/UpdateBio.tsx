@@ -36,7 +36,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
     const newData: { bio: string } = {
       bio: newBio,
     };
-    const response: Response = await fetch("http://localhost:4243/profile/", {
+    const response: Response = await fetch("/api/profile/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

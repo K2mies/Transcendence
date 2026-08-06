@@ -15,7 +15,7 @@ function AdminReviews() {
 
   useEffect(() => {
     async function loadReviews() {
-      const response = await fetch("http://localhost:4243/admin/reviews", {
+      const response = await fetch("/api/admin/reviews", {
         credentials: "include",
       });
 
@@ -41,7 +41,7 @@ function AdminReviews() {
       return;
     }
 
-    const response = await fetch(`http://localhost:4243/admin/reviews/${id}`, {
+    const response = await fetch(`/api/admin/reviews/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
