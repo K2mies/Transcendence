@@ -46,7 +46,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
   return (
     <>
       <Autocomplete<User>
-        sx={{ width: { xs :"50%", md: "25%" }}}
+        sx={{ width: { xs :"50%", md: "25%" } }}
         options={users}
         filterOptions={filterOptions}
         getOptionLabel={(option) => option?.name ?? ""}

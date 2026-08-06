@@ -27,16 +27,15 @@ export default function ConversationList({
           className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
         >
           <div className="flex justify-between">
-            <div className="flex items-center gap-2 font-bold text-secondary">
-              <span>{c.name}</span>
+            <div className="flex items-center font-bold text-secondary min-w-0 flex-1">
+              <span className="truncate">{c.name}</span>
 
               {onlineUsers.has(c.userId) && (
-                <span className="h-2.5 w-2.5 rounded-full bg-online" />
+                <span className="h-2.5 w-2.5 rounded-full bg-online shrink-0 ml-auto" />
               )}
             </div>
-
             {c.unreadCount! > 0 && (
-              <span className="text-xs bg-secondary text-primary py-1 px-2 rounded-full">
+              <span className="text-xs bg-secondary text-primary py-1 px-2 rounded-full shrink-0">
                 {c.unreadCount}
               </span>
             )}
