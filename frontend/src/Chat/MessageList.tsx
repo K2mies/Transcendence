@@ -26,8 +26,10 @@ export default function MessageList({
               : "bg-tertiary/40"
           }`}
         >
-          <div className="whitespace-pre-wrap break-words"
-            aria-label={(msg.senderId === me?.id) ? "Sent message:" : "Received message"}>
+          <div className="whitespace-pre-wrap break-words">
+            <span className="sr-only">
+              {msg.senderId === me?.id ? "Sent message: " : "Received message: "}
+            </span>
             {msg.content}
           </div>
 

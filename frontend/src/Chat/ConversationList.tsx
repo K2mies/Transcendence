@@ -22,11 +22,7 @@ export default function ConversationList({
             c.unreadCount > 0 ? `. ${c.unreadCount} unread messages.` : ""
             }${onlineUsers.has(c.userId) ? " User is online." : ""
           }`}
-          tabIndex={0}
           onClick={() => openChat(c.userId)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") openChat(c.userId);
-          }}
           className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
         >
           <div className="flex justify-between">

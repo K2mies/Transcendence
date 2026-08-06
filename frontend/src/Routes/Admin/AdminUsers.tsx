@@ -123,118 +123,120 @@ function AdminUsers() {
 
       <p aria-live="polite" aria-atomic="true" className="sr-only">{announcement}</p>
 
-      <table className="bg-tertiary text-primary border-primary border-3 md:overflow-hidden w-full overflow-x-auto scroll-smooth snap-x snap-mandatory md:table flex flex-wrap">
-        <caption className="sr-only">Users</caption>
-        <thead>
-          <tr className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">
-              <span className="sr-only">Date of joining</span>
-              <button
-                type="button"
-                onClick={() => setSortAsc((prev) => !prev)}
-                className="font-bold"
-                aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
-              >
-                <span aria-hidden="true">Joined {sortAsc ? "▲" : "▼"}</span>
-              </button>
-            </th>
-            <th scope="col">Delete?</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {pagedUsers.map((user) => {
-            const isSelf = user.id === currentUser?.id;
-            const isSuperuserRow = user.role === "SUPERUSER";
-            const canDelete = !isSelf && !isSuperuserRow;
-
-            return (
-              <tr
-                key={user.id}
-                className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-              >
-                <td>
-                  <Link
-                    to={`/user/${user.name}`}
-                    className="text-sm no-underline text-primary truncate"
-                  >
-                    {user.name}
-                  </Link>
-                </td>
-
-                <td>
-                  <span className="text-sm truncate">{user.email}</span>
-                </td>
-
-                <td>
-                  {currentUser?.role === "SUPERUSER" && !isSuperuserRow ? (
-                    <div className="relative inline-flex items-center">
-                      <select
-                        id={`role-select-id-${user.id}`}
-                        aria-label="Choose a role"
-                        value={user.role}
-                        onChange={(e) =>
-                          changeRole(user.id, e.target.value as Role)
-                        }
-                        className="appearance-none border-none bg-transparent p-0 pr-4 text-sm"
-                      >
-                        {ASSIGNABLE_ROLES.map((role) => (
-                          <option key={role} value={role} className="py-2">
-                            {role}
-                          </option>
-                        ))}
-                      </select>
-                      <span className="pointer-events-none absolute right-0 text-lg">
-                        ▾
-                      </span>
-                    </div>
-                ) : (
-                  <span className="text-sm">{user.role}</span>
-                )}
-                </td>
-
-                <td>
-                  <span className="text-sm">
-                    {new Date(user.createdAt).toLocaleDateString("fi-FI")}
-                  </span>
-                </td>
-
-                <td>
-                  <button
-                    type="button"
-                    disabled={!canDelete}
-                    aria-hidden={!canDelete}
-                    onClick={() => deleteUser(user.id, user.name)}
-                    className={
-                      canDelete
-                        ? ""
-                        : "text-gray-400 cursor-not-allowed hover:text-gray-400"
-                    }
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-
-          {Array.from({ length: PAGE_SIZE - pagedUsers.length }).map((_, i) => (
-            <tr
-              key={`empty-${i}`}
-              className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
-              aria-hidden="true"
-            >
-              <td>&nbsp;</td>
+      <div className="w-full min-w-0 overflow-x-auto">
+        <table className="bg-tertiary text-primary border-primary border-3 md:overflow-hidden w-full overflow-x-auto scroll-smooth snap-x snap-mandatory md:table flex flex-wrap">
+          <caption className="sr-only">Users</caption>
+          <thead>
+            <tr className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-2 px-5 font-bold text-sm`}>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">
+                <span className="sr-only">Date of joining</span>
+                <button
+                  type="button"
+                  onClick={() => setSortAsc((prev) => !prev)}
+                  className="font-bold"
+                  aria-label={sortAsc ? "Change to descending sorting" : "Change to ascending sorting"}
+                >
+                  <span aria-hidden="true">Joined {sortAsc ? "▲" : "▼"}</span>
+                </button>
+              </th>
+              <th scope="col">Delete?</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {pagedUsers.map((user) => {
+              const isSelf = user.id === currentUser?.id;
+              const isSuperuserRow = user.role === "SUPERUSER";
+              const canDelete = !isSelf && !isSuperuserRow;
+
+              return (
+                <tr
+                  key={user.id}
+                  className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
+                >
+                  <td className="min-w-0 max-w-full">
+                    <Link
+                      to={`/user/${user.name}`}
+                      className="block min-w-0 max-w-full text-sm no-underline text-primary truncate"
+                    >
+                      {user.name}
+                    </Link>
+                  </td>
+
+                  <td className="min-w-0 max-w-full">
+                    <span className="min-w-0 max-w-full block text-sm truncate">{user.email}</span>
+                  </td>
+
+                  <td>
+                    {currentUser?.role === "SUPERUSER" && !isSuperuserRow ? (
+                      <div className="relative inline-flex items-center">
+                        <select
+                          id={`role-select-id-${user.id}`}
+                          aria-label="Choose a role"
+                          value={user.role}
+                          onChange={(e) =>
+                            changeRole(user.id, e.target.value as Role)
+                          }
+                          className="appearance-none border-none bg-transparent p-0 pr-4 text-sm"
+                        >
+                          {ASSIGNABLE_ROLES.map((role) => (
+                            <option key={role} value={role} className="py-2">
+                              {role}
+                            </option>
+                          ))}
+                        </select>
+                        <span className="pointer-events-none absolute right-0 text-lg">
+                          ▾
+                        </span>
+                      </div>
+                  ) : (
+                    <span className="text-sm">{user.role}</span>
+                  )}
+                  </td>
+
+                  <td className="min-w-0 whitespace-nowrap">
+                    <span className="text-sm">
+                      {new Date(user.createdAt).toLocaleDateString("fi-FI")}
+                    </span>
+                  </td>
+
+                  <td className="min-w-0 whitespace-nowrap">
+                    <button
+                      type="button"
+                      disabled={!canDelete}
+                      aria-hidden={!canDelete}
+                      onClick={() => deleteUser(user.id, user.name)}
+                      className={
+                        canDelete
+                          ? ""
+                          : "text-gray-400 cursor-not-allowed hover:text-gray-400"
+                      }
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+
+            {Array.from({ length: PAGE_SIZE - pagedUsers.length }).map((_, i) => (
+              <tr
+                key={`empty-${i}`}
+                className={`grid ${columns} gap-4 items-center justify-items-start border-b border-gray-500 py-3 px-5 last:border-b-0`}
+                aria-hidden="true"
+              >
+                <td>&nbsp;</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <PaginationControls
-        pagename="admin-users"
+        pageName="admin-page-users"
         page={currentPage}
         totalPages={totalPages}
         onPrevious={() => setPage((p) => Math.max(1, p - 1))}

@@ -161,7 +161,7 @@ function Games() {
           </div>
         </div>
         <PaginationControls
-          pagename="games"
+          pageName="games"
           page={page}
           totalPages={pagination?.totalPages ?? 1}
           onPrevious={() => setPage((prev) => prev - 1)}
