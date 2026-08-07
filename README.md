@@ -250,6 +250,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 | password | String | nullable (OAuth users won't have one) |
 | bio | String | nullable |
 | createdAt | DateTime | |
+| image | Bytes | |
 
 ### OAuthAccount
 | Field | Type | Notes |
@@ -347,7 +348,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 
 | Feature | Description | Work Division |
 |---|---|---|
-| User Registration & Login| Allows users to create an account and log in using email and password|---|
+| User Registration & Login| Allows users to create an account and log in using email and password| Inna, Viljar, Ross, Sonja|
 | Google Authentication| Allows users to register and log in using their Google account| Inna|
 | Dashboard| A langin view with curated game lists: Trending, Newest, Top Rated and Most played. To help users discover games without manually searching | Karoliina|
 | Game Browsing and Filtering| Lets users browse the game catalogue and narrow results using filters| Ross|
@@ -400,6 +401,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 - Assessment and polishing of error handling for both backend and frontend, implementing Toast notifications to handle error responses from backend to frontend
 - Project management: scheduling and booking weekly meetings, coordinating team progress and communication
 - Reviewing of PR's and providing support for fixes and additions to various features and branches
+- Some challenges: Implementing accessibility features brought along some issues with the visual UI, and learning to use a screen reader and accessibility assessment tools (WAVE, Mozilla Firefox Accessibility Inspector) and how to solve different errors and alerts they announced required some work.  React and TypeScript were new to me, and I faced some issues with React rendering logic and e.g. useState and useEffect. I overcame these issues by finding helpful resources, a lot of help from and teamwork with Ross, and through trial and error. I also learned a lot about working with a shared codebase, and what has to be taken into account when refactoring or otherwise modifying each other's code.
 
 **_Ross_**:
 
