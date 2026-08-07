@@ -23,7 +23,7 @@ function Accessibility() {
         </h2>
         <p>
           We want everyone to be able to fully use GoodPlays. We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 level AA.
-          This site has been tested using using the WAVE extension for Google Chrome, and VoiceOver screen reader on macOS.
+          This site has been tested using the WAVE extension for Google Chrome, and VoiceOver screen reader on macOS.
           Latest accessibility review: 24th July 2026.
 
           If you find any accessibility issue, inconvenience, or difficulty using the site, please contact us, and we will try to
