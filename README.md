@@ -555,8 +555,3 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 - Assisted teammates if needed throughout the project.
 
 ---
-
-# Additional information
-
-[Any other useful or relevant information is welcome (usage documentation, known
-limitations, license, credits, etc.).]
