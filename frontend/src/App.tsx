@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
+import AdminRoute from "./Routes/Protection/AdminRoute";
 
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -10,8 +11,8 @@ import Footer from "./Footer/Footer";
 import Login from "./Registration/Login";
 import SignUp from "./Registration/Register";
 
-import OAuthCallback from "./OAuthCallback";
-import OAuthUsernamePicker from "./OAuthUsernamePicker";
+import OAuthCallback from "./Auth/OAuthCallback";
+import OAuthUsernamePicker from "./Auth/OAuthUsernamePicker";
 
 import Profile from "./Routes/Profile/Profile";
 import Game from "./Routes/Game/Game";
@@ -19,6 +20,8 @@ import Games from "./Routes/Games/Games";
 
 import Home from "./Routes/Home";
 import Dashboard from "./Routes/Dashboard/Dashboard";
+
+import NotFound from "./NotFound";
 
 import { ChatProvider } from "./Chat/ChatContext";
 import Chat from "./Chat/Chat";
@@ -28,7 +31,11 @@ import PrivacyPolicy from "./Footer/Routes/PrivacyPolicy";
 import RatingSystem from "./Footer/Routes/RatingSystem";
 import Accessibility from "./Footer/Routes/Accessibility";
 
-import { FavoritesProvider } from "./Rating/FavoritesContext";
+import { FavoritesProvider } from "./Rating/FavoritesProvider";
+import { CurrentUserProvider, useCurrentUser } from "./Auth/CurrentUserContext";
+import Admin from "./Routes/Admin/Admin";
+
+import { Toaster } from "react-hot-toast";
 
 function ScrollToTop() {
   const path = useLocation();
@@ -53,6 +60,27 @@ function Layout() {
   const [myCurrUser, setMyCurrUser] = useState<string | undefined>(myUsername);
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
+  const [isUserFound, setIsUserFound] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
+    undefined,
+  );
+  const { currentUser } = useCurrentUser();
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ id: currentUser.id, name: currentUser.name }),
+    );
+
+    if (currentUser.name !== myCurrUser) {
+      setMyCurrUser(currentUser.name);
+    }
+  }, [currentUser, myCurrUser]);
+
 
   const hideHeader =
     location.pathname === "/" ||
@@ -63,12 +91,26 @@ function Layout() {
 
   return (
     <>
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "var(--color-primary)",
+            color: "var(--color-tertiary)",
+            padding: "12px 16px",
+          },
+        }}
+      />
+
       {!hideHeader && (
         <Header
           showSearch={showSearch}
           setShowSearch={setShowSearch}
           myCurrUser={myCurrUser}
           setMyCurrUser={setMyCurrUser}
+          isUserFound={isUserFound}
+          isGameFound={isGameFound}
         />
       )}
 
@@ -108,14 +150,27 @@ function Layout() {
                 <Profile
                   myCurrUser={myCurrUser}
                   setMyCurrUser={setMyCurrUser}
+                  isUserFound={isUserFound}
+                  setIsUserFound={setIsUserFound}
                 />
               }
             />
             <Route
               path="game/:name"
-              element={<Game myCurrUser={myCurrUser} />}
+              element={
+                <Game
+                  myCurrUser={myCurrUser}
+                  isGameFound={isGameFound}
+                  setIsGameFound={setIsGameFound}
+                />
+              }
             />
             <Route path="chat" element={<Chat />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+
+          <Route element={<AdminRoute />}>
+            <Route path="admin" element={<Admin />} />
           </Route>
         </Routes>
       </main>
@@ -131,7 +186,9 @@ function App() {
       <ScrollToTop />
       <ChatProvider>
         <FavoritesProvider>
-          <Layout />
+          <CurrentUserProvider>
+            <Layout />
+          </CurrentUserProvider>
         </FavoritesProvider>
       </ChatProvider>
     </BrowserRouter>

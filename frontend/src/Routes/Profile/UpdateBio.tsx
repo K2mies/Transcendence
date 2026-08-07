@@ -36,7 +36,7 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
     const newData: { bio: string } = {
       bio: newBio,
     };
-    const response: Response = await fetch("http://localhost:4243/profile/", {
+    const response: Response = await fetch("/api/profile/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,13 +50,13 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
       setCurrBio(newBio);
       setUpdateBioMode(false);
     } else {
-      setUpdateError(data.error || "Error saving biography. Please try again.");
+      setUpdateError(data.message || "Failed to save biography. Please try again.");
     }
   }
   return (
     <>
       <form
-        className="my-4 w-[50%] flex flex-row"
+        className="my-4 md:w-[50%] flex flex-row"
         onSubmit={handleSubmit(update)}
       >
         <ControlledBioInput
@@ -68,7 +68,12 @@ function UpdateBio({ setUpdateBioMode, currBio, setCurrBio }: UpdateBioProps) {
           setBioNow={setBioNow}
         />
         <div className="flex flex-col gap-3">
-          <button className="ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary" type="submit">Save</button>
+          <button
+            className="ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
+            type="submit"
+          >
+            Save
+          </button>
           <button
             type="button"
             className="ml-3 bg-secondary text-primary px-4 py-2 rounded hover:text-primary"

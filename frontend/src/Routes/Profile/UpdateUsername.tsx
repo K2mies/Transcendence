@@ -7,8 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 type UpdateUsernameProps = {
   setUpdateUsernameMode: (updateUsernameMode: boolean) => void;
+  myCurrUser: string | undefined;
   setMyCurrUser: (myCurrUser: string | undefined) => void;
   editRef: any;
+  setMyOldUser: (myOldUser: string | undefined) => void;
 };
 
 type FormValues = {
@@ -31,11 +33,13 @@ const schema = z.object({
 
 function UpdateUsername({
   setUpdateUsernameMode,
+  myCurrUser,
   setMyCurrUser,
   editRef,
+  setMyOldUser
 }: UpdateUsernameProps) {
   const navigate = useNavigate();
-  const [editError, setEditError] = useState<string | undefined>(undefined);
+  const [updateError, setUpdateError] = useState<string | undefined>(undefined);
   const { handleSubmit, control } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -56,7 +60,7 @@ function UpdateUsername({
       name: newName,
     };
     const response: Response = await fetch(
-      "http://localhost:4243/auth/username",
+      "/api/auth/username",
       {
         method: "PATCH",
         headers: {
@@ -79,23 +83,27 @@ function UpdateUsername({
       };
 
       localStorage.setItem("user", JSON.stringify(newUserData));
-
+      setMyOldUser(myCurrUser);
       setMyCurrUser(newName);
+
+      window.dispatchEvent(new Event("auth-changed"));
+
       navigate(`/user/${encodeURIComponent(newName)}`);
       setUpdateUsernameMode(false);
     } else {
-      setEditError(data.error || "Error saving username. Please try again.");
+      setUpdateError(data.message || "Failed to save username. Please try again.");
     }
   }
   return (
     <>
-      <form className="flex flex-row p-2" onSubmit={handleSubmit(update)}>
+      <form className="flex flex-col md:flex-row p-2 min-w-0" onSubmit={handleSubmit(update)}>
         <div className="flex flex-col">
-          <label htmlFor="update-username" className="font-semibold mb-2 block">Username:</label>
+          <label htmlFor="update-username" className="font-semibold mb-2 block">
+            Username:
+          </label>
           <TextField
             inputRef={editRef}
             id="update-username"
-            className="w-87.5"
             placeholder="Give new username..."
             autoFocus={true}
             sx={{
@@ -111,8 +119,7 @@ function UpdateUsername({
             autoComplete="off"
             onChange={(e) => {
               field.onChange(e.target.value);
-              if (editError)
-                setEditError(undefined);
+              if (updateError) setUpdateError(undefined);
             }}
             onBlur={field.onBlur}
             value={field.value}
@@ -121,7 +128,11 @@ function UpdateUsername({
           />
         </div>
         <div className="flex flex-row pt-[2em] gap-3">
-          <input className="h-[2.5em] ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary" type="submit" value="Save"></input>
+          <input
+            className="h-[2.5em] ml-3 cursor-pointer bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
+            type="submit"
+            value="Save"
+          ></input>
           <button
             type="button"
             className="h-[2.5em] bg-secondary text-primary px-4 py-2 rounded hover:text-primary"
@@ -134,10 +145,11 @@ function UpdateUsername({
         </div>
       </form>
       <div>
-        {(error || editError) ? 
-        <Alert severity="error" variant="filled">
-          {error ? error.message : editError}
-        </Alert> : null}
+        {error || updateError ? (
+          <Alert severity="error" variant="filled">
+            {error ? error.message : updateError}
+          </Alert>
+        ) : null}
       </div>
     </>
   );

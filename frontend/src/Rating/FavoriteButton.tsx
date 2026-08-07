@@ -1,5 +1,6 @@
+import toast from "react-hot-toast";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useFavorites } from "./FavoritesContext";
+import { useFavorites } from "./useFavorites";
 import type { Game } from "../Types/GameType";
 
 type FavoriteButtonProps = {
@@ -14,7 +15,7 @@ async function updateGameRelation(
   const name = encodeURIComponent(gamename);
 
   const response = await fetch(
-    `http://localhost:4243/game/${name}/update-game-relation`,
+    `/api/game/${name}/update-game-relation`,
     {
       method: "POST",
       headers: {
@@ -26,7 +27,7 @@ async function updateGameRelation(
   );
 
   if (response.status !== 200) {
-    throw new Error("Error updating game relation");
+    throw new Error("Failed to update favorite status. Please try again");
   }
 }
 
@@ -48,7 +49,15 @@ function FavoriteButton({ game, size = 16 }: FavoriteButtonProps) {
         favorite: newValue,
       });
     } catch (error) {
-      console.error(error);
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            {error instanceof Error && error.message
+              ? error.message
+              : "Failed to update favorite status. Please try again."}
+          </div>
+        </div>
+      ));
 
       setFavorite(game.id, favoriteState);
     }

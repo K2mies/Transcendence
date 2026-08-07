@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import type { FriendStatusRefresh } from "../../types";
 
 function DeclineFriendRequest({
@@ -7,7 +8,7 @@ function DeclineFriendRequest({
 }: FriendStatusRefresh) {
   async function declineRequest() {
     const response: Response = await fetch(
-      `http://localhost:4243/profile/${username}/decline-request`,
+      `/api/profile/${username}/decline-request`,
       {
         method: "DELETE",
         credentials: "include",
@@ -16,7 +17,13 @@ function DeclineFriendRequest({
     if (response.ok) {
       await response.json();
     } else {
-      console.error("Error declining friend request");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to decline friend request. Please try again.
+          </div>
+        </div>
+      ));
     }
     window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);

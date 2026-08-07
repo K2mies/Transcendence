@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import type { RegistrationProps } from "./types";
+import type { RegistrationProps } from "../types";
 
 function OAuthCallback({ setMyCurrUser }: RegistrationProps) {
   const navigate = useNavigate();
@@ -14,12 +14,18 @@ function OAuthCallback({ setMyCurrUser }: RegistrationProps) {
       return;
     }
 
-    fetch("http://localhost:4243/auth/me", { credentials: "include" })
+    fetch("/api/auth/me", { credentials: "include" })
       .then((res) => res.json())
       .then((result) => {
         if (result.status === "success") {
           localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("user", JSON.stringify(result.data.user));
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: result.data.user.id,
+              name: result.data.user.name,
+            }),
+          );
           setMyCurrUser(result.data.user.name);
 
           window.dispatchEvent(new Event("auth-changed"));

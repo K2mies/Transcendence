@@ -12,9 +12,9 @@ function SortSelector({ sortBy, setSortBy }: SortSelectorProps) {
     <div className="flex flex-col">
       <InputLabel
         id="sort-label"
-        htmlFor="sort"
+        htmlFor="sort-input"
         sx={{
-          color: "white"
+          color: "white",
         }}
       >
         Sort by:
@@ -29,7 +29,7 @@ function SortSelector({ sortBy, setSortBy }: SortSelectorProps) {
           width: 145,
           backgroundColor: "var(--app-tertiary)",
         }}
-        inputProps={{ id: "sort" }}
+        inputProps={{ id: "sort-input", name: "sort" }}
       >
         <MenuItem value="name-asc">Name A-Z</MenuItem>
         <MenuItem value="name-desc">Name Z-A</MenuItem>

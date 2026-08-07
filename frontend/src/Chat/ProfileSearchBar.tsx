@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
@@ -20,10 +21,20 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
 
   useEffect(() => {
     async function fetchUsers() {
-      const res = await fetch(`http://localhost:4243/user/all`, {
+      const res = await fetch(`/api/user/all`, {
         method: "GET",
         credentials: "include",
       });
+
+      if (!res.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get list of users. Please try again.
+            </div>
+          </div>
+        ));
+      }
 
       const result = await res.json();
       setUsers(Array.isArray(result) ? result : []);
@@ -35,7 +46,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
   return (
     <>
       <Autocomplete<User>
-        sx={{ width: "25%" }}
+        sx={{ width: { xs :"50%", md: "25%" } }}
         options={users}
         filterOptions={filterOptions}
         getOptionLabel={(option) => option?.name ?? ""}
@@ -54,7 +65,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
                 outline: "2px solid var(--color-secondary)",
                 outlineOffset: "2px",
               },
-            }
+            },
           },
           listbox: {
             sx: { maxHeight: 300 },
@@ -62,7 +73,9 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
         }}
         renderInput={(params) => (
           <>
-            <label htmlFor={params.id} className="sr-only">Search for a user profile</label>
+            <label htmlFor={params.id} className="sr-only">
+              Search for a user profile
+            </label>
             <TextField
               {...params}
               placeholder="Search for a user profile"
@@ -70,6 +83,7 @@ const ProfileSearchBar = ({ onSelectUser }: Props) => {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   backgroundColor: "var(--color-tertiary)",
+                  fontSize: "0.875rem",
                   "& fieldset": {
                     borderColor: "var(--color-primary)",
                   },

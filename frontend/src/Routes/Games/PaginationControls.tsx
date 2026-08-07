@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
 
 type PaginationControlsProps = {
+  pageName: string,
   page: number;
   totalPages: number;
   onPrevious: () => void;
   onNext: () => void;
   onPageChange: (page: number) => void;
+  className?: string;
 };
 
 function PaginationControls({
+  pageName,
   page,
   totalPages,
   onPrevious,
   onNext,
   onPageChange,
+  className = "",
 }: PaginationControlsProps) {
   const [inputPage, setInputPage] = useState(page.toString());
 
@@ -32,7 +36,9 @@ function PaginationControls({
   }
 
   return (
-    <div className="bg-primary text-tertiary flex justify-center items-center gap-4 sticky bottom-0 z-40  ">
+    <div
+      className={`bg-primary text-tertiary flex justify-center items-center gap-4 sticky bottom-0 z-40 ${className}`}
+    >
       <button
         disabled={page === 1}
         onClick={onPrevious}
@@ -42,12 +48,12 @@ function PaginationControls({
       </button>
 
       <div className="flex items-center gap-2">
-        <label htmlFor="page-number">Page</label>
+        <span>Page</span>
 
         <input
-          id="page-number"
+          id={`page-number-${pageName}`}
           type="text"
-          aria-label="Page number"
+          aria-label={`Page number for ${pageName}`}
           inputMode="numeric"
           pattern="[0-9]*"
           value={inputPage}

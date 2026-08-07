@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { FILTER_SX } from "./FilterProperties";
@@ -12,14 +13,25 @@ type GenreSelectorProps = {
 function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
   const [genreOptions, setGenreOptions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     async function fetchGenres() {
-      const response = await fetch("http://localhost:4243/games/genres", {
+      const response = await fetch("/api/games/genres", {
         credentials: "include",
       });
 
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get available genres. Please try again.
+            </div>
+          </div>
+        ));
+      }
       const result = await response.json();
 
       if (result.status === "success") {
@@ -34,7 +46,9 @@ function GenreSelector({ genres, setGenres }: GenreSelectorProps) {
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="genre" className="text-white">Genre:</label>
+      <label htmlFor="genre" className="text-white">
+        Genre:
+      </label>
       <Autocomplete
         id="genre"
         value={selectedValue}

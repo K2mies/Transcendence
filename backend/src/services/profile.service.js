@@ -1,5 +1,5 @@
 import { prisma } from "../config/db.js";
-import { sendOnlineFriends } from "../utils/websocket.js";
+import { sendOnlineFriends, sendNotification } from "../utils/websocket.js";
 
 function filterGameInfo(games, status) {
   return games
@@ -57,6 +57,7 @@ export async function getProfile(profileName) {
     id: user.id,
     name: user.name,
     bio: user.bio,
+    image: user.image ? Buffer.from(user.image).toString("base64") : null,
     friends: [
       //... combines these into one array
       ...user.receivedRequests
@@ -130,6 +131,41 @@ export async function updateBio(profileName, newData) {
   });
 }
 
+export async function uploadImage(profileName, imageFile) {
+  const currentUser = await prisma.user.findUnique({
+    where: { name: profileName },
+  });
+  if (!currentUser) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
+  const updatedUser = await prisma.user.update({
+    where: { name: profileName },
+    data: {
+      image: imageFile,
+    },
+  });
+  return Buffer.from(updatedUser.image).toString("base64");
+}
+
+export async function deleteImage(profileName) {
+  const currentUser = await prisma.user.findUnique({
+    where: { name: profileName },
+  });
+  if (!currentUser) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
+  await prisma.user.update({
+    where: { name: profileName },
+    data: {
+      image: null,
+    },
+  });
+}
+
 export async function getFriendStatus(friendName, userId, userName) {
   const friend = await prisma.user.findUnique({ where: { name: friendName } });
   if (!friend) {
@@ -165,6 +201,21 @@ export async function getFriendStatus(friendName, userId, userName) {
 */
 export async function addFriend(friendName, user) {
   const friend = await prisma.user.findUnique({ where: { name: friendName } });
+
+  const sender = await prisma.user.findUnique({
+    where: { id: user },
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
+  if (!sender) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
+
   if (!friend) {
     const error = new Error("No user found");
     error.status = 404;
@@ -192,6 +243,12 @@ export async function addFriend(friendName, user) {
       },
     },
   });
+
+  sendNotification(friend.id, {
+    type: "friend-request",
+    senderId: sender.id,
+    senderName: sender.name,
+  });
 }
 
 /*
@@ -201,6 +258,18 @@ export async function addFriend(friendName, user) {
 export async function acceptFriendRequest(friendName, user) {
   const friend = await prisma.user.findUnique({ where: { name: friendName } });
   if (!friend) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
+  const accepter = await prisma.user.findUnique({
+    where: { id: user },
+    select: {
+      name: true,
+    },
+  });
+
+  if (!accepter) {
     const error = new Error("No user found");
     error.status = 404;
     throw error;
@@ -220,6 +289,12 @@ export async function acceptFriendRequest(friendName, user) {
     },
   });
 
+  sendNotification(friend.id, {
+    type: "friend-request-accepted",
+    userId: user,
+    accepterName: accepter.name,
+  });
+
   await sendOnlineFriends(friend.id);
   await sendOnlineFriends(user);
 }
@@ -230,22 +305,47 @@ export async function acceptFriendRequest(friendName, user) {
 */
 export async function declineFriendRequest(friendName, user) {
   const friend = await prisma.user.findUnique({ where: { name: friendName } });
+
   if (!friend) {
     const error = new Error("No user found");
     error.status = 404;
     throw error;
   }
+
+  const decliner = await prisma.user.findUnique({
+    where: { id: user },
+    select: {
+      name: true,
+    },
+  });
+
+  if (!decliner) {
+    const error = new Error("No user found");
+    error.status = 404;
+    throw error;
+  }
+
   const userRelation = await prisma.userUserRelation.findUnique({
     where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
   });
+
   if (!userRelation || userRelation.friendStatus !== "PENDING") {
     const error = new Error("No pending user relation");
     error.status = 400;
     throw error;
   }
+
   await prisma.userUserRelation.delete({
     where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
   });
+
+  sendNotification(friend.id, {
+    type: "friend-request-declined",
+    declinerName: decliner.name,
+  });
+
+  await sendOnlineFriends(friend.id);
+  await sendOnlineFriends(user);
 }
 
 /*
@@ -285,6 +385,16 @@ export async function removeFriend(friendName, user) {
       where: { senderId_receiverId: { senderId: friend.id, receiverId: user } },
     });
   }
+
+  sendNotification(friend.id, {
+    type: "friend-removed",
+    userId: user,
+  });
+
+  sendNotification(user, {
+    type: "friend-removed",
+    userId: friend.id,
+  });
 
   await sendOnlineFriends(friend.id);
   await sendOnlineFriends(user);

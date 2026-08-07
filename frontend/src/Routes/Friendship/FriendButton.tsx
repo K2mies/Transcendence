@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import AddFriend from "./Add";
 import AcceptFriendRequest from "./Accept";
 import DeclineFriendRequest from "./Decline";
@@ -18,22 +19,51 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
 
   useEffect(() => {
     if (!user || user === myCurrUser) return;
+
     async function getStatus() {
       const response: Response = await fetch(
-        `http://localhost:4243/profile/${username}/friend-status`,
+        `/api/profile/${username}/friend-status`,
         {
           credentials: "include",
         },
       );
-      const res: { friendStatus: string; sender: string } =
-        await response.json();
-      if (res.friendStatus === "PENDING" && res.sender === user)
+
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get friendship status. Please try again.
+            </div>
+          </div>
+        ));
+      }
+
+      const res: {
+        friendStatus: string | undefined;
+        sender?: string;
+      } = await response.json();
+
+      if (res.friendStatus === "PENDING" && res.sender === user) {
         setFriendStatus("RECEIVED");
-      else setFriendStatus(res.friendStatus);
+      } else {
+        setFriendStatus(res.friendStatus);
+      }
     }
 
     getStatus();
-  }, [user, refreshKey]);
+  }, [user, myCurrUser, username, refreshKey]);
+
+  useEffect(() => {
+    function refreshStatus() {
+      setRefreshKey((key) => key + 1);
+    }
+
+    window.addEventListener("friend-status-changed", refreshStatus);
+
+    return () => {
+      window.removeEventListener("friend-status-changed", refreshStatus);
+    };
+  }, []);
 
   return (
     <>
@@ -60,7 +90,7 @@ function FriendButton({ user, myCurrUser }: FriendButtonProps) {
       )}
       {friendStatus === "PENDING" && (
         <RemoveFriend
-          text="Request pending - delete"
+          text="Request pending"
           username={username}
           refreshKey={refreshKey}
           setRefreshKey={setRefreshKey}

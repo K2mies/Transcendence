@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
@@ -29,7 +30,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     async function fetchGames() {
-      const response = await fetch("http://localhost:4243/games", {
+      const response = await fetch("/api/games", {
         method: "GET",
         credentials: "include",
       });
@@ -37,6 +38,14 @@ const SearchBar = () => {
 
       if (result.status === "success") {
         setGames(result.data);
+      } else {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get list of games. Please try again.
+            </div>
+          </div>
+        ));
       }
     }
 
@@ -90,7 +99,9 @@ const SearchBar = () => {
         }}
         renderInput={(params) => (
           <>
-            <label htmlFor={params.id} className="sr-only">Search for games</label>
+            <label htmlFor={params.id} className="sr-only">
+              Search for games
+            </label>
             <TextField
               {...params}
               placeholder="Search for games"

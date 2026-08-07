@@ -2,14 +2,21 @@ import cors from "cors";
 
 /*
  * CORS (Cross-Origin Resource Sharing)
- * cors allows only requests from port 8080 (frontend) and 4242(backend in development),
- * allowed methods: GET, POST, PUT, DELETE.
- * Only allowed headers are "Content-Type" and "Authorization"
-*/
+ *
+ * Only requests originating from the HTTPS frontend served through the
+ * nginx reverse proxy (https://localhost) are allowed.
+ *
+ * Allowed HTTP methods:
+ *    GET, POST, PUT, PATCH and DELETE.
+ *
+ * Allowed request headers:
+ *    Content-Type and Authorization.
+ *
+ * Credentials (cookies) are enabled so authenticated requests can be
+ * sent from the frontend to the backend.
+ */
 const allowedOrigins = [
-	"http://localhost:5173",
-	"http://localhost:4243",
-	"http://127.0.0.1:5173"
+  "https://localhost:8443",
 ];
 
 /*
@@ -18,22 +25,22 @@ const allowedOrigins = [
  * If the origin is valid, the request is allowed to proceed.
  * If not, an error is passed to the callback, which results in the request being rejected (typically with a 403 status via error handling).
  * This acts as a browser-enforced access control layer, preventing unauthorized websites from reading API responses.
-*/
+ */
 
 const corsValidator = cors({
-	origin: function (origin, callback) {
-		if (!origin || allowedOrigins.includes(origin)) {
-			callback(null, true);
-		} else {
-			const err = new Error("Not allowed by CORS");
-			err.type = "CORS";
-			err.statusCode = 403;
-			callback(err);
-		}
-	},
-	methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-	allowedHeaders: ["Content-Type", "Authorization"],
-	credentials: true
-})
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      const err = new Error("Not allowed by CORS");
+      err.type = "CORS";
+      err.statusCode = 403;
+      callback(err);
+    }
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+});
 
-export {corsValidator};
+export { corsValidator };

@@ -3,6 +3,7 @@ import app from "./app.js";
 import { portCheck } from "./utils/portCheck.js";
 import { shutdown } from "./utils/shutdown.js";
 import { connectDB, disconnectDB } from "./config/db.js";
+import { ensureSuperuser } from "./utils/ensureSuperuser.js";
 import { setupWebSocket } from "./websocket/websocket.server.js";
 import http from "http";
 
@@ -20,6 +21,7 @@ try {
 }
 
 await connectDB();
+await ensureSuperuser();
 
 // Create express server (app) and attach websocket server to it
 const server = http.createServer(app);
@@ -65,4 +67,3 @@ process.on("uncaughtException", async (err) => {
     process.exit(1);
   }
 });
-

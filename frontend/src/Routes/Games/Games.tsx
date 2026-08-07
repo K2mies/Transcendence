@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import toast from "react-hot-toast";
 import GameCard from "./GameCard";
 import PaginationControls from "./PaginationControls";
 import GameFilter from "./Filter/GameFilter";
@@ -39,8 +40,7 @@ function Games() {
   }, []);
 
   useEffect(() => {
-    if (showFilters)
-      firstFilterRef.current?.focus();
+    if (showFilters) firstFilterRef.current?.focus();
   }, [showFilters]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function Games() {
       params.set("sortBy", sortBy);
 
       const response = await fetch(
-        `http://localhost:4243/search?${params.toString()}`,
+        `/api/search?${params.toString()}`,
         {
           credentials: "include",
         },
@@ -88,9 +88,18 @@ function Games() {
         setGames(result.data);
         setPagination(result.pagination);
 
-        const resultInfo = document.querySelector<HTMLParagraphElement>("#result-info");
+        const resultInfo =
+          document.querySelector<HTMLParagraphElement>("#result-info");
         if (resultInfo)
           resultInfo.textContent = `Found ${result.data.length} games with current filters`;
+      } else {
+          toast.custom(() => (
+            <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+              <div className="flex items-center gap-2">
+                Failed to search for games. Please try again.
+              </div>
+            </div>
+          ));
       }
     }
 
@@ -141,7 +150,9 @@ function Games() {
             />
           </button>
         </div>
-        <div className="sr-only" aria-live="polite"><p id="result-info"></p></div>
+        <div className="sr-only" aria-live="polite">
+          <p id="result-info"></p>
+        </div>
         <div className="bg-secondary text-primary min-h-screen px-6 pb-6">
           <div className="relative grid grid-cols-5 gap-2">
             {games.map((game, index) => (
@@ -150,6 +161,7 @@ function Games() {
           </div>
         </div>
         <PaginationControls
+          pageName="games"
           page={page}
           totalPages={pagination?.totalPages ?? 1}
           onPrevious={() => setPage((prev) => prev - 1)}

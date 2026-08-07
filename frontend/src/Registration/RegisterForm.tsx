@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ControlledInput from "../ControlledInput";
+import ControlledInput from "./ControlledInput";
 import { useNavigate } from "react-router-dom";
 
 const schema = z
@@ -71,7 +71,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
     const submitData = (({ confirmPassword, ...rest }) => rest)(data);
 
     try {
-      const response = await fetch("http://localhost:4243/auth/register", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,8 +96,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
       } else {
         setRegisterStatus(result.error ?? "Registration failed");
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch {
       setRegisterStatus("Registration failed");
     }
   }
@@ -105,7 +104,7 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <a
-        href="http://localhost:4243/auth/google"
+        href="/api/auth/google"
         className="flex items-center justify-center gap-3 w-full border border-gray-300 rounded-lg py-2 px-4 bg-white text-black font-medium hover:bg-gray-50 transition-colors mt-4"
       >
         <svg
@@ -174,7 +173,9 @@ function RegisterForm({ setMyCurrUser }: RegisterFormProps) {
         type="password"
       />
 
-      <button className="cursor-pointer underline" type="submit">Submit</button>
+      <button className="cursor-pointer underline" type="submit">
+        Submit
+      </button>
 
       {registerStatus !== "init" && (
         <div>

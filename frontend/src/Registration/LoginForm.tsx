@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ControlledInput from "../ControlledInput";
+import ControlledInput from "./ControlledInput";
 import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
@@ -40,7 +40,7 @@ function LoginForm({ setMyCurrUser }: LoginFormProps) {
 
   async function onSubmit(data: LoginFormData) {
     try {
-      const response = await fetch("http://localhost:4243/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function LoginForm({ setMyCurrUser }: LoginFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <a
-        href="http://localhost:4243/auth/google"
+        href="/api/auth/google"
         className="flex items-center justify-center gap-3 w-full border border-gray-300 rounded-lg py-2 px-4 bg-white text-black font-medium hover:bg-gray-50 transition-colors mt-4"
       >
         <svg
@@ -128,7 +128,9 @@ function LoginForm({ setMyCurrUser }: LoginFormProps) {
         type="password"
       />
 
-      <button className="cursor-pointer underline" type="submit">Submit</button>
+      <button className="cursor-pointer underline" type="submit">
+        Submit
+      </button>
 
       {loginError && (
         <p role="alert" aria-live="assertive">

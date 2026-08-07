@@ -16,7 +16,7 @@ function RatingSelector({ rating, setRating, size = 20 }: RatingSelectorProps) {
       onMouseLeave={() => setHoverRating(0)}
     >
       <legend className="sr-only">Rate this game</legend>
-      
+
       {Array.from({ length: 5 }).map((_, index) => {
         const value = index + 1;
 
@@ -53,7 +53,7 @@ function RatingSelector({ rating, setRating, size = 20 }: RatingSelectorProps) {
               />
             )}
           </label>
-        )
+        );
       })}
     </fieldset>
   );

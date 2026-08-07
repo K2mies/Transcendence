@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import type { FriendStatusRefresh } from "../../types";
 
 function AcceptFriendRequest({
@@ -7,7 +8,7 @@ function AcceptFriendRequest({
 }: FriendStatusRefresh) {
   async function acceptRequest() {
     const response: Response = await fetch(
-      `http://localhost:4243/profile/${username}/accept-request`,
+      `/api/profile/${username}/accept-request`,
       {
         method: "PUT",
         credentials: "include",
@@ -16,7 +17,13 @@ function AcceptFriendRequest({
     if (response.status === 200) {
       await response.json();
     } else {
-      console.error("Error accepting friend request");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to accept friend request. Please try again.
+          </div>
+        </div>
+      ));
     }
     window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);

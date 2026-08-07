@@ -3,8 +3,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ControlledInput from "./ControlledInput";
-import type { RegistrationProps } from "./types";
+import ControlledInput from "../Registration/ControlledInput";
+import type { RegistrationProps } from "../types";
 
 const schema = z.object({
   name: z
@@ -32,7 +32,7 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
 
   const onSubmit = async (data: FormData) => {
     setServerError(null);
-    const response = await fetch("http://localhost:4243/auth/username", {
+    const response = await fetch("/api/auth/username", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -41,7 +41,13 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
     const result = await response.json();
     if (result.status === "success") {
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("user", JSON.stringify(result.data.user));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: result.data.user.id,
+          name: result.data.user.name,
+        }),
+      );
       setMyCurrUser(result.data.user.name);
 
       window.dispatchEvent(new Event("auth-changed"));
@@ -66,7 +72,11 @@ function OAuthUsernamePicker({ setMyCurrUser }: RegistrationProps) {
             type="text"
           />
           <input type="submit" value="Continue" />
-          {serverError && <p role="alert" aria-live="assertive">{serverError}</p>}
+          {serverError && (
+            <p role="alert" aria-live="assertive">
+              {serverError}
+            </p>
+          )}
         </form>
       </div>
     </div>

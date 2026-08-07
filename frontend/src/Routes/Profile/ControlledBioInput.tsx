@@ -30,7 +30,9 @@ const ControlledBioInput = ({
 
   return (
     <div className="w-full">
-      <label htmlFor={field.name} className="font-semibold mb-2 block">{label}</label>
+      <label htmlFor={field.name} className="font-semibold mb-2 block">
+        {label}
+      </label>
       <div className="relative">
         <textarea
           {...field}
@@ -49,8 +51,13 @@ const ControlledBioInput = ({
           }}
           aria-describedby="bio-helper"
         />
-        <p id="bio-helper" className="sr-only">Tell other users about yourself. Maximum {MAX_BIO_LENGTH} characters.</p>
-        <div className="absolute bottom-0 right-0 px-7 py-4 flex justify-end" aria-hidden={true}>
+        <p id="bio-helper" className="sr-only">
+          Tell other users about yourself. Maximum {MAX_BIO_LENGTH} characters.
+        </p>
+        <div
+          className="absolute bottom-0 right-0 px-7 py-4 flex justify-end"
+          aria-hidden={true}
+        >
           <span className="text-sm text-primary" id="bio-char-count">
             {bioNow.length}/{MAX_BIO_LENGTH}
           </span>
@@ -73,11 +80,7 @@ const ControlledBioInput = ({
             <ImCross size={14} />
           </button>
         </div>
-        {error && (
-          <p className="mt-1 text-sm text-red-600">
-            {error.message}
-          </p>
-        )}
+        {error && <p className="mt-1 text-sm text-red-600">{error.message}</p>}
       </div>
     </div>
   );

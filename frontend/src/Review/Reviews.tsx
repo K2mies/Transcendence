@@ -12,6 +12,7 @@ type ReviewsProps = {
   reviews: ReviewType[];
   setReviews?: React.Dispatch<React.SetStateAction<ReviewType[]>>;
   onDeleteReview?: (review: ReviewType) => void;
+  canAdminDelete?: boolean;
 
   reviewAverage?: number;
   rating?: number;
@@ -25,6 +26,7 @@ function Reviews({
   reviews,
   setReviews,
   onDeleteReview,
+  canAdminDelete,
   reviewAverage,
   rating,
 }: ReviewsProps) {
@@ -43,8 +45,7 @@ function Reviews({
   const reviewRef = useRef(null);
 
   useEffect(() => {
-    if (showAddReview)
-      reviewRef.current?.focus();
+    if (showAddReview) reviewRef.current?.focus();
   }, [showAddReview]);
 
   async function submitReview(
@@ -57,7 +58,7 @@ function Reviews({
     if (!targetGame) return false;
 
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(targetGame)}/add-review`,
+      `/api/game/${encodeURIComponent(targetGame)}/add-review`,
       {
         method: "POST",
         credentials: "include",
@@ -120,11 +121,11 @@ function Reviews({
 
   return (
     <div>
-      <div className="flex bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
-        <div className="flex align-text-bottom">
+      <div className="flex flex-wrap bg-primary text-tertiary mt-6 p-4 rounded-t-lg justify-between">
+        <div className="flex flex-wrap align-text-bottom">
           <h2 className="mr-20 text-[1.3rem]">Reviews</h2>
           {page === "game" && (
-            <div className="text-md flex gap-x-8 mt-1">
+            <div className="text-md flex flex-wrap gap-x-8 gap-y-2 mt-1">
               {reviews.length > 0 && reviewAverage !== undefined && (
                 <p className="text-md">
                   GoodPlays rating: {reviewAverage.toFixed(1)}/5
@@ -185,6 +186,7 @@ function Reviews({
               review={review}
               page={page}
               isMyReview={review.user.name === myCurrUser}
+              canAdminDelete={canAdminDelete}
               onEdit={() => editReview(review)}
               onDelete={
                 onDeleteReview ? () => onDeleteReview(review) : undefined

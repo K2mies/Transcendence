@@ -1,7 +1,10 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Reviews from "../../Review/Reviews";
 import FavoriteButton from "../../Rating/FavoriteButton";
+import { useFavorites } from "../../Rating/useFavorites";
+import NotFound from "../../NotFound";
 import type { Game, GameStatus } from "../../Types/GameType";
 import type { Review } from "../../Types/ReviewType";
 import PlatformIcon from "../../Review/PlatformIcon";
@@ -23,27 +26,22 @@ type GameInfoProps = {
 
 type GameProps = {
   myCurrUser: string | undefined;
+  isGameFound: boolean | undefined;
+  setIsGameFound: (isGameFound: boolean | undefined) => void;
 };
 
 function GameData({ game }: GameDataProps) {
-  let temp = new Date(game.releaseDate);
+  const temp = new Date(game.releaseDate);
   const released = temp.toLocaleDateString("fi-FI");
 
-  temp = new Date(game.updateDate);
-  const updated = temp.toLocaleDateString("fi-FI");
-
   return (
-    <div className="text-primary text-sm ml-auto w-54">
+    <div className="text-primary text-sm ml-auto w-full md:w-54">
       <p>
         <span className="font-bold">Developer:</span> {game.developer}
       </p>
 
       <p>
         <span className="font-bold">Released:</span> {released}
-      </p>
-
-      <p>
-        <span className="font-bold">Updated:</span> {updated}
       </p>
     </div>
   );
@@ -56,7 +54,7 @@ async function updateGameRelation(
   const name = encodeURIComponent(gamename);
 
   const response = await fetch(
-    `http://localhost:4243/game/${name}/update-game-relation`,
+    `/api/game/${name}/update-game-relation`,
     {
       method: "POST",
       headers: {
@@ -70,7 +68,13 @@ async function updateGameRelation(
   if (response.status === 200) {
     await response.json();
   } else {
-    console.error("Error updating game relation");
+    toast.custom(() => (
+      <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+        <div className="flex items-center gap-2">
+          Failed to update game status. Please try again.
+        </div>
+      </div>
+    ));
   }
 }
 
@@ -90,8 +94,10 @@ function Status({ game }: StatusProps) {
   }
 
   return (
-    <div className="inline-block">
-      <label htmlFor="game-status" className="mr-3">Game status:</label>
+    <div className="flex flex-col md:flex-row">
+      <label htmlFor="game-status" className="mb-2 md:mb-0 md:mr-3">
+        Game status:
+      </label>
       <select
         id="game-status"
         value={currentStatus || "NONE"}
@@ -110,11 +116,20 @@ function Status({ game }: StatusProps) {
 function GameInfo({ game }: GameInfoProps) {
   const sortedPlatforms = [...game.platforms].sort((a, b) => {
     const order = [
+      "Arcade",
+      "Neo Geo AES",
+      "Neo Geo MVS",
+
       "PlayStation",
       "PlayStation 2",
       "PlayStation 3",
       "PlayStation 4",
       "PlayStation 5",
+
+      "PlayStation VR",
+      "PlayStation VR2",
+
+      "PlayStation Portable",
       "PlayStation Vita",
       "PSP",
 
@@ -125,26 +140,69 @@ function GameInfo({ game }: GameInfoProps) {
 
       "Nintendo Entertainment System",
       "Super Nintendo Entertainment System",
+      "Family Computer",
+      "Satellaview",
+
       "Nintendo 64",
+      "64DD",
+
       "Nintendo GameCube",
+
       "Wii",
       "Wii U",
+
       "Nintendo Switch",
       "Nintendo Switch 2",
+
       "Game Boy",
       "Game Boy Advance",
+      "Game Boy Color",
+
+      "Nintendo DSi",
       "Nintendo DS",
       "Nintendo 3DS",
       "New Nintendo 3DS",
 
       "PC (Microsoft Windows)",
+      "PC-9800 Series",
+      "FM Towns",
+      "DOS",
+
       "Linux",
+
       "Mac",
+      "Apple II",
+
       "iOS",
       "Android",
-      "Windows Phone",
 
+      "Windows Phone",
+      "Windows Mixed Reality",
+      "Legacy Mobile Device",
+
+      "N-Gage",
+      "Tapwave Zodiac",
+
+      "Amiga",
+      "Amiga CD32",
+
+      "Atari ST/STE",
+      "Atari Jaguar",
+
+      "Commodore C64/128/MAX",
+
+      "Oculus Quest",
+      "Oculus Rift",
+
+      "Meta Quest 2",
+      "Meta Quest 3",
+
+      "SteamVR",
       "Steam Deck",
+
+      "Web browser",
+      "OnLive Game System",
+      "Ouya",
     ];
 
     const ia = order.indexOf(a);
@@ -160,7 +218,10 @@ function GameInfo({ game }: GameInfoProps) {
     <div className="flex flex-col ml-auto">
       <div className="bg-primary text-tertiary rounded-t-lg px-4 py-3">
         <div className="flex items-start gap-4">
-          <ul className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary" aria-label="Game is available on following platforms">
+          <ul
+            className="flex-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-tertiary"
+            aria-label="Game is available on following platforms"
+          >
             {sortedPlatforms.map((platform) => (
               <li
                 key={platform}
@@ -172,13 +233,13 @@ function GameInfo({ game }: GameInfoProps) {
             ))}
           </ul>
 
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex flex-col md:flex-row items-end md:items-center gap-4 shrink-0">
             <FavoriteButton game={game} />
             <Status key={game.name} game={game} />
           </div>
         </div>
       </div>
-      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
+      <div className="bg-tertiary text-primary border-primary border-3 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-8 p-4 rounded-b-lg">
         {/* Left column */}
         <img
           src={game.image}
@@ -187,7 +248,7 @@ function GameInfo({ game }: GameInfoProps) {
         />
 
         {/* Top right */}
-        <div className="flex items-start gap-8">
+        <div className="flex flex-col md:flex-row items-start gap-8 w-full mt-3 md:mt-0">
           <div className="flex-1 min-w-0">
             <div className="relative">
               <span
@@ -244,7 +305,9 @@ function GameInfo({ game }: GameInfoProps) {
   );
 }
 
-function Game({ myCurrUser }: GameProps) {
+function Game({ myCurrUser, isGameFound, setIsGameFound }: GameProps) {
+  const { setFavorite } = useFavorites();
+
   const [game, setGame] = useState<Game | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const reviewAverage =
@@ -256,20 +319,19 @@ function Game({ myCurrUser }: GameProps) {
             100,
         ) / 100;
   const [igdbRating, setIgdbRating] = useState(0);
-  const [isGameFound, setIsGameFound] = useState<boolean | undefined>(
-    undefined,
-  );
 
   const { name } = useParams<{ name: string }>();
 
   useEffect(() => {
     async function loadGame() {
-      const response = await fetch(`http://localhost:4243/game/${name}`, {
+      const response = await fetch(`/api/game/${name}`, {
         credentials: "include",
       });
 
       if (response.status === 200) {
         const res: Game = await response.json();
+
+        setFavorite(res.id, res.favorite === true);
 
         setIsGameFound(true);
         setGame(res);
@@ -284,13 +346,13 @@ function Game({ myCurrUser }: GameProps) {
       document.title = `${decodeURIComponent(name)} | GoodPlays`;
       loadGame();
     }
-  }, [name]);
+  }, [name, setFavorite, setIsGameFound]);
 
   async function deleteReview(review: Review) {
     if (!game) return;
 
     const response = await fetch(
-      `http://localhost:4243/game/${encodeURIComponent(game.name)}/delete-review`,
+      `/api/game/${encodeURIComponent(game.name)}/delete-review`,
       {
         method: "DELETE",
         credentials: "include",
@@ -303,34 +365,39 @@ function Game({ myCurrUser }: GameProps) {
           (currentReview) => currentReview.id !== review.id,
         ),
       );
+    } else {
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to delete review. Please try again.
+          </div>
+        </div>
+      ));
     }
   }
   return (
-    <div className="bg-secondary text-primary min-h-screen p-6">
-      {isGameFound && game && (
-        <>
-          <GameInfo game={game} />
-          <Reviews
-            key={game.name}
-            gameName={game.name}
-            gamePlatforms={game.platforms}
-            reviews={reviews}
-            setReviews={setReviews}
-            onDeleteReview={deleteReview}
-            reviewAverage={reviewAverage}
-            rating={igdbRating}
-            page="game"
-            myCurrUser={myCurrUser}
-          />
-        </>
-      )}
-
-      {isGameFound === false && (
-        <div>
-          <p>404 Game not found</p>
+    <>
+      {isGameFound === true && game && (
+        <div className="bg-secondary text-primary min-h-screen p-6">
+          <>
+            <GameInfo game={game} />
+            <Reviews
+              key={game.name}
+              gameName={game.name}
+              gamePlatforms={game.platforms}
+              reviews={reviews}
+              setReviews={setReviews}
+              onDeleteReview={deleteReview}
+              reviewAverage={reviewAverage}
+              rating={igdbRating}
+              page="game"
+              myCurrUser={myCurrUser}
+            />
+          </>
         </div>
       )}
-    </div>
+      {isGameFound === false && <NotFound />}
+    </>
   );
 }
 

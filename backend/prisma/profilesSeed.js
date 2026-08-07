@@ -8,7 +8,7 @@ await prisma.user.upsert({
  create: {
         name: "evitaplays",
         email: "evitaplays@example.com",
-        password: "password",
+        password: "Pass1234",
         bio: "Hi there! Welcome to my gaming journal. I enjoy all kinds of games but I mainly gravitate towards games that give me a sense of escapism and immersion.",
         userGames: {
             create: [
@@ -59,7 +59,7 @@ await prisma.user.upsert({
     create: {
       name: "mossy.saves",
       email: "mossy.saves@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "Hi! I'm Mia 🌿 I play games to decompress after work, mostly slow-paced stuff where I can just exist for a while. Stardew Valley basically raised me. Currently working through my backlog one cozy evening at a time.",
       userGames: {
         create: [
@@ -116,7 +116,7 @@ await prisma.user.upsert({
     create: {
       name: "ashenone_",
       email: "ashenone_@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "hello darkness my old friend",
       userGames: {
         create: [
@@ -173,7 +173,7 @@ await prisma.user.upsert({
     create: {
       name: "lore.and.lucia",
       email: "lore.and.lucia@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "English lit grad who discovered that games can break your heart just as well as books can. I'm here for the writing, the characters, the moments that sit with you for weeks. Not super interested in gameplay mechanics for their own sake — if a game makes me feel something, it goes on the favourites shelf. Disco Elysium changed my life a little bit. Currently working through my RPG backlog and posting too many thoughts about it.",
       userGames: {
         create: [
@@ -198,7 +198,7 @@ await prisma.user.upsert({
             favorite: true,
           },
           {
-            game: { connect: { name: "Life is Strange" } },
+            game: { connect: { name: "Rocket League" } },
             gameStatus: "COMPLETED",
             favorite: false,
           },
@@ -235,7 +235,7 @@ await prisma.user.upsert({
     create: {
       name: "xKr4t0sx",
       email: "xkr4t0sx@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "",
       userGames: {
         create: [
@@ -302,7 +302,7 @@ await prisma.user.upsert({
     create: {
       name: "platinum.petra",
       email: "platinum.petra@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "Trophy hunter 🏆 | 47 platinums and counting. I play almost exclusively on PlayStation and I don't consider a game finished until I've seen every corner of it. Yes, I have the Hollow Knight 112% save file. No, I don't want to talk about the Radiant bosses. Currently power-levelling through my PS5 backlog before the next big release drops.",
       userGames: {
         create: [
@@ -359,7 +359,7 @@ await prisma.user.upsert({
     create: {
       name: "neon.felix",
       email: "neon.felix@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "I'm mostly here to shout about small games that deserve more love. Not really into 80-hour open worlds where you collect feathers or whatever. Give me a tight 5-hour experience that does one interesting thing brilliantly. Undertale, Hades, Return of the Obra Dinn — these are the games I think about in the shower. Recommend me stuff, I love a good tip.",
       userGames: {
         create: [
@@ -431,7 +431,7 @@ await prisma.user.upsert({
     create: {
       name: "daveplays_sometimes",
       email: "daveplays_sometimes@example.com",
-      password: "password",
+      password: "Pass1234",
       bio: "Dad of two, gamer since the 90s. I get maybe 4 hours a week if I'm lucky, so the backlog is basically a retirement plan at this point. Big on co-op — it's the only way I get to game guilt-free. Currently working through some older stuff I missed and replaying the Halo campaigns with my kid. Good times.",
       userGames: {
         create: [

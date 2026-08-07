@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { TbLogout } from "react-icons/tb";
 import UseChat from "../Chat/UseChat";
 import type { RegistrationProps } from "../types";
 
 function Logout({ setMyCurrUser }: RegistrationProps) {
-  const [logoutError, setLogoutError] = useState<boolean>(false);
   const navigate = useNavigate();
   const { closeSocket } = UseChat();
 
   async function logMeOut() {
     try {
       const response: Response = await fetch(
-        "http://localhost:4243/auth/logout",
+        "/api/auth/logout",
         {
           method: "POST",
           credentials: "include",
@@ -30,8 +30,16 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
 
       window.dispatchEvent(new Event("auth-changed"));
       navigate("/");
-    } catch {
-      setLogoutError(true);
+    } catch (error) {
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            {error instanceof Error && error.message
+              ? error.message
+              : "Oops! Something went wrong. Please try again."}
+          </div>
+        </div>
+      ));
     }
   }
   return (
@@ -44,7 +52,6 @@ function Logout({ setMyCurrUser }: RegistrationProps) {
           focusable="false"
         />
       </button>
-      {logoutError && <p>Error logging you out. Please try again.</p>}
     </div>
   );
 }

@@ -58,14 +58,21 @@ function GameFilter({
   firstFilterRef,
 }: GameFilterProps) {
   return (
-    <div id="game-filters" className="bg-primary flex flex-wrap items-center gap-4 p-6">
+    <div
+      id="game-filters"
+      className="bg-primary flex flex-wrap items-center gap-4 p-6"
+    >
       <GenreTags genres={genres} setGenres={setGenres} />
 
       <PlatformTags platforms={platforms} setPlatforms={setPlatforms} />
 
       <DeveloperTags developer={developer} setDeveloper={setDeveloper} />
 
-      <TitleSelector titleTerm={searchTerm} setTitleTerm={setSearchTerm} firstFilterRef={firstFilterRef} />
+      <TitleSelector
+        titleTerm={searchTerm}
+        setTitleTerm={setSearchTerm}
+        firstFilterRef={firstFilterRef}
+      />
 
       <GenreSelector genres={genres} setGenres={setGenres} />
 

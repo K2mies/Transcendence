@@ -1,3 +1,6 @@
+import toast from "react-hot-toast";
+import { ImCross } from "react-icons/im";
+
 type RemoveFriendProps = {
   text: string;
   username: string;
@@ -13,7 +16,7 @@ function RemoveFriend({
 }: RemoveFriendProps) {
   async function remove() {
     const response: Response = await fetch(
-      `http://localhost:4243/profile/${username}/remove-friend`,
+      `/api/profile/${username}/remove-friend`,
       {
         method: "DELETE",
         credentials: "include",
@@ -22,7 +25,13 @@ function RemoveFriend({
     if (response.ok) {
       await response.json();
     } else {
-      console.error("Error removing friend");
+      toast.custom(() => (
+        <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+          <div className="flex items-center gap-2">
+            Failed to remove friend. Please try again.
+          </div>
+        </div>
+      ));
     }
     window.dispatchEvent(new Event("auth-changed"));
     setRefreshKey(refreshKey + 1);
@@ -30,8 +39,14 @@ function RemoveFriend({
 
   return (
     <>
-      <button className="ml-1.5" onClick={remove}>
-        {text}
+      <button className="inline-flex items-center gap-4" onClick={remove}>
+        {text}{" "}
+        <ImCross
+          size={14}
+          className="text-tertiary"
+          aria-hidden="true"
+          focusable="false"
+        />
       </button>
     </>
   );

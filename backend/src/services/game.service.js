@@ -47,7 +47,6 @@ export async function getGame(gameName, currentUserId) {
     image: game.imageBig,
     description: game.description,
     releaseDate: game.releaseDate,
-    updateDate: game.updateDate,
     developer: game.developer,
     publisher: game.publisher,
     igdbRating: game.rating,

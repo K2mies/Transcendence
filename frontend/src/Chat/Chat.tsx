@@ -1,8 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import toast from "react-hot-toast";
+
 import UserSearchBar from "./ChatSearchBar";
 import ProfileSearchBar from "./ProfileSearchBar";
 import UseChat from "./UseChat";
 import { useNavigate } from "react-router-dom";
+
+import ConversationList from "./ConversationList";
+import MessageList from "./MessageList";
+import MessageInput from "./MessageInput";
+
+import type { Friend, Message } from "../Types/ChatType";
 
 export default function Chat() {
   const {
@@ -13,21 +21,36 @@ export default function Chat() {
     markAsRead,
     lastMessage,
     onlineUsers,
+    activeChatUser,
+    setActiveChatUser,
   } = UseChat();
 
   const selectedUserRef = useRef<number | null>(null);
 
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | null>(null);
   const [text, setText] = useState("");
-  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
-  const navigate = useNavigate();
+  const selectedConversation = conversations.find(
+    (c) => c.userId === selectedUser,
+  );
 
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     document.title = "Chat | GoodPlays";
   }, []);
+
+  function scrollToBottom() {
+    requestAnimationFrame(() => {
+      messagesContainerRef.current?.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+  }
 
   // ---------------- OPEN PROFILE ----------------
   function openProfile(name: string) {
@@ -35,53 +58,75 @@ export default function Chat() {
   }
 
   // ---------------- OPEN CHAT ----------------
-  async function openChat(userId: number) {
-    setSelectedUser(userId);
-    selectedUserRef.current = userId;
+  const openChat = useCallback(
+    async (userId: number) => {
+      setSelectedUser(userId);
+      setActiveChatUser(userId);
+      selectedUserRef.current = userId;
 
-    const res = await fetch(`http://localhost:4243/message/${userId}`, {
-      method: "GET",
-      credentials: "include",
-    });
-
-    const data = await res.json();
-    if (Array.isArray(data) && data.length === 0) {
-      const friends = await fetch(`http://localhost:4243/user/friends`, {
+      const res = await fetch(`/api/message/${userId}`, {
         method: "GET",
         credentials: "include",
       });
 
-      const friendsdata = await friends.json();
-      const friend = Array.isArray(friendsdata)
-        ? friendsdata.find((friend: any) => friend.id === userId)
-        : undefined;
+      if (!res.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to open chat. Please try again.
+            </div>
+          </div>
+        ));
+      }
 
-      setConversations((prev) => {
-        if (!friend) return prev;
-        const exists = prev.some((c) => c.userId === friend.id);
+      const data = await res.json();
+      if (Array.isArray(data) && data.length === 0) {
+        const friends = await fetch(`/api/user/friends`, {
+          method: "GET",
+          credentials: "include",
+        });
 
-        if (exists) return prev;
+        if (!friends.ok) {
+          toast.custom(() => (
+            <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+              <div className="flex items-center gap-2">
+                Failed to open chat. Please try again.
+              </div>
+            </div>
+          ));
+        }
 
-        return [
-          {
-            userId: friend.id,
-            name: friend.name,
-          },
-          ...prev,
-        ];
-      });
-    }
-    setMessages(Array.isArray(data) ? data : []);
+        const friendsdata: Friend[] = await friends.json();
 
-    await markAsRead(userId);
+        const friend = friendsdata.find((friend) => friend.id === userId);
 
-    requestAnimationFrame(() => {
-      const container = messagesContainerRef.current;
-      if (!container) return;
+        setConversations((prev) => {
+          if (!friend) return prev;
+          const exists = prev.some((c) => c.userId === friend.id);
 
-      container.scrollTop = container.scrollHeight;
-    });
-  }
+          if (exists) return prev;
+
+          return [
+            {
+              userId: friend.id,
+              name: friend.name,
+              canChat: true,
+            },
+            ...prev,
+          ];
+        });
+      }
+
+      const newMessages = Array.isArray(data) ? data : [];
+
+      setMessages(newMessages);
+
+      await markAsRead(userId);
+
+      scrollToBottom();
+    },
+    [markAsRead, setConversations, setActiveChatUser],
+  );
 
   function send() {
     if (!selectedUser || !text.trim()) return;
@@ -98,20 +143,25 @@ export default function Chat() {
     const container = messagesContainerRef.current;
     if (!container) return;
 
-    const isNearBottom =
-      container.scrollHeight - container.scrollTop - container.clientHeight <
-      100;
+    requestAnimationFrame(() => {
+      const container = messagesContainerRef.current;
+      if (!container) return;
 
-    if (isNearBottom) {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: "auto",
-      });
-    }
-  }, [messages]);
+      const isNearBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight <
+        100;
+
+      if (isNearBottom || activeChatUser === selectedUser) {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    });
+  }, [messages, selectedUser, activeChatUser]);
 
   useEffect(() => {
-    if (!lastMessage || !selectedUser) return;
+    if (!lastMessage || !selectedUser || !me) return;
 
     const belongsToCurrentChat =
       (lastMessage.senderId === selectedUser &&
@@ -121,77 +171,57 @@ export default function Chat() {
 
     if (!belongsToCurrentChat) return;
 
-    setMessages((prev) => [...prev, lastMessage]);
+    setMessages((prev) => {
+      const messageAlreadyExists = prev.some(
+        (message) => message.id === lastMessage.id,
+      );
+
+      if (messageAlreadyExists) {
+        return prev;
+      }
+
+      requestAnimationFrame(scrollToBottom);
+
+      return [...prev, lastMessage];
+    });
 
     if (lastMessage.senderId === selectedUser) markAsRead(selectedUser);
-  }, [lastMessage, selectedUser, me]);
+  }, [lastMessage, selectedUser, me, markAsRead]);
 
-  if (!me) {
-    return <div className="text-black p-6">Loading chat...</div>;
-  }
+  useEffect(() => {
+    if (activeChatUser === null || activeChatUser === selectedUser) {
+      return;
+    }
+
+    openChat(activeChatUser);
+  }, [activeChatUser, selectedUser, openChat]);
+
+  useEffect(() => {
+    return () => {
+      setActiveChatUser(null);
+    };
+  }, [setActiveChatUser]);
 
   return (
-    <>
-      <div className="relative min-h-screen overflow-hidden bg-primary">
-        <div className="relative z-10 p-6 text-tertiary">
+    <div className="h-screen bg-primary text-tertiary flex flex-col">
+      {me ? (
+        <div className="p-6 flex flex-col flex-1 min-h-0">
           <div className="flex items-center justify-between">
             <UserSearchBar onSelectUser={openChat} />
             <ProfileSearchBar onSelectUser={openProfile} />
           </div>
 
-          <div className="flex flex-1 min-h-0">
+          <div
+            className="flex flex-1 min-h-0 overflow-hidden pb-6"
+          >
             {/* LEFT */}
-            <div className="w-80 border-r border-secondary/20 overflow-y-auto p-4 flex flex-col">
-              <h2 className="mb-4 text-lg text-secondary">Conversations</h2>
-
-              {conversations.map((c) => (
-                <button
-                  key={c.userId}
-                  onClick={() => openChat(c.userId)}
-                  className="p-3 mb-2 rounded-xl bg-primary/40 cursor-pointer hover:bg-primary/60"
-                  aria-label={`Open conversation with ${c.name}${
-                    c.unreadCount > 0 ? `. ${c.unreadCount} unread messages.` : ""
-                    }${onlineUsers.has(c.userId) ? " User is online." : ""
-                  }`}
-                >
-                  <div className="flex justify-between">
-                    <div className="flex items-center gap-2 font-bold text-secondary">
-                      <span>{c.name}</span>
-
-                      {onlineUsers.has(c.userId) && (
-                        <span className="h-2.5 w-2.5 rounded-full bg-online" />
-                      )}
-                    </div>
-
-                    {c.unreadCount > 0 && (
-                      <span className="text-xs bg-secondary text-primary py-1 px-2 rounded-full">
-                        {c.unreadCount}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="text-sm text-left text-white opacity-70 truncate">
-                    {c.lastMessage}
-                  </div>
-
-                  <div className="text-xs text-white opacity-50">
-                    {c.lastMessageAt
-                      ? new Date(c.lastMessageAt).toLocaleString("en-GB", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          second: "2-digit",
-                        })
-                      : ""}
-                  </div>
-                </button>
-              ))}
-            </div>
-
+            <ConversationList
+              conversations={conversations}
+              onlineUsers={onlineUsers}
+              openChat={openChat}
+            />
             {/* RIGHT */}
-            <div className="flex flex-col flex-1">
+            <div className="ml-4 flex min-h-0 flex-1 flex-col min-w-0">
               <div className="p-4 border-b border-secondary/20">
                 <h2 className="text-secondary">
                   {selectedUser
@@ -199,68 +229,28 @@ export default function Chat() {
                     : "Select a chat"}
                 </h2>
               </div>
-              <div
-                ref={messagesContainerRef}
-                className="flex-1 overflow-y-auto p-4 space-y-3"
-              >
-                {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`max-w-xs p-3 rounded-xl ${
-                      msg.senderId === me?.id
-                        ? "bg-secondary text-primary ml-auto"
-                        : "bg-tertiary/40"
-                    }`}
-                  >
-                    <div 
-                      className="whitespace-pre-wrap break-words max-w-xs p-3 rounded-xl"
-                      aria-label={(msg.senderId === me?.id) ? "Sent message:" : "Received message"}>
-                      {msg.content}
-                    </div>
-                    <div className="text-xs opacity-80">
-                      {msg.createdAt
-                        ? new Date(msg.createdAt).toLocaleString("en-GB", {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                          })
-                        : ""}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <MessageList
+                me={me}
+                messages={messages}
+                messagesContainerRef={messagesContainerRef}
+              />{" "}
               {selectedUser && (
-                <div className="p-4 border-t border-secondary/20 flex gap-2">
-                  <input
-                    aria-label="Type a message"
-                    ref={inputRef}
-                    value={text}
-                    maxLength={120}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Type a message..."
-                    className="flex-1 p-2 rounded bg-primary/40 outline-none placeholder:text-white"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        send();
-                      }
-                    }}
-                  />
-
-                  <button
-                    onClick={send}
-                    className="px-4 py-2 bg-secondary text-primary rounded"
-                  >
-                    Send
-                  </button>
-                </div>
-              )}
+                <MessageInput
+                  text={text}
+                  setText={setText}
+                  send={send}
+                  inputRef={inputRef}
+                  canChat={selectedConversation?.canChat ?? true}
+                />
+              )}{" "}
             </div>
           </div>
         </div>
-      </div>
-    </>
+      ) : (
+        <div className="text-black p-6">
+          Loading chat...
+        </div>
+      )}
+    </div>
   );
 }

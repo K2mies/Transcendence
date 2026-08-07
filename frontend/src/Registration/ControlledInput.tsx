@@ -39,6 +39,10 @@ const ControlledInput = ({
             color: "var(--color-primary)",
           },
 
+          "& .MuiInputLabel-root.Mui-error": {
+            color: "#8b0000",
+          },
+
           "& .MuiOutlinedInput-root": {
             backgroundColor: "var(--color-tertiary)",
 
@@ -64,10 +68,9 @@ const ControlledInput = ({
           },
 
           "& .MuiFormHelperText-root.Mui-error": {
-            color: "#d32f2f",
+            color: "#8b0000",
           },
         }}
-
         type={type}
         autoComplete={autoComplete}
         onChange={(e) => field.onChange(e.target.value)}

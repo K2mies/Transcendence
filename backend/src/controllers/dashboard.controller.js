@@ -1,7 +1,6 @@
 import * as dashboardService from "../services/dashboard.service.js";
 
 export async function getDashboardController(req, res) {
-  console.log(req.user); //temp remove
   try {
     const profile = await dashboardService.getDashboard(req.user.id);
     res.status(200).json(profile);

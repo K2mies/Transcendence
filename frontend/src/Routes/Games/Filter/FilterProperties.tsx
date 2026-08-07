@@ -20,7 +20,7 @@ export const FILTER_SX = {
   },
 
   "& .MuiInputBase-input::placeholder": {
-      color: "black",
-      opacity: 1,
+    color: "black",
+    opacity: 1,
   },
 };

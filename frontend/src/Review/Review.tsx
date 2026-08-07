@@ -9,11 +9,19 @@ type ReviewProps = {
   review: ReviewType;
   page: "game" | "profile";
   isMyReview: boolean;
+  canAdminDelete?: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
 };
 
-function Review({ review, page, isMyReview, onDelete, onEdit }: ReviewProps) {
+function Review({
+  review,
+  page,
+  isMyReview,
+  canAdminDelete,
+  onDelete,
+  onEdit,
+}: ReviewProps) {
   return (
     <li className="relative list-none m-8 border-3 border-secondary p-2 rounded-lg">
       <div className="flex items-center">
@@ -29,21 +37,25 @@ function Review({ review, page, isMyReview, onDelete, onEdit }: ReviewProps) {
           <Stars hidden={false} rating={review.rating} size={16} />
         </div>
 
-        {isMyReview && (
+        {(isMyReview || canAdminDelete) && (
           <div className="absolute top-2 right-2 flex gap-2">
-            <button
-              type="button"
-              aria-label="Edit review"
-              onClick={onEdit}
-              className="text-secondary hover:text-primary">
-              <FaEdit size={18} />
-            </button>
+            {isMyReview && (
+              <button
+                type="button"
+                aria-label="Edit review"
+                onClick={onEdit}
+                className="text-secondary hover:text-primary"
+              >
+                <FaEdit size={18} />
+              </button>
+            )}
 
             <button
               type="button"
               aria-label="Delete review"
               onClick={onDelete}
-              className="text-secondary hover:text-primary">
+              className="text-secondary hover:text-primary"
+            >
               <ImCross size={14} />
             </button>
           </div>

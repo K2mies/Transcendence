@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { FILTER_SX } from "./FilterProperties";
@@ -18,9 +19,19 @@ function DeveloperSelector({
 
   useEffect(() => {
     async function fetchDevelopers() {
-      const response = await fetch("http://localhost:4243/games/developers", {
+      const response = await fetch("/api/games/developers", {
         credentials: "include",
       });
+
+      if (!response.ok) {
+        toast.custom(() => (
+          <div className="rounded-lg bg-[#d32f2f] p-4 text-white">
+            <div className="flex items-center gap-2">
+              Failed to get available developers. Please try again.
+            </div>
+          </div>
+        ));
+      }
 
       const result = await response.json();
 
@@ -36,7 +47,9 @@ function DeveloperSelector({
 
   return (
     <div className="flex flex-col">
-      <label htmlFor="developer" className="text-white">Developer:</label>
+      <label htmlFor="developer" className="text-white">
+        Developer:
+      </label>
       <Autocomplete
         id="developer"
         value={null}
