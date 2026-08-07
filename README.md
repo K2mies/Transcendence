@@ -40,49 +40,57 @@ Missing Social Layer and Unified Gaming Community
 # Instructions
 
 ### Prerequisites
+
 ◦ Before running the project, make sure the following software is installed:
-  - Docker (version 20.10 or newer)
-  - Docker Compose (version 2 or newer)
-  - Make (GNU Make)
-  - Git
+
+- Docker (version 20.10 or newer)
+- Docker Compose (version 2 or newer)
+- Make (GNU Make)
+- Git
 
 ◦ The project uses Docker to manage all services, including:
-  - Frontend: React + TypeScript + Vite
-  - Backend: Node.js + Express + Prisma
-  - Database: PostgreSQL
-  - Reverse Proxy: NGINX
+
+- Frontend: React + TypeScript + Vite
+- Backend: Node.js + Express + Prisma
+- Database: PostgreSQL
+- Reverse Proxy: NGINX
 
 ### Environment Configuration
+
 ◦ Create the required environment file in the project root before starting the application.
 
-  - Copy `.env.example` to `.env`
-  - Update the environment variables if necessary.
+- Copy `.env.example` to `.env`
+- Update the environment variables if necessary.
 
 ### Compilation
+
 ◦ The project is built and orchestrated using Docker Compose.
 
 ◦ To build and start the complete application, run:
-  - `make`
-    - This command will:
-      - build the frontend Docker image
-      - build the backend Docker image
-      - build the NGINX image
-      - create the PostgreSQL database container
-      - install all project dependencies
-      - generate the Prisma Client
-      - apply Prisma database migrations
-      - launch all services
-      - seed the PostgreSQL database with the initial application data, including:
-        - games
-        - user profiles
-        - reviews
+
+- `make`
+  - This command will:
+    - build the frontend Docker image
+    - build the backend Docker image
+    - build the NGINX image
+    - create the PostgreSQL database container
+    - install all project dependencies
+    - generate the Prisma Client
+    - apply Prisma database migrations
+    - launch all services
+    - seed the PostgreSQL database with the initial application data, including:
+      - games
+      - user profiles
+      - reviews
 
 ### Installation
+
 ◦ The application is completely installed inside Docker containers.
 
 ◦ All frontend and backend dependencies are installed automatically during the Docker image build process.
 
 ### Execution
+
     ◦ Run the orchestrated docker-compose file: make
     ◦ Stop containers without deleting images: make down
     ◦ Start containers without building new images: make up
@@ -92,14 +100,16 @@ Missing Social Layer and Unified Gaming Community
     ◦ Clear up everything, build and launch: make re
 
 ### Accessing the Application
+
 ◦ After all containers have started successfully, GoodPlays is available at:
 
                             https://localhost:8443
 
 ◦ All incoming requests are handled by NGINX, which:
-  - serves the React frontend
-  - proxies REST API requests to the Express backend
-  - forwards WebSocket connections used for the real-time chat and notification system
+
+- serves the React frontend
+- proxies REST API requests to the Express backend
+- forwards WebSocket connections used for the real-time chat and notification system
 
 ◦ The PostgreSQL database is only accessible from within the Docker network and is not exposed publicly.
 
@@ -164,16 +174,18 @@ Missing Social Layer and Unified Gaming Community
 ◦ [FrontendMasters Courses](https://frontendmasters.com/)
 
 ## AI usage
+
 ◦ AI assistance was used throughout the development of GoodPlays to improve development efficiency, verify implementation ideas and enhance code quality.
 
 ◦ All design decisions, implementation, testing, debugging and system integration were carried out by the development team.
 
 ◦ AI was used for the following tasks:
-  - Explaining programming concepts and technologies.
-  - Assisting with debugging and identifying potential issues in the codebase.
-  - Reviewing code and suggesting improvements for readability, maintainability and performance.
-  - Providing guidance during technical discussions and implementation planning.
-  - Assisting with improving project documentation.
+
+- Explaining programming concepts and technologies.
+- Assisting with debugging and identifying potential issues in the codebase.
+- Reviewing code and suggesting improvements for readability, maintainability and performance.
+- Providing guidance during technical discussions and implementation planning.
+- Assisting with improving project documentation.
 
 All AI-generated suggestions were reviewed, validated and modified where necessary before being incorporated into the project. The development team is fully responsible for the project's architecture, functionality, security, testing and the correctness of the final implementation.
 
@@ -181,13 +193,13 @@ All AI-generated suggestions were reviewed, validated and modified where necessa
 
 # Team Information
 
-| Team member | Role                      | Responsibilities                                                                                                                                                                                                                                                                                                                                                                                                             |
-| :---------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Karoliina   | Product Owner             | Defined the product vision and created a Miro board outlining the design specification, including what the product is, the problems it solves, our target audience, the core loop, and additional resources for inspiration. Tracked the backlog on a Trello board to ensure tasks were properly logged and placed in the right columns. Also contributed as a developer, primarily focusing on backend endpoints.                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Ross        | Technical Lead (Frontend) | Responsible for the architecture, implementation, and maintenance of the React frontend. Established coding standards and reusable component patterns, reviewed and integrated frontend features, coordinated UI development across the team, and ensured a consistent, responsive, and accessible user experience while collaborating closely with backend developers to define APIs and integrate real-time functionality. |
+| Team member | Role                      | Responsibilities                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| :---------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Karoliina   | Product Owner             | Defined the product vision and created a Miro board outlining the design specification, including what the product is, the problems it solves, our target audience, the core loop, and additional resources for inspiration. Tracked the backlog on a Trello board to ensure tasks were properly logged and placed in the right columns. Also contributed as a developer, primarily focusing on backend endpoints.                                                                                                                                                                               |
+| Ross        | Technical Lead (Frontend) | Responsible for the architecture, implementation, and maintenance of the React frontend. Established coding standards and reusable component patterns, reviewed and integrated frontend features, coordinated UI development across the team, and ensured a consistent, responsive, and accessible user experience while collaborating closely with backend developers to define APIs and integrate real-time functionality.                                                                                                                                                                     |
 | Viljar      | Technical Lead (Backend)  | Established the Trello workflow for project planning and task tracking. As Backend Technical Lead, evaluated backend technologies, selected Node.js with Express, designed the backend architecture and set up the backend server. Shared backend knowledge with the team and provided technical support when needed. Created script to gather data of games for the database. As a Backend Developer, implemented the real-time chat system using WebSockets on both the backend and frontend, and led the integration of NGINX with HTTPS to provide secure communication for the application. |
-| Inna        | Developer                 | Implemented Google OAuth 2.0 authentication end-to-end (frontend and backend), and built the application's role-based permissions system end-to-end (frontend and backend), including a dedicated admin panel for users and reviews |
-| Sonja       | Project Manager           | Responsible for scheduling and booking weekly meetings, team coordination, and process tracking. Implemented accessibility compliance, made initial design for UI structure on profile, game, and dashboard pages. Built frontend components and functionalities like the friend list popup, friend request UI, and profile editing, implementing necessary additional backend endpoints. Refactored backend code to ensure consistent logic for Prisma calls and error handling. Reviewed PR's and contributed with fixes and updates to various features. |
+| Inna        | Developer                 | Implemented Google OAuth 2.0 authentication end-to-end (frontend and backend), and built the application's role-based permissions system end-to-end (frontend and backend), including a dedicated admin panel for users and reviews                                                                                                                                                                                                                                                                                                                                                              |
+| Sonja       | Project Manager           | Responsible for scheduling and booking weekly meetings, team coordination, and process tracking. Implemented accessibility compliance, made initial design for UI structure on profile, game, and dashboard pages. Built frontend components and functionalities like the friend list popup, friend request UI, and profile editing, implementing necessary additional backend endpoints. Refactored backend code to ensure consistent logic for Prisma calls and error handling. Reviewed PR's and contributed with fixes and updates to various features.                                      |
 
 ---
 
@@ -242,98 +254,111 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 # Database Schema
 
 ### User
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key, autoincrement |
-| name | String | unique |
-| email | String | unique |
-| password | String | nullable (OAuth users won't have one) |
-| bio | String | nullable |
-| createdAt | DateTime | |
+
+| Field     | Type     | Notes                                 |
+| --------- | -------- | ------------------------------------- |
+| id        | Int      | primary key, autoincrement            |
+| name      | String   | unique                                |
+| email     | String   | unique                                |
+| password  | String   | nullable (OAuth users won't have one) |
+| bio       | String   | nullable                              |
+| createdAt | DateTime |                                       |
+| image     | Bytes    |                                       |
 
 ### OAuthAccount
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| userId | Int | foreign key → User.id |
-| provider | Enum | GOOGLE / FT |
-| providerUserId | String | unique per provider |
+
+| Field          | Type   | Notes                 |
+| -------------- | ------ | --------------------- |
+| id             | Int    | primary key           |
+| userId         | Int    | foreign key → User.id |
+| provider       | Enum   | GOOGLE / FT           |
+| providerUserId | String | unique per provider   |
 
 ### Game
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| name | String | unique |
-| description | String | |
-| imageSmall / imageBig | String | |
-| releaseDate | DateTime | |
-| developer / publisher | String | nullable |
-| rating | Float | |
+
+| Field                 | Type     | Notes       |
+| --------------------- | -------- | ----------- |
+| id                    | Int      | primary key |
+| name                  | String   | unique      |
+| description           | String   |             |
+| imageSmall / imageBig | String   |             |
+| releaseDate           | DateTime |             |
+| developer / publisher | String   | nullable    |
+| rating                | Float    |             |
 
 ### Platform
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| name | String | unique |
+
+| Field | Type   | Notes       |
+| ----- | ------ | ----------- |
+| id    | Int    | primary key |
+| name  | String | unique      |
 
 ### GameMode
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| name | String | unique |
+
+| Field | Type   | Notes       |
+| ----- | ------ | ----------- |
+| id    | Int    | primary key |
+| name  | String | unique      |
 
 ### Genre
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| name | String | unique |
+
+| Field | Type   | Notes       |
+| ----- | ------ | ----------- |
+| id    | Int    | primary key |
+| name  | String | unique      |
 
 ### Review
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| review | String | nullable |
-| rating | Int | |
-| userId | Int | foreign key → User.id |
-| gameId | Int | foreign key → Game.id |
-| platformId | Int | nullable, foreign key → Platform.id |
-| createdAt | DateTime | |
+
+| Field      | Type     | Notes                               |
+| ---------- | -------- | ----------------------------------- |
+| id         | Int      | primary key                         |
+| review     | String   | nullable                            |
+| rating     | Int      |                                     |
+| userId     | Int      | foreign key → User.id               |
+| gameId     | Int      | foreign key → Game.id               |
+| platformId | Int      | nullable, foreign key → Platform.id |
+| createdAt  | DateTime |                                     |
 
 ### LikeReview
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| userId | Int | foreign key → User.id |
-| reviewId | Int | foreign key → Review.id |
+
+| Field    | Type | Notes                   |
+| -------- | ---- | ----------------------- |
+| id       | Int  | primary key             |
+| userId   | Int  | foreign key → User.id   |
+| reviewId | Int  | foreign key → Review.id |
 
 ### UserGameRelation (favorites / play-status join table)
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| userId | Int | foreign key → User.id |
-| gameId | Int | foreign key → Game.id |
-| gameStatus | Enum | nullable — NONE / WANT_TO_PLAY / PLAYING / COMPLETED / DNF |
-| favorite | Boolean | |
+
+| Field      | Type    | Notes                                                      |
+| ---------- | ------- | ---------------------------------------------------------- |
+| id         | Int     | primary key                                                |
+| userId     | Int     | foreign key → User.id                                      |
+| gameId     | Int     | foreign key → Game.id                                      |
+| gameStatus | Enum    | nullable — NONE / WANT_TO_PLAY / PLAYING / COMPLETED / DNF |
+| favorite   | Boolean |                                                            |
 
 ### UserUserRelation (friend requests)
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| senderId | Int | foreign key → User.id |
-| receiverId | Int | foreign key → User.id |
-| friendStatus | Enum | PENDING / FRIENDS |
+
+| Field        | Type | Notes                 |
+| ------------ | ---- | --------------------- |
+| id           | Int  | primary key           |
+| senderId     | Int  | foreign key → User.id |
+| receiverId   | Int  | foreign key → User.id |
+| friendStatus | Enum | PENDING / FRIENDS     |
 
 ### Message
-| Field | Type | Notes |
-|---|---|---|
-| id | Int | primary key |
-| senderId | Int | foreign key → User.id |
-| receiverId | Int | foreign key → User.id |
-| content | String | |
-| read | Boolean | default false |
-| createdAt | DateTime | |
+
+| Field      | Type     | Notes                 |
+| ---------- | -------- | --------------------- |
+| id         | Int      | primary key           |
+| senderId   | Int      | foreign key → User.id |
+| receiverId | Int      | foreign key → User.id |
+| content    | String   |                       |
+| read       | Boolean  | default false         |
+| createdAt  | DateTime |                       |
 
 **Relationships:**
+
 - One `User` has many `Review`s, `OAuthAccount`s, and `Message`s sent/received (1-to-many)
 - One `Game` has many `Review`s (1-to-many)
 - `User` ↔ `Game` is many-to-many via `UserGameRelation` (favorites/status)
@@ -345,38 +370,38 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 
 # Features List
 
-| Feature | Description | Work Division |
-|---|---|---|
-| User Registration & Login| Allows users to create an account and log in using email and password|---|
-| Google Authentication| Allows users to register and log in using their Google account| Inna|
-| Dashboard| A langin view with curated game lists: Trending, Newest, Top Rated and Most played. To help users discover games without manually searching | Karoliina|
-| Game Browsing and Filtering| Lets users browse the game catalogue and narrow results using filters| Ross|
-| Search| Lets users search for specific games or users| Ross, Viljar|
-| Game Library| Displays a user's tracked games(Want to play, playing, Completed, Favourites) | Sonja, Ross, Karoliina|
-| Game Status Tracking & Favouriting | Lets users mark a game's status | Sonja, Karoliina, Ross|
-| Reviews & Rating| Lets users write reviews on the games they have played | Ross, Karoliina|
-| Friends System| Lets users search for other users, see own friends list, send/accept friend requests, and remove friends | Sonja, Karoliina|
-| Chat| Lets friends message each other directly | Viljar|
-| Online Status Indicator | Shows which friends are currently online | Viljar|
-| Profile Customization | Lets users edit their avatar, bio and username | Sonja, Karoliina|
-| Advanced Permissions | Grants more permissions to designated admin users for moderation | Inna|
+| Feature                            | Description                                                                                                                                 | Work Division             |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| User Registration & Login          | Allows users to create an account and log in using email and password                                                                       | Inna, Viljar, Ross, Sonja |
+| Google Authentication              | Allows users to register and log in using their Google account                                                                              | Inna                      |
+| Dashboard                          | A langin view with curated game lists: Trending, Newest, Top Rated and Most played. To help users discover games without manually searching | Karoliina                 |
+| Game Browsing and Filtering        | Lets users browse the game catalogue and narrow results using filters                                                                       | Ross                      |
+| Search                             | Lets users search for specific games or users                                                                                               | Ross, Viljar              |
+| Game Library                       | Displays a user's tracked games(Want to play, playing, Completed, Favourites)                                                               | Sonja, Ross, Karoliina    |
+| Game Status Tracking & Favouriting | Lets users mark a game's status                                                                                                             | Sonja, Karoliina, Ross    |
+| Reviews & Rating                   | Lets users write reviews on the games they have played                                                                                      | Ross, Karoliina           |
+| Friends System                     | Lets users search for other users, see own friends list, send/accept friend requests, and remove friends                                    | Sonja, Karoliina          |
+| Chat                               | Lets friends message each other directly                                                                                                    | Viljar                    |
+| Online Status Indicator            | Shows which friends are currently online                                                                                                    | Viljar                    |
+| Profile Customization              | Lets users edit their avatar, bio and username                                                                                              | Sonja, Karoliina          |
+| Advanced Permissions               | Grants more permissions to designated admin users for moderation                                                                            | Inna                      |
 
 ---
 
 # Modules
 
-| Module                                                                        | Major/minor (points) | Justification                                                                                                                                                 | Implementation                                                                                                                              | Work division                        |
-| :---------------------------------------------------------------------------- | :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------- |
-| Use a framework for both the frontend and backend                             | Major (2 pts)        | React and TypeScript to create a maintainable, type-safe frontend with reusable components. The backend is built with Node.js and Express because they provide a lightweight and efficient environment for REST APIs. | React for frontend, Node.js and Express                                                                                                     | Ross, Viljar, Sonja, Karoliina, Inna |
-| Implement real-time features using WebSockets or similar technology           | Major (2 pts)        | WebSockets were chosen to provide persistent two-way communication between the client and server, enabling instant message delivery and live updates without repeated HTTP requests. | Chat system, user notifications and real-time updates (Toast)                                                                               | Viljar, Ross, (Sonja)                |
-| Allow users to interact with other users                                      | Major (2 pts)        | A social platform was the core idea for our application, so user-to-user interaction and friendship functionalities were a no brainer to build.               | Chat, profile and friends systems                                                                                                          | Ross, Viljar, Sonja, Karoliina       |
-| Use an ORM for the database                                                   | Minor (1 pt)         | We used Prisma as our ORM. With the Prisma Client, we could easily query and update the database, making it easier as we were able to use Javascript rather than SQL                                                                                                                                                             | Prisma was used for database                                                                                                                | Karoliina                            |
-| Custom-made design system with reusable components                            | Minor (1 pt)         | Using React for frontend, reusable components were a natural choice.                                                                                          | As we built frontend with React, we aimed to reuse components whenever possible to maintain consistent visual outlook and logic. For example components like Review, ControlledInput, and PaginationControl were used on various pages, modifying details through props.          | Ross, Sonja                          |
-| Implement advanced search functionality with filters, sorting, and pagination | Minor (1 pt)         | Advanced search functionality was a great fit for our games page UI where user can browse and search for games to play or rate.                               | Search for games with filtering was built with Mui material Autocomplete and TextField for fields with non-predefined values. Genres, platforms and developers were fetched from database for Autocomplete. Resulting games were fetched from database using search queries. Mui material Select was used for rating filter and sorting, which had predefined values.                                                                                                                                           | Ross                                 |
-| Complete accessibility compliance (WCAG 2.1 AA)                               | Major (2 pts)        | Learning to build an accessible wep app was one of Sonja's goals for the project, and accessibility compliance should be the standard for any modern website. | Support for screen reader, keyboard navigation, and other assistive technologies. Implemented and tested using WAVE and VoiceOver (macOS). Updated as frontend code evolved. | Sonja                                |
-| Standard user management and authentication                                   | Major (2pts)         | Our app being a social platform required the functionality for user to authenticate to create a profile and to add others as friends.                         | Registration, login and logout functionality, secure password hashing, JWT authentication, Google OAuth 2.0 login, protected backend routes through authentication middleware, user profile management, session validation and role-based authorization for administrative features | Karoliina, Ross, Viljar, Sonja, Inna |
-| Implement remote authentication with OAuth 2.0                                | Minor (1 pt)         | Lets users sign in with an account they already trust instead of creating a new password.                                                                     | Google OAuth 2.0 via Passport.js, with a frontend callback page and username picker for new sign-ins.                                       | Inna                                 |
-| Advanced permissions system                                                   | Major (2 pts)        | Needed a way to manage users and reviews without giving out direct database access.                                                                            | SUPERUSER/ADMIN/USER roles with an admin panel for managing users and reviews, plus safeguards against self-deletion and admin actions targeting superuser accounts. | Inna                                 |
+| Module                                                                        | Major/minor (points) | Justification                                                                                                                                                                                                         | Implementation                                                                                                                                                                                                                                                                                                                                                        | Work division                        |
+| :---------------------------------------------------------------------------- | :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------- |
+| Use a framework for both the frontend and backend                             | Major (2 pts)        | React and TypeScript to create a maintainable, type-safe frontend with reusable components. The backend is built with Node.js and Express because they provide a lightweight and efficient environment for REST APIs. | React for frontend, Node.js and Express                                                                                                                                                                                                                                                                                                                               | Ross, Viljar, Sonja, Karoliina, Inna |
+| Implement real-time features using WebSockets or similar technology           | Major (2 pts)        | WebSockets were chosen to provide persistent two-way communication between the client and server, enabling instant message delivery and live updates without repeated HTTP requests.                                  | Chat system, user notifications and real-time updates (Toast)                                                                                                                                                                                                                                                                                                         | Viljar, Ross, (Sonja)                |
+| Allow users to interact with other users                                      | Major (2 pts)        | A social platform was the core idea for our application, so user-to-user interaction and friendship functionalities were a no brainer to build.                                                                       | Chat, profile and friends systems                                                                                                                                                                                                                                                                                                                                     | Ross, Viljar, Sonja, Karoliina       |
+| Use an ORM for the database                                                   | Minor (1 pt)         | We used Prisma as our ORM. With the Prisma Client, we could easily query and update the database, making it easier as we were able to use Javascript rather than SQL                                                  | Prisma was used for database                                                                                                                                                                                                                                                                                                                                          | Karoliina                            |
+| Custom-made design system with reusable components                            | Minor (1 pt)         | Using React for frontend, reusable components were a natural choice.                                                                                                                                                  | As we built frontend with React, we aimed to reuse components whenever possible to maintain consistent visual outlook and logic. For example components like Review, ControlledInput, and PaginationControl were used on various pages, modifying details through props.                                                                                              | Ross, Sonja                          |
+| Implement advanced search functionality with filters, sorting, and pagination | Minor (1 pt)         | Advanced search functionality was a great fit for our games page UI where user can browse and search for games to play or rate.                                                                                       | Search for games with filtering was built with Mui material Autocomplete and TextField for fields with non-predefined values. Genres, platforms and developers were fetched from database for Autocomplete. Resulting games were fetched from database using search queries. Mui material Select was used for rating filter and sorting, which had predefined values. | Ross                                 |
+| Complete accessibility compliance (WCAG 2.1 AA)                               | Major (2 pts)        | Learning to build an accessible wep app was one of Sonja's goals for the project, and accessibility compliance should be the standard for any modern website.                                                         | Support for screen reader, keyboard navigation, and other assistive technologies. Implemented and tested using WAVE and VoiceOver (macOS). Updated as frontend code evolved.                                                                                                                                                                                          | Sonja                                |
+| Standard user management and authentication                                   | Major (2pts)         | Our app being a social platform required the functionality for user to authenticate to create a profile and to add others as friends.                                                                                 | Registration, login and logout functionality, secure password hashing, JWT authentication, Google OAuth 2.0 login, protected backend routes through authentication middleware, user profile management, session validation and role-based authorization for administrative features                                                                                   | Karoliina, Ross, Viljar, Sonja, Inna |
+| Implement remote authentication with OAuth 2.0                                | Minor (1 pt)         | Lets users sign in with an account they already trust instead of creating a new password.                                                                                                                             | Google OAuth 2.0 via Passport.js, with a frontend callback page and username picker for new sign-ins.                                                                                                                                                                                                                                                                 | Inna                                 |
+| Advanced permissions system                                                   | Major (2 pts)        | Needed a way to manage users and reviews without giving out direct database access.                                                                                                                                   | SUPERUSER/ADMIN/USER roles with an admin panel for managing users and reviews, plus safeguards against self-deletion and admin actions targeting superuser accounts.                                                                                                                                                                                                  | Inna                                 |
 
 ---
 
@@ -400,6 +425,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 - Assessment and polishing of error handling for both backend and frontend, implementing Toast notifications to handle error responses from backend to frontend
 - Project management: scheduling and booking weekly meetings, coordinating team progress and communication
 - Reviewing of PR's and providing support for fixes and additions to various features and branches
+- Some challenges: Implementing accessibility features brought along some issues with the visual UI, and learning to use a screen reader and accessibility assessment tools (WAVE, Mozilla Firefox Accessibility Inspector) and how to solve different errors and alerts they announced required some work. React and TypeScript were new to me, and I faced some issues with React rendering logic and e.g. useState and useEffect. I overcame these issues by finding helpful resources, a lot of help from and teamwork with Ross, and through trial and error. I also learned a lot about working with a shared codebase, and what has to be taken into account when refactoring or otherwise modifying each other's code.
 
 **_Ross_**:
 
@@ -510,6 +536,20 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
   - Resolved merge conflicts and frontend integration issues.
   - Helped other team members with frontend implementation, debugging, and code reviews.
 
+- Challenges
+  - **feature creep:** staying focused on building the stuff that will be evaluated
+    - over the stuff that would be nice to have in the app
+    - being able to create a feature that uses both the front and backend
+  - **color coordination:** (three value setup )
+  -
+  - **Frontend–Backend Integration:** Coordinating API contracts and ensuring consistent data structures between the React frontend and Express backend as both evolved during development.
+  - **Real-Time Communication:** Implementing WebSocket-based chat, notifications, online status, and other real-time updates while correctly handling connection state and UI synchronization.
+  - **Complex State Management:** Keeping shared state, such as favourites, friendships, conversations, and user information, synchronized across multiple React components and pages.
+  - **Collaborative Development:** Managing parallel development across multiple Git branches, resolving merge/rebase conflicts, and integrating contributions from different team members.
+  - **Component Architecture:** Refactoring growing frontend functionality into reusable components, contexts, and custom hooks while keeping the codebase maintainable.
+  - **Debugging React Behaviour:** Tracking down difficult state, lifecycle, dependency, and rendering issues, particularly where asynchronous requests and real-time events interacted.
+  - **Responsive & Consistent UI:** Maintaining a coherent design and user experience across a large number of interconnected pages and features.
+
 **_Inna_**:
 
 - Google OAuth 2.0 authentication
@@ -525,22 +565,24 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
   - Delete users/reviews, assign roles
   - Safeguards against self-deletion, self-demotion, and any admin action targeting superuser accounts
 
- **_Karoliina_**:
-
+  **_Karoliina_**:
   - Set up the project in Miro, including design specification outlining the project vision, target audience, what problems the project aims to solve, as well as collecting inspiration and resources that could be beneficial.
+
 - Designed the database schema
 - Integrated Prisma for database access and management.
 - Developed backend endpoints for:
-    - Fetching profile and game pages
-    - Adding and removing friends
-    - Updating user bios and nicknames
-    - Managing game statuses
-    - Adding reviews
-    - Fetching dashboard game data
+  - Fetching profile and game pages
+  - Adding and removing friends
+  - Updating user bios and nicknames
+  - Managing game statuses
+  - Adding reviews
+  - Fetching dashboard game data
 - Created database seeders for users and reviews, populating the database with realistic user profiles representing different player types and generating reviews.
 - Implemented the dashboard view on both frontend and backend. Including sections for Top Rated, Newest, Most Played, and Currently Trending games.
 - Developed the frontend and backend functionality for avatar uploads, allowing users to upload and update their profile pictures.
 - Worked on Profile, Game and Chat UI pages to ensure the layout worked on mobile viewports.
+
+There was quite a few of challenges ahead when it came to this project! First and foremost I had not worked with Javascript so it took some learning to even work with the basics. But as I was working in the backend for the endpoints and I investigated different resources, at least I found a manageable way for me to work with Javascript and it was easy to follow the same pattern and learn as you go. One other challenge to mention was file uploads as Multer middleware was new to me. I had imagined I would save the images on diskStorage but Viljar actually recommended that it’s better to save the images in the database. In addition the file structure on the backend was confusing to me in the beginning as I was having difficulties understanding what should the controller have and what the service layer would have but luckily resources on the internet helped with that! Lastly, I would say working with frontend caused many hiccups. I wanted to make the frontend dashboard UI as well as I had not worked on the frontend but for that, it helped me to investigate how Sonja and Ross had been working on the frontend and I could then use their work as the base (as we already had game cards and similar structure on the profile page!). In addition, as we late on realised that this should be tested with different screen sizes, I delved a bit deeper into Tailwind breakpoints, to make certain elements behave a bit differently if the screen size was bigger vs smaller. Overall, as everything was completely new to me, this project was a combination of studying resources, asking team members, discussing with AI to gain deeper understanding and lots of trial and error.
 
 **_Viljar_**:
 
@@ -553,5 +595,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 - Configured reverse proxy routing for the frontend, backend API and WebSocket connections.
 - Improved backend security by configuring CORS, secure cookies, authentication middleware and request validation.
 - Assisted teammates if needed throughout the project.
+- Challenges:
+  - All frameworks were new for me, so I had to take online courses to gain knowledge. Developing was challenging in each step, but we divided the work to smaller pieces so it was smoother to adjust to new knowledge. When I had challenges, I asked help or discussed it with team members.
 
 ---
