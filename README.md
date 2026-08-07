@@ -266,7 +266,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 | name | String | unique |
 | description | String | |
 | imageSmall / imageBig | String | |
-| releaseDate / updateDate | DateTime | |
+| releaseDate | DateTime | |
 | developer / publisher | String | nullable |
 | rating | Float | |
 
