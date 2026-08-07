@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 import ProtectedRoute from "./Routes/Protection/ProtectedRoute";
 import PublicRoute from "./Routes/Protection/PublicRoute";
@@ -37,6 +37,16 @@ import Admin from "./Routes/Admin/Admin";
 
 import { Toaster } from "react-hot-toast";
 
+function ScrollToTop() {
+  const path = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [path]);
+
+  return null;
+}
+
 function Layout() {
   const myUser = localStorage.getItem("user");
   let myUsername: string | undefined = undefined;
@@ -70,7 +80,7 @@ function Layout() {
       setMyCurrUser(currentUser.name);
     }
   }, [currentUser, myCurrUser]);
-  
+
 
   const hideHeader =
     location.pathname === "/" ||
@@ -173,6 +183,7 @@ function Layout() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <ChatProvider>
         <FavoritesProvider>
           <CurrentUserProvider>

@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import { TbContract } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { IoMdUnlock } from "react-icons/io";
 import { FaSkull } from "react-icons/fa";
 
 function TermsOfService() {
+
+  useEffect(() => {
+    document.title = "Terms of Service | GoodPlays";
+  }, []);
+
   const iconSize = 17;
   return (
     <div className="bg-primary text-tertiary min-h-screen p-6">
