@@ -553,5 +553,7 @@ For authentication, **Passport.js**, **Google OAuth 2.0** and **JWT** provide se
 - Configured reverse proxy routing for the frontend, backend API and WebSocket connections.
 - Improved backend security by configuring CORS, secure cookies, authentication middleware and request validation.
 - Assisted teammates if needed throughout the project.
+- Challenges:
+  - All frameworks were new for me, so I had to take online courses to gain knowledge. Developing was challenging in each step, but we divided the work to smaller pieces so it was smoother to adjust to new knowledge. When I had challenges, I asked help or discussed it with team members.
 
 ---
